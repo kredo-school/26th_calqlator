@@ -1,0 +1,100 @@
+body{
+    background-color:#FFFCF7;
+    font-family: 'Poppins';
+    width: 100vw;
+    height: 100vh;
+}
+
+@media (min-width: 992px) {
+    body{
+        position:fixed;
+    }
+
+    main{
+        position: relative;
+    }
+
+    .left-side{
+        width: 40%;
+        height: 100vh; 
+        position:fixed;
+        overflow-y: scroll;
+    }
+
+    .character-img{
+        width: 100%;
+        z-index: 7;
+        position: relative;
+    }
+
+    .right-side{
+        width: 60%;
+        height: 100vh;
+        overflow-y: scroll;
+        margin-top: 75px;
+        margin-left: auto;
+    }
+    
+    .meal-work-img{
+        position: absolute;
+        top: -15px;
+        left: 37%;
+        width: 410px;   
+    }
+
+    .today-img{
+        width: 220px;
+    }
+}
+
+@media (max-width: 992px) {
+    .scrollable {
+        height: auto; 
+        overflow-y: auto;
+    }
+
+    body{
+        position: relative;
+    }
+
+    .character-img{
+        width: 100%;
+        float: right;
+    }
+
+    .right-side{
+        width: 100vw;
+        margin-top: 100px;
+    }
+
+    .meal-work-img{
+        width:450px;
+    }
+
+    .today-img{
+        width: 250px;
+    }
+}
+
+nav{
+    z-index: 10;
+}
+
+.icon-area{
+    width: 90%;
+}
+
+.today-img{
+    filter: saturate(300%);
+}
+
+.meal-work-img{
+    transform: rotate( 5deg );
+    filter: saturate(200%);
+}
+
+.left-box{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
