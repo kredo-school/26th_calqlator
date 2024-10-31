@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('css/nav-menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmation.css') }}">
 
-    <script src="https://kit.fontawesome.com/dbc5b98639.js" crossorigin="anonymous"></script>
+    <script src="{{asset('js/.js')}}" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="app">
