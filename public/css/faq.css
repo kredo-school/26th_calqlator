@@ -1,0 +1,16 @@
+main{
+    background-image: url(../assets/images/bg-qa.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+}
+
+img{
+    height: 60px;
+    width: 60px;
+}
+
+hr{
+    border: 2px solid #859D6B;
+}
