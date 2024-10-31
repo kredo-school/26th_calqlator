@@ -8,16 +8,25 @@ table{
     overflow: hidden;
 }
 
-.confirmation-table th{
+.confirmation-table thead{
+    border-bottom:2px solid #000;
+}
+
+.food-confirmation th{
     background: #859D6B;
 }
 
-.food-confirmation{
-    border-bottom:2px solid #000;
+.exercise-confirmation th{
+    background: #E3E099;
 }
 
 .food-confirm-btn{
     background-color: #859D6B;
+    color:white;
+}
+
+.exercise-confirm-btn{
+    background-color: #E3E099;
     color:white;
 }
 
