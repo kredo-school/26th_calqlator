@@ -57,8 +57,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-//User / FAQ 
-Route::get('/user/faq', [FaqController::class, 'index'])->name('user.faq');
+// FAQ 
+Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 
 
 

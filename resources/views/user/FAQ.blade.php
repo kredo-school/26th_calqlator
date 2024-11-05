@@ -48,8 +48,13 @@
            <hr>
         </div>
         <div class="row text-center">
-            <p class="fs-5">If you can not find the answer you are looking for, 
-                <br>please contact us from <a href="">Contact</a></p>
+            @if(Auth::user())
+                <p class="fs-5">If you can not find the answer you are looking for, 
+                    <br>please contact us from <a href="">Contact</a></p>
+            @else
+                <p class="fs-5">If you can not find the answer you are looking for, 
+                    <br>please <a href="">register</a> an account and contact us!</p>
+            @endif
         </div>
     </div>
 </div>
