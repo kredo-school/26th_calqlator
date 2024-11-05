@@ -8,44 +8,109 @@
             <div class="row mb-5 mx-3 icon-area">
                 <div class="col-5 p-0">
                     <div class="row justify-content-center">
-                        <img src="assets/images/today2.png" class="today-img" alt="today">
+                        <img src="../assets/images/today2.png" class="today-img" alt="today">
                     </div>
                     <div class="row">
-                        <img src="assets/images/character.png" alt="character" class="character-img ">
+                        <img src="../assets/images/character.png" alt="character" class="character-img ">
                     </div>
                 </div>
                 <div class="col-7 p-0 border border-1 border-dark rounded-3 bg-white">
+                    <div class="text-center">
+                        <h2 class="display-2 licorice-regular mt-5 mb-0">Welcome!</h2>
+                        <p class="fs-4 mb-0">Today is</p>
+                        <p class="fs-3">{{ $date }}</p>
+                        <br>
+                        <p class="fs-5">Let's record and keep healthy!!</p>
+                    </div>
                 </div>                
             </div>
 
             <div class="row mt-5">
-                <div class="border border-2 border-dark rounded-1 bg-white left-box">
+                <div class="row border border-2 border-dark rounded-1 bg-white p-0 left-box">
                     <div class="row mt-1">
                         <div class="col-4">
                         </div>
-                        <div class="col-8 border-bottom border-1 border-dark">
+                        <div class="col-8 pe-0 border-bottom border-1 border-dark">
                             <a href="" class="text-center">Today's Condition</a>
                         </div>
                     </div>
 
-                    {{-- <div class="row mt-3">
-                        <div class="col-6 border-bottom border-2 border-dark">
-                            <h3 class="text-start mb-0 fw-bolder">Total Calories</h3>
-                        </div>
-                        <div class="" style="height: 70px">
-                            <img src="" alt="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 border-bottom border-2 border-dark mt-0">
-                            <h3 class="text-start mb-0 fw-bolder">Total Workout</h3>
-                        </div>
-                        <div class="" style="height: 70px">
-                            <img src="" alt="">
-                        </div>
-                    </div> --}}
+                        <input type="radio" id="page1" name="page" checked>
+                        <input type="radio" id="page2" name="page">
+                        <input type="radio" id="page3" name="page">
                     
+                    <div class="container p-0 m-0 mt-3">
+                        <div class="featured-wrapper">
+                            <ul class="featured-list">
+                                <li>
+                                    <div class="col-6 border-bottom border-2 border-dark">
+                                        <h4 class="text-start mb-0 fw-bolder">Total Calories</h3>
+                                    </div>
+                                    <div class="" style="height: 60px">
+                                        <img src="" alt="">
+                                    </div>
+                                    <div class="col-6 border-bottom border-2 border-dark mt-0">
+                                        <h4 class="text-start mb-0 fw-bolder">Total Workout</h3>
+                                    </div>
+                                    <div class="" style="height: 60px">
+                                        <img src="" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col-6 border-bottom border-2 border-dark">
+                                        <h4 class="text-start mb-0 fw-bolder">Protien</h3>
+                                    </div>
+                                    <div class="" style="height: 60px">
+                                        <img src="" alt="">
+                                    </div>
 
+                                    <div class="col-6 border-bottom border-2 border-dark mt-0">
+                                        <h4 class="text-start mb-0 fw-bolder">Carbon</h3>
+                                    </div>
+                                    <div class="" style="height: 60px">
+                                        <img src="" alt="">
+                                    </div>
+
+                                    <div class="col-6 border-bottom border-2 border-dark mt-0">
+                                        <h4 class="text-start mb-0 fw-bolder">Fat</h3>
+                                    </div>
+                                    <div class="" style="height: 60px">
+                                        <img src="" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col-6 border-bottom border-2 border-dark">
+                                        <h4 class="text-start mb-0 fw-bolder">Weight Graphs</h3>
+                                    </div>
+                                    <div class="" style="height: 70px">
+                                        <img src="" alt="">
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="arrows">
+                                <li>
+                                    <label for="page1"></label>
+                                </li>
+                                <li>
+                                    <label for="page2"></label>
+                                </li>
+                                <li>
+                                    <label for="page3"></label>
+                                </li>
+                            </ul>
+                            <ul class="dots">
+                                <li>
+                                    <label for="page1"></label>
+                                </li>
+                                <li>
+                                    <label for="page2"></label>
+                                </li>
+                                <li>
+                                    <label for="page3"></label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -53,7 +118,7 @@
 
         <div class="mx-3 ms-auto right-side" >
             <div>
-                <img src="assets/images/mealworkout.png" alt="meal&workout" class="meal-work-img">
+                <img src="../assets/images/mealworkout.png" alt="meal&workout" class="meal-work-img">
             </div>
 
             <div class="row border border-1 border-dark rounded-1 justify-content-center m-0 mb-4 bg-white">

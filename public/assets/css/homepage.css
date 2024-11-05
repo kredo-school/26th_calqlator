@@ -5,6 +5,12 @@ body{
     height: 100vh;
 }
 
+.licorice-regular {
+    font-family: "Licorice", cursive;
+    font-weight: 400;
+    font-style: light;
+  }
+
 @media (min-width: 992px) {
     body{
         position:fixed;
@@ -98,3 +104,171 @@ nav{
     margin-left: auto;
     margin-right: auto;
 }
+
+.table th,.table td{
+    background-color: #fff;
+}
+
+/* left side slide area */
+:root {
+    --white: #fff;
+    --red: #e74c3c;
+    --black: #000;
+    --img-color: #ededed;
+    --overlay: rgba(0, 0, 0, 0.75);
+  }
+  
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  ul {
+    list-style: none;
+  }
+  
+  /* img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    background-color: var(--img-color);
+  } */
+  
+  label {
+    display: block;
+    cursor: pointer;
+  }
+  
+  /* a {
+    text-decoration: none;
+    color: inherit;
+  } */
+  
+  input[type="radio"] {
+    position: absolute;
+    bottom: 0;
+    left: -9999px;
+  }
+  
+  /* body {
+    color: var(--white);
+    margin: 20px 0;
+    font-family: sans-serif;
+  } */
+  
+  .container {
+    max-width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+  
+  /* SLIDESHOW
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+  .featured-wrapper {
+    position: relative;
+  }
+  
+  .featured-wrapper .featured-list {
+    display: grid;
+  }
+  
+  .featured-wrapper .featured-list li {
+    grid-column: 1;
+    grid-row: 1;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  
+  .featured-wrapper .arrows label::before,
+  .featured-wrapper .arrows label::after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--black);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    background-color: var(--white);
+    opacity: 0.5;
+    transition: opacity 0.25s;
+  }
+  
+  .featured-wrapper .arrows label::before {
+    left: 0px;
+  }
+  
+  .featured-wrapper .arrows label::after {
+    right: 0px;
+  }
+  
+  .featured-wrapper .dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+  }
+  
+  .featured-wrapper .dots li:not(:last-child) {
+    margin-right: 8px;
+  }
+  
+  .featured-wrapper .dots label {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--white);
+    transition: background 0.25s;
+  }
+  
+  .featured-wrapper .dots label:hover {
+    background: currentColor;
+  }
+  
+  /* MIMIC CLICK EVENT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+  [id="page1"]:checked ~ .container .featured-list li:nth-child(1),
+  [id="page2"]:checked ~ .container .featured-list li:nth-child(2),
+  [id="page3"]:checked ~ .container .featured-list li:nth-child(3),
+  [id^="page"]:checked ~ .container .arrows [for^="page"]:hover::before,
+  [id^="page"]:checked ~ .container .arrows [for^="page"]:hover::after {
+    opacity: 1;
+  }
+  
+  [id="page1"]:checked ~ .container .arrows [for="page3"]::before,
+  [id="page2"]:checked ~ .container .arrows [for="page1"]::before,
+  [id="page3"]:checked ~ .container .arrows [for="page2"]::before {
+    content: '';
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/arrow-prev-slideshow.svg);
+  }
+  
+  [id="page1"]:checked ~ .container .arrows [for="page2"]::after,
+  [id="page2"]:checked ~ .container .arrows [for="page3"]::after,
+  [id="page3"]:checked ~ .container .arrows [for="page1"]::after {
+    content: '';
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/arrow-next-slideshow.svg);
+  }
+  
+  [id="page1"]:checked ~ .container .dots [for="page1"],
+  [id="page2"]:checked ~ .container .dots [for="page2"],
+  [id="page3"]:checked ~ .container .dots [for="page3"] {
+    background: currentColor;
+  }
+  
+  [id="page1"]:checked ~ .container [for="page1"] .outer,
+  [id="page2"]:checked ~ .container [for="page2"] .outer,
+  [id="page3"]:checked ~ .container [for="page3"] .outer {
+    background: var(--overlay);
+  }
+  
+  [id="page1"]:checked ~ .container [for="page1"] .inner,
+  [id="page2"]:checked ~ .container [for="page2"] .inner,
+  [id="page3"]:checked ~ .container [for="page3"] .inner {
+    opacity: 1;
+    transform: none;
+  }
