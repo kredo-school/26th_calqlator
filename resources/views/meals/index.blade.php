@@ -15,6 +15,9 @@
                     <th>Calories</th>
                     <th>Amount</th>
                     <th>Time eaten</th>
+                    <th>Protein</th>
+                    <th>Carbohydrate</th>
+                    <th>Lipid</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,10 +27,13 @@
                         <td>{{ $meal->calories }} kcal</td>
                         <td>{{ $meal->amount }}</td>
                         <td>{{ $meal->time_eaten }}</td>
+                        <td>{{ $meal->Protein }} kcal</td>
+                        <td>{{ $meal->Carbohydrate }} kcal</td>
+                        <td>{{ $meal->Lipid }} kcal</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center">No food registered</td>
+                        <td colspan="7" class="text-center">No food registered</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -51,6 +57,9 @@
                     <th>Item</th>
                     <th>Calories</th>
                     <th>Per amount</th>
+                    <th>Protein</th>
+                    <th>Carbohydrate</th>
+                    <th>Lipid</th>
                     <th></th>
                 </tr>
             </thead>
@@ -60,6 +69,9 @@
                     <td>Meat Sauce Pasta</td>
                     <td>626 kcal</td>
                     <td>per serving (dry pasta 100g)</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td><button class="btn btn-outline-danger rounded-circle btn-sm " data-bs-toggle="modal" data-bs-target="#" title="Add">
                         <i class="fa-solid fa-plus"></i>
                     </button> Add</td>
@@ -68,6 +80,9 @@
                     <td>Carbonara</td>
                     <td>589 kcal</td>
                     <td>per serving</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td><button class="btn btn-outline-danger rounded-circle btn-sm " data-bs-toggle="modal" data-bs-target="#" title="Add"><i class="fas fa-plus"></i>
                     </button> Add</td>
                 </tr>

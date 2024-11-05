@@ -7,7 +7,7 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-5">
     
         <h1 class="mt-5">Every day Condition</h1>
         <div class="row justify-content-center">
@@ -80,5 +80,6 @@
 </html>
 
 
-<img src="{{ asset('images/img01.png') }}" alt="Smiley 1">
-<img src="/images/smiley2.png" alt="Smiley 2">
+{{--<img src="{{ asset('images/img01.png') }}" alt="Smiley 1">--}}
+{{--<img src="/images/smiley2.png" alt="Smiley 2">--}}
+
