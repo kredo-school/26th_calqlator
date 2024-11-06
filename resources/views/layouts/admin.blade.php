@@ -88,12 +88,11 @@
                         <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
                             <i class="fa-solid fa-circle-question"></i> FAQ List <i class="fa-solid fa-table-list"></i>
                         </a>
-                        <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                        <a href="{{ route('admin.food.confirmation')}}" class="list-group-item {{ request()->is('/admin/food/confirmation*') ? 'active' : '' }}">
                             <i class="fa-solid fa-burger"></i> Food Confirmation <i class="fa-solid fa-square-check"></i> 
                         </a>
-                        <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
-                            <i class="fa-solid fa-person-running"></i> Exercise Confirmation <i class="fa-solid fa-square-check"></i>
-                        </a>
+                        <a href="{{ route('admin.exercise.confirmation')}}" class="list-group-item {{ request()->is('/admin/exercise/confirmation*') ? 'active' : '' }}">
+                            <i class="fa-solid fa-person-running"></i> Exercise Confirmation <i class="fa-solid fa-square-check"></i>                        </a>
                         <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
                             <i class="fa-solid fa-carrot"></i> Food Registeration <i class="fa-solid fa-square-plus"></i>
                         </a>
