@@ -31,17 +31,17 @@
                         <div class="col-4">
                         </div>
                         <div class="col-8 pe-0 border-bottom border-1 border-dark">
-                            <a href="" class="text-center">Today's Condition</a>
+                            <a href="" class="text-center fs-5">Today's Condition</a>
                         </div>
                     </div>
 
                         <input type="radio" id="page1" name="page" checked>
                         <input type="radio" id="page2" name="page">
                         <input type="radio" id="page3" name="page">
-                    
-                    <div class="container p-0 m-0 mt-3">
+
+                    <div class="container p-0 m-0">
                         <div class="featured-wrapper">
-                            <ul class="featured-list">
+                            <ul class="featured-list my-3 p-0">
                                 <li>
                                     <div class="col-6 border-bottom border-2 border-dark">
                                         <h4 class="text-start mb-0 fw-bolder">Total Calories</h3>
@@ -52,10 +52,11 @@
                                     <div class="col-6 border-bottom border-2 border-dark mt-0">
                                         <h4 class="text-start mb-0 fw-bolder">Total Workout</h3>
                                     </div>
-                                    <div class="" style="height: 60px">
+                                    <div class="" style="height: 60px;">
                                         <img src="" alt="">
                                     </div>
                                 </li>
+
                                 <li>
                                     <div class="col-6 border-bottom border-2 border-dark">
                                         <h4 class="text-start mb-0 fw-bolder">Protien</h3>
@@ -67,22 +68,23 @@
                                     <div class="col-6 border-bottom border-2 border-dark mt-0">
                                         <h4 class="text-start mb-0 fw-bolder">Carbon</h3>
                                     </div>
-                                    <div class="" style="height: 60px">
+                                    <div class="" style="height: 60px;">
                                         <img src="" alt="">
                                     </div>
 
                                     <div class="col-6 border-bottom border-2 border-dark mt-0">
                                         <h4 class="text-start mb-0 fw-bolder">Fat</h3>
                                     </div>
-                                    <div class="" style="height: 60px">
+                                    <div class="" style="height: 60px;">
                                         <img src="" alt="">
                                     </div>
                                 </li>
+
                                 <li>
                                     <div class="col-6 border-bottom border-2 border-dark">
                                         <h4 class="text-start mb-0 fw-bolder">Weight Graphs</h3>
                                     </div>
-                                    <div class="" style="height: 70px">
+                                    <div class="" style="height: 70px;">
                                         <img src="" alt="">
                                     </div>
                                 </li>
@@ -98,7 +100,7 @@
                                     <label for="page3"></label>
                                 </li>
                             </ul>
-                            <ul class="dots">
+                            <ul class="circles">
                                 <li>
                                     <label for="page1"></label>
                                 </li>
@@ -139,18 +141,17 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            {{-- @if() --}}
-                            {{-- @forelse() --}}
+                            @forelse($breakfasts as $breakfast)
                                 <tbody>
                                     <tr>
-                                        <td>image</td>
-                                        <td>item name</td>
-                                        <td>amount</td>
+                                        <td>{{ $breakfast->food->image }}</td>
+                                        <td>{{ $breakfast->food->item_name }}</td>
+                                        <td>{{ $breakfast->food->amount }}</td>
                                         <td>calories</td>
                                         <td><i class="fa-solid fa-circle-minus text-danger"></i></td>
                                     </tr>
                                 </tbody>
-                            {{-- @else --}}
+                            @empty
                                 <tbody>
                                     <tr>
                                         <td colspan="4">Please enter your meal</td>
@@ -161,13 +162,13 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                            {{-- @endforelse --}}
+                            @endforelse
                         </table>
-                            {{-- @if() --}}
-                                <a href="" class="btn btn-sm">
-                                    <i class="fa-solid fa-circle-plus"></i> Add
-                                </a>
-                            {{-- @endif --}}
+                        @if($breakfasts) {{--not working--}}
+                            <a href="" class="btn btn-sm">
+                                <i class="fa-solid fa-circle-plus"></i> Add
+                            </a>
+                        @endif
                     </div>
                 </div>
                 <div class="row border-top border-1 border-dark p-0">
@@ -193,17 +194,17 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            {{-- @forelse() --}}
+                            @forelse($lunches as $lunch)
                                 <tbody>
                                     <tr>
-                                        <td>image</td>
-                                        <td>item name</td>
-                                        <td>amount</td>
+                                        <td>{{ $lunch->food->image }}</td>
+                                        <td>{{ $lunch->food->item_name }}</td>
+                                        <td>{{ $lunch->food->amount }}</td>
                                         <td>calories</td>
                                         <td><i class="fa-solid fa-circle-minus text-danger"></i></td>
                                     </tr>
                                 </tbody>
-                            {{-- @else --}}
+                            @empty
                                 <tbody>
                                     <tr>
                                         <td colspan="4">Please enter your meal</td>
@@ -214,14 +215,13 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                            {{-- @endforelse --}}
+                            @endforelse
                         </table>
-
-                        {{-- @if() --}}
+                        @if($lunches) {{--not working--}}
                             <a href="" class="btn btn-sm">
                                 <i class="fa-solid fa-circle-plus"></i> Add
                             </a>
-                        {{-- @endif --}}
+                        @endif
                     </div>
                 </div>
                 <div class="row border-top border-1 border-dark p-0">
@@ -247,17 +247,17 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            {{-- @forelse() --}}
+                            @forelse($dinners as $dinner)
                                 <tbody>
                                     <tr>
-                                        <td>image</td>
-                                        <td>item name</td>
-                                        <td>amount</td>
+                                        <td>{{ $dinner->food->image }}</td>
+                                        <td>{{ $dinner->food->item_name }}</td>
+                                        <td>{{ $dinner->food->amount }}</td>
                                         <td>calories</td>
                                         <td><i class="fa-solid fa-circle-minus text-danger"></i></td>
                                     </tr>
                                 </tbody>
-                            {{-- @else --}}
+                            @empty
                                 <tbody>
                                     <tr>
                                         <td colspan="4">Please enter your meal</td>
@@ -268,14 +268,13 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                            {{-- @endforelse --}}
+                            @endforelse
                         </table>
-
-                        {{-- @if() --}}
+                        @if($dinners)
                             <a href="" class="btn btn-sm">
                                 <i class="fa-solid fa-circle-plus"></i> Add
                             </a>
-                        {{-- @endif --}}
+                        @endif
                     </div>
                 </div>
                 <div class="row border-top border-1 border-dark p-0">
@@ -405,16 +404,16 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            {{-- @forelse() --}}
+                            @forelse($workouts as $workout)
                                 <tbody>
                                     <tr>
-                                        <td>Exercise name</td>
-                                        <td>exercise time</td>
+                                        <td>{{ $workout->exercise->name }}</td>
+                                        <td>{{ $workout->time }}</td>
                                         <td>calories</td>
                                         <td><i class="fa-solid fa-circle-minus text-danger"></i></td>
                                     </tr>
                                 </tbody>
-                            {{-- @else --}}
+                            @empty
                                 <tbody>
                                     <tr>
                                         <td colspan="4">Please enter your workout menu</td>
@@ -425,14 +424,13 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                            {{-- @endforelse --}}
+                            @endforelse
                         </table>
-
-                        {{-- @if() --}}
+                        @if($workouts)
                             <a href="" class="btn btn-sm">
                                 <i class="fa-solid fa-circle-plus"></i> Add
                             </a>
-                        {{-- @endif --}}
+                        @endif
                     </div>
                 </div>
                 <div class="row border-top border-1 border-dark p-0">
