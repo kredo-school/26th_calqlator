@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ConfirmationController;
-use App\Http\Controllers\FaqController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -58,6 +58,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // FAQ 
+use App\Http\Controllers\FaqController;
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 
 
