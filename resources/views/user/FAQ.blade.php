@@ -25,20 +25,12 @@
             <div class="col-10 mx-auto">
                 <div class="my-5">
                     @foreach ($faqs as $faq)
-                        <div class="accordion mb-3" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button collapsed bg-transparent border-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $faq->id }}" aria-expanded="false" aria-controls="collapse{{ $faq->id }}">
-                                        <b>Q. {{ $faq->question }}</b>
-                                    </button>
-                                </h2>
-                                <div id="collapse{{ $faq->id }}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body"> 
-                                        <p class="text-black">A. {{ $faq->answer }}</p>
-                                    </div>
-                                </div>
-                            </div>
+                    <dl>
+                        <div>
+                            <dt class="text-start">{{ $faq->question }}</dt>
+                            <dd class="text-start">{{ $faq->answer }}</dd>
                         </div>
+                    </dl>
                     @endforeach
                     <div class="d-flex justify-content-center">
                         {{ $faqs -> links() }}
@@ -58,4 +50,5 @@
         </div>
     </div>
 </div>
+<script src="js/faq.js"></script>
 @endsection
