@@ -1,6 +1,6 @@
-@extends('layouts.adminapp')
+@extends('layouts.admin')
 
-@section('title', 'Admin: FAQList')
+@section('title', 'Admin: FAQregistration')
 
 @section('content')
     <form action="#">
@@ -22,8 +22,7 @@
             </div>
         </div>
         <div class="row ">
-            <div class="col-2"></div>
-            <div class="col-4"></div>
+            <div class="col-6"></div>
             <div class="col-4 text-end mt-3">
                 <button type="submit" class="btn text-success btn-outline-success px-4">Save</button>
             </div>
