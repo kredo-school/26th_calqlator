@@ -1,0 +1,67 @@
+body{
+    background-color:#FFFCF7;
+    font-family: 'Poppins';
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+}
+
+table{
+    border: 2px solid #000;
+    border-collapse: collapse;
+    width: 70%;
+    margin: auto;
+}
+
+thead, tfoot{
+    background: #eee;
+    border: 1px solid #000;
+}
+
+th,td{
+    padding:8px;
+    text-align: center;
+    border: 1px solid #000;
+}
+
+
+
+tbody td:first-child{
+    color: red;
+}
+
+tbody td:last-child{
+    color: blue;
+}
+
+tfoot{
+    font-weight: bold;
+}
+
+td.disabled{
+    opacity: 0.3;
+}
+
+td.today{
+    font-weight: bold;
+}
+
+#prev, #next, #today{
+    cursor: pointer;
+    user-select: none;
+}
+
+#prev,#next,#title{
+    border: none;
+}
+
+#prev{
+    text-align: right;
+}
+
+#next{
+    text-align: left;
+}
+
