@@ -18,7 +18,9 @@
     <script src="https://kit.fontawesome.com/dbc5b98639.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{{ asset('assets/css/calendar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/faq.css') }}">
 
+    <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="app">
