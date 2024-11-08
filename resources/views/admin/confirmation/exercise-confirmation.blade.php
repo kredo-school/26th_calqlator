@@ -1,0 +1,79 @@
+@extends('layouts.admin')
+
+@section('title', 'Exercise Confirmation')
+
+@section('content')
+<div class="m-5 px-5">
+    <div class="row">
+        <div class="col-9">
+            <h2>Exercise Confirmation</h2>
+
+            <div class="confirmation-table">
+                <table class="table text-center mb-0">
+                    <thead class="exercise-confirmation">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Calories / 10min</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pending_exercises as $exercise)
+                            <tr>
+                                <td>{{ $exercise->id }}</td>
+                                <td>{{ $exercise->name }}</td>
+                                <td>{{ $exercise->calories }}</td>
+                                <td>
+                                    <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-exercise{{$exercise->id}}" >
+                                        <i class="fa-solid fa-circle-check"></i> Confirm
+                                    </button>
+
+                                    <button class="btn p-0 ps-5 text-danger" data-bs-toggle="modal" data-bs-target="#delete-exercise{{$exercise->id}}">
+                                        <i class="fa-solid fa-circle-minus"></i> Delete
+                                    </button>
+                                    @include('admin.confirmation.modals.exercise-actions')
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-3 justify-content-center p-0">
+                <form action="{{ route('admin.exercise.confirmation')}}" method="get">
+                    <div class="row mb-3 justify-content-center">
+                        <div class="col-auto p-0">
+                            <input type="text" name="search" value="{{ $search }}" class="form-control form-control-sm m-0 p-0 w-100" placeholder="search exercises...">
+                        </div>
+                        <div class="col-auto text-center">
+                            <button type="submit" class="btn btn-sm btn-border border-secondary text-secondary mx-auto">Search</button>
+                        </div>
+                    </div>
+                </form>
+            
+            <div class="confirmation-table">
+                <table class="table text-center mb-0" >
+                    <thead class="exercise-confirmation">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Calories</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($search_exercises as $exercise)
+                            <tr>
+                                <td>{{ $exercise->id }}</td>
+                                <td>{{ $exercise->name }}</td>
+                                <td>{{ $exercise->calories }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{{ $pending_exercises->links() }}
+@endSection
