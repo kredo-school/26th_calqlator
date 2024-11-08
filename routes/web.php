@@ -11,6 +11,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+// User / Home Page
+use App\Http\Controllers\HomePageController;
+Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
 // Admin / Food & Exercise Confirmation
 Route::get('/admin/food/confirmation',[ConfirmationController::class, 'food_index'])->name('admin.food.confirmation');
 Route::get('/admin/exercise/confirmation',[ConfirmationController::class, 'exercise_index'])->name('admin.exercise.confirmation');
