@@ -13,7 +13,7 @@ class FAQController extends Controller
     public function __construct(Faq $faq){
         $this->faq = $faq;
     }
-    public function index(){
+    public function indexlist(){
         $list_faqs = $this->faq->get();
 
         return view('admin.faqlist.index')

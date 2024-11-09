@@ -20,4 +20,4 @@ Route::delete('/admin/food/confirmation/delete/{id}',[ConfirmationController::cl
 
 // ADMIN
 // Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
-Route::get('/admin/faqlist/index', [FAQController::class, 'index'])->name('admin.faqlist.index');
+Route::get('/admin/faqlist/index', [FAQController::class, 'indexlist'])->name('admin.faqlist.index');
