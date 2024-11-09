@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,15 +12,15 @@ class UsersController extends Controller
     {
         $search = $request->input('search');
 
-        $users = User::when($search, function($query, $search) {
-            return $query->where('first_name', 'like', "%{$search}%")
-                        ->orWhere('last_name', 'like', "%{$search}%")
-                        ->orWhere('user_name', 'like', "%{$search}%")
-                        ->orWhere('email', 'like', "%{$search}%")
-        })
-        ->paginate(10);
+        //$users = User::when($search, function($query, $search) {
+            //return $query->where('first_name', 'like', "%{$search}%")
+                        //->orWhere('last_name', 'like', "%{$search}%")
+                        //->orWhere('user_name', 'like', "%{$search}%")
+                       // ->orWhere('email', 'like', "%{$search}%")
+        //})
+        //->paginate(10);
 
-        return view('admin.users.index', compact('users', 'search'));
+        return view('admin/foods/food_list')->with ('search', $search);
     }
 
     public function deactivate($id)

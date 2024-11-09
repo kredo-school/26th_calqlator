@@ -1,0 +1,32 @@
+.foodlist-table{
+    margin-left: 250px;
+    margin-top: 60px;
+    padding: 20px;
+    background-color: #fffcf7;
+    min-height: calc(100vh - 60px);
+}
+
+.foodlist-table th {
+    background-color: #ffd08e !important;
+    color: black !important;
+    border: 1px solid black !important;
+    vertical-align: middle;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #333;
+    min-width: 150px;
+}
+
+.btn-custom {
+    background-color: #ffd08e;
+    border: 1px solid black;
+    color: black;
+}
+
+.btn-custom:hover {
+    background-color: #ffc66e;
+    border: 1px solid black;
+    color: black;
+}
