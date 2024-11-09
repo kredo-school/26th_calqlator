@@ -35,6 +35,11 @@ class FaqController extends Controller
 
     public function update($id, Request $request)
     {
+        $request->validate([
+            'new_question' => 'required|min:1|max:50' . $id,
+            'new_answer' => 'required|min:1|max:50' . $id
+        ]);
+
         $faq                 = $this->faq->where('id', $id);
         $faq->question       = $request->question;
         $faq->answer         = $request->answer;
