@@ -79,4 +79,5 @@
         </div>
     </div>
 </div>
+{{ $pending_foods->links() }}
 @endSection

@@ -48,6 +48,7 @@
                                 <button class="btn text-danger" data-bs-toggle="modal" data-bs-target="#delete-faq-{{ $faq->id }}">
                                     <i class="fa-solid fa-circle-minus"></i>
                                 </button>
+                                @include('admin.faqlist.modals.actions')
                             </td>
                         </tr>
                     @endforeach
