@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\Admin\HomesController;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -14,6 +15,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // User / Home Page
 use App\Http\Controllers\HomePageController;
 Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
+// UserFAQ
 // UserFAQ
 use App\Http\Controllers\FaqController;
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
