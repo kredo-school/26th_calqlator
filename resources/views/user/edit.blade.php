@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Personal Information') }}</div>
+                <div class="card-header">{{ __('Personal Details') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('user.update') }}">
@@ -54,6 +54,16 @@
                                <p class="mb-0 text-danger small">{{ $message }}</p>
                              @enderror
                              </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <label for="date_if_birth" class="col-md-2 col-form-label text-md-start">{{ __('Date of Birth:') }}</label>
+                             <div class="col-md-4">
+                             <input type="text" name="date_of_birth" id="date_of_birth" value="{{ old('last_name', Auth::user()->last_name) }}" class="form-control">
+                             @error('date_of_birth')
+                               <p class="mb-0 text-danger small">{{ $message }}</p>
+                             @enderror
+                             </div>
 
                              <label for="gender" class="col-md-2 col-form-label text-md-start">{{ __('Gender:') }}</label>
                              <div class="col-md-4">
@@ -61,6 +71,8 @@
                              @error('last_name')
                                <p class="mb-0 text-danger small">{{ $message }}</p>
                              @enderror
+                             </div>
+
                              </div>
                         </div>
 
@@ -99,7 +111,7 @@
                         </div>
 
                         <div class="row mt-3">
-                             <label for="password-confirmation" class="col-md-4 col-form-label text-md-start">{{ __('New Password Confirmation:') }}</label>
+                             <label for="password-confirmation" class="col-md-4 col-form-label text-md-start">{{ __('Confirm New Password:') }}</label>
 
                              <div class="col-md-7">
                                   <input id="password-confirmation" type="password" class="form-control @error('password') is-invalid @enderror" name="password-confirmation" required autocomplete="password-confirmation">
