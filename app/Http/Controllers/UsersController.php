@@ -15,8 +15,10 @@ class UsersController extends Controller
         $users = User::when($search, function($query, $search) {
             return $query->where('first_name', 'like', "%{$search}%")
                         ->orWhere('last_name', 'like', "%{$search}%")
+                        ->orWhere('user_name', 'like', "%{$search}%")
                         ->orWhere('email', 'like', "%{$search}%")
-        })->paginate(10);
+        })
+        ->paginate(10);
 
         return view('admin.users.index', compact('users', 'search'));
     }

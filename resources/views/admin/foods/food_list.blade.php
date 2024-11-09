@@ -64,11 +64,11 @@
 @push('styles')
 <style>
     .table th {
-        background-color: #28a745;
+        background-color: #C9E2AC;
         color: black;
     }
     .btn-success {
-        background-color: #28a745;
+        background-color: #C9E2AC;
         border-color: #28a745;
     }
     .btn-success:hover {
