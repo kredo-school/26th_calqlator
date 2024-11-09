@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\FAQController;
 use App\Http\Controllers\ConfirmationController;
 
 
@@ -28,4 +27,4 @@ Route::delete('/admin/food/confirmation/delete/{id}',[ConfirmationController::cl
 // Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
 Route::get('/admin/faqlist/index', [FaqController::class, 'indexlist'])->name('admin.faqlist.index');
 Route::patch('/admin/faqlist/update/{id}',[FaqController::class, 'update'])->name('admin.faqlist.update');
-Route::delete('/admin/faqlist/delete/{id}',[FaqController::class, 'delete'])->name('admin.faq.delete');
+Route::delete('/admin/faqlist/delete/{id}',[FaqController::class, 'delete'])->name('admin.faqlist.delete');
