@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title', 'Home')
+
 @section('content')
     <div class="container mt-5">
         <div class="row">
@@ -74,7 +76,7 @@
         </div>
         <div class="row mt-5">
             <div class="col">
-                <a href="#" class="text-decoration-none fw-bold display-5 d-block">
+                <a href="{{ route('admin.food.confirmation') }}" class="text-decoration-none fw-bold display-5 d-block">
                     <div class="card shadow border-4 border-yellow">
                         <div class="card-body my-3 mx-2">
                             <div class="row text-center">
@@ -82,9 +84,9 @@
                                     <p class="fs-3 mb-0">Food Confirmation</p>
                                     <i class="fa-solid fa-user"></i>
                                 </div>
-                                <div class="col fa-stack">
-                                    <i class="fa-solid fa-comment fa-stack-2x size"></i>
-                                    <p class="text-white m-0 fa-stack-1x pt-2">{{ $faqs->count() }} </p>
+                                <div class="col fa-stack size">
+                                    <i class="fa-solid fa-comment fa-stack-2x"></i>
+                                    <p class="text-white m-0 fa-stack-1x">{{ $foodConfirmations->count() }} </p>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +94,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="#" class="text-decoration-none fw-bold display-5 d-block">
+                <a href="{{ route('admin.exercise.confirmation') }}" class="text-decoration-none fw-bold display-5 d-block">
                     <div class="card shadow border-4 border-blue">
                         <div class="card-body my-3 mx-2">
                             <div class="row text-center">
@@ -100,9 +102,9 @@
                                     <p class="fs-3 mb-0">Exercise Confirmation</p>
                                     <i class="fa-solid fa-user"></i>
                                 </div>
-                                <div class="col fa-stack">
-                                    <i class="fa-solid fa-comment fa-stack-2x size"></i>
-                                    <p class="text-white m-0 fa-stack-1x pt-2">{{ $faqs->count() }} </p>
+                                <div class="col fa-stack size">
+                                    <i class="fa-solid fa-comment fa-stack-2x"></i>
+                                    <p class="text-white m-0 fa-stack-1x">{{ $exerciseConfirmations->count() }} </p>
                                 </div>
                             </div>
                         </div>
@@ -118,9 +120,9 @@
                                     <p class="fs-3 mb-0">Exercise Confirmation</p>
                                     <i class="fa-solid fa-user"></i>
                                 </div>
-                                <div class="col fa-stack">
-                                    <i class="fa-solid fa-comment fa-stack-2x size"></i>
-                                    <p class="text-white m-0 fa-stack-1x pt-2">{{ $faqs->count() }} </p>
+                                <div class="col fa-stack size">
+                                    <i class="fa-solid fa-comment fa-stack-2x"></i>
+                                    <p class="text-white m-0 fa-stack-1x">{{ $questions->count() }} </p>
                                 </div>
                             </div>
                         </div>
