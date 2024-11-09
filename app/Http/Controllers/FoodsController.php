@@ -1,14 +1,10 @@
-FoodsController.php
-
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Food;
-use App\Models\Category;
-use Illuminate\Support\Facades\DB;
 
 class FoodsController extends Controller
 {
@@ -19,56 +15,28 @@ class FoodsController extends Controller
     {
         $search = $request->input('search');
 
-        $foods = Food::join('categories', 'foods.category_id', '=', 'categories.id')
-            ->select('foods.*', 'categories.name as category_name')
-            ->when($search, function($query, $search) {
-                return $query->where('foods.name', 'like', "%{$search}%")
-                    ->orWhere('categories.name', 'like', "%{$search}%");
-            })
-            ->orderBy('foods.id', 'asc')
-            ->paginate(10);
+        //$foods = Food::join('categories', 'foods.category_id', '=', 'categories.id')
+            //->select('foods.*', 'categories.name as category_name')
+            //->when($search, function($query, $search) {
+               // return $query->where('foods.name', 'like', "%{$search}%");
+            //})
+            //->orderBy('foods.id', 'asc')
+            //->paginate(10);
 
-        $categories = Category::all();
+        //$foods = Food::all();
 
-        return view('admin.foods.index', compact('foods', 'search', 'categories'));
+        return view('admin/foods/food_list')->with('search', $search);
     }
 
-    /**
-     * Show the form for creating a new food
-     */
-    public function create()
-    {
-        $categories = Category::all();
-        return view('admin.foods.create', compact('categories'));
-    }
-
-    /**
-     * Store a newly created food
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'calory' => 'required|numeric|min:0',
-            'amount' => 'required|numeric|min:0',
-            'unit' => 'required|in:g,quantity,ml,one meal'
-        ]);
-
-        Food::create($request->all());
-
-        return redirect()->route('admin.foods.index')
-            ->with('success', 'Food created successfully');
-    }
-
+    
     /**
      * Show the form for editing the food
      */
     public function edit($id)
     {
         $food = Food::findOrFail($id);
-        $categories = Category::all();
-        return view('admin.foods.edit', compact('food', 'categories'));
+        $foods = Food::all();
+        return view('foods.edit', compact('food', 'foods'));
     }
 
     /**
@@ -97,7 +65,7 @@ class FoodsController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
+            'id' => 'required|exists:categories,id',
             'calory' => 'required|numeric|min:0',
             'amount' => 'required|numeric|min:0',
             'unit' => 'required|in:g,quantity,ml,one meal'
