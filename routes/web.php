@@ -21,3 +21,5 @@ Route::delete('/admin/food/confirmation/delete/{id}',[ConfirmationController::cl
 // ADMIN
 // Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
 Route::get('/admin/faqlist/index', [FAQController::class, 'indexlist'])->name('admin.faqlist.index');
+Route::patch('/admin/faqlist/update/{id}',[FAQController::class, 'update'])->name('admin.faqlist.update');
+Route::delete('/admin/faqlist/delete/{id}',[FAQController::class, 'delete'])->name('admin.faq.delete');
