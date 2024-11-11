@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\Admin\HomesController;
-use App\Http\Controllers\FaqController;
 
 
 Route::get('/', function () {
@@ -15,11 +14,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // User / Home Page
-use App\Http\Controllers\FaqController;
+use App\Http\Controllers\HomePageController;
 Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
-// UserFAQ 
+
+// UserFAQ
 use App\Http\Controllers\FaqController;
-use App\Http\Controllers\ConfirmationController;
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 // Admin / Food & Exercise Confirmation
 Route::get('/admin/food/confirmation',[ConfirmationController::class, 'food_index'])->name('admin.food.confirmation');
