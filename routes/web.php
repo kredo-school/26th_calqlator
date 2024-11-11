@@ -26,6 +26,9 @@ Route::get('/admin/exercise/confirmation',[ConfirmationController::class, 'exerc
 Route::patch('/admin/confirmation/confirm/{id}',[ConfirmationController::class, 'confirm'])->name('admin.confirm');
 Route::delete('/admin/confirmation/delete/{id}',[ConfirmationController::class, 'delete'])->name('admin.delete');
 
+// Admin / Homepage
+
+Route::get('/admin/home',[HomesController::class, 'index'])->name('admin.home');
 
 // ADMIN
 // Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
