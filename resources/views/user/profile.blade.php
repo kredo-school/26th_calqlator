@@ -4,23 +4,23 @@
 
 @section('content')
   <div class="container">
-    <div class="row mb-3">
-        <div class="col-4">
-            @if($user->avatar)
-            {{-- image --}}
-                <img src="{{ asset('storage/avatars/'.Auth::user()->avatar)}}" alt="" class="avatar rounded-circle image-lg d-block mx-auto">
-            @else 
-                <i class="far fa-circle-user fa-10x"></i>
-            @endif
-        </div>
+      <div class="row justify-content-center">
+          <div class="col-md-8">
+              <div class="card">
+                  <div class="card-body">
+                      @if($user->avatar)
 
-        <div class="col align-self-end">
-        <h2 class="h3 d-inline">{{ $user->name }}</h2>
-        <br>
-        <h4 class="h5 d-inline">{{ $user->email }}</h4>
-        <br>
-        <br>
-        <h4 class="h6 d-inline">{{ $user->email }}</h4>
+                      {{-- image --}}
+                      <img src="{{ asset('storage/avatars/'.Auth::user()->avatar)}}" alt="" class="avatar rounded-circle image-lg d-block mx-auto">
+                      @else 
+                      <i class="far fa-circle-user fa-10x"></i>
+                      @endif
+                    </div>
+                    
+                    <div class="col align-self-end">
+                    <h2 class="h3 d-inline">{{ $user->name }}</h2>
+                    <h4 class="h5 d-inline">{{ $user->email }}</h4>
+                    <h4 class="h6 d-inline">{{ $user->email }}</h4>
 
         <form action="{{ route('user.update')}}" method="post" enctype="multipart/form-data">
         @csrf 
