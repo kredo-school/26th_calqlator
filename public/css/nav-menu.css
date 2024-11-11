@@ -1,0 +1,48 @@
+.container{
+    width: 100vw;
+}
+.navbar{
+    background-color: #FFD08E;
+}
+
+.logout{
+    color: #404D34;
+    font-weight: bold;
+}
+
+.logo{
+    height: 50px;
+}
+
+.list-group{
+    height: 100vh;
+
+}
+
+a.list-group-item{
+    font-weight: bolder;
+    color: #859D6B;
+    background-color: #C9E2AC;
+    padding: 15px;
+}
+
+.list-group-item:hover{
+    color: #C9E2AC;
+    background-color: #859D6B;
+
+}
+
+.list-group-item.active{
+    color: #C9E2AC;
+    background-color: #859D6B;
+}
+
+.list-group-item{
+    padding:15px 0;
+}
+
+.list-group .menu{
+    font-weight: bolder;
+    color: #fff;
+    background-color: #859D6B;
+}
