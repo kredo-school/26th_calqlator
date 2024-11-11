@@ -30,11 +30,6 @@ Route::delete('/admin/confirmation/delete/{id}',[ConfirmationController::class, 
 
 Route::get('/admin/home',[HomesController::class, 'index'])->name('admin.home');
 
-// ADMIN
-// Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
-Route::get('/admin/faqlist/index', [FaqController::class, 'indexlist'])->name('admin.faqlist.index');
-Route::patch('/admin/faqlist/update/{id}',[FaqController::class, 'update'])->name('admin.faqlist.update');
-Route::delete('/admin/faqlist/delete/{id}',[FaqController::class, 'delete'])->name('admin.faqlist.delete');
-
-Route::get('/admin/faqregistration/index', [FaqController::class, 'indexreg'])->name('admin.faqregistration.index');
+// Admin / FAQRegistration
+Route::get('/admin/faqregistration/index', [FaqController::class, 'reg_index'])->name('admin.faqregistration.index');
 Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');

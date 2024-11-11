@@ -57,7 +57,7 @@ class FaqController extends Controller
     }
 
     #FAQregistration
-    public function indexreg(){
+    public function reg_index(){
         return view('admin.faqregistration.index');
     }
 
