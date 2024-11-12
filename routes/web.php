@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\Admin\HomesController;
@@ -17,7 +18,7 @@ Route::group(['middleware' => 'auth'], function(){
 // User / Home Page
 use App\Http\Controllers\HomePageController;
 Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
-// UserFAQ
+
 // UserFAQ
 use App\Http\Controllers\FaqController;
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
@@ -31,6 +32,11 @@ Route::delete('/admin/confirmation/delete/{id}',[ConfirmationController::class, 
 
 Route::get('/admin/home',[HomesController::class, 'index'])->name('admin.home');
 
+// ADMIN
+// Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
+Route::get('/admin/faqlist/index', [FaqController::class, 'indexlist'])->name('admin.faqlist.index');
+Route::patch('/admin/faqlist/update/{id}',[FaqController::class, 'update'])->name('admin.faqlist.update');
+Route::delete('/admin/faqlist/delete/{id}',[FaqController::class, 'delete'])->name('admin.faqlist.delete');
     Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
 
     Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
