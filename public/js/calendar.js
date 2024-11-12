@@ -9,8 +9,8 @@ console.clear();
 
     function getCalendarHead(){
         const dates = [];
-        const d = new Date(year, month, 0).getDate();//今月の1日は(year,month,1)なので、先月の最後の日は(year,month,0)となる
-        const n = new Date(year, month, 1).getDay(); //今月の1日が何曜日か（日曜：０、月曜：１、火曜水曜:２、木曜:３、金曜:４、土曜:５　となっている）なのでそこまでの数nを取得すれば前月の日にちで表示しなければいけない日付の数がわかる
+        const d = new Date(year, month, 0).getDate();
+        const n = new Date(year, month, 1).getDay(); 
 
         for(let i = 0; i < n ; i++){
             dates.unshift({
@@ -35,8 +35,8 @@ console.clear();
             });
         }
 
-        if(year === today.getFullYear() && month === today.getMonth()){ //todayの年とtodayの月が同じなら、
-        dates[today.getDate()-1].isToday = true; //今日の日付をtrueにする
+        if(year === today.getFullYear() && month === today.getMonth()){ 
+        dates[today.getDate()-1].isToday = true; 
         }
 
         return dates;
@@ -58,16 +58,63 @@ console.clear();
     }
 
     function clearCalendar(){
-        const tbody = document.querySelector('tbody'); //tbody要素を取得
+        const tbody = document.querySelector('tbody'); 
 
-        while(tbody.firstChild){ //tbody要素の子要素がある限り
-            tbody.removeChild(tbody.firstChild); //tbody要素の子要素を全て削除する
+        while(tbody.firstChild){ 
+            tbody.removeChild(tbody.firstChild); 
         }
     }
 
     function renderTitle(){
-        const title = `${year}/${String(month+1).padStart(2, '0')}`; //monthは0から始まるので+1する // padStart(2, '0')： は2桁で表示してね。それに満たなかったら0で埋める　//padStartは文字列にしか使えないので文字列(sring)に変換
-        document.getElementById('title').textContent = title; //idがtitleの要素を取得
+        const prev = `${String(month).padStart(2, '0')}`;
+        const title = `${String(month+1).padStart(2, '0')}`;
+        const next = `${String(month+2).padStart(2, '0')}`;
+        const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        document.getElementById('year').textContent = year; 
+        document.getElementById('monthName').textContent = monthName[month]; 
+        document.getElementById('title').textContent = title; 
+        document.getElementById('prev').innerHTML = `${prev} &laquo;`;
+        document.getElementById('next').innerHTML = `&raquo; ${next}`;
+    }
+
+    
+    function getEachCell(date){
+                // var mergedDate = year+'-'+(month+1)+'-'+date.date;
+
+                // console.log(mergedDate);
+
+                const td = document.createElement('td');
+
+                const topSection = document.createElement('p');
+                const bottomSection = document.createElement('div');
+    
+                topSection.classList.add('top');
+                bottomSection.classList.add('bottom');
+
+                topSection.textContent = `${String(date.date).padStart(2, ' ')}`; 
+
+                if(date.isDisabled === false){
+                    bottomSection.innerHTML = `total kcal <br> weight kg`; 
+                }
+
+                td.appendChild(topSection);   
+                td.appendChild(bottomSection); 
+
+                td.addEventListener('click', () => {
+                    window.location.href = '/user/home/page/${date.date}'; 
+                });
+                td.style.cursor = 'pointer';
+
+                if(date.isToday){
+                    td.classList.add('today'); 
+                }
+
+                if(date.isDisabled){
+                    td.classList.add('disabled'); 
+                }
+
+                return td;
     }
 
     function renderWeeks(){
@@ -81,28 +128,15 @@ console.clear();
         const weeksCount = dates.length / 7;
 
         for(let i = 0; i < weeksCount; i++){
-            weeks.push(dates.splice(0, 7)); //splice(0,7)　先頭から７個分のデータを取り出す
+            weeks.push(dates.splice(0, 7)); 
         }
 
         weeks.forEach(week => {
             const tr = document.createElement('tr');
             week.forEach(date => {
-                const td = document.createElement('td');
-                
-                td.textContent = date.date;
-
-                if(date.isToday){
-                    td.classList.add('today'); //dateがisTodayならそのtd要素にtodayクラスをつける
-                }
-
-                if(date.isDisabled){
-                    td.classList.add('disabled'); //dateがisDisabledならそのtd要素にdisabledクラスをつける
-                }
-
-                tr.appendChild(td); //tr要素の末尾の子要素に追加する
+                tr.appendChild(getEachCell(date));
             });
-
-            document.querySelector('tbody').appendChild(tr); //tbody要素の末尾の子要素にtr要素を追加する
+            document.querySelector('tbody').appendChild(tr); 
         });
     }
 
@@ -112,27 +146,27 @@ console.clear();
         renderWeeks();
     }
 
-    document.getElementById('prev').addEventListener('click', () => { //prevボタンをクリックしたら次の処理をする
-        month--; //month から1を引く
-        if(month < 0){ //年を跨いだときの処理。月が0(1月)より小さくなったら、
-            year--; //年を1減らす
-            month = 11; //月を11（12月）にする
+    document.getElementById('prev').addEventListener('click', () => { 
+        month--; 
+        if(month < 0){ 
+            year--; 
+            month = 11; 
         }
         createCalendar();
     });
 
-    document.getElementById('next').addEventListener('click', () => { //nextボタンをクリックしたら次の処理をする
-        month++; //monthに１を加える
-        if(month > 11){ //年を跨いだときの処理。月が11（12月）より大きくなったら、
-            year++; //年を1増やす
-            month = 0; //月を0（1月）にする
+    document.getElementById('next').addEventListener('click', () => { 
+        month++; 
+        if(month > 11){ 
+            year++; 
+            month = 0; 
         }
         createCalendar();
     });
     
-    document.getElementById('today').addEventListener('click', () => { //nextボタンをクリックしたら次の処理をする
-        year = today.getFullYear(); //yearをtodayの年にする
-        month = today.getMonth(); //monthをtodayの月にする
+    document.getElementById('today').addEventListener('click', () => { 
+        year = today.getFullYear(); 
+        month = today.getMonth(); 
 
         createCalendar();
     });

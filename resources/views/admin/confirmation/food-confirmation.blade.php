@@ -37,7 +37,7 @@
                                     @include('admin.confirmation.modals.actions')
                                 </td>
                             </tr>
-                        @endforeach
+                        @endforeach›
                     </tbody>
                 </table>
             </div>

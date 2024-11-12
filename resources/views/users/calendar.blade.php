@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.calendar')
 
 @section('title', 'Calendar')
 
@@ -7,9 +7,20 @@
     <table>
         <thead>
             <tr>
-                <th id="prev" colspan="2">&laquo;</th>
-                <th id="title" colspan="3">2020/05</th>
-                <th id="next" colspan="2">&raquo;</th>
+                <th></th>
+                <th id="prev"></th>
+                <th colspan="3" class="top"> 
+                    <div class="row">
+                        <div class="col" id="title">
+                        </div>
+                        <div class="col p-0">
+                            <p class="row h-50 align-items-end" id="year"></p> 
+                            <p class="row h-50" id="monthName"></p> 
+                        </div> 
+                    </div>
+                </th>
+                <th id="next"></th>
+                <th></th>
             </tr>
             <tr>
                 <th>Sun</th>
@@ -25,7 +36,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td id="today" colspan="7">Today</td>
+                <td id="today" colspan="7" class="text-center text-decoration-underline text-primary">Go back to today</td>
             </tr>
         </tfoot>
     </table>
