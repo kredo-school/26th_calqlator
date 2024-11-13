@@ -62,14 +62,12 @@ class FaqController extends Controller
     }
 
     public function store(Request $request){
-        $request->validate([
-            'question' => 'required|min:1|max:1000',
-            'answer' => 'required|min:1|max:1000'
-        ]);
-
-        $this->faq->question   = $request->question;
-        $this->faq->answer    = $request->answer;
+        $this->faq->question     = $request->question;
+        $this->faq->answer       = $request->answer;
         $this->faq->save();
+
+
+        return redirect()->route('admin.faqregistration.index');
 
     }
 }

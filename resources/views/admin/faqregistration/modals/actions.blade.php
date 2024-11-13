@@ -1,5 +1,5 @@
 <!-- Complete -->
-<div class="modal fade" id="store-faq-{{ $this->faq->id }}">
+<div class="modal fade" id="store-faq">
     <div class="modal-dialog">
         <div class="modal-content border-danger">
             <div class="modal-header border-danger">
@@ -10,8 +10,8 @@
             <div class="modal-body">
                 <p>The following questions and answers have added</p>
                     <div class="row">
-                        <div class="col">{{ $this->faq->question }}</div>
-                        <div class="col">{{ $this->faq->answer }}</div>
+                        <p class="col" id="modalQuestion"></p>
+                        <p class="col" id="modalAnswer"></p>
                     </div>
             </div>
             <div class="modal-footer text-end">
