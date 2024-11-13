@@ -42,8 +42,8 @@ class FaqController extends Controller
         ]);
 
         $faq                 = $this->faq->where('id', $id);
-        $faq->question       = $request->question->where('id', $id);
-        $faq->answer         = $request->answer->where('id', $id);
+        $faq->question       = $request->question;
+        $faq->answer         = $request->answer;
 
         # Save
         $faq->save();
