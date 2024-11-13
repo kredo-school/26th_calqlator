@@ -26,6 +26,7 @@ class FaqController extends Controller
                                ->with('search', $request->search);
     }
 
+    # FAQlist
     public function indexlist(){
         $list_faqs = $this->faq->get();
 
@@ -53,5 +54,20 @@ class FaqController extends Controller
     public function delete($id){
         $this->faq->where('id', $id)->delete();
         return redirect()->back();
+    }
+
+    #FAQregistration
+    public function reg_index(){
+        return view('admin.faqregistration.index');
+    }
+
+    public function store(Request $request){
+        $this->faq->question     = $request->question;
+        $this->faq->answer       = $request->answer;
+        $this->faq->save();
+
+
+        return redirect()->route('admin.faqregistration.index');
+
     }
 }
