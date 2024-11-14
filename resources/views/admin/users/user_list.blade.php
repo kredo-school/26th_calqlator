@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'User List')
+@section('title', 'UserList')
 
 @section('content')
 <div class="m-5 px-5">

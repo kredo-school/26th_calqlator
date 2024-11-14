@@ -1,22 +1,27 @@
 @extends('layouts.admin')
 
-@section('title','Food-list')
+@section('title','Foodlist')
 
 @section('content')
 <div class="m-5 px-5">
     <div class="row">
         <div class="col-12">
-            <h2><i class="fa-thin fa-bread-slice-butter"></i>Food List</h2>
-
-            <div class="input-group">
-                <input type="text" 
-                       name="search" 
-                       class="form-control" 
-                       placeholder="Search foods..." 
-                       value="{{ $search ?? '' }}">
-                <button type="submit" class="btn btn-custom">
-                    <i class="fas fa-search"></i>
-                </button>
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h2 class="mb-0"><i class="fa-light fa-bread-slice-butter"></i> Food List</h2>
+                <div class="search-container">
+                    <form action="" method="GET">
+                        <div class="input-group">
+                            <input type="text" 
+                                   name="search" 
+                                   class="form-control" 
+                                   placeholder="Search foods..." 
+                                   value="">
+                            <button type="submit" class="btn btn-custom">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
         <!-- food list table -->
@@ -39,7 +44,7 @@
                     <td>Calories</td>
                     <td>Amount</td>
                     <td>
-                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-food" ><i class="fa-light fa-pencil"></i> Edit
+                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-food" ><i class="fas fa-pencil"></i> Edit
                         </button>
                         <button class="btn p-0 ps-5 text-danger" data-bs-toggle="modal" data-bs-target="#delete-food">
                             <i class="fa-solid fa-circle-minus"></i> Delete
