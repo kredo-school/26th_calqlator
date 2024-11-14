@@ -37,12 +37,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                 
                     <tr>
                     <td>id</td>
-                    <td>Name</td>
-                    <td>Calories</td>
-                    <td>Amount</td>
+                    <td>name</td>
+                    <td>calories</td>
+                    <td>amount</td>
                     <td>
                         <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-food" ><i class="fas fa-pencil"></i> Edit
                         </button>
