@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Food;
 
 class FoodsController extends Controller
 {
+    private $food;
+
+    public function __construct(Food $food)
+    {
+        $this->food = $food;
+    }
     /**
      * Display a listing of the foods
      */
@@ -15,17 +20,15 @@ class FoodsController extends Controller
     {
         $search = $request->input('search');
 
-        //$foods = Food::join('categories', 'foods.category_id', '=', 'categories.id')
-            //->select('foods.*', 'categories.name as category_name')
-            //->when($search, function($query, $search) {
-               // return $query->where('foods.name', 'like', "%{$search}%");
-            //})
-            //->orderBy('foods.id', 'asc')
-            //->paginate(10);
+        $foods = Food::when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%");
+        })
+            ->orderBy('id', 'asc')
+            ->paginate(10);
 
-        //$foods = Food::all();
+        $foods = Food::all();
 
-        return view('admin/foods/food_list')->with('search', $search);
+        return view('admin.foods.food_list', compact('foods'));
     }
 
     

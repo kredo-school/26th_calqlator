@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodsController;
-use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\Admin\HomesController;
+use App\Http\Controllers\ExercisesController;
 
 Auth::routes();
     
@@ -36,19 +37,22 @@ Route::delete('/admin/faqlist/delete/{id}',[FaqController::class, 'delete'])->na
 // Admin / FAQRegistration
 Route::get('/admin/faqregistration/index', [FaqController::class, 'reg_index'])->name('admin.faqregistration.index');
 Route::get('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
-Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');        Route::get('/admin/user/list', [UsersController::class, 'index'])->name('users.list');
-        Route::get('/admin/user/{id}/edit', [UsersController::class, 'edit'])->name('users.edit');
-        Route::put('/admin/user/{id}/update', [UsersController::class, 'update'])->name('users.update');
-        Route::delete('/admin/user/{id}/delete', [UsersController::class, 'destroy'])->name('users.destroy');
+Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');        
+       
+// Admin / user list
+Route::get('/admin/user/list', [UsersController::class, 'index'])->name('admin.users.list');
+Route::get('/admin/user/edit/{id}', [UsersController::class, 'edit'])->name('admin.users.edit');
+Route::put('/admin/user/update/{id}', [UsersController::class, 'update'])->name('admin.users.update');
+Route::delete('/admin/user/delete/{id}', [UsersController::class, 'destroy'])->name('admin.users.destroy');
 
-        Route::get('/admin/food/list', [FoodsController::class, 'index'])->name('foods.list');
-        Route::get('/create', [FoodsController::class, 'create'])->name('foods.create');
-        Route::post('/food/store', [FoodsController::class, 'store'])->name('foods.store');
-        Route::get('/{id}/edit', [FoodsController::class, 'edit'])->name('foods.edit');
-        Route::put('/food/update/{id}', [FoodsController::class, 'update'])->name('foods.update');
-        Route::delete('/food/delete/{id}', [FoodsController::class, 'destroy'])->name('foods.destroy');
+// Admin / food list
+Route::get('/admin/food/list', [FoodsController::class, 'index'])->name('admin.foods.list'); 
+Route::get('/admin/food/edit/{id}', [FoodsController::class, 'edit'])->name('admin.foods.edit');
+Route::put('/admin/food/update/{id}', [FoodsController::class, 'update'])->name('admin.foods.update');
+Route::delete('/admin/food/delete/{id}', [FoodsController::class, 'destroy'])->name('admin.foods.destroy');
 
-        Route::get('/{id}/confirm-edit', [FoodsController::class, 'confirmEdit'])
-             ->name('foods.confirm-edit');
-        Route::get('/{id}/confirm-delete', [FoodsController::class, 'confirmDelete'])
-             ->name('foods.confirm-delete');
+// Admin / exercise list
+Route::get('/admin/exercise/list', [ExercisesController::class, 'index'])->name('admin.exercises.list');
+Route::get('/admin/exercise/edit/{id}', [ExercisesController::class, 'edit'])->name('admin.exercise.edit');
+Route::get('/admin/exercise/update/{id}', [ExercisesController::class, 'update'])->name('admin.exercises.update');
+Route::get('/admin/exercise/delete/{id}', [ExercisesController::class, 'delete'])->name('admin.exercise.delete');
