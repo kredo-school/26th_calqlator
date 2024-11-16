@@ -40,6 +40,7 @@
             </tr>
         </tfoot>
     </table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/calendar.js"></script>
 </body>
 @endsection

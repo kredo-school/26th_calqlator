@@ -79,43 +79,48 @@ console.clear();
     }
 
     
-    function getEachCell(date){
+    // function getEachCell(date){
                 // var mergedDate = year+'-'+(month+1)+'-'+date.date;
 
                 // console.log(mergedDate);
 
-                const td = document.createElement('td');
+                // const td = document.createElement('td');
 
-                const topSection = document.createElement('p');
-                const bottomSection = document.createElement('div');
+                // const topSection = document.createElement('p');
+                // const bottomSection = document.createElement('div');
     
-                topSection.classList.add('top');
-                bottomSection.classList.add('bottom');
+                // topSection.classList.add('top');
+                // bottomSection.classList.add('bottom');
 
-                topSection.textContent = `${String(date.date).padStart(2, ' ')}`; 
+                // topSection.textContent = `${String(date.date).padStart(2, ' ')}`; 
 
-                if(date.isDisabled === false){
-                    bottomSection.innerHTML = `total kcal <br> weight kg`; 
-                }
+                // if(date.isDisabled === false){
+                //     bottomSection.innerHTML = `total kcal <br> weight kg`; 
+                // }
 
-                td.appendChild(topSection);   
-                td.appendChild(bottomSection); 
+                // td.appendChild(topSection);   
+                // td.appendChild(bottomSection); 
 
-                td.addEventListener('click', () => {
-                    window.location.href = '/user/home/page/${date.date}'; 
-                });
-                td.style.cursor = 'pointer';
+                // td.addEventListener('click', () => {
+                //     window.location.href = '/user/home/page/${date.date}'; 
+                // });
+                // td.style.cursor = 'pointer';
 
-                if(date.isToday){
-                    td.classList.add('today'); 
-                }
+                // if(date.isToday){
+                //     td.classList.add('today'); 
+                // }
 
-                if(date.isDisabled){
-                    td.classList.add('disabled'); 
-                }
+                // if(date.isDisabled){
+                //     td.classList.add('disabled'); 
+                // }
 
-                return td;
-    }
+                // return td;
+    // }
+
+//     var specificDate = year+'-'+(month+1)+'-'+date.date;
+//     $.get('CalendarController.php',{date: specificDate}, function(data){
+// console.log(data);
+//     });
 
     function renderWeeks(){
         const dates = [
@@ -134,7 +139,57 @@ console.clear();
         weeks.forEach(week => {
             const tr = document.createElement('tr');
             week.forEach(date => {
-                tr.appendChild(getEachCell(date));
+                const td = document.createElement('td');
+
+                const topSection = document.createElement('p');
+                const bottomSection = document.createElement('div');
+    
+                topSection.classList.add('top');
+                bottomSection.classList.add('bottom');
+
+                topSection.textContent = `${String(date.date).padStart(2, ' ')}`; 
+
+                var selectedDate = year+'-'+(month+1)+'-'+date.date;  
+
+                if (selectedDate) {
+                    $.ajax({
+                        url: '/user/calendar/info/' + selectedDate,  
+                        type: 'GET',
+                        success: function(response) {
+                            if(date.isDisabled === false){
+                                if (response.length > 0) {
+                                    var weight = response[0].weight;
+                                    // var totalCalories = response.totalCalories;
+                                    bottomSection.innerHTML = `total kcal <br> ${weight} kg`;
+                                } else {
+                                    bottomSection.innerHTML = `-- kcal <br> -- kg`; 
+                                }
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching data: ' + error);
+                            bottomSection.innerHTML='Error fetching data.';
+                        }
+                    });
+                };
+
+                td.appendChild(topSection);   
+                td.appendChild(bottomSection); 
+
+                td.addEventListener('click', () => {
+                    window.location.href = '/user/home/page/${date.date}'; 
+                });
+                td.style.cursor = 'pointer';
+
+                if(date.isToday){
+                    td.classList.add('today'); 
+                }
+
+                if(date.isDisabled){
+                    td.classList.add('disabled'); 
+                }
+
+                tr.appendChild(td);
             });
             document.querySelector('tbody').appendChild(tr); 
         });

@@ -17,8 +17,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // User / Home Page
 Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
-// User / Calender
+// User / Calendar
 Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
+Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
 // UserFAQ
 use App\Http\Controllers\FaqController;
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');

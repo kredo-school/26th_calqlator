@@ -87,7 +87,8 @@ tbody td .top{
     position: absolute;
     top: 0;
     right: 0;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
     text-align: end;
     vertical-align: top;
     padding-right:5px; 
@@ -98,7 +99,7 @@ tbody td .bottom{
     position: absolute;
     top: 18px;
     left: 0;
-    font-size: 14px;
+    font-size: 16px;
     text-align: start;
     vertical-align: bottom;
     padding-left:5px; 
