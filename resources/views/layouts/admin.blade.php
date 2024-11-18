@@ -106,7 +106,7 @@
                             <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
                                 <i class="fa-solid fa-person-walking"></i> Exercise Registeration <i class="fa-solid fa-square-plus"></i>
                             </a>
-                            <a href="{{ route(admin.faqregistration.index)}}" class="list-group-item {{ request()->is('/admin/faqregistration/index*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.faqregistration.index')}}" class="list-group-item {{ request()->is('/admin/faqregistration/index*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-person-circle-question"></i> FAQ Registeration <i class="fa-solid fa-square-plus"></i>
                             </a>
                             <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }} list-group-item-action">
