@@ -26,9 +26,9 @@ class FoodsController extends Controller
             ->orderBy('id', 'asc')
             ->paginate(10);
 
-        $foods = Food::all();
+        $foods = Food::paginate(10);
 
-        return view('admin.foods.food_list', compact('foods'));
+        return view('admin.foods.food_list', compact('foods', 'search'));
     }
 
     

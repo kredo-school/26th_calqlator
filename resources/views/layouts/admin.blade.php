@@ -19,7 +19,9 @@
     <link rel="stylesheet" href="{{ asset('css/nav-menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmation.css') }}">
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/admin/userlist.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/foodlist.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/exerciselist.css') }}">
     <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
 </head>
 <body>

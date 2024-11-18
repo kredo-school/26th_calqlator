@@ -35,7 +35,7 @@
                         <th style="width: 25%">Name</th>
                         <th style="width: 25%">Calories</th>
                         <th style="width: 25%">Amount</th>
-                        <th style="width: 10%"></th>
+                        <th style="width: 20%"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,10 +48,10 @@
                     <td>{{ $food->amount }}</td>
                     <td>
                     <div class="d-flex justify-content-center gap-2">
-                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-food" ><i class="fas fa-pencil"></i> Edit
+                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-food" ><i class="fas fa-pencil"></i> 
                         </button>
                         <button class="btn p-0 ps-3 text-danger" data-bs-toggle="modal" data-bs-target="#delete-food">
-                            <i class="fa-solid fa-circle-minus"></i> Delete
+                            <i class="fa-solid fa-circle-minus"></i>
                         </button>
                     </div>
                 </td>
@@ -59,14 +59,14 @@
             @endforeach
                                             
                     <!-- pagination -->
-                    <div class="d-flex justify-content-center mt-4">
-                        
-                    </div>
+                    <div class="d-flex justify-content-center mt-4">  
+                        {{ $foods->links() }}           
+                      </div>    
+                   
                 </div>
             </div>
         </div>
     </div>
 </div>
-@vite(['resources/css/foodlist.css'])
 
 @endsection

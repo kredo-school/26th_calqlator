@@ -6,6 +6,8 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/sass/app.scss',
+                'resources/css/foodlist.css',
+                'resources/css/userlist.css',
                 'resources/js/app.js',
             ],
             refresh: true,

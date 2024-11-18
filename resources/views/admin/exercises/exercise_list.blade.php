@@ -32,31 +32,34 @@
                 <thead class="exerciselist">
                     <tr>
                         <th style="width: 10%">ID</th>
-                        <th style="width: 25%">NAME</th>
-                        <th style="width: 25%">CALORY/10 Minute</th>
-                        <th style="width: 30%"></th>
+                        <th style="width: 30%">NAME</th>
+                        <th style="width: 30%">CALORY/10 Minute</th>
+                        <th style="width: 20%"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    
+                   @foreach($exercises as $exercise) 
                 
                     <tr>
-                    <td>id</td>
-                    <td>name</td>
-                    <td>calorie/10 minute</td>
+                    <td class="text-center">{{ $exercise->id }}</td>
+                    <td>{{ $exercise->name }}</td>
+                    <td>{{ $exercise->calories_per_10min }}</td>
                     <td>
                     <div class="d-flex justify-content-center gap-1">
-                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-food" ><i class="fas fa-pencil"></i> Edit
+                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-food" ><i class="fas fa-pencil"></i> 
                         </button>
                         <button class="btn p-0 ps-2 text-danger" data-bs-toggle="modal" data-bs-target="#delete-food">
-                            <i class="fa-solid fa-circle-minus"></i> Delete
+                            <i class="fa-solid fa-circle-minus"></i>
                         </button>
                     </div>
                 </td>
+                @endforeach
+
                                             
                     <!-- pagination -->
-                    <div class="d-flex justify-content-center mt-4">
-                        
+                    <div class="d-flex justify-content-center mt-4">  
+                            {{ $exercises->links() }}           
+                        </div>
                     </div>
                 </div>
             </div>

@@ -17,14 +17,17 @@ class ExercisesController extends Controller
 
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        $search = $request->input('search', '');
 
-       // $exercises = Exercise::when($search, function($query, $search) {
-           // return $query-where('name', 'like', "%{$search}%");
-        //})
-        //->paginate(10);
+       $exercises = Exercise::when($search, function($query, $search) {
+            return $query->where('name', 'like', "%{$search}%");
+        })
+        ->paginate(10);
 
-        return view('admin.exercise.exercise_list')->with('search', $search);
+        return view('admin.exercises.exercise_list', [
+            'exercises' => $exercises,
+            'search' => $search,
+        ]);
     }
 
     /**
@@ -78,7 +81,7 @@ class ExercisesController extends Controller
      */
     public function confirmDelete($id)
     {
-        $food = Food::findOrFail($id);
+        $exercise = Exercise::findOrFail($id);
         return view('admin.exercises.confirm-delete', compact('exercise'));
     }
 

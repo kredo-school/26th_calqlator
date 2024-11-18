@@ -1,4 +1,4 @@
-.user-table {
+.userlist {
     margin-left: 250px;
     margin-top: 60px;
     padding: 20px;
@@ -6,9 +6,8 @@
     min-height: calc(100vh - 60px);
 }
 
-.user-table th {
+.userlist th {
     background-color: #c9e2ac;
     color: black;
-    border: 1px solid black;
     vertical-align: middle;
 }
