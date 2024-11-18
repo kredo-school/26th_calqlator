@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ConfirmationController;
-use App\Http\Controllers\Admin\HomesController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ChatController;
 
 
 Route::get('/', function () {
@@ -18,7 +18,8 @@ use App\Http\Controllers\HomePageController;
 Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
 
 // UserFAQ 
-use App\Http\Controllers\FaqController;
+use App\Http\Controllers\Admin\HomesController;
+use App\Http\Controllers\ConfirmationController;
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 // Admin / Food & Exercise Confirmation
 Route::get('/admin/food/confirmation',[ConfirmationController::class, 'food_index'])->name('admin.food.confirmation');
@@ -41,3 +42,6 @@ Route::delete('/admin/faqlist/delete/{id}',[FaqController::class, 'delete'])->na
 Route::get('/admin/faqregistration/index', [FaqController::class, 'reg_index'])->name('admin.faqregistration.index');
 Route::get('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
 Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
+
+// Admin / ChatPage
+Route::get('/admin/chatpage/index', [ChatController::class, 'index'])->name('admin.chatpage.index');
