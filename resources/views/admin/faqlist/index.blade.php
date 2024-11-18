@@ -40,12 +40,12 @@
                             <td>{{ $faq->question }}</td>
                             <td>{{ $faq->answer }}</td>
                             <td>
-                                <button class="btn text-success" data-bs-toggle="modal" data-bs-target="#edit-faq-{{ $faq->id }}">
+                                <button type="button" class="btn text-success" data-bs-toggle="modal" data-bs-target="#edit-faq-{{ $faq->id }}">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
                             </td>
                             <td>
-                                <button class="btn text-danger" data-bs-toggle="modal" data-bs-target="#delete-faq-{{ $faq->id }}">
+                                <button type="button" class="btn text-danger" data-bs-toggle="modal" data-bs-target="#delete-faq-{{ $faq->id }}">
                                     <i class="fa-solid fa-circle-minus"></i>
                                 </button>
                                 @include('admin.faqlist.modals.actions')

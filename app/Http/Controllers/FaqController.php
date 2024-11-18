@@ -70,4 +70,5 @@ class FaqController extends Controller
         return redirect()->route('admin.faqregistration.index');
 
     }
+
 }
