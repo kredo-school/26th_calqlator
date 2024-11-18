@@ -22,7 +22,7 @@
 
     <script src="https://kit.fontawesome.com/dbc5b98639.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="{{ asset('assets/css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/user-homepage.css') }}">
 
 </head>
 <body>
