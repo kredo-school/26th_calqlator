@@ -23,7 +23,6 @@ Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayIn
 // UserFAQ
 use App\Http\Controllers\FaqController;
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
-
 // Admin / Homepage
 Route::get('/admin/home',[HomesController::class, 'index'])->name('admin.home');
 // Admin / Food & Exercise Confirmation

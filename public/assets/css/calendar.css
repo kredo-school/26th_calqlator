@@ -12,9 +12,41 @@ main{
     height: 90vh;
 }
 
-table{
-    border-collapse: collapse;
+.menu-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-group{
     width: 70%;
+}
+
+.list-group-item{
+    background-color: #FFF;
+    border: 1px solid #000;
+    padding:0;
+}
+
+.list-title{
+    border-bottom: 3px solid #000;
+}
+
+.item-left{
+    width: 40%;
+    border-right: 1px solid #000;
+    font-size: large;
+    text-align: center;
+    padding: 0px 5px;
+}
+.item-right{
+    font-size: large;
+    text-align: center;
+    padding-left: 5px;
+}
+#calendar{
+    border-collapse: collapse;
+    width: 90%;
     height: 100%;
     margin: auto;
 }
@@ -22,7 +54,7 @@ table{
 #prev,#next,#title{
     border: none;
 }
-
+/*  */
 #prev{
     text-align: right;
     font-size: 30px;
@@ -76,6 +108,7 @@ th{
 }
 
 tbody td{
+    background: #FFF;
     position: relative;
     border: 1px solid #000;
     padding: 0;
@@ -90,7 +123,6 @@ tbody td .top{
     font-size: 20px;
     font-weight: bold;
     text-align: end;
-    vertical-align: top;
     padding-right:5px; 
     margin: 0;
 }
@@ -101,9 +133,9 @@ tbody td .bottom{
     left: 0;
     font-size: 16px;
     text-align: start;
-    vertical-align: bottom;
     padding-left:5px; 
     margin: 0;
+    margin-top: 10px;
 }
 
 tbody td:first-child{
@@ -130,6 +162,10 @@ tfoot{
 }
 
 td.disabled{
+    background: #FFF;
+}
+
+td.disabled .top{
     opacity: 0.3;
 }
 

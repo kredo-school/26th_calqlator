@@ -157,17 +157,21 @@ console.clear();
                         type: 'GET',
                         success: function(response) {
                             if(date.isDisabled === false){
-                                if (response.length > 0) {
-                                    var weight = response[0].weight;
-                                    // var totalCalories = response.totalCalories;
-                                    bottomSection.innerHTML = `total kcal <br> ${weight} kg`;
-                                } else {
-                                    bottomSection.innerHTML = `-- kcal <br> -- kg`; 
+                                if (response) {
+                                    const weight = response.weight;
+                                    const totalCalories = response.totalCalories;
+                                        if(weight === null){
+                                            bottomSection.innerHTML = `${totalCalories} kcal <br> -- kg`;
+                                        }
+                                        else{
+                                            bottomSection.innerHTML = `${totalCalories} kcal <br> ${weight.weight} kg`;
+                                        }
                                 }
                             }
                         },
                         error: function(xhr, status, error) {
                             console.error('Error fetching data: ' + error);
+                            console.log('XHR response:', xhr.responseText);
                             bottomSection.innerHTML='Error fetching data.';
                         }
                     });

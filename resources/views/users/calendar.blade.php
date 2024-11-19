@@ -4,7 +4,7 @@
 
 @section('content')
 <body>
-    <table>
+    <table id="calendar">
         <thead>
             <tr>
                 <th></th>
