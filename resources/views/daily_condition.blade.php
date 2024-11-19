@@ -15,19 +15,19 @@
             <div class="form-group">
                 <label for="icon">Today's Condition</label>
                 <select class="form-control" id="icon">
-                    <option value="smiley1" data-icon="{{ asset('images/img01.png') }}">
+                    <option class="smile" value="smiley1" data-icon="{{ asset('images/img01.png') }}" >
                         <img src="{{ asset('images/img01.png') }}" alt="">Smiley 1
                     </option>
-                    <option value="smiley1" data-icon="{{ asset('images/img05.png') }}">
+                    <option class="smile" value="smiley1" data-icon="{{ asset('images/img05.png') }}">
                         <img src="{{ asset('images/img05.png') }}" alt="">Smiley 1
                     </option>
-                    <option value="smiley1" data-icon="{{ asset('images/img11.png') }}">
+                    <option class="smile" value="smiley1" data-icon="{{ asset('images/img11.png') }}">
                         <img src="{{ asset('images/img11.png') }}" alt="">Smiley 1
                     </option>
-                    <option value="smiley1" data-icon="{{ asset('images/img12.png') }}">
+                    <option class="smile" value="smiley1" data-icon="{{ asset('images/img12.png') }}">
                         <img src="{{ asset('images/img12.png') }}" alt="">Smiley 1
                     </option>
-                    <option value="smiley1" data-icon="{{ asset('images/img15.png') }}">
+                    <option class="smile" value="smiley1" data-icon="{{ asset('images/img15.png') }}">
                         <img src="{{ asset('images/img15.png') }}" alt="">Smiley 1
                     </option>
                     <!-- 他のアイコンも同様に追加 -->
