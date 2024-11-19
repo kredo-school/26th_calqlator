@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meal Registration</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/meal.style.css') }}">
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Meal Registration</h2>
+        <h2 class="underline text-center">Meal Registration</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -91,68 +94,84 @@
         </table>
     </div>
     
-    <!-- Modal -->
-    <div class="modal fade" id="addFoodModal" tabindex="-1" aria-labelledby="addFoodModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addFoodModalLabel">Add Food</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
+<!-- Modal -->
+<div class="modal fade" id="addFoodModal" tabindex="-1" aria-labelledby="addFoodModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content  text-center">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addFoodModalLabel">Register my own meal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addFoodForm" action="{{ route('meals.store') }}" method="POST">
+          @csrf
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="item">Food Name</label>
+              <input type="text" class="form-control" id="item" name="item" placeholder="Banana" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="calories">Calories per amount</label>
+              <input type="number" class="form-control" id="calories" name="calories" placeholder="50 kcal" required>
+            </div>
           </div>
-          <div class="modal-body">
-            <form id="addFoodForm">
-              <div class="form-group">
-                <label for="item">Item</label>
-                <input type="text" class="form-control" id="item" name="item" required>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="amount">Amount</label>
+              <div class="input-group">
+                <input type="number" class="form-control" id="amount" name="amount" placeholder="50" required>
+                <div class="input-group-append">
+                  <select class="form-control" id="unit" name="unit" required>
+                    <option value="g">g</option>
+                    <option value="ml">ml</option>
+                    <option value="quantity">quantity</option>
+                    <option value="one meal">one meal</option>
+                  </select>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="calories">Calories</label>
-                <input type="number" class="form-control" id="calories" name="calories" required>
-              </div>
-              <div class="form-group">
-                <label for="amount">Amount</label>
-                <input type="text" class="form-control" id="amount" name="amount" required>
-              </div>
-              <div class="form-group">
-                <label for="time_eaten">Time eaten</label>
-                <input type="text" class="form-control" id="time_eaten" name="time_eaten" required>
-              </div>
-              <div class="form-group">
-                <label for="protein">Protein</label>
-                <input type="number" class="form-control" id="protein" name="protein" required>
-              </div>
-              <div class="form-group">
-                <label for="carbohydrate">Carbohydrate</label>
-                <input type="number" class="form-control" id="carbohydrate" name="carbohydrate" required>
-              </div>
-              <div class="form-group">
-                <label for="lipid">Lipid</label>
-                <input type="number" class="form-control" id="lipid" name="lipid" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Save</button>
-            </form>
+            </div>
           </div>
+          <button type="submit" class="btn btn-outline-primary">ADD</button>
+        </form>
+        <div class="form-group mt-3">
+          <button type="button" class="btn btn-outline-secondary" id="sendRequestButton">
+            <i class="fas fa-check" id="checkIcon" style="display: none;"></i>
+          </button> Send request to add to database
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            $('#addFoodForm').on('submit', function(event) {
-                event.preventDefault();
-                // フォームデータを取得
-                var formData = $(this).serializeArray();
-                // ここでフォームデータを処理（例：サーバーに送信）
-                console.log(formData);
-                // モダルを閉じる
-                $('#addFoodModal').modal('hide');
-            });
-        });
+document.getElementById('sendRequestButton').addEventListener('click', function() {
+  var checkIcon = document.getElementById('checkIcon');
+  if (checkIcon.style.display === 'none') {
+    checkIcon.style.display = 'inline';
+  } else {
+    checkIcon.style.display = 'none';
+  }
+});
+
+
+
+
     </script>
 </body>
 </html>
