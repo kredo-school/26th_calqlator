@@ -9,4 +9,8 @@ class ChatController extends Controller
     public function index(){
         return view('admin.chatpage.index');
     }
+
+    public function userindex(){
+        return view('user.chat');
+    }
 }
