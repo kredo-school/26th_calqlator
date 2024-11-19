@@ -6,11 +6,13 @@
     <title>Meal Registration</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css/meal.style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/meal.style.css') }}">
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="underline text-center">Meal Registration</h2>
+      <div class="underline-container">
+        <h2 class="underline text-left">Meal Registration</h2>
+      </div>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -52,8 +54,7 @@
                 <input type="text" class="form-control w-80" name="query" placeholder="Search...">
             </div>
         </form>
-        
-        <h2 class="text-center">History</h2>
+        <h2 class="history text-center">History</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -110,20 +111,20 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="item">Food Name</label>
-              <input type="text" class="form-control" id="item" name="item" placeholder="Banana" required>
+              <input type="text" class="mborder form-control" id="item" name="item" placeholder="Banana" required>
             </div>
             <div class="form-group col-md-6">
               <label for="calories">Calories per amount</label>
-              <input type="number" class="form-control" id="calories" name="calories" placeholder="50 kcal" required>
+              <input type="number" class="mborder form-control" id="calories" name="calories" placeholder="50 kcal" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="amount">Amount</label>
               <div class="input-group">
-                <input type="number" class="form-control" id="amount" name="amount" placeholder="50" required>
+                <input type="number" class="mborder form-control" id="amount" name="amount" placeholder="50" required>
                 <div class="input-group-append">
-                  <select class="form-control" id="unit" name="unit" required>
+                  <select class="mborder form-control" id="unit" name="unit" required>
                     <option value="g">g</option>
                     <option value="ml">ml</option>
                     <option value="quantity">quantity</option>
@@ -144,18 +145,7 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-    
+ 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
