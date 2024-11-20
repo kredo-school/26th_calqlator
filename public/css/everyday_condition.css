@@ -1,0 +1,11 @@
+/* evryday_condition.css */
+.form-control option {
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 40px; /* アイコンのスペースを確保 */
+}
+.form-control option img {
+    width: 20px; /* アイコンの幅 */
+    height: 20px; /* アイコンの高さ */
+    vertical-align: middle; /* テキストとアイコンを中央揃え */
+}
