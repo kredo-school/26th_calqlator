@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\UserHomePageController;
@@ -24,7 +24,6 @@ Route::delete('/user/breakfast/delete/{id}',[UserHomePageController::class, 'bre
 Route::delete('/user/lunch/delete/{id}',[UserHomePageController::class, 'lunchDelete'])->name('user.lunch.delete');
 Route::delete('/user/dinner/delete/{id}',[UserHomePageController::class, 'dinnerDelete'])->name('user.dinner.delete');
 Route::delete('/user/workout/delete/{id}',[UserHomePageController::class, 'workoutDelete'])->name('user.workout.delete');
-Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
 // User / Calendar
 Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
 Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
