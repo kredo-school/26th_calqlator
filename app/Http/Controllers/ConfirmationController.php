@@ -18,7 +18,7 @@ class ConfirmationController extends Controller
     }
 
     public function food_index(Request $request){
-        $pending_foods = $this->food->where('status','pending')->paginate(10);
+        $pending_foods = $this->food->where('status','pending')->get();
 
         $search_foods = [];
         if($request->search){

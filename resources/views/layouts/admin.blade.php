@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('css/nav-menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmation.css') }}">
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
 
     <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
 </head>
@@ -122,5 +123,17 @@
             </div>
         </main>
     </div>
+<script src="{{asset('assets/js/jquery.js')}}"></script>
+<script src="{{asset('assets/js/dataTables.js')}}"></script>
+<script>
+$(document).ready(function() {
+    $('#admin-table').DataTable({
+        paging: true, 
+        searching: false, 
+        ordering: true, 
+    });
+});
+</script>
+<script src="{{ asset('assets/js/sort.js') }}"></script>
 </body>
 </html>
