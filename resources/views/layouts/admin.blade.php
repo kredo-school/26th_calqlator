@@ -127,6 +127,7 @@
 $(document).ready(function() {
     $('#admin-table').DataTable({
         paging: true, 
+        pageLength: 10, 
         searching: false, 
         ordering: true, 
     });

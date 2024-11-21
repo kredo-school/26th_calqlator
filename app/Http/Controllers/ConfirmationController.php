@@ -34,7 +34,7 @@ class ConfirmationController extends Controller
     }
 
     public function exercise_index(Request $request){
-        $pending_exercises = $this->exercise->where('status','pending')->paginate(10);
+        $pending_exercises = $this->exercise->where('status','pending')->get();
 
         $search_exercises = [];
         if($request->search){
