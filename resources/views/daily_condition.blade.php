@@ -6,7 +6,7 @@
     <title>Cal-O-Lator</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="file:///C:/Users/saki/Documents/26th_calqlator/public/css/everyday_condition.css">
+    <link rel="stylesheet" href="{{ asset('/css/everyday_condition.style.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
