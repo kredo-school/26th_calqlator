@@ -8,8 +8,8 @@
         <div class="col-9">
             <h2>Exercise Confirmation</h2>
 
-            <div class="confirmation-table">
-                <table class="table text-center mb-0">
+            <div class="confirmation-table sortable-table">
+                <table class="table text-center mb-0 " id="admin-table">
                     <thead class="exercise-confirmation">
                         <tr>
                             <th id="id" class="sortable">ID <span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
