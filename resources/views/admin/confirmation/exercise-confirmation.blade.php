@@ -12,9 +12,9 @@
                 <table class="table text-center mb-0">
                     <thead class="exercise-confirmation">
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Calories / 10min</th>
+                            <th id="id" class="sortable">ID <span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
+                            <th id="item_name" class="sortable">Name <span class="sort-arrow"> <i class="fas fa-sort"></i></span></th>
+                            <th id="calories" class="sortable">Calories / 10min <span class="sort-arrow"> <i class="fas fa-sort"></i></span></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -75,5 +75,4 @@
         </div>
     </div>
 </div>
-{{ $pending_exercises->links() }}
 @endSection
