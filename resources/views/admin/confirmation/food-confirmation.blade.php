@@ -3,7 +3,6 @@
 @section('title', 'Food Confirmation')
 
 @section('content')
-<body>
     <div class="mt-5 px-5">
         <div class="row">
             <div class="left-side m-0 p-0">
@@ -80,17 +79,4 @@
             </div>
         </div>
     </div>
-<script src="{{asset('assets/js/jquery.js')}}"></script>
-<script src="{{asset('assets/js/dataTables.js')}}"></script>
-<script>
-$(document).ready(function() {
-    $('#admin-table').DataTable({
-        paging: true, 
-        searching: false, 
-        ordering: true, 
-    });
-});
-</script>
-<script src="{{ asset('assets/js/sort.js') }}"></script>
-</body>
 @endSection
