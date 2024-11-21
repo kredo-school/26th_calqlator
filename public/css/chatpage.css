@@ -6,6 +6,16 @@
     font-size: 1rem;
 }
 
+.icon-lg{
+    font-size: 2.5rem;
+}
+
+.icon-apple{
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+}
+
 body {
     font-family: 'Noto Sans JP', sans-serif;
     margin: 0;
@@ -104,7 +114,7 @@ body {
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: #4caf50;
+    background-color: #859D6B;
     border: none;
     border-radius: 50%;
     cursor: pointer;
