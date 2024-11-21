@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cal-O-Lator</title>
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('/css/everyday_condition.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="file:///C:/Users/saki/Documents/26th_calqlator/public/css/everyday_condition.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="container mt-5">
@@ -15,21 +17,11 @@
                 <div class="form-group">
                     <label for="icon">Today's Condition</label>
                     <select class="form-control" id="icon">
-                        <option class="smile" value="smiley1" data-icon="{{ asset('images/img01.png') }}">
-                            <img src="{{ asset('images/img01.png') }}" alt=""> Smiley 1
-                        </option>
-                        <option class="smile" value="smiley2" data-icon="{{ asset('images/img05.png') }}">
-                            <img src="{{ asset('images/img05.png') }}" alt=""> Smiley 2
-                        </option>
-                        <option class="smile" value="smiley3" data-icon="{{ asset('images/img11.png') }}">
-                            <img src="{{ asset('images/img11.png') }}" alt=""> Smiley 3
-                        </option>
-                        <option class="smile" value="smiley4" data-icon="{{ asset('images/img12.png') }}">
-                            <img src="{{ asset('images/img12.png') }}" alt=""> Smiley 4
-                        </option>
-                        <option class="smile" value="smiley5" data-icon="{{ asset('images/img15.png') }}">
-                            <img src="{{ asset('images/img15.png') }}" alt=""> Smiley 5
-                        </option>
+                        <option class="smile" value="smiley1" >😀</option>
+                        <option class="smile" value="smiley2" >😏</option>
+                        <option class="smile" value="smiley3" >😐</option>
+                        <option class="smile" value="smiley4" >😷</option>
+                        <option class="smile" value="smiley5" >😴</option>
                         <!-- 他のアイコンも同様に追加 -->
                     </select>
                 </div>
@@ -44,9 +36,31 @@
                 <div class="form-group">
                     <label for="icon">Icon</label>
                     <select class="form-control" id="icon">
-                        <option>Running</option>
-                        <option>Cycling</option>
-                        <option>Swimming</option>
+                        <option>🏃</option>
+                        <option>🏃‍♀️</option>
+                        <option>🚴</option>
+                        <option>🤺</option>
+                        <option>⛷️</option>
+                        <option>🏂</option>
+                        <option>🏌</option>
+                        <option>🏄</option>
+                        <option>🏊</option>
+                        <option>🏕️</option>
+                        <option>🏥</option>
+                        <option>🗽</option>
+                        <option>♨ </option>
+                        <option>🎡</option>
+                        <option>🚂</option>
+                        <option>🚗</option>
+                        <option>✈</option>
+                        <option>☃</option>
+                        <option>🐶</option>
+                        <option>🗽</option>
+                        <option>🎶</option>
+
+
+
+
                     </select>
                 </div>
                 <div class="form-group">
@@ -58,6 +72,16 @@
             </form>
         </div>
     </div>
-    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="js/app.js"></script>
+    <script>
+        $(document).ready(function() {
+  $('#icon option').each(function() {
+    var iconUrl = $(this).attr('data-icon');
+    if (iconUrl) {
+      $(this).html('<img src="' + iconUrl + '" style="width: 20px; height: 20px; vertical-align: middle;"> ' + $(this).text());
+    }
+  });
+});
+    </script>
 </body>
 </html>
