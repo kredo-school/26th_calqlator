@@ -44,3 +44,6 @@ Route::get('/admin/faqregistration/store', [FaqController::class, 'store'])->nam
 Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
 // Admin / ChatPage
 Route::get('/admin/chatpage/index', [ChatController::class, 'index'])->name('admin.chatpage.index');
+
+// User / ChatPage
+Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
