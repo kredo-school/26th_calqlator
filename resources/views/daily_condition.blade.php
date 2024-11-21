@@ -15,7 +15,7 @@
         <div class="row justify-content-center">
             <form>
                 <div class="form-group">
-                    <label for="icon">Today's Condition</label>
+                    <img src="{{ asset('images/goodjob.png') }}" alt=""><label for="icon">Today's Condition</label>
                     <select class="form-control" id="icon">
                         <option class="smile" value="smiley1" >😀</option>
                         <option class="smile" value="smiley2" >😏</option>
