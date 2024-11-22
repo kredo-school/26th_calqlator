@@ -1,0 +1,61 @@
+
+.icon-sm {
+    font-size: 1.5rem;
+}
+.custom-border {
+    border: none;
+    border-bottom: 1px solid #9a9ba8;
+    border-radius: 0;
+}
+.custom-border:focus {
+    border-bottom: 2px solid #80bdff;
+    outline: none;
+    box-shadow: 0 2px rgba(0, 123, 255, 0.3);
+}
+.green {
+    color: rgb(33, 134, 53);
+}
+.click {
+    color: white;
+    background-color:#dc0909;
+    border: none;
+    border-radius: 100%;
+}
+.click:hover {
+    background-color:#dc0909;
+    opacity: 0.7;
+}
+.click:active {
+    margin-top: 0.2em;
+    box-shadow: 0 0.1em 0 #c00000;
+}
+.position {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.del-btn {
+    color: white;
+    background-color:#d55555;
+    border: none;
+    font-size: 1rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.del-btn:hover {
+    background-color:#d87171;
+    opacity: 0.7;
+}
+.btn-save {
+    color: #237a44;
+    border-color: #237a44;
+    float: right;
+    width: 100px;
+}
+.btn-save:hover {
+    color: white;
+    background-color: #237a44;
+}
