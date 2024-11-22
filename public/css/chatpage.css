@@ -142,3 +142,39 @@ a.list-group-item-b{
     color: #C9E2AC;
     background-color: #859D6B;
 }
+
+.sort-arrow{
+    cursor: pointer;
+}
+
+.dataTables_length{
+    display: none;
+}
+
+#admin-table_info , #admin-table_paginate{
+    text-align: center;
+}
+
+#admin-table_next{
+    margin-left: 5px;
+}
+
+#admin-table_next::after{
+    content: " >>";
+}
+
+#admin-table_previous{
+    margin-right: 5px;
+}
+
+#admin-table_previous::before{
+    content: "<< ";
+}
+
+.paginate_button{
+    cursor: pointer;
+}
+
+a.paginate_button , a.paginate_button.current{
+    margin-right: 5px;
+}
