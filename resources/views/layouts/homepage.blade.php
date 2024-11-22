@@ -10,17 +10,17 @@
     <title>{{ config('app.name') }} | @yield('title')</title>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Licorice&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <!--<link rel="dns-prefetch" href="//fonts.bunny.net">-->
+    <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
+    <!--<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+    <link href="{{ asset('css/fonts2.css') }}" rel="stylesheet">
 
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    <script src="https://kit.fontawesome.com/dbc5b98639.js" crossorigin="anonymous"></script>
+    <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{{ asset('assets/css/homepage.css') }}">
 
@@ -35,4 +35,3 @@
     </div>
 </body>
 </html>
-
