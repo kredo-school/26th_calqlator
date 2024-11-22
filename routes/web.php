@@ -24,7 +24,8 @@ Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.c
 Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
 // UserFAQ 
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
-
+// User / ChatPage
+Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
 // ADMIN
 // Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
 // Admin / Homepage
@@ -45,5 +46,4 @@ Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->na
 // Admin / ChatPage
 Route::get('/admin/chatpage/index', [ChatController::class, 'index'])->name('admin.chatpage.index');
 
-// User / ChatPage
-Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
+
