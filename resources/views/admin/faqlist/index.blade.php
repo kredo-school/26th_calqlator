@@ -21,14 +21,14 @@
 </div>
 <div class="row">
     <div class="col-2"></div>
-    <div class="col-8">
+    <div class="col-8 sortable-table">
         <form action="">
-            <table class="table table-hover align-middle bg-white border text-secondary">
+            <table class="table table-hover align-middle bg-white border text-secondary" id="admin-table">
                 <thead class="small table-warning text-secondary">
                     <tr>
-                        <th>ID</th>
-                        <th>Question</th>
-                        <th>Answer</th>
+                        <th id="id" class="sortable">ID<span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
+                        <th id="question" class="sortable">Question<span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
+                        <th id="answer" class="sortable">Answer<span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
                         <th></th>
                         <th></th>
                     </tr>
