@@ -123,5 +123,17 @@
             </div>
         </main>
     </div>
+<script src="{{asset('assets/js/jquery.js')}}"></script>
+<script src="{{asset('assets/js/dataTables.js')}}"></script>
+<script>
+$(document).ready(function() {
+    $('#admin-table').DataTable({
+        paging: true, 
+        searching: false, 
+        ordering: true, 
+    });
+});
+</script>
+<script src="{{ asset('assets/js/sort.js') }}"></script>
 </body>
 </html>
