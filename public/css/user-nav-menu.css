@@ -1,0 +1,15 @@
+.container{
+    width: 100vw;
+}
+.navbar{
+    background-color: #859D6B;
+}
+
+.logout{
+    color: #404D34;
+    font-weight: bold;
+}
+
+.logo{
+    height: 50px;
+}

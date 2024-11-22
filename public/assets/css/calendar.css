@@ -1,0 +1,180 @@
+body{
+    background-color:#FFFCF7;
+    font-family: 'Poppins';
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+}
+
+main{
+    height: 90vh;
+}
+
+.menu-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-group{
+    width: 70%;
+}
+
+.list-group-item{
+    background-color: #FFF;
+    border: 1px solid #000;
+    padding:0;
+}
+
+.list-title{
+    border-bottom: 3px solid #000;
+}
+
+.item-left{
+    width: 40%;
+    border-right: 1px solid #000;
+    font-size: large;
+    text-align: center;
+    padding: 0px 5px;
+}
+.item-right{
+    font-size: large;
+    text-align: center;
+    padding-left: 5px;
+}
+#calendar{
+    border-collapse: collapse;
+    width: 90%;
+    height: 100%;
+    margin: auto;
+}
+
+#prev,#next,#title{
+    border: none;
+}
+/*  */
+#prev{
+    text-align: right;
+    font-size: 30px;
+}
+
+#next{
+    text-align: left;
+    font-size: 30px;
+}
+
+
+#title{
+    font-size: 100px;
+    text-align: end;
+    padding: 0;
+}
+
+#year , #monthName{
+    font-size: 30px;
+    margin: 0;
+}
+
+#year{
+    vertical-align: bottom;
+}
+
+#monthName{
+    vertical-align: top;
+}
+
+thead tr:first-child{
+    background: #FFFCF7;
+    height:100px;
+}
+
+thead tr:first-child th{
+    border: none;
+    padding: 0;
+}
+
+thead tr:nth-child(2){
+    background: #FFA488;
+    border: 2px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+th{
+    padding:8px;
+    text-align: center;
+    border: 1px solid #000;
+}
+
+tbody td{
+    background: #FFF;
+    position: relative;
+    border: 1px solid #000;
+    padding: 0;
+    width: 10%;
+    height: 100px;
+}
+
+tbody td .top{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: end;
+    padding-right:5px; 
+    margin: 0;
+}
+
+tbody td .bottom{
+    position: absolute;
+    top: 18px;
+    left: 0;
+    font-size: 16px;
+    text-align: start;
+    padding-left:5px; 
+    margin: 0;
+    margin-top: 10px;
+}
+
+tbody td:first-child{
+    border-left: 2px solid #000;
+}
+
+tbody td:first-child .top{
+    color: red;
+}
+
+tbody td:last-child{
+    border-right: 2px solid #000;
+}
+
+tbody td:last-child .top{
+    color: blue;
+}
+
+tfoot{
+    background: #FFA488;
+    font-weight: bold;
+    border: 2px solid #000;
+    border-top: 1px solid #000;
+}
+
+td.disabled{
+    background: #FFF;
+}
+
+td.disabled .top{
+    opacity: 0.3;
+}
+
+td.today{
+    font-weight: bold;
+    border:3px solid red !important;
+}
+
+#prev, #next, #today{
+    cursor: pointer;
+    user-select: none;
+}
