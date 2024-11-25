@@ -11,10 +11,9 @@ body{
 main{
     height: 90vh;
 }
-
+/* left bar */
 .menu-area{
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
@@ -32,17 +31,19 @@ main{
     border-bottom: 3px solid #000;
 }
 
-.item-left{
-    width: 40%;
+.icon{
+    width: 50%;
     border-right: 1px solid #000;
-    font-size: large;
+    font-size: 40px;
     text-align: center;
-    padding: 0px 5px;
 }
-.item-right{
+.count{
+    width: 50%;
     font-size: large;
     text-align: center;
-    padding-left: 5px;
+    padding: 0;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 #calendar{
     border-collapse: collapse;
@@ -54,7 +55,7 @@ main{
 #prev,#next,#title{
     border: none;
 }
-/*  */
+/*  Calendar */
 #prev{
     text-align: right;
     font-size: 30px;
@@ -177,4 +178,30 @@ td.today{
 #prev, #next, #today{
     cursor: pointer;
     user-select: none;
+}
+
+@media (min-width: 768px) {
+.menu-area{
+    width: 20%;
+    justify-content: end;
+}
+
+.calendar-area{
+    width: 60%;
+}
+
+.right-area{
+    width: 20%;
+}
+}
+
+@media (max-width: 768px) {
+.menu-area{
+    width: 100%;
+    justify-content: center;
+}
+
+.calendar-area{
+    width: 100%;
+}
 }

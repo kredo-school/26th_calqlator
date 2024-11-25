@@ -79,70 +79,51 @@
 
         <main class="py-4">
             <div class="row h-100">
-                <div class="col-2 p-0 menu-area">
-                    <ul class="list-group text-center ms-auto border border-dark">
-                        <li class="list-group-item m-0 list-title">Summary</h3>
+                <div class="p-0 menu-area">
+                    <ul class="list-group text-center border border-dark">
+                        <h3 class="list-group-item m-0 list-title ">Summary of the month</h3>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon" >😀</span>
+                                <span class="count">1</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon">😏</span>
+                                <span class="count">2</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon">😐</span>
+                                <span class="count">3</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon">😷</span>
+                                <span class="count">4</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon">😴</span>
+                                <span class="count">5</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon">⭐</span>
+                                <span class="count">6</span>
                             </div>
                         </li>
-                        <li class="list-group-item"> 
-                            <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
-                            </div>
-                        </li>
-                        <li class="list-group-item"> 
-                            <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
-                            </div>
-                        </li>
-                        <li class="list-group-item"> 
-                            <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
-                            </div>
-                        </li>
-                       
                     </ul>                
                 </div>
-                <div class="col p-0">
+                <div class="calendar-area p-0">
                     @yield('content')
                 </div>
-                <div class="col-2">
+                <div class="right-area">
 
                 </div>
             </div>
