@@ -34,7 +34,7 @@
                         <th style="width: 10%">ID</th>
                         <th style="width: 30%">NAME</th>
                         <th style="width: 30%">CALORY/10 Minute</th>
-                        <th style="width: 20%"></th>
+                        <th style="width: 30%"></th>
                     </tr>
                 </thead>
                 <tbody>

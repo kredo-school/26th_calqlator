@@ -9,36 +9,49 @@
             <div class="modal-body px-5 py-0">
                 <p class="mb-0">Are you sure you want to edit?</p>
 
-                <div class="m-1 edit-table">
+                {{-- Confirmation table --}}
+                <div class="confirmation-table mb-4">
                     <table class="table table-borderless text-center text-dark mb-0">
-                        <thead class="exercise-edit">
+                        <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>NAME</th>
-                                <th>CALORY/10 Minute</th>
+                                <th>Name</th>
+                                <th>Calory</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{{ $exercise->item_id }}</td>
-                                <td>{{ $exercise->item_name }}</td>
-                                <td>{{ $exercise->calory_per_10min }}</td>
+                                <td>{{ $food->name }}</td>
+                                <td>{{ $food->calories_per_10min }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="modal-footer border-0 justify-content-center p-0 my-3">
-                <form action="{{ route('admin.edit', $exercise->id)}}" method="post">
-                    @csrf 
+
+                {{-- Edit Form --}}
+                <form action="{{ route('admin.exercises.update', $exercise->id) }}" method="POST">
+                    @csrf
                     @method('PATCH')
-                        <button type="button" data-bs-dismiss="modal" class="btn btn-sm px-4 me-3 cancel-btn">Cancel</button>
-                        <button type="submit" class="btn btn-sm px-4 edit-btn"> <i class="fa-solid fa-circle-check"></i> Edit</button>
-                </form>    
+
+                    <div class="form-group mb-3">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" value="{{ $exercise->name }}" class="form-control" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="calory">Calory/ 10minute</label>
+                        <input type="number" name="calory" id="calory" value="{{ $exercise->calories_per_10min }}" class="form-control" required>
+                    </div>
+
+                    <div class="modal-footer border-0 justify-content-center p-0 my-3">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-sm px-4 me-3 cancel-btn">Cancel"></button>
+                        <button type="submit" class="btn btn-sm px-4 edit-btn"><i class="fa-solid fa-circle-check"></i> Update</button>
+                    </div>
+                </form>
             </div>
-        </div>  
+        </div>
     </div>
 </div>
+</div>
+
 
 {{-- DELETE --}}
 <div class="modal fade" id="delete-exercise{{ $exercise->id }}">
@@ -61,8 +74,8 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{{ $exercise->item_id }}</td>
-                                <td>{{ $exercise->item_name }}</td>
+                                <td>{{ $exercise->id }}</td>
+                                <td>{{ $exercise->name }}</td>
                                 <td>{{ $exercise->calory_per_10min }}</td>
                             </tr>
                         </tbody>
