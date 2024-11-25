@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MealController;
+use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\UserHomePageController;
@@ -18,6 +20,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
 // User / Home Page
 Route::get('/user/home', [UserHomePageController::class, 'index'])->name('user.home');
 Route::delete('/user/breakfast/delete/{id}',[UserHomePageController::class, 'breakfastDelete'])->name('user.breakfast.delete');
@@ -38,6 +42,13 @@ Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayIn
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 // User / ChatPage
 Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
+//User /Meal Registration
+Route::get('/meals', [MealController::class, 'index']);
+Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
+Route::get('/search', [MealController::class, 'search']);
+//User / Everyday Condition
+Route::get('/daily-condition', function () {return view('daily_condition');});
+
 // ADMIN
 // Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
 // Admin / Homepage
