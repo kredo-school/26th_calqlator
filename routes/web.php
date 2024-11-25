@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MealController;
+
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ConfirmationController;
