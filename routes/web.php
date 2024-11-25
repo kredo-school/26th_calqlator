@@ -28,12 +28,16 @@ Route::delete('/user/supplement/delete/{id}',[UserHomePageController::class, 'su
 Route::delete('/user/snack/delete/{id}',[UserHomePageController::class, 'snackDelete'])->name('user.snack.delete');
 Route::get('/user/home/calories/chart', [UserHomePageController::class, 'caloriesChart'])->name('user.home.calories.chart');
 Route::get('/user/home/workout/chart', [UserHomePageController::class, 'workoutChart'])->name('user.home.workout.chart');
+Route::get('/user/home/protein/chart', [UserHomePageController::class, 'proteinChart'])->name('user.home.protein.chart');
+Route::get('/user/home/fat/chart', [UserHomePageController::class, 'fatChart'])->name('user.home.fat.chart');
+Route::get('/user/home/carbs/chart', [UserHomePageController::class, 'carbsChart'])->name('user.home.carbs.chart');
 // User / Calendar
 Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
 Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
 // UserFAQ 
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
-
+// User / ChatPage
+Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
 // ADMIN
 // Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
 // Admin / Homepage
@@ -54,5 +58,4 @@ Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->na
 // Admin / ChatPage
 Route::get('/admin/chatpage/index', [ChatController::class, 'index'])->name('admin.chatpage.index');
 
-// User / ChatPage
-Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
+

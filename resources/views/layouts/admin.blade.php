@@ -71,13 +71,13 @@
             </div>
         </nav>
 
-        <main class="py-3">
-            <div class="row mx-3">
-                @if (request()->is('admin/home'))
-                    <div class="col">
-                        @yield('content')
-                    </div>
-                @else
+        @if (request()->is('admin/home'))
+            <div class="col">
+                @yield('content')
+            </div>
+        @else
+            <main class="py-3">
+                <div class="row mx-3">
                     <div class="col-auto p-0">
                         <div class="list-group text-center rounded-0">
                             <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }} menu">
@@ -96,11 +96,10 @@
                                 <i class="fa-solid fa-circle-question"></i> FAQ List <i class="fa-solid fa-table-list"></i>
                             </a>
                             <a href="{{ route('admin.food.confirmation')}}" class="list-group-item {{ request()->is('/admin/food/confirmation*') ? 'active' : '' }}">
-                                <i class="fa-solid fa-burger"></i> Food Confirmation <i class="fa-solid fa-square-check"></i>
+                                <i class="fa-solid fa-burger"></i> Food Confirmation <i class="fa-solid fa-square-check"></i> 
                             </a>
                             <a href="{{ route('admin.exercise.confirmation')}}" class="list-group-item {{ request()->is('/admin/exercise/confirmation*') ? 'active' : '' }}">
-                                <i class="fa-solid fa-person-running"></i> Exercise Confirmation <i class="fa-solid fa-square-check"></i>
-                            </a>
+                                <i class="fa-solid fa-person-running"></i> Exercise Confirmation <i class="fa-solid fa-square-check"></i>                        </a>
                             <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
                                 <i class="fa-solid fa-carrot"></i> Food Registeration <i class="fa-solid fa-square-plus"></i>
                             </a>
@@ -113,15 +112,14 @@
                             <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }} list-group-item-action">
                                 <i class="fa-solid fa-comments"></i> Chat Page
                             </a>
-
                         </div>
                     </div>
                     <div class="col">
                         @yield('content')
                     </div>
-                @endif
-            </div>
-        </main>
+                </div>
+            </main>
+        @endif
     </div>
 <script src="{{asset('assets/js/jquery.js')}}"></script>
 <script src="{{asset('assets/js/dataTables.js')}}"></script>
@@ -129,6 +127,7 @@
 $(document).ready(function() {
     $('#admin-table').DataTable({
         paging: true, 
+        pageLength: 10, 
         searching: false, 
         ordering: true, 
     });

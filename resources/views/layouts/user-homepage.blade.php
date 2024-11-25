@@ -38,6 +38,9 @@
     </div>
     <script src="{{ asset('js/calories-chart.js') }}"></script>
     <script src="{{ asset('js/workout-chart.js') }}"></script>
+    <script src="{{ asset('js/protein-chart.js') }}"></script>
+    <script src="{{ asset('js/fat-chart.js') }}"></script>
+    <script src="{{ asset('js/carbs-chart.js') }}"></script>
 </body>
 </html>
 

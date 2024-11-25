@@ -1,14 +1,14 @@
 
-fetch('/user/home/calories/chart')
+fetch('/user/home/carbs/chart')
             .then(response => response.json())
-            .then(totalCalories => {
+            .then(totalCarbs => {
                 let barColor = 'rgba(75, 192, 192, 0.7)'; 
                 let borderColor = 'black'; 
         
-                if (totalCalories < 1000) {
+                if (totalCarbs < 1000) {
                     barColor = 'rgba(255, 255, 0, 0.7)';  
                     borderColor = 'rgba(255, 255, 0, 1)';
-                } else if (totalCalories >= 1000 && totalCalories <= 2000) {
+                } else if (totalCarbs >= 1000 && totalCarbs <= 2000) {
                     barColor = 'rgba(54, 162, 235, 0.7)';  
                     borderColor = 'rgba(54, 162, 235, 1)';
                 } else {
@@ -16,30 +16,30 @@ fetch('/user/home/calories/chart')
                     borderColor = 'rgba(255, 99, 132, 1)';
                 }
 
-                const ctx = document.getElementById('caloriesChart').getContext('2d');
-                const caloriesChart = new Chart(ctx, {
+                const ctx = document.getElementById('carbsChart').getContext('2d');
+                const carbsChart = new Chart(ctx, {
                     plugins: [ChartDataLabels],
                     type: 'bar',
                     data: {
-                        labels: ['totalCalories'],
+                        labels: ['totalCarbs'],
                         datasets: [
                             {
-                                data: [totalCalories],
+                                data: [totalCarbs],
                                 backgroundColor: barColor,  
                                 barPercentage: 0.6,
                                 borderColor: 'transparent',
                                 borderRadius: {
                                     topLeft: function(){
-                                        if(totalCalories <= 100){
+                                        if(totalCarbs <= 100){
                                             return 20;
                                         }else{
                                             return 10;
                                         }
                                     },
                                     bottomLeft: function(){
-                                        if(totalCalories <= 50){
+                                        if(totalCarbs <= 50){
                                             return 20;
-                                        }else if (totalCalories <= 100){
+                                        }else if (totalCarbs <= 100){
                                             return 20;
                                         }else{
                                             return 10;
@@ -54,7 +54,7 @@ fetch('/user/home/calories/chart')
                                     labels: {
                                         total: {
                                             align: function(value, context) {
-                                                if (totalCalories < 1200 || 2800 < totalCalories) {
+                                                if (totalCarbs < 1200 || 2800 < totalCarbs) {
                                                     return 'top';
                                                 } else {
                                                     return 'bottom';
@@ -66,14 +66,14 @@ fetch('/user/home/calories/chart')
                                                 size: 14  
                                             },
                                             formatter: function(value, context) {
-                                                if(800 < totalCalories){
+                                                if(800 < totalCarbs){
                                                     return "Total";
                                                 }else{
                                                     return " ";
                                                 }
                                             },   
                                             offset: function(value, context) {
-                                                if (totalCalories < 1200 || 2800 < totalCalories) {
+                                                if (totalCarbs < 1200 || 2800 < totalCarbs) {
                                                     return '10';
                                                 } else {
                                                     return '15';
@@ -83,7 +83,7 @@ fetch('/user/home/calories/chart')
                                         calories: {
                                             align: 'center',  
                                             anchor: function(){
-                                                if (totalCalories < 1600) {
+                                                if (totalCarbs < 1600) {
                                                     return 'end';
                                                 }else{
                                                     return 'center';
@@ -94,7 +94,7 @@ fetch('/user/home/calories/chart')
                                                 size: 14  
                                             },
                                             formatter: function(value,context) {
-                                                if (1000 < totalCalories ) {
+                                                if (1000 < totalCarbs) {
                                                     return value.toFixed(0) + " kcal";
                                                 } else {
                                                     return "";
@@ -107,9 +107,9 @@ fetch('/user/home/calories/chart')
                                 order:2,
                             },
                             {
-                                data: [[ totalCalories,2000 ]],
+                                data: [[ totalCarbs,2000 ]],
                                 borderColor: function(){
-                                    if (totalCalories < 2000) {
+                                    if (totalCarbs < 2000) {
                                         return 'rgba(255, 99, 132, 0.7)';
                                     }else{
                                         return 'red';
@@ -120,18 +120,18 @@ fetch('/user/home/calories/chart')
                                 borderSkipped: false,
                                 borderRadius: {
                                     topLeft: function(){
-                                        if(totalCalories <= 50){
+                                        if(totalCarbs <= 50){
                                             return 10;
-                                        }else if (totalCalories <= 150){
+                                        }else if (totalCarbs <= 150){
                                             return 5;
                                         }else{
                                             return 0;
                                         }
                                     },
                                     bottomLeft: function(){
-                                        if(totalCalories <= 50){
+                                        if(totalCarbs <= 50){
                                             return 10;
-                                        }else if (totalCalories <= 150){
+                                        }else if (totalCarbs <= 150){
                                             return 5;
                                         }else{
                                             return 0;
@@ -145,7 +145,7 @@ fetch('/user/home/calories/chart')
                                         goal: {
                                             align:'top',
                                             anchor: function(){
-                                                if (totalCalories < 2000) {
+                                                if (totalCarbs < 2000) {
                                                     return 'end';
                                                 }else{
                                                     return 'start';
@@ -168,7 +168,7 @@ fetch('/user/home/calories/chart')
                                                 size: 14  
                                             },
                                             formatter: function(value, context) {
-                                                if (totalCalories <= 800) {
+                                                if (totalCarbs <= 800) {
                                                     return "        Total";
                                                 } else {
                                                     return " ";
@@ -184,9 +184,9 @@ fetch('/user/home/calories/chart')
                                                 size: 14  
                                             },
                                             formatter: function(value, context) {
-                                                if (300 < totalCalories && totalCalories <= 1000) {
+                                                if (300 < totalCarbs && totalCarbs<= 1000) {
                                                     return "      " +value[0].toFixed(0)+ "kcal";
-                                                }else if (totalCalories <= 300){
+                                                }else if (totalCarbs <= 300){
                                                     return "            " +value[0].toFixed(0)+ "kcal";
                                                 }else {
                                                     return " ";

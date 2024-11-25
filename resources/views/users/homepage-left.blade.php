@@ -7,8 +7,8 @@
         </div>
     </div>
 
-        <input type="radio" id="page1" name="page" checked>
-        <input type="radio" id="page2" name="page">
+        <input type="radio" id="page1" name="page">
+        <input type="radio" id="page2" name="page" checked>
         <input type="radio" id="page3" name="page">
 
     <div class="container p-0 m-0">
@@ -21,7 +21,7 @@
                             <canvas id="caloriesChart"></canvas>
                         </div>
                     </div>
-                    <div>
+                    <div class="mt-3">
                         <h4>Total Workout</h4>
                         <div class="chart-box">
                             <canvas id="workoutChart"></canvas>
@@ -33,20 +33,20 @@
                     <div>
                         <h4>Protien</h4>
                         <div class="chart-box">
-                            <canvas></canvas>
+                            <canvas id="proteinChart"></canvas>
                         </div>
                     </div>
                     <div>
                         <h4>Carbon</h4>
                         <div class="chart-box">
-                            <canvas></canvas>
+                            <canvas id="carbsChart"></canvas>
                         </div>
                     </div>
 
                     <div>
                         <h4>Fat</h4>
                         <div class="chart-box">
-                            <img src="" alt="">
+                            <canvas id="fatChart"></canvas>
                         </div>
                     </div>
                 </li>
@@ -55,7 +55,7 @@
                     <div>
                         <h4>Weight Graphs</h4>
                         <div class="chart-box">
-                            <canvas></canvas>
+                            <canvas id="weightGraph"></canvas>
                         </div>
                     </div>
                 </li>

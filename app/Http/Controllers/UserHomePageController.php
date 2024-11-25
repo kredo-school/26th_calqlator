@@ -193,5 +193,113 @@ class UserHomePageController extends Controller
 
         return response()->json($workoutCalories);
     }
+
+    public function proteinChart(){
+        $today = now()->format('Y-m-d');
+
+        $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $dinners = $this->dinner->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $snacks = $this->snack->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $today)->get();
+       
+        $totalProtein = 0;
+        $breakfastProtien = 0;
+        $lunchProtien = 0;
+        $dinnerProtien = 0;
+        $snackProtien = 0;
+        $supplementProtien = 0;
+        foreach($breakfasts as $breakfast){
+            $breakfastProtien += $breakfast->amount * $breakfast->food->protein;
+        }
+        foreach($lunches as $lunch){
+            $lunchProtien += $lunch->amount * $lunch->food->protein;
+        }
+        foreach($dinners as $dinner){
+            $dinnerProtien += $dinner->amount * $dinner->food->protein;
+        }
+        foreach($snacks as $snack){
+            $snackProtien += $snack->amount * $snack->food->protein;
+        }
+        foreach($supplements as $supplement){
+            $supplementProtien += $supplement->amount * $supplement->food->protein;
+        }
+
+        $totalProtein = $breakfastProtien + $lunchProtien + $dinnerProtien + $snackProtien + $supplementProtien;
+
+        return response()->json($totalProtein);
+    }
+
+    public function fatChart(){
+        $today = now()->format('Y-m-d');
+
+        $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $dinners = $this->dinner->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $snacks = $this->snack->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $today)->get();
+
+        $totalFat = 0;
+        $breakfastFat = 0;
+        $lunchFat = 0;
+        $dinnerFat = 0;
+        $snackFat = 0;
+        $supplementFat = 0;
+        foreach($breakfasts as $breakfast){
+            $breakfastFat += $breakfast->amount * $breakfast->food->fat;
+        }
+        foreach($lunches as $lunch){
+            $lunchFat += $lunch->amount * $lunch->food->fat;
+        }
+        foreach($dinners as $dinner){
+            $dinnerFat += $dinner->amount * $dinner->food->fat;
+        }
+        foreach($snacks as $snack){
+            $snackFat += $snack->amount * $snack->food->fat;
+        }
+        foreach($supplements as $supplement){
+            $supplementFat += $supplement->amount * $supplement->food->fat;
+        }
+
+        $totalFat = $breakfastFat + $lunchFat + $dinnerFat + $snackFat + $supplementFat;
+
+        return response()->json($totalFat);
+    }
+
+    public function carbsChart(){
+        $today = now()->format('Y-m-d');
+
+        $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $dinners = $this->dinner->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $snacks = $this->snack->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $today)->get();
+
+        $totalCarbs = 0;
+        $breakfastCarbs = 0;
+        $lunchCarbs = 0;
+        $dinnerCarbs = 0;
+        $snackCarbs = 0;
+        $supplementCarbs = 0;
+        foreach($breakfasts as $breakfast){
+            $breakfastCarbs += $breakfast->amount * $breakfast->food->carbs;
+        }
+        foreach($lunches as $lunch){
+            $lunchCarbs += $lunch->amount * $lunch->food->carbs;
+        }
+        foreach($dinners as $dinner){
+            $dinnerCarbs += $dinner->amount * $dinner->food->carbs;
+        }
+        foreach($snacks as $snack){
+            $snackCarbs += $snack->amount * $snack->food->carbs;
+        }
+        foreach($supplements as $supplement){
+            $supplementCarbs += $supplement->amount * $supplement->food->carbs;
+        }
+
+        $totalCarbs = $breakfastCarbs + $lunchCarbs + $dinnerCarbs + $snackCarbs + $supplementCarbs;
+
+        return response()->json($totalCarbs);
+    }
 }
 

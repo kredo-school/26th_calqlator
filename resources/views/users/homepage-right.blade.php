@@ -29,7 +29,7 @@
                         <tr>
                             <td>{{ $breakfast->food->image }}</td>
                             <td>{{ $breakfast->food->item_name }}</td>
-                            <td>{{ number_format($breakfast->amount) }}</td>
+                            <td>{{ rtrim(rtrim(number_format($breakfast->amount,2), '0'), '.') }}</td>
                             <td>{{$breakfast->food->calories * $breakfast->amount}} kcal</td>
                             <td>
                                 <form action="{{ route('user.breakfast.delete', $breakfast->id)}}" method="POST">
@@ -94,7 +94,7 @@
                         <tr>
                             <td>{{ $lunch->food->image }}</td>
                             <td>{{ $lunch->food->item_name }}</td>
-                            <td>{{ number_format($lunch->amount) }}</td>
+                            <td>{{ rtrim(rtrim(number_format($lunch->amount,2), '0'), '.') }}</td>
                             <td>{{$lunch->food->calories * $lunch->amount}} kcal</td>
                             <td>
                                 <form action="{{ route('user.lunch.delete', $lunch->id)}}" method="POST">
@@ -159,7 +159,7 @@
                         <tr>
                             <td>{{ $dinner->food->image }}</td>
                             <td>{{ $dinner->food->item_name }}</td>
-                            <td>{{ number_format($dinner->amount) }}</td>
+                            <td>{{ rtrim(rtrim(number_format($dinner->amount,2), '0'), '.') }}</td>
                             <td>{{ $dinner->food->calories * $dinner->amount}} kcal</td>
                             <td>
                                 <form action="{{ route('user.dinner.delete', $dinner->id)}}" method="POST">
@@ -224,7 +224,7 @@
                         <tr>
                             <td>{{ $snack->food->image }}</td>
                             <td>{{ $snack->food->item_name }}</td>
-                            <td>{{ number_format($snack->amount) }}</td>
+                            <td>{{ rtrim(rtrim(number_format($snack->amount,2), '0'), '.') }}</td>
                             <td>{{ $snack->food->calories * $snack->amount}} kcal</td>
                             <td>
                                 <form action="" method="POST">
@@ -290,7 +290,7 @@
                         <tr>
                             <td>{{ $supplement->food->image }}</td>
                             <td>{{ $supplement->food->item_name }}</td>
-                            <td>{{ number_format($supplement->amount) }}</td>
+                            <td>{{ rtrim(rtrim(number_format($supplement->amount,2), '0'), '.') }}</td>
                             <td>{{ $supplement->food->calories * $supplement->amount}} kcal</td>
                             <td>
                                 <form action="" method="POST">
@@ -349,7 +349,7 @@
                     <tbody>
                         <tr>
                             <td>{{ $workout->exercise->name }}</td>
-                            <td>{{number_format($workout->time) }} min</td>
+                            <td>{{ rtrim(rtrim(number_format($workout->time,2), '0'), '.') }} min</td>
                             <td>{{ $workout->exercise->calories * ($workout->time)/10}} kcal</td>
                             <td>
                                 <form action="{{ route('user.workout.delete', $workout->id)}}" method="POST">

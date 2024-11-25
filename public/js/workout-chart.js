@@ -26,104 +26,138 @@ fetch('/user/home/workout/chart')
                                 data: [workoutCalories],
                                 backgroundColor: barColor,  
                                 barPercentage: 0.6,
-                                borderRadius: 10,
-                                borderWidth: 2,
+                                borderColor: 'transparent',
+                                borderRadius: {
+                                    topLeft: function(){
+                                        if(workoutCalories <= 100){
+                                            return 20;
+                                        }else{
+                                            return 10;
+                                        }
+                                    },
+                                    bottomLeft: function(){
+                                        if(workoutCalories <= 50){
+                                            return 20;
+                                        }else if (workoutCalories <= 100){
+                                            return 20;
+                                        }else{
+                                            return 10;
+                                        }
+                                    },
+                                },
+                                borderWidth: 1,
                                 borderSkipped: 'right',
                                 datalabels: {
                                     display: true,  
                                     color: 'black',
                                     labels: {
                                         total: {
-                                            align:'top',
+                                            align: function(value, context) {
+                                                if (workoutCalories < 1200 || 2800 < workoutCalories) {
+                                                    return 'top';
+                                                } else {
+                                                    return 'bottom';
+                                                }                                                       
+                                            },
                                             anchor: 'end',
                                             font: {
                                                 weight: 'bold',  
                                                 size: 14  
                                             },
                                             formatter: function(value, context) {
-                                                const workoutCalories = context.dataset.data[context.dataIndex];
-                                                if ((1000 < workoutCalories && workoutCalories < 1500) || workoutCalories > 2500) {
+                                                if(800 < workoutCalories){
                                                     return "Total";
-                                                } else {
+                                                }else{
                                                     return " ";
-                                                }                                                       
-                                            },
-                                            offset:10
+                                                }
+                                            },   
+                                            offset: function(value, context) {
+                                                if (workoutCalories < 1200 || 2800 < workoutCalories) {
+                                                    return '10';
+                                                } else {
+                                                    return '15';
+                                                }
+                                            }
                                         },
                                         calories: {
                                             align: 'center',  
-                                            anchor: 'center',
+                                            anchor: function(){
+                                                if (workoutCalories < 1600) {
+                                                    return 'end';
+                                                }else{
+                                                    return 'center';
+                                                }
+                                            },
                                             font: {
                                                 weight: 'bold',  
                                                 size: 14  
                                             },
                                             formatter: function(value,context) {
-                                                const workoutCalories = context.dataset.data[context.dataIndex];
-                                                if ((1000 < workoutCalories && workoutCalories < 1500) || workoutCalories > 2500) {
+                                                if (1000 < workoutCalories ) {
                                                     return value.toFixed(0) + " kcal";
-                                                } else if (1500 <= workoutCalories && workoutCalories <= 2500) {
-                                                    return "Total: " + value.toFixed(0) + " kcal";
                                                 } else {
                                                     return "";
-                                                }                                           
+                                                }                    
                                             },
                                             offset: 10
                                         },
-                                    }
+                                    },
                                 },
                                 order:2,
                             },
                             {
-                                data:[[ workoutCalories,2000 ]],
-                                borderColor: 'rgba(255, 99, 132, 0.7)',
+                                data: [[ workoutCalories,2000 ]],
+                                borderColor: function(){
+                                    if (workoutCalories < 2000) {
+                                        return 'rgba(255, 99, 132, 0.7)';
+                                    }else{
+                                        return 'red';
+                                    }
+                                },
                                 borderWidth: 2,
                                 barPercentage: 0.6,
-                                borderSkipped: function(value,context) {
-                                    if (workoutCalories === 0) {
-                                        return 'right';
-                                    } else {
-                                        return false;
-                                    }                   
-                                },
-                                borderRadius:function(value,context) {
-                                    if (workoutCalories === 0) {
-                                        return 20;
-                                    } else {
-                                        return 0;
-                                    }                                                
+                                borderSkipped: false,
+                                borderRadius: {
+                                    topLeft: function(){
+                                        if(workoutCalories <= 50){
+                                            return 10;
+                                        }else if (workoutCalories <= 150){
+                                            return 5;
+                                        }else{
+                                            return 0;
+                                        }
+                                    },
+                                    bottomLeft: function(){
+                                        if(workoutCalories <= 50){
+                                            return 10;
+                                        }else if (workoutCalories <= 150){
+                                            return 5;
+                                        }else{
+                                            return 0;
+                                        }
+                                    },
                                 },
                                 datalabels: {
                                     display: true,  
                                     color: 'black', 
                                     labels: {
-                                        title: {
+                                        goal: {
                                             align:'top',
-                                            anchor: 'end',
-                                            font: {
-                                                weight: 'bold',  
-                                                size: 14  
-                                            },
-                                            formatter: function(value,context) {
-                                                return "Goal";
-                                            },
-                                            offset:10,
-                                        },
-                                        calories: {
-                                            align: 'top',  
-                                            anchor: 'start', 
-                                            font: {
-                                                weight: 'bold',  
-                                                size: 14  
-                                            },
-                                            formatter: function(value,context) {
-                                                let calories = context.dataset.data[context.dataIndex][0]; 
-                                                if (calories === 0) {
-                                                    return "Total: 0kcal";
-                                                } else {
-                                                    return "";
+                                            anchor: function(){
+                                                if (workoutCalories < 2000) {
+                                                    return 'end';
+                                                }else{
+                                                    return 'start';
                                                 }
                                             },
-                                            offset: 10,
+                                            font: {
+                                                weight: 'bold',  
+                                                size: 14  
+                                            },
+                                            formatter: function() {
+                                                    return "Goal";
+                                            },
+                                            offset:10,
                                         },
                                         total: {
                                             align:'top',
@@ -133,13 +167,13 @@ fetch('/user/home/workout/chart')
                                                 size: 14  
                                             },
                                             formatter: function(value, context) {
-                                                if (context.dataset.data[context.dataIndex][0] <= 1000) {
-                                                    return "Total";
+                                                if (workoutCalories <= 800) {
+                                                    return "        Total";
                                                 } else {
                                                     return " ";
                                                 }                                        
                                             },
-                                            offset:15
+                                            offset:10
                                         },
                                         calories2: {
                                             align:'bottom',
@@ -149,13 +183,15 @@ fetch('/user/home/workout/chart')
                                                 size: 14  
                                             },
                                             formatter: function(value, context) {
-                                                if (context.dataset.data[context.dataIndex][0] <= 1000) {
+                                                if (300 < workoutCalories && workoutCalories <= 1000) {
                                                     return "      " +value[0].toFixed(0)+ "kcal";
-                                                } else {
+                                                }else if (workoutCalories <= 300){
+                                                    return "            " +value[0].toFixed(0)+ "kcal";
+                                                }else {
                                                     return " ";
                                                 }                                        
                                             },
-                                            offset:15
+                                            offset:10
                                         },
                                     },
                                 },
@@ -167,6 +203,13 @@ fetch('/user/home/workout/chart')
                                 borderColor: 'black',        
                                 barPercentage: 0.6,
                                 borderRadius: 10,
+                                // function(value,context) { 
+                                //     if (workoutCalories > 100 || workoutCalories === 0) {
+                                //         return 10;                                        
+                                //     }else{
+                                //         return 0;
+                                //     }
+                                // },
                                 borderWidth: 2,
                                 borderSkipped: false,
                                 datalabels: {
