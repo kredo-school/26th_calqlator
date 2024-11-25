@@ -67,7 +67,7 @@ class FaqController extends Controller
         $this->faq->save();
 
 
-        return redirect()->route('admin.faqregistration.index');
+        return view('admin.faqregistration.index');
 
     }
 
