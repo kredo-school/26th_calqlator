@@ -3,18 +3,18 @@
 @section('title', 'Exercise Confirmation')
 
 @section('content')
-<div class="m-5 px-5">
+<div class="mt-5 px-5">
     <div class="row">
-        <div class="col-9">
+        <div class="left-side m-0 p-0">
             <h2>Exercise Confirmation</h2>
 
-            <div class="confirmation-table">
-                <table class="table text-center mb-0">
+            <div class="confirmation-table sortable-table">
+                <table class="table text-center mb-0 " id="admin-table">
                     <thead class="exercise-confirmation">
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Calories / 10min</th>
+                            <th id="id" class="sortable">ID <span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
+                            <th id="item_name" class="sortable">Name <span class="sort-arrow"> <i class="fas fa-sort"></i></span></th>
+                            <th id="calories" class="sortable">Calories / 10min <span class="sort-arrow"> <i class="fas fa-sort"></i></span></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -40,7 +40,7 @@
                 </table>
             </div>
         </div>
-        <div class="col-3 justify-content-center p-0">
+        <div class="right-side justify-content-center px-2 py-0">
                 <form action="{{ route('admin.exercise.confirmation')}}" method="get">
                     <div class="row mb-3 justify-content-center">
                         <div class="col-auto p-0">
@@ -75,5 +75,4 @@
         </div>
     </div>
 </div>
-{{ $pending_exercises->links() }}
 @endSection
