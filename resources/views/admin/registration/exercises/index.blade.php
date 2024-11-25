@@ -47,5 +47,8 @@
 
         @include('admin.registration.modal.complete')
     </div>
-    <script src="{{ asset('js/exerciseReg.js') }}" defer></script>
+    <script src="{{ asset('js/exerciseReg.js') }}" defer>
+        const routeUrl = "{{ route('admin.exercise.registration.store') }}";
+    </script>
+
 @endsection

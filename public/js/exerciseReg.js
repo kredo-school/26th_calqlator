@@ -80,36 +80,32 @@ document.getElementById("all_form").addEventListener("submit", function(event) {
     event.preventDefault();
 
     var formData = new FormData(this);
-    console.log([...formData.entries()]);
 
     var modalDataList = document.getElementById("modalDataList");
     modalDataList.innerHTML = '';
 
-    var fieldsToShow = ['name', 'calories'];
+    var name = formData.getAll('name');
+    var calories = formData.getAll('calories');
 
-    fieldsToShow.forEach(function(field) {
-        let values = formData.getAll(field);
+    name.forEach(function(name, index) {
+        var row = document.createElement("DIV");
+        row.classList.add('row', ' mb-2');
 
-        values.forEach(function(value) {
-            var row = document.createElement("DIV");
-            row.classList.add('row', ' mb-2');
+        var colName = document.createElement("DIV");
+        colName.classList.add('col');
+        colName.textContent = name;
+        row.appendChild(colName);
 
-            var colName = document.createElement("DIV");
-            colName.classList.add('col');
-            colName.textContent = value;
-            row.appendChild(colName);
+        var colCalories = document.createElement("DIV");
+        colCalories.classList.add('col');
+        colCalories.textContent = calories[index];
+        row.appendChild(colCalories);
 
-            var colCalories = document.createElement("DIV");
-            colCalories.classList.add('col');
-            colCalories.textContent = value;
-            row.appendChild(colCalories);
-
-            modalDataList.appendChild(row);
-        });
+        modalDataList.appendChild(row);
     });
 
 
-    fetch("{{ route('admin.exercise.registration.store') }}", {
+    fetch(routeUrl, {
         method: 'post',
         body: formData
     })

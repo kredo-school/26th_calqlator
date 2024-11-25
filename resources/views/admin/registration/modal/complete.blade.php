@@ -2,8 +2,8 @@
 <div class="modal fade" id="exercise-save">
     <div class="modal-dialog">
         <div class="modal-content border-success">
-            <div class="modal-header border-0 text-center">
-                <h3 class="display-1 fw-bold">Complete!</h3>
+            <div class="modal-header border-0">
+                <h3 class="display-1 fw-bold text-center">Complete!</h3>
             </div>
             <div class="modal-body">
                 <p class="fs-3">The following exercise have been added</p>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\Admin\HomesController;
+use App\Http\Controllers\Admin\RegistrationController;
 
 
 Route::get('/', function () {
@@ -17,7 +18,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 use App\Http\Controllers\HomePageController;
 Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
 
-// UserFAQ 
+// UserFAQ
 use App\Http\Controllers\FaqController;
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 // Admin / Food & Exercise Confirmation
@@ -40,3 +41,9 @@ Route::delete('/admin/faqlist/delete/{id}',[FaqController::class, 'delete'])->na
 Route::get('/admin/faqregistration/index', [FaqController::class, 'reg_index'])->name('admin.faqregistration.index');
 Route::get('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
 Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
+
+// Admin / ExerciseRegistration
+Route::group(['prefix' => 'admin/exercise/registration', 'as' => 'admin.exercise.registration.'], function(){
+    Route::get('/', [RegistrationController::class, 'exercise_index'])->name('index');
+    Route::post('/store', [RegistrationController::class, 'exercise_store'])->name('store');
+});
