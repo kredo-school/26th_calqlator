@@ -48,13 +48,18 @@ class UserHomePageController extends Controller
         $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $today)->get();
         $workouts = $this->workout->where('user_id', Auth::user()->id)->where('date', $today)->get();
 
+        $breakfastTime = $this -> breakfast -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
+        $lunchTime = $this -> lunch -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
+        $dinnerTime = $this -> dinner -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
+        $snackTime = $this -> snack -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
+        $supplementTime = $this -> supplement -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
+
         $totalCalories = 0;
         $breakfastCalories = 0;
         $lunchCalories = 0;
         $dinnerCalories = 0;
         $snackCalories = 0;
         $supplementCalories = 0;
-        $workoutCalories = 0;
         foreach($breakfasts as $breakfast){
             $breakfastCalories += $breakfast->amount * $breakfast->food->calories;
         }
@@ -70,16 +75,12 @@ class UserHomePageController extends Controller
         foreach($supplements as $supplement){
             $supplementCalories += $supplement->amount * $supplement->food->calories;
         }
-        foreach($workouts as $workout){
-            $workoutCalories += ($workout->time)/10 * $workout->exercise->calories;
-        }
-        $totalCalories = $breakfastCalories + $lunchCalories + $dinnerCalories;
+        $totalCalories = $breakfastCalories + $lunchCalories + $dinnerCalories+ $snackCalories + $supplementCalories;
 
-        $breakfastTime = $this -> breakfast -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
-        $lunchTime = $this -> lunch -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
-        $dinnerTime = $this -> dinner -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
-        $snackTime = $this -> snack -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
-        $supplementTime = $this -> supplement -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
+        $workoutCalories = 0;
+        foreach($workouts as $workout){
+            $workoutCalories += $workout->time/10 * $workout->exercise->calories;
+        }
 
         return view('users.homepage')->with('date', $date)
                                      ->with('today', $today)
@@ -121,6 +122,76 @@ class UserHomePageController extends Controller
     public function workoutDelete($id){
         $this->workout->where('id', $id)->delete();
         return redirect()->back();
+    }
+
+    public function supplementDelete($id){
+        $this->supplement->where('id', $id)->delete();
+        return redirect()->back();
+    }
+
+    public function snackDelete($id){
+        $this->snack->where('id', $id)->delete();
+        return redirect()->back();
+    }
+
+    public function getTotalCalories(){
+        $today = now()->format('Y-m-d');
+
+        $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $dinners = $this->dinner->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $snacks = $this->snack->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $today)->get();
+
+        $totalCalories = 0;
+        $breakfastCalories = 0;
+        $lunchCalories = 0;
+        $dinnerCalories = 0;
+        $snackCalories = 0;
+        $supplementCalories = 0;
+        foreach($breakfasts as $breakfast){
+            $breakfastCalories += $breakfast->amount * $breakfast->food->calories;
+        }
+        foreach($lunches as $lunch){
+            $lunchCalories += $lunch->amount * $lunch->food->calories;
+        }
+        foreach($dinners as $dinner){
+            $dinnerCalories += $dinner->amount * $dinner->food->calories;
+        }
+        foreach($snacks as $snack){
+            $snackCalories += $snack->amount * $snack->food->calories;
+        }
+        foreach($supplements as $supplement){
+            $supplementCalories += $supplement->amount * $supplement->food->calories;
+        }
+        $totalCalories = $breakfastCalories + $lunchCalories + $dinnerCalories+ $snackCalories + $supplementCalories;
+
+        return $totalCalories;
+    }
+
+    public function getWorkoutCalories(){
+        $today = now()->format('Y-m-d');
+
+        $workouts = $this->workout->where('user_id', Auth::user()->id)->where('date', $today)->get();
+
+        $workoutCalories = 0;
+        foreach($workouts as $workout){
+            $workoutCalories += $workout->time/10 * $workout->exercise->calories;
+        }
+
+        return $workoutCalories;
+    }
+
+    public function caloriesChart(){
+        $totalCalories = $this->getTotalCalories();
+
+        return response()->json($totalCalories);
+    }
+
+    public function workoutChart(){
+        $workoutCalories = $this->getWorkoutCalories();
+
+        return response()->json($workoutCalories);
     }
 }
 

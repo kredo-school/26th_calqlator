@@ -7,13 +7,7 @@ body{
     margin: 0;
 }
 
-.licorice-regular {
-    font-family: "Licorice", cursive;
-    font-weight: 400;
-    font-style: light;
-  }
-
-  .custom-flex-align {
+.custom-flex-align {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -279,3 +273,33 @@ nav{
     opacity: 1;
     transform: none;
   }
+
+  /* charts */
+  .featured-list h4{
+    display: inline-block;
+    border-bottom: #000 solid 2px;
+    font-weight: bolder;
+    margin-bottom: 0;
+    text-align: start;
+  }
+
+  .chart-box {
+    position: relative;
+    width: 100%; 
+    max-width: 100%;
+    height: auto;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+canvas {
+    width: 100% !important;   
+    height: 70px ;  
+    margin-left: 30px;
+    overflow:auto;
+}
+
+.container, .featured-wrapper {
+    overflow: hidden;  
+}

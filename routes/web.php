@@ -24,6 +24,10 @@ Route::delete('/user/breakfast/delete/{id}',[UserHomePageController::class, 'bre
 Route::delete('/user/lunch/delete/{id}',[UserHomePageController::class, 'lunchDelete'])->name('user.lunch.delete');
 Route::delete('/user/dinner/delete/{id}',[UserHomePageController::class, 'dinnerDelete'])->name('user.dinner.delete');
 Route::delete('/user/workout/delete/{id}',[UserHomePageController::class, 'workoutDelete'])->name('user.workout.delete');
+Route::delete('/user/supplement/delete/{id}',[UserHomePageController::class, 'supplementDelete'])->name('user.supplement.delete');
+Route::delete('/user/snack/delete/{id}',[UserHomePageController::class, 'snackDelete'])->name('user.snack.delete');
+Route::get('/user/home/calories/chart', [UserHomePageController::class, 'caloriesChart'])->name('user.home.calories.chart');
+Route::get('/user/home/workout/chart', [UserHomePageController::class, 'workoutChart'])->name('user.home.workout.chart');
 // User / Calendar
 Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
 Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');

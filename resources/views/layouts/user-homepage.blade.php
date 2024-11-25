@@ -20,7 +20,10 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    <script src="https://kit.fontawesome.com/dbc5b98639.js" crossorigin="anonymous"></script>
+    <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/chart.js') }}"></script>
+    <script src="{{ asset('assets/js/datalabels.js') }}"></script>
+
 
     <link rel="stylesheet" href="{{ asset('assets/css/user-homepage.css') }}">
 
@@ -33,6 +36,8 @@
                 @yield('content')
         </main>
     </div>
+    <script src="{{ asset('js/calories-chart.js') }}"></script>
+    <script src="{{ asset('js/workout-chart.js') }}"></script>
 </body>
 </html>
 

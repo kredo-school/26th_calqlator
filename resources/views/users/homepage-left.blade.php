@@ -15,49 +15,48 @@
         <div class="featured-wrapper">
             <ul class="featured-list my-3 p-0">
                 <li>
-                    <div class="col-6 border-bottom border-2 border-dark">
-                        <h4 class="text-start mb-0 fw-bolder">Total Calories</h3>
+                    <div>
+                        <h4>Total Calories</h4>
+                        <div class="chart-box">
+                            <canvas id="caloriesChart"></canvas>
+                        </div>
                     </div>
-                    <div class="" style="height: 60px">
-                        <img src="" alt="">
-                    </div>
-                    <div class="col-6 border-bottom border-2 border-dark mt-0">
-                        <h4 class="text-start mb-0 fw-bolder">Total Workout</h3>
-                    </div>
-                    <div class="" style="height: 60px;">
-                        <img src="" alt="">
-                    </div>
-                </li>
-
-                <li>
-                    <div class="col-6 border-bottom border-2 border-dark">
-                        <h4 class="text-start mb-0 fw-bolder">Protien</h3>
-                    </div>
-                    <div class="" style="height: 60px">
-                        <img src="" alt="">
-                    </div>
-
-                    <div class="col-6 border-bottom border-2 border-dark mt-0">
-                        <h4 class="text-start mb-0 fw-bolder">Carbon</h3>
-                    </div>
-                    <div class="" style="height: 60px;">
-                        <img src="" alt="">
-                    </div>
-
-                    <div class="col-6 border-bottom border-2 border-dark mt-0">
-                        <h4 class="text-start mb-0 fw-bolder">Fat</h3>
-                    </div>
-                    <div class="" style="height: 60px;">
-                        <img src="" alt="">
+                    <div>
+                        <h4>Total Workout</h4>
+                        <div class="chart-box">
+                            <canvas id="workoutChart"></canvas>
+                        </div>
                     </div>
                 </li>
 
                 <li>
-                    <div class="col-6 border-bottom border-2 border-dark">
-                        <h4 class="text-start mb-0 fw-bolder">Weight Graphs</h3>
+                    <div>
+                        <h4>Protien</h4>
+                        <div class="chart-box">
+                            <canvas></canvas>
+                        </div>
                     </div>
-                    <div class="" style="height: 70px;">
-                        <img src="" alt="">
+                    <div>
+                        <h4>Carbon</h4>
+                        <div class="chart-box">
+                            <canvas></canvas>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4>Fat</h4>
+                        <div class="chart-box">
+                            <img src="" alt="">
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <h4>Weight Graphs</h4>
+                        <div class="chart-box">
+                            <canvas></canvas>
+                        </div>
                     </div>
                 </li>
             </ul>

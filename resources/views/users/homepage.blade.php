@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-7 p-0 border border-1 border-dark rounded-3 bg-white">
                     <div class="text-center">
-                        <h2 class="display-2 licorice-regular mt-5 mb-0">Welcome!</h2>
+                        <h2 class="h1 mt-5 mb-5 mb-0 welcome">Welcome!</h2>
                         <p class="fs-4 mb-0">Today is</p>
                         <p class="fs-3">{{ $date }}</p>
                         <br>
