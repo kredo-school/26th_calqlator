@@ -46,20 +46,13 @@
                     <tbody>
                         <tr>
                             <td colspan="4">Please enter your meal</td>
-                            <td>
-                                <a href="" class="btn btn-sm text-decoration-none fs-5 fw-bold">
-                                    <i class="fa-solid fa-circle-plus text-dark"></i> Add
-                                </a>
-                            </td>
                         </tr>
                     </tbody>
                 @endforelse
             </table>
-            @if($breakfasts)
-                <a href="" class="btn btn-sm fs-5 fw-bold">
+                <a href="{{ route('meals.registration')}}" class="btn btn-sm fs-5 fw-bold">
                     <i class="fa-solid fa-circle-plus"></i> Add
                 </a>
-            @endif
         </div>
     </div>
     <div class="row border-top border-1 border-dark p-0">
@@ -111,20 +104,13 @@
                     <tbody>
                         <tr>
                             <td colspan="4">Please enter your meal</td>
-                            <td>
-                                <a href="" class="btn btn-sm text-decoration-none fs-5 fw-bold">
-                                    <i class="fa-solid fa-circle-plus text-dark"></i> Add
-                                </a>
-                            </td>
                         </tr>
                     </tbody>
                 @endforelse
             </table>
-            @if($lunches)
-                <a href="" class="btn btn-sm text-decoration-none fs-5 fw-bold">
+                <a href="{{ route('meals.registration')}}" class="btn btn-sm text-decoration-none fs-5 fw-bold">
                     <i class="fa-solid fa-circle-plus"></i> Add
                 </a>
-            @endif
         </div>
     </div>
     <div class="row border-top border-1 border-dark p-0">
@@ -176,20 +162,13 @@
                     <tbody>
                         <tr>
                             <td colspan="4">Please enter your meal</td>
-                            <td>
-                                <a href="" class="btn btn-sm text-decoration-none fs-5 fw-bold">
-                                    <i class="fa-solid fa-circle-plus text-dark"></i> Add
-                                </a>
-                            </td>
                         </tr>
                     </tbody>
                 @endforelse
             </table>
-            @if($dinners)
-                <a href="" class="btn btn-sm text-decoration-none fs-5 fw-bold">
+                <a href="{{ route('meals.registration')}}" class="btn btn-sm text-decoration-none fs-5 fw-bold">
                     <i class="fa-solid fa-circle-plus"></i> Add
                 </a>
-            @endif
         </div>
     </div>
     <div class="row border-top border-1 border-dark p-0">
@@ -241,21 +220,13 @@
                     <tbody>
                         <tr>
                             <td colspan="4">Please enter snacks you ate</td>
-                            <td>
-                                <a href="" class="btn btn-sm text-decoration-none fs-5 fw-bold">
-                                    <i class="fa-solid fa-circle-plus text-dark"></i> Add
-                                </a>
-                            </td>
                         </tr>
                     </tbody>
                 @endforelse
             </table>
-
-            @if($snacks)
-                <a href="" class="btn btn-sm text-decoration-none fs-5 fw-bold">
+                <a href="{{ route('meals.registration')}}" class="btn btn-sm text-decoration-none fs-5 fw-bold">
                     <i class="fa-solid fa-circle-plus"></i> Add
                 </a>
-            @endif
         </div>
     </div>
     <div class="row border-top border-1 border-dark p-0">
@@ -307,21 +278,13 @@
                     <tbody>
                         <tr>
                             <td colspan="4">Please enter supplements you took</td>
-                            <td>
-                                <a href="" class="btn btn-sm text-decoration-none fs-5 fw-bold">
-                                    <i class="fa-solid fa-circle-plus text-dark"></i> Add
-                                </a>
-                            </td>
                         </tr>
                     </tbody>
                 @endforelse
             </table>
-
-            @if($supplements)
-                <a href="" class="btn btn-sm text-decoration-none fs-5 fw-bold">
+                <a href="{{ route('meals.registration')}}" class="btn btn-sm text-decoration-none fs-5 fw-bold">
                     <i class="fa-solid fa-circle-plus"></i> Add
                 </a>
-            @endif
         </div>
     </div>
     <div class="row border-top border-1 border-dark p-0">
@@ -366,20 +329,13 @@
                     <tbody>
                         <tr>
                             <td colspan="4">Please enter your workout menu</td>
-                            <td>
-                                <a href="" class="btn btn-sm text-decoration-none fs-5 fw-bold">
-                                    <i class="fa-solid fa-circle-plus text-dark"></i> Add
-                                </a>
-                            </td>
                         </tr>
                     </tbody>
                 @endforelse
             </table>
-            @if($workouts)
-                <a href="" class="btn btn-sm text-decoration-none fs-5 fw-bold">
+                <a href="{{ route('meals.registration')}}" class="btn btn-sm text-decoration-none fs-5 fw-bold">
                     <i class="fa-solid fa-circle-plus"></i> Add
                 </a>
-            @endif
         </div>
     </div>
     <div class="row border-top border-1 border-dark p-0">

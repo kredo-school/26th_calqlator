@@ -3,7 +3,7 @@
         <div class="col-4">
         </div>
         <div class="col-8 pe-0 border-bottom border-1 border-dark">
-            <a href="" class="text-center fs-5">Today's Condition</a>
+            <a href="{{route('user.everyday.condition')}}" class="text-center fs-5">Today's Condition</a>
         </div>
     </div>
 
