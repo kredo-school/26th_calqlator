@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin: FAQregistration')
+@section('title', 'Admin: FAQregistrationcomplete')
 
 @section('content')
     <form action="{{ route('admin.faqregistration.store')}}">
