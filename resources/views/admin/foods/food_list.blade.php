@@ -28,14 +28,15 @@
 
         <!-- food list table -->
         <div class="foodlist-table">
-            <table class="table text-center mb-0">
+            <div class="sortable-table">
+              <table class="table text-center mb-0" id="admin-table">
                 <thead class="foodlist">
                     <tr>
-                        <th style="width: 20%">ID</th>
-                        <th style="width: 25%">Name</th>
-                        <th style="width: 25%">Calories</th>
-                        <th style="width: 25%">Amount</th>
-                        <th style="width: 20%"></th>
+                        <th class="sortable-table" style="width: 20%" id="id-header">ID</th>
+                        <th class="sortable-table" style="width: 25%" id="name-header">Name</th>
+                        <th class="sortable-table" style="width: 25%" id="calories-header">Calories</th>
+                        <th class="sortable-table" style="width: 25%" id="amount-header">Amount</th>
+                        <th class="sortable-table" style="width: 20%"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,20 +49,19 @@
                     <td>{{ $food->amount }}</td>
                     <td>
                     <div class="d-flex justify-content-center gap-2">
-                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-food" ><i class="fas fa-pencil"></i> 
+                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#edit-food" ><i class="fas fa-pencil"></i> 
                         </button>
                         <button class="btn p-0 ps-3 text-danger" data-bs-toggle="modal" data-bs-target="#delete-food">
                             <i class="fa-solid fa-circle-minus"></i>
                         </button>
+                        @include('admin.foods.modals.actions')
                     </div>
                 </td>
             </tr>
             @endforeach
+                </tbody>
+              </table>
                                             
-                    <!-- pagination -->
-                    <div class="d-flex justify-content-center mt-4">  
-                        {{ $foods->links() }}           
-                      </div>    
                    
                 </div>
             </div>

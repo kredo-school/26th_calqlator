@@ -24,14 +24,15 @@
      </div>
 
     <div class="user-table">
-        <table class="table text-center mb-0">
+      <div class="sortable-table">
+        <table class="table text-center mb-0" id="admin-table">
             <thead class="userlist">
                 <tr>
-                  <th>ID</th>
-                  <th>FIRST NAME</th>
-                  <th>LAST NAME</th>
-                  <th>USER NAME</th>
-                  <th>EMAIL</th>
+                  <th id="id-header" class="sortable-table">ID</th>
+                  <th id="fname-header" class="sortable-table">FIRST NAME</th>
+                  <th id="lname-header" class="sortable-table">LAST NAME</th>
+                  <th id="uname-header" class="sortable-table">USER NAME</th>
+                  <th id="email-header" class="sortable-table">EMAIL</th>
                   <th></th>
                 </tr>
             </thead>
@@ -50,13 +51,9 @@
              @endforeach                  
         </tbody>
     </table>
- </div>
- </div>
-</div>
-
-<div class="d-flex justify-content-center mt-4">  
-  {{ $users->links() }}           
-</div>
+ 
+     
+  </div>
 
 </div>
 

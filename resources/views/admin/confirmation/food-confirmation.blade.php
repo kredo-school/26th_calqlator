@@ -30,6 +30,7 @@
                                     <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-food{{$food->id}}" >
                                         <i class="fa-solid fa-circle-check"></i> Confirm
                                     </button>
+                                
 
                                     <button class="btn p-0 ps-5 text-danger" data-bs-toggle="modal" data-bs-target="#delete-food{{$food->id}}">
                                         <i class="fa-solid fa-circle-minus"></i> Delete

@@ -24,9 +24,7 @@ class FoodsController extends Controller
             return $query->where('name', 'like', "%{$search}%");
         })
             ->orderBy('id', 'asc')
-            ->paginate(10);
-
-        $foods = Food::paginate(10);
+            ->get();
 
         return view('admin.foods.food_list', compact('foods', 'search'));
     }

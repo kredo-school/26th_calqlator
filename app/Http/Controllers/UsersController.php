@@ -27,7 +27,8 @@ class UsersController extends Controller
                         ->orWhere('user_name', 'like', "%{$search}%")
                         ->orWhere('email', 'like', "%{$search}%");
         })
-        ->paginate(10);
+        ->orderBy('id', 'asc')
+        ->get();
 
         return view('admin.users.user_list', compact('users'));
     }

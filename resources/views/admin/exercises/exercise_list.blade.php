@@ -28,13 +28,14 @@
 
         <!-- exercise list table -->
         <div class="exerciselist-table">
-            <table class="table text-center mb-0">
+            <div class="sortable-table">
+            <table class="table text-center mb-0" id="admin-table">
                 <thead class="exerciselist">
                     <tr>
-                        <th style="width: 10%">ID</th>
-                        <th style="width: 30%">NAME</th>
-                        <th style="width: 30%">CALORY/10 Minute</th>
-                        <th style="width: 30%"></th>
+                        <th class="sortable-table" style="width: 10%" id="id-header">ID</th>
+                        <th class="sortable-table" style="width: 30%" id="name-header">NAME</th>
+                        <th class="sortable-table" style="width: 30%" id="calories-header">CALORY/10 Minute</th>
+                        <th class="sortable-table" style="width: 30%"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,21 +49,23 @@
                     <div class="d-flex justify-content-center gap-1">
                         <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-food" ><i class="fas fa-pencil"></i> 
                         </button>
+
+
                         <button class="btn p-0 ps-2 text-danger" data-bs-toggle="modal" data-bs-target="#delete-food">
                             <i class="fa-solid fa-circle-minus"></i>
                         </button>
+                        @include('admin.foods.modals.actions')
                     </div>
                 </td>
+              </tr>
                 @endforeach
+            </tbody>
+        </table>
+                
 
                                             
-                    <!-- pagination -->
-                    <div class="d-flex justify-content-center mt-4">  
-                            {{ $exercises->links() }}           
-                        </div>
-                    </div>
-                </div>
-            </div>
+                   
+             </div>
         </div>
     </div>
 </div>

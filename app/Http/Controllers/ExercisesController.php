@@ -22,8 +22,9 @@ class ExercisesController extends Controller
        $exercises = Exercise::when($search, function($query, $search) {
             return $query->where('name', 'like', "%{$search}%");
         })
-        ->paginate(10);
-
+            ->orderBy('id', 'asc')
+            ->get();
+            
         return view('admin.exercises.exercise_list', [
             'exercises' => $exercises,
             'search' => $search,
