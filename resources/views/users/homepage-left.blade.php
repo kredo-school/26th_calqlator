@@ -68,7 +68,7 @@
                 <li>
                     <div>
                         <h4>Weight Graphs</h4>
-                        <div class="">
+                        <div>
                             <canvas id="weightChart"></canvas>
                         </div>
                     </div>

@@ -292,12 +292,16 @@ nav{
     margin: 0px;
 }
 
-
 canvas {
     width: 100% !important;   
     height: 70px ;  
     margin-left: 30px;
     overflow:auto;
+}
+
+#weightChart{
+  margin: 0px;
+  width: 100%;
 }
 
 .container, .featured-wrapper {

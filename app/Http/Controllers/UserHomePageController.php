@@ -310,10 +310,11 @@ class UserHomePageController extends Controller
     }
 
     public function weightChart(){
-        $today = now()->format('Y-m-d');
-        
-        $firstDayOfMonth = $today->copy()->startOfMonth()->format('Y-m-d');
-        $lastDayOfMonth = $today->copy()->endOfMonth()->format('Y-m-d');
+        try{
+        // $today = now()->format('Y-m-d');
+        $today = Carbon::today();
+        $firstDayOfMonth = $today->copy()->startOfMonth();
+        $lastDayOfMonth = $today->copy()->endOfMonth();
         
         $weights = $this->weight
                         ->where('user_id', Auth::user()->id)
@@ -321,22 +322,20 @@ class UserHomePageController extends Controller
                         ->orderBy('date', 'asc') 
                         ->get();
       
-        // $chartData = $weights->map(function($weight) {
-        //     return [
-        //         'date' => $weight->date->format('Y-m-d'), 
-        //         'weight' => $weight->weight
-        //     ];
-        // });
-        // return response()->json($chartData);
-
         $weightData=[];
         foreach($weights as $weight){
+            $date = Carbon::parse($weight->date);
             $weightData[] = [
-                'date' => $weight->date->format('Y-m-d'), 
+                'date' => $date->format('Y-m-d'), 
                 'weight' => $weight->weight
             ];
         }
         return response()->json($weightData);
+    } catch (\Exception $e) {
+        // Log the error and return a 500 error with a message
+        \Log::error('Error fetching weight chart data: ' . $e->getMessage());
+        return response()->json(['error' => 'Internal Server Error'], 500);
+    }
     }
 }
 
