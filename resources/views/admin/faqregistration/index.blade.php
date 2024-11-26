@@ -25,11 +25,7 @@
         <div class="row">
             <div class="col-6"></div>
             <div class="col-4 text-end mt-3 form-group">
-<<<<<<< HEAD
-                <button type="button" class="btn text-success btn-outline-success px-4" data-bs-toggle="modal" data-bs-target="#store-faq">Save</button>
-=======
                 <button type="submit" class="btn text-success btn-outline-success px-4">Save</button>
->>>>>>> main
             </div>
         </div>
     </form>
