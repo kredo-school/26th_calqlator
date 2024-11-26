@@ -84,38 +84,38 @@
                         <h3 class="list-group-item m-0 list-title ">Summary of the month</h3>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="icon" >😀</span>
-                                <span class="count">1</span>
+                                <span class="icon">😴</span>
+                                <span class="count">{{$smile5}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="icon">😏</span>
-                                <span class="count">2</span>
+                                <span class="icon" >😷</span>
+                                <span class="count">{{$smile4}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
                                 <span class="icon">😐</span>
-                                <span class="count">3</span>
+                                <span class="count">{{$smile3}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="icon">😷</span>
-                                <span class="count">4</span>
+                                <span class="icon">😏</span>
+                                <span class="count">{{$smile2}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="icon">😴</span>
-                                <span class="count">5</span>
+                                <span class="icon">😀</span>
+                                <span class="count">{{$smile1}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
                                 <span class="icon">⭐</span>
-                                <span class="count">6</span>
+                                <span class="count">{{$star}}</span>
                             </div>
                         </li>
                     </ul>                

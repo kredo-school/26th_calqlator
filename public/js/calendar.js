@@ -78,50 +78,6 @@ console.clear();
         document.getElementById('next').innerHTML = `&raquo; ${next}`;
     }
 
-    
-    // function getEachCell(date){
-                // var mergedDate = year+'-'+(month+1)+'-'+date.date;
-
-                // console.log(mergedDate);
-
-                // const td = document.createElement('td');
-
-                // const topSection = document.createElement('p');
-                // const bottomSection = document.createElement('div');
-    
-                // topSection.classList.add('top');
-                // bottomSection.classList.add('bottom');
-
-                // topSection.textContent = `${String(date.date).padStart(2, ' ')}`; 
-
-                // if(date.isDisabled === false){
-                //     bottomSection.innerHTML = `total kcal <br> weight kg`; 
-                // }
-
-                // td.appendChild(topSection);   
-                // td.appendChild(bottomSection); 
-
-                // td.addEventListener('click', () => {
-                //     window.location.href = '/user/home/page/${date.date}'; 
-                // });
-                // td.style.cursor = 'pointer';
-
-                // if(date.isToday){
-                //     td.classList.add('today'); 
-                // }
-
-                // if(date.isDisabled){
-                //     td.classList.add('disabled'); 
-                // }
-
-                // return td;
-    // }
-
-//     var specificDate = year+'-'+(month+1)+'-'+date.date;
-//     $.get('CalendarController.php',{date: specificDate}, function(data){
-// console.log(data);
-//     });
-
     function renderWeeks(){
         const dates = [
             ...getCalendarHead(),
@@ -142,10 +98,10 @@ console.clear();
                 const td = document.createElement('td');
 
                 const topSection = document.createElement('p');
-                const bottomSection = document.createElement('div');
+                const middleSection = document.createElement('div');
     
                 topSection.classList.add('top');
-                bottomSection.classList.add('bottom');
+                middleSection.classList.add('bottom');
 
                 topSection.textContent = `${String(date.date).padStart(2, ' ')}`; 
 
@@ -161,10 +117,10 @@ console.clear();
                                     const weight = response.weight;
                                     const totalCalories = response.totalCalories;
                                         if(weight === null){
-                                            bottomSection.innerHTML = `${totalCalories} kcal <br> -- kg`;
+                                            middleSection.innerHTML = `${totalCalories} kcal <br> -- kg`;
                                         }
                                         else{
-                                            bottomSection.innerHTML = `${totalCalories} kcal <br> ${weight.weight} kg`;
+                                            middleSection.innerHTML = `${totalCalories} kcal <br> ${weight.weight} kg`;
                                         }
                                 }
                             }
@@ -172,13 +128,13 @@ console.clear();
                         error: function(xhr, status, error) {
                             console.error('Error fetching data: ' + error);
                             console.log('XHR response:', xhr.responseText);
-                            bottomSection.innerHTML='Error fetching data.';
+                            middleSection.innerHTML='Error fetching data.';
                         }
                     });
                 };
 
                 td.appendChild(topSection);   
-                td.appendChild(bottomSection); 
+                td.appendChild(middleSection); 
 
                 td.addEventListener('click', () => {
                     window.location.href = '/user/home/page/${date.date}'; 
