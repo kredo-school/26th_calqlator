@@ -5,7 +5,12 @@
 @section('content')
 <!-- Complete -->
 <div class="row">
+<<<<<<< HEAD
     <div class="col-2"></div>
+=======
+    <div class="col-2">
+    </div>
+>>>>>>> main
     <div class="col-8">
         <div class="border border-black rounded-3 p-5 ps-5 pe-5">
             <div class="h1 fw-bold text-center">
