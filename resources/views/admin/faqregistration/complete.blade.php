@@ -4,8 +4,10 @@
 
 @section('content')
 <!-- Complete -->
-<div class="">
-    <div class="">
+<div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
         <div class="border border-black rounded-3 p-5 ps-5 pe-5">
             <div class="h1 fw-bold text-center">
                 Complete!
@@ -33,5 +35,6 @@
             </div>
         </div>
     </div>
+    <div class="col-2"></div>
 </div>
 @endsection
