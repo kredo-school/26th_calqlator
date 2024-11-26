@@ -6,25 +6,30 @@
 <!-- Complete -->
 <div class="">
     <div class="">
-        <div class="border-danger">
-            <div class="border-danger">
-                <div class="h2 text-danger">
-                    Complete!
+        <div class="border border-black rounded-3 p-5 ps-5 pe-5">
+            <div class="h1 fw-bold text-center">
+                Complete!
+            </div>
+            <div class="border border-3 border-warning rounded-3 bg-warning-subtle p-3 ms-5 me-5">
+                <div class="text-center">
+                    <p class="h4">The following questions and answers have added</p>
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <p class="col-3" id="">{{ $formData['question']}}</p>
+                            <p class="col-3" id="">{{ $formData['answer']}}</p>
+                            <div class="col-3"></div>
+                        </div>
                 </div>
-            </div>
-            <div class="">
-                <p>The following questions and answers have added</p>
-                    <div class="row">
-                        <p class="col" id=""></p>
-                        <p class="col" id=""></p>
+                <div class="row">
+                    <div class="col-6"></div>
+                    <div class="col text-end">
+                        <a href="{{ route('admin.faqregistration.index')}}">
+                            <button type="button" class="btn btn-secondary btn-sm">
+                                Back
+                            </button>
+                        </a>
                     </div>
-            </div>
-            <div class="modal-footer text-end">
-                <a href="{{ route('admin.faqregistration.index')}}">
-                    <button type="button" class="btn btn-secondary btn-sm">
-                        Back
-                    </button>
-                </a>
+                </div>
             </div>
         </div>
     </div>

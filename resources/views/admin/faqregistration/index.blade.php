@@ -28,19 +28,5 @@
                 <button type="submit" class="btn text-success btn-outline-success px-4">Save</button>
             </div>
         </div>
-        
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-       $(function() {
-            $('#store-faq').on('show.bs.modal', function () {
-            var title = $('#question').val()
-            var body = $('#answer').val()
-            var modal = $(this)
-            modal.find('#modalQuestion').text(title)
-            modal.find('#modalAnswer').text(body)
-            })
-        }) 
-    </script>
     </form>
 @endsection
