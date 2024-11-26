@@ -15,10 +15,7 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <script src="https://kit.fontawesome.com/dbc5b98639.js" crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="{{ asset('assets/css/calendar.css') }}">
-
     <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -124,10 +121,11 @@
                     @yield('content')
                 </div>
                 <div class="right-area">
-
                 </div>
             </div>
         </main>
     </div>
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../js/calendar.js"></script>
 </body>
 </html>

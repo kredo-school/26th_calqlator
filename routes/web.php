@@ -20,16 +20,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/meals', [MealController::class, 'index']);
-Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
-Route::get('/search', [MealController::class, 'search']);
-
-
-
-Route::get('/daily-condition', function () {
-    return view('daily_condition');
-});
-
 // User / Home Page
 Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
 // User / Calendar
@@ -39,7 +29,12 @@ Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayIn
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 // User / ChatPage
 Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
-
+//User / Meal registeration
+Route::get('/meals', [MealController::class, 'index']);
+Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
+Route::get('/search', [MealController::class, 'search']);
+// User / Everyday Condition
+Route::get('/daily-condition', function () {return view('daily_condition');});
 // ADMIN
 // Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
 // Admin / Homepage

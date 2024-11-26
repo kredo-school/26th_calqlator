@@ -45,6 +45,7 @@ main{
     margin-top: auto;
     margin-bottom: auto;
 }
+/*  Calendar */
 #calendar{
     border-collapse: collapse;
     width: 90%;
@@ -55,7 +56,7 @@ main{
 #prev,#next,#title{
     border: none;
 }
-/*  Calendar */
+
 #prev{
     text-align: right;
     font-size: 30px;
@@ -116,7 +117,7 @@ tbody td{
     width: 10%;
     height: 100px;
 }
-
+  
 tbody td .top{
     position: absolute;
     top: 0;
@@ -204,4 +205,5 @@ td.today{
 .calendar-area{
     width: 100%;
 }
+
 }
