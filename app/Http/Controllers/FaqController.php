@@ -72,12 +72,6 @@ class FaqController extends Controller
         // store in SESSION
         $request->session()->put('form_data', $request->only(['question', 'answer']));
 
-<<<<<<< HEAD
-        return view('admin.faqregistration.index');
-
-    }
-
-=======
         // go to complete page
         return redirect()->route('admin.faqregistration.complete');
 
@@ -93,5 +87,5 @@ class FaqController extends Controller
         }
         return view('admin.faqregistration.complete',compact('formData'));
     }
->>>>>>> main
+
 }
