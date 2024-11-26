@@ -13,6 +13,10 @@
     <!--<link rel="dns-prefetch" href="//fonts.bunny.net">-->
     <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
 
+
+
+
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="https://kit.fontawesome.com/dbc5b98639.js" crossorigin="anonymous"></script>
