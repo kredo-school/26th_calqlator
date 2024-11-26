@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MealController;
+
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ConfirmationController;
@@ -17,6 +19,17 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/meals', [MealController::class, 'index']);
+Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
+Route::get('/search', [MealController::class, 'search']);
+
+
+
+Route::get('/daily-condition', function () {
+    return view('daily_condition');
+});
+
 // User / Home Page
 Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
 // User / Calendar
