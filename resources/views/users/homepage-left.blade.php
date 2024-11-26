@@ -4,6 +4,20 @@
         </div>
         <div class="col-8 pe-0 border-bottom border-1 border-dark">
             <a href="{{route('user.everyday.condition')}}" class="text-center fs-5">Today's Condition</a>
+            @if($condition->condition === 1)
+                <span class="condition-icon" value="smiley1" >😀</span>
+            @elseif($condition->condition === 2)
+                <span class="condition-icon" value="smiley2" >😏</span>
+            @elseif($condition->condition === 3)
+                <span class="condition-icon" value="smiley3" >😐</span>
+            @elseif($condition->condition === 4)
+                <span class="condition-icon" value="smiley4" >😷</span>
+            @elseif($condition->condition === 5)
+                <span class="condition-icon" value="smiley5" >😴</span>
+            @endif
+            {{-- @foreach($condition->icon as $icon)
+                <span class="condition-icon" value="{{$icon->icon}}" >{{$icon->icon}}</span>
+            @endforeach --}}
         </div>
     </div>
 
@@ -54,8 +68,8 @@
                 <li>
                     <div>
                         <h4>Weight Graphs</h4>
-                        <div class="chart-box">
-                            <canvas id="weightGraph"></canvas>
+                        <div class="">
+                            <canvas id="weightChart"></canvas>
                         </div>
                     </div>
                 </li>

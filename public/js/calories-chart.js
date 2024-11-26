@@ -1,4 +1,3 @@
-
 fetch('/user/home/calories/chart')
             .then(response => response.json())
             .then(totalCalories => {

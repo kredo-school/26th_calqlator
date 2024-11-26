@@ -303,3 +303,8 @@ canvas {
 .container, .featured-wrapper {
     overflow: hidden;  
 }
+
+.condition-icon{
+  height: 100%;
+  display: inline-block;
+}

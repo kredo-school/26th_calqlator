@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -12,6 +13,7 @@ use App\Models\Condition;
 use App\Models\UserSnack;
 use App\Models\UserSupplement;
 use App\Models\UserExercise;
+use App\Models\Weight;
 
 
 class UserHomePageController extends Controller
@@ -24,8 +26,9 @@ class UserHomePageController extends Controller
     private $snack;
     private $supplement;
     private $workout;
+    private $weight;
 
-    public function __construct(User $user, UserFoodBreakfast $breakfast, UserFoodLunch $lunch, UserFoodDinner $dinner, Condition $condition, UserSnack $snack, UserSupplement $supplement, UserExercise $workout)
+    public function __construct(User $user, UserFoodBreakfast $breakfast, UserFoodLunch $lunch, UserFoodDinner $dinner, Condition $condition, UserSnack $snack, UserSupplement $supplement, UserExercise $workout,Weight $weight)
     {
         $this->user = $user;
         $this->breakfast = $breakfast;
@@ -35,6 +38,7 @@ class UserHomePageController extends Controller
         $this->snack = $snack;
         $this->supplement = $supplement;
         $this->workout = $workout;
+        $this->weight = $weight;
     }
 
     public function index(){
@@ -82,6 +86,8 @@ class UserHomePageController extends Controller
             $workoutCalories += $workout->time/10 * $workout->exercise->calories;
         }
 
+        $condition = $this->condition->where('user_id', Auth::user()->id)->where('date', $today)->first();
+
         return view('users.homepage')->with('date', $date)
                                      ->with('today', $today)
                                      ->with('breakfasts', $breakfasts)
@@ -101,9 +107,10 @@ class UserHomePageController extends Controller
                                      ->with('lunchTime', $lunchTime)
                                      ->with('dinnerTime', $dinnerTime)
                                      ->with('snackTime', $snackTime)
-                                     ->with('supplementTime', $supplementTime);
+                                     ->with('supplementTime', $supplementTime)
+                                     ->with('condition', $condition);
     }
-    
+
     public function breakfastDelete($id){
         $this->breakfast->where('id', $id)->delete();
         return redirect()->back();
@@ -300,6 +307,36 @@ class UserHomePageController extends Controller
         $totalCarbs = $breakfastCarbs + $lunchCarbs + $dinnerCarbs + $snackCarbs + $supplementCarbs;
 
         return response()->json($totalCarbs);
+    }
+
+    public function weightChart(){
+        $today = now()->format('Y-m-d');
+        
+        $firstDayOfMonth = $today->copy()->startOfMonth()->format('Y-m-d');
+        $lastDayOfMonth = $today->copy()->endOfMonth()->format('Y-m-d');
+        
+        $weights = $this->weight
+                        ->where('user_id', Auth::user()->id)
+                        ->whereBetween('date', [$firstDayOfMonth, $lastDayOfMonth])  
+                        ->orderBy('date', 'asc') 
+                        ->get();
+      
+        // $chartData = $weights->map(function($weight) {
+        //     return [
+        //         'date' => $weight->date->format('Y-m-d'), 
+        //         'weight' => $weight->weight
+        //     ];
+        // });
+        // return response()->json($chartData);
+
+        $weightData=[];
+        foreach($weights as $weight){
+            $weightData[] = [
+                'date' => $weight->date->format('Y-m-d'), 
+                'weight' => $weight->weight
+            ];
+        }
+        return response()->json($weightData);
     }
 }
 

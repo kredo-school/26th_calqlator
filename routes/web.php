@@ -35,6 +35,7 @@ Route::get('/user/home/workout/chart', [UserHomePageController::class, 'workoutC
 Route::get('/user/home/protein/chart', [UserHomePageController::class, 'proteinChart'])->name('user.home.protein.chart');
 Route::get('/user/home/fat/chart', [UserHomePageController::class, 'fatChart'])->name('user.home.fat.chart');
 Route::get('/user/home/carbs/chart', [UserHomePageController::class, 'carbsChart'])->name('user.home.carbs.chart');
+Route::get('/user/weight/chart', [UserHomePageController::class, 'weightChart'])->name('user.home.weight.chart');
 // User / Calendar
 Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
 Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
