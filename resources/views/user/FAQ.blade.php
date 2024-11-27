@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/faq.css') }}">
+
 <div class="container">
     <div class="row justify-content-center">
         <form action="{{ route('user.faq')}}" method="get">
