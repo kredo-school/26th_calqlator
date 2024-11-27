@@ -93,11 +93,13 @@ document.getElementById("all_form").addEventListener("submit", function(event) {
 
         var colName = document.createElement("DIV");
         colName.classList.add('col');
+        colName.setAttribute('id', 'modalName');
         colName.textContent = name;
         row.appendChild(colName);
 
         var colCalories = document.createElement("DIV");
         colCalories.classList.add('col');
+        colCalories.setAttribute('id', 'madalCalories');
         colCalories.textContent = calories[index];
         row.appendChild(colCalories);
 
@@ -107,7 +109,8 @@ document.getElementById("all_form").addEventListener("submit", function(event) {
 
     fetch(routeUrl, {
         method: 'post',
-        body: formData
+        body: formData,
+        headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') } })
     })
 
     .then(response => response.json())
@@ -120,5 +123,4 @@ document.getElementById("all_form").addEventListener("submit", function(event) {
         }
     })
     .catch(error => console.error('Error', error));
-});
 

@@ -22,7 +22,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
 
 // UserFAQ
-use App\Http\Controllers\FaqController;
+// use App\Http\Controllers\FaqController;
 // User / Calendar
 Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
 Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');

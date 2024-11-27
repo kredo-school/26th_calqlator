@@ -28,8 +28,11 @@ class RegistrationController extends Controller
     }
 
     public function exercise_index() {
+        $exercise = $this->exercise->latest();
 
-        return view('admin.registration.exercises.index');
+        return view('admin.registration.exercises.index')->with([
+                                                                    'exercise' => $exercise,
+                                                            ]);
     }
 
     public function exercise_store(Request $request) {

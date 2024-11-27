@@ -47,7 +47,17 @@
 
         @include('admin.registration.modal.complete')
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('js/exerciseReg.js') }}" defer>
+        $(function() {
+            $('#exercise-save').on('show.bs.modal', function () {
+            var title = $('#name').val()
+            var body = $('#calory').val()
+            var modal = $(this)
+            modal.find('#modalQuestion').text(title)
+            modal.find('#modalAnswer').text(body)
+            })
+        })
         const routeUrl = "{{ route('admin.exercise.registration.store') }}";
     </script>
 
