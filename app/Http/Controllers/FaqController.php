@@ -56,6 +56,7 @@ class FaqController extends Controller
         return redirect()->back();
     }
 
+
     #FAQregistration
     public function reg_index()
     {
@@ -64,27 +65,23 @@ class FaqController extends Controller
 
     public function store(Request $request)
     {
-        // store in DB
-        $this->faq->question     = $request->question;
-        $this->faq->answer       = $request->answer;
-        $this->faq->save();
+        $data = $request->validate([
+            'questions.*.question' => 'required|string|max:255',
+            'questions.*.answer' => 'required|string|max:255',
+        ]);
 
-        // store in SESSION
-        $request->session()->put('form_data', $request->only(['question', 'answer']));
+        foreach ($data['faqs'] as $item) {
+            Faq::create($item);
+        }
 
-        // go to complete page
         return redirect()->route('admin.faqregistration.complete');
 
     }
     
-    public function complete(Request $request)
+    public function complete()
     {
-        // use Data from SESSION
-        $formData = $request->session()->get('form_data');
+        $questions = Faq::all();
 
-        if(!$formData){
-            return redirect()->route('admin.faqregistration.index');
-        }
-        return view('admin.faqregistration.complete',compact('formData'));
+        return view('admin.faqregistration.complete', compact('faqs'));
     }
 }
