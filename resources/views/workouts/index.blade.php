@@ -1,3 +1,6 @@
+@extends('layouts.user')
+
+
 <!DOCTYPE html>
 <html>
 <head>
