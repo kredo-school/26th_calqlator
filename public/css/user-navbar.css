@@ -1,0 +1,25 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+footer{
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.navbar , footer{
+    background-color: #C9E2AC;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link{
+    color: #404D34;
+    font-weight: bold;
+}
+
+.logo{
+    height: 50px;
+    width: auto;
+}

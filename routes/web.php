@@ -1,23 +1,21 @@
-<?php
-
+<?php 
+    
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MealController;
 
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\FoodsController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\Admin\HomesController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ChatController;
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\ExercisesController;
 
 Auth::routes();
-
+    
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/meals', [MealController::class, 'index']);
@@ -62,3 +60,22 @@ Route::get('/admin/faqregistration/complete', [FaqController::class, 'complete']
 Route::get('/admin/chatpage/index', [ChatController::class, 'index'])->name('admin.chatpage.index');
 
 
+        
+       
+// Admin / user list
+Route::get('/admin/user/list', [UsersController::class, 'index'])->name('admin.users.list');
+Route::get('/admin/user/edit/{id}', [UsersController::class, 'edit'])->name('admin.users.edit');
+Route::put('/admin/user/update/{id}', [UsersController::class, 'update'])->name('admin.users.update');
+Route::delete('/admin/user/delete/{id}', [UsersController::class, 'destroy'])->name('admin.users.destroy');
+
+// Admin / food list
+Route::get('/admin/food/list', [FoodsController::class, 'index'])->name('admin.foods.list'); 
+Route::get('/admin/food/edit/{id}', [FoodsController::class, 'edit'])->name('admin.foods.edit');
+Route::put('/admin/food/update/{id}', [FoodsController::class, 'update'])->name('admin.foods.update');
+Route::delete('/admin/food/delete/{id}', [FoodsController::class, 'destroy'])->name('admin.foods.destroy');
+
+// Admin / exercise list
+Route::get('/admin/exercise/list', [ExercisesController::class, 'index'])->name('admin.exercises.list');
+Route::get('/admin/exercise/edit/{id}', [ExercisesController::class, 'edit'])->name('admin.exercise.edit');
+Route::get('/admin/exercise/update/{id}', [ExercisesController::class, 'update'])->name('admin.exercises.update');
+Route::get('/admin/exercise/delete/{id}', [ExercisesController::class, 'delete'])->name('admin.exercise.delete');
