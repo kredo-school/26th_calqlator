@@ -3,44 +3,75 @@
 @section('title', 'Profile')
 
 @section('content')
-  <div class="container">
-      <div class="row justify-content-center">
-          <div class="col-md-8">
-              <div class="card">
-                  <div class="card-body">
-                      @if($user->avatar)
+    <div class="container">
+        <div class="row justify-content-center" style="background-color: #f5f5f5">
+            <div class="float-left">
+                <div class="d-flex flex-column align-items-center m-5">
+                    {{-- image --}}
+                    @if($user->avatar)
+                        <img src="{{ asset('storage/avatars/'.Auth::user()->avatar)}}" alt="" class="avatar rounded-circle image-lg">
+                    @else 
+                        <i class="far fa-circle-user fa-10x"></i>
+                    @endif
+                </div>
+            </div>
 
-                      {{-- image --}}
-                      <img src="{{ asset('storage/avatars/'.Auth::user()->avatar)}}" alt="" class="avatar rounded-circle image-lg d-block mx-auto">
-                      @else 
-                      <i class="far fa-circle-user fa-10x"></i>
-                      @endif
-                    </div>
-                    
-                    <div class="col align-self-end">
-                    <h2 class="h3 d-inline">{{ $user->name }}</h2>
-                    <h4 class="h5 d-inline">{{ $user->email }}</h4>
-                    <h4 class="h6 d-inline">{{ $user->email }}</h4>
+            <div class="float-right">
 
-        <form action="{{ route('user.update')}}" method="post" enctype="multipart/form-data">
-        @csrf 
-        @method('PATCH')
+                <div class="personal-info">
+                    <h2 class="fw-bold">{{ $user->name }}</h2>
+                    <h5>Start Date: {{ $user->created_at->format('d M, Y')}}</h5>
+                </div>
 
-        <label for="name" class="form-label mt-3">Name</label>
-        <input type="text" name="name" id="name" value="{{ old('name', Auth::user()->name) }}" class="form-control">
-        @error('name')
-            <p class="mb-0 text-danger small">{{ $message }}</p>
-        @enderror
+                <div class="personal-details">
+                    <table class="details">
+                        <thead>
+                            <tr>
+                                <th>Age:</th>
+                                <th>Height:</th>
+                                <th>Current<br>Weight:</th>
+                                <th>BMI:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>38</td>
+                                <td>165cm</td>
+                                <td>60kg</td>
+                                <td>25</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-        <label for="email" class="form-label mt-3">E-Mail Address</label>
-        <input type="email" name="email" id="email" value="{{ old('email', Auth::user()->email) }}" class="form-control">
-        @error('email')
-            <p class="mb-0 text-danger small">{{ $message }}</p>
-        @enderror
+                <div class="personal-table">
+                    <table class="table">
+                          <tr>
+                            <td class="text-lg">5.0 kg weight loss</td>
+                            <td>
+                                <div class="col-md-6 offset-md-1">
+                                    <a href="{{ route('user.profile')}}" class="btn btn-warning fw-bold text-white">Progress</a>
+                                </div>
+                            </td>
+                          </tr>
 
-            {{-- Edit Profile --}}
-            <a href="{{ route('user.edit')}}" class="btn btn-sm btn-primary mt-3 px-4">Edit Profile</a>
+                          <tr>
+                            <td class="text-lg">Goal: Lose Weight</td>
+                            <td>   
+                                <div class="col-md-6 offset-md-1">
+                                    <a href="{{ route('user.profile')}}" class="btn btn-warning fw-bold text-white">Your Goal</a>
+                                </div></td>
+                          </tr>
+                    </table>
+                </div>
+            </div>
+            <form action="{{ route('user.update')}}" method="post" enctype="multipart/form-data" style="text-align: right">
+                    @csrf 
+                    @method('PATCH')
+
+                    <a href="{{ route('user.edit')}}" class="btn btn-link text-primary"><span class="text-lg">Edit Profile<span></a>
+                    <i class="fa-solid fa-pen-to-square fa-2x text-primary mt-3"></i>
+            </form>
         </div>
-    </form>
-  </div>
+    </div>
 @endsection

@@ -16,8 +16,10 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="{{ asset('css/faq.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 
     <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div id="app">

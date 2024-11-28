@@ -16,9 +16,18 @@ class UserController extends Controller
         $this->user = $user;
     }
 
+
     public function profile(){
         $user_a = $this->user->findOrFail(Auth::user()->id);
+        $now = date('Ymd');
 
+        // 誕生日
+        $birthday = "1990-07-01";
+        $birthday = str_replace("-", "", $birthday);
+        
+        // 年齢
+        $age = floor(($now - $birthday) / 10000);
+                
         return view('user.profile')->with('user', $user_a);
     }
 
@@ -29,7 +38,8 @@ class UserController extends Controller
     }
 
     public function edit(){
-        return view('user.edit');
+        $user_a = $this->user->findOrFail(Auth::user()->id);
+        return view('user.edit')->with('user', $user_a);
     }
 
     public function update(Request $request){
@@ -74,5 +84,11 @@ class UserController extends Controller
         $request->avatar->storeAs(self::LOCAL_STORAGE_FOLDER, $new_file_name);
 
         return $new_file_name;
+    }
+
+    public function changePassword(Request $request){
+    }
+
+    public function changeEmail(Request $request){
     }
 }
