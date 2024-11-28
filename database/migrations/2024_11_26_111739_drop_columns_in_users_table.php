@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('name');
             $table->dropColumn('email_verified_at');
-
       
             $table->string('first_name');
             $table->string('last_name');
