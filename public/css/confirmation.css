@@ -2,6 +2,18 @@ table{
     width: 100%;
 }
 
+.left-side{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.right-side{
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .confirmation-table{
     border-radius: 5px;
     border: 1px solid #000;
@@ -33,4 +45,40 @@ table{
 .cancel-btn{
     background-color: #BABEBF;
     color:white;
+}
+
+.sort-arrow{
+    cursor: pointer;
+}
+
+.dataTables_length{
+    display: none;
+}
+
+#admin-table_info , #admin-table_paginate{
+    text-align: center;
+}
+
+#admin-table_next{
+    margin-left: 5px;
+}
+
+#admin-table_next::after{
+    content: " >>";
+}
+
+#admin-table_previous{
+    margin-right: 5px;
+}
+
+#admin-table_previous::before{
+    content: "<< ";
+}
+
+.paginate_button{
+    cursor: pointer;
+}
+
+a.paginate_button , a.paginate_button.current{
+    margin-right: 5px;
 }

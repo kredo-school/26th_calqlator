@@ -9,7 +9,7 @@
                 <p class="mb-0">Are you sure you want to confirm the food below?</p>
 
                 <div class="m-1 confirmation-table">
-                    <table class="table table-borderless text-center text-dark mb-0">
+                    <table class="table text-center text-dark mb-0">
                         <thead class="food-confirmation">
                             <tr>
                                 <th>Name</th>

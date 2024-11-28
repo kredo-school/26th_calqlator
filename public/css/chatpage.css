@@ -1,0 +1,144 @@
+.icon-sm{
+    font-size: 1.5rem;
+}
+
+.icon-ssm{
+    font-size: 1rem;
+}
+
+.icon-lg{
+    font-size: 2.5rem;
+}
+
+.icon-apple{
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    margin: 0;
+    background-color: #f7f7f7;
+}
+
+.chat-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.chat-header {
+    background-color: #859D6B;
+    color: white;
+    padding: 0.7rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.search{
+    width: 200px;
+    text-align: right;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    margin-bottom: 1rem;
+    max-width: 70%;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    line-height: 1.4;
+    font-size: 1rem;
+    word-wrap: break-word;
+}
+
+.icon.sent {
+    align-self: flex-end;
+}
+
+.message.sent {
+    align-self: flex-end;
+    background-color: #dcf8c6;
+    border-top-right-radius: 0;
+}
+
+.icon.received {
+    align-self: flex-start;
+}
+
+.message.received {
+    align-self: flex-start;
+    background-color: #ffffff;
+    border-top-left-radius: 0;
+    border: 1px solid #e0e0e0;
+}
+
+.message .timestamp {
+    font-size: 0.8rem;
+    color: #999;
+    text-align: right;
+    margin-top: 0.5rem;
+}
+
+.chat-input {
+    display: flex;
+    padding: 0.5rem;
+    border-top: 1px solid #ddd;
+}
+
+.chat-search {
+    display: flex;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 1.5rem;
+    outline: none;
+}
+
+.chat-input button {
+    margin-left: 0.5rem;
+    padding: 0 1.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #859D6B;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+}
+
+.chat-input button:hover {
+    background-color: #45a049;
+}
+
+a.list-group-item-b{
+    font-weight: bolder;
+    color: #859D6B;
+    background-color: #C9E2AC;
+    padding : 8px;
+}
+
+.list-group-item-b:hover{
+    color: #C9E2AC;
+    background-color: #859D6B;
+
+}
+
+.list-group-item-b.active{
+    color: #C9E2AC;
+    background-color: #859D6B;
+}
