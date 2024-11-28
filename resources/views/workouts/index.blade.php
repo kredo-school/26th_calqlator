@@ -28,7 +28,7 @@
                         <td>{{ $workout->Exercise }}</td>
                         <td>{{ $workout->calories }} kcal</td>
                         <td>{{ $workout->min }}</td>
-                        <td>{{ $workout->Total Calories }}</td>
+                        <td>{{ $workout->Total_Calories }}</td>
                     </tr>
                 @empty
                     <tr>
