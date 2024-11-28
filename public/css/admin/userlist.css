@@ -1,0 +1,13 @@
+.userlist {
+    margin-left: 250px;
+    margin-top: 60px;
+    padding: 20px;
+    background-color: #fffcf7;
+    min-height: calc(100vh - 60px);
+}
+
+.userlist th {
+    background-color: #c9e2ac;
+    color: black;
+    vertical-align: middle;
+}
