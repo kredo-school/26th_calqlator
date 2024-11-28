@@ -10,6 +10,8 @@ use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\Admin\HomesController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\WorkoutController;
+
 
 
 Route::get('/', function () {
@@ -59,5 +61,9 @@ Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->na
 Route::get('/admin/faqregistration/complete', [FaqController::class, 'complete'])->name('admin.faqregistration.complete');
 // Admin / ChatPage
 Route::get('/admin/chatpage/index', [ChatController::class, 'index'])->name('admin.chatpage.index');
+// Workout Registration
+Route::get('/workouts', [WorkoutController::class, 'index']);
+Route::post('/workouts', [WorkoutController::class, 'store'])->name('workouts.store');
+Route::get('/workout-search', [WorkoutController::class, 'workout.search']);
 
 

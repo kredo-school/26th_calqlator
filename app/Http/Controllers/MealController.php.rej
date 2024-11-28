@@ -1,0 +1,10 @@
+diff a/app/Http/Controllers/MealController.php b/app/Http/Controllers/MealController.php	(rejected hunks)
+@@ -19,7 +19,7 @@
+         $meal->amount = $request->amount;
+         $meal->time_eaten = $request->time_eaten;
+         $meal->save();
+-        return redirect('/meals');
++        return redirect()->back();
+     }
+ 
+     public function search(Request $request) {
