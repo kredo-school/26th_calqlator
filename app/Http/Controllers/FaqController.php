@@ -70,9 +70,14 @@ class FaqController extends Controller
             'faqs.*.answer' => 'required|string|max:255',
         ]);
 
+        $sessionFaqs = session()->get('faqs', []);
+
         foreach ($data['faqs'] as $item) {
-            Faq::create($item);
+            $question = Faq::create($item);
+            $sessionFaqs[] = $question->id; // 保存した質問のIDをセッションに追加
         }
+
+        session()->put('faqs', $sessionFaqs);
 
         return redirect()->route('admin.faqregistration.complete');
 
@@ -80,7 +85,9 @@ class FaqController extends Controller
     
     public function complete()
     {
-        $faqs = Faq::all();
+        $sessionFaqs = session()->get('faqs', []);
+
+        $faqs = Faq::whereIn('id', $sessionFaqs)->get();
 
         return view('admin.faqregistration.complete', compact('faqs'));
     }
