@@ -27,11 +27,11 @@
 </head>
 <body>
     <div id="app">
-        {{-- navbar --}}
-
+        @include('user-guest-navbar')
         <main class="py-4">
                 @yield('content')
         </main>
+       @include('user-guest-footer')
     </div>
 </body>
 </html>
