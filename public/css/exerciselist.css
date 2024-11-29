@@ -1,0 +1,26 @@
+.exerciselist {
+    background-color: #fffcf7;
+    border: 1px solid black;
+}
+
+
+
+.exerciselist th {
+    background-color: #ffa488 !important;
+    color: black !important;
+    
+}
+
+.exercise-edit th {
+    background-color: #48b13a;
+}
+
+.cancel-btn {
+    background-color: #babebf;
+    color: #ffffff;
+}
+
+.edit-btn {
+    background-color: #71b668;
+    color: #ffffff;
+}

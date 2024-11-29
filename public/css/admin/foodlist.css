@@ -1,0 +1,12 @@
+.foodlist {
+    margin-left: 250px;
+    margin-top: 60px;
+    padding: 20px;
+    background-color: #fffcf7;
+    min-height: calc(100vh - 60px);
+}
+
+.foodlist th {
+    background-color: #ffd08e;
+    vertical-align: middle
+}
