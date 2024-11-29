@@ -1,0 +1,103 @@
+
+.modal-header {
+ border-color: #000;
+}
+
+.modal-title {
+  color: #343a40;
+}
+
+.btn-primary {
+  /*background-color: #007bff;*/
+  border-color: #007bff;
+  color: white;
+}
+
+.btn-secondary {
+  /*background-color: #28a745;*/
+  border-color: #28a745;
+  color: white;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+
+}
+
+
+.input-group .form-control {
+  border-radius: 0;
+}
+
+.input-group .form-control:focus {
+  box-shadow: none;
+}
+
+.mborder {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-color: #000;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.underline-container {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.underline {
+  display: inline-block;
+  position: relative;
+  padding-bottom: 10px; /* 線とテキストの間のスペースを指定 */
+  width: 100%;
+}
+
+.underline::before,
+.underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 100vw; /* 画面全体の幅に設定 */
+  height: 2px; /* アンダーラインの太さを調整 */
+  background-color: black; /* アンダーラインの色を調整 */
+}
+
+.underline::before {
+  left: 50%;
+  transform: translateX(-100%);
+}
+
+.underline::after {
+  right: 50%;
+  transform: translateX(100%);
+}
+
+
+
+
+
+
+body {
+  background-image: url('/images/workout.png');
+    /*background-size: cover;*/
+
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    background-size: auto;
+    /*background-attachment: fixed;*/
+    background-color: #fffcf7;
+
+}
+
+
+.history {   border-top: 2px solid #000; /* 線の太さと色を指定 */
+  padding-top: 10px; /* 線とテキストの間のスペースを指定 */
+  max-width: 1900px;
+
+}
+
