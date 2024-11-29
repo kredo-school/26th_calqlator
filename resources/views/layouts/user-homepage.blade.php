@@ -30,11 +30,11 @@
 </head>
 <body>
     <div id="app">
-        {{-- navbar --}}
-
+        @include('user-guest-navbar')
         <main class="py-4">
                 @yield('content')
         </main>
+       @include('user-guest-footer')
     </div>
     <script src="{{ asset('js/calories-chart.js') }}"></script>
     <script src="{{ asset('js/workout-chart.js') }}"></script>
