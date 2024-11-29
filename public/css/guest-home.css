@@ -1,0 +1,87 @@
+.welcome{
+    background-image: url(../assets/images/home-bg2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.welcome div{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    margin: 0;
+    margin-left: 20px;
+    padding: 20px;
+    width: 40%;
+    background-color: rgba(201, 226, 172, 0.1);
+    border-radius:28% 72% 65% 35% / 17% 35% 65% 83% ;
+}
+
+.welcome-logo {
+    width: 25vw;            
+    height: auto;    
+    min-width: 450px;        
+}
+
+.welcome h2{
+    color: #00302f;
+    margin: 0;
+}
+
+.welcome h1{
+    color: #00302f;
+}
+
+@media (max-width: 992px) {
+    .display-1 {
+        font-size: 4rem;    /
+    }
+
+    .display-3 {
+        font-size: 3rem;    
+    }
+
+    .welcome-logo {
+        width: 35vw;            
+        height: auto;
+        min-width: 400px;            
+    }
+}
+@media (max-width: 768px) {
+    .display-1 {
+        font-size: 3.5rem;    /
+    }
+
+    .display-3 {
+        font-size: 2.5rem;    
+    }
+
+    .welcome-logo {
+        width: 40vw;            
+        height: auto;    
+        min-width: 350px;        
+    }
+}
+
+@media (max-width: 480px) {
+    .display-1 {
+        font-size: 1.5rem;    
+    }
+
+    .display-3 {
+        font-size: 1rem;    
+    }
+
+    .logo {
+        width: 50vw;          
+        max-width: 200px;     
+    }
+}

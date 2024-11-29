@@ -12,28 +12,20 @@ use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\Admin\HomesController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\ExercisesController;
 use App\Http\Controllers\WorkoutController;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
-use App\Http\Controllers\ExercisesController;
-
 Auth::routes();
-    
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/meals', [MealController::class, 'index']);
-Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
-Route::get('/search', [MealController::class, 'search']);
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-
-Route::get('/daily-condition', function () {
-    return view('daily_condition');
-});
+// Guest & User
+Route::get('/', function () {return view('home');})->name('home');
+Route::post('/find/reset/user', [PasswordResetController::class, 'findResetUser'])->name('find.user.reset.id');
+Route::post('/update/password/{id}', [PasswordResetController::class, 'update'])->name('update.password');
 
 // User / Home Page
 Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
@@ -44,6 +36,13 @@ Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayIn
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 // User / ChatPage
 Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
+//User / Meal Registration
+Route::get('/meals', [MealController::class, 'index']);
+Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
+Route::get('/search', [MealController::class, 'search']);
+//User / Daily Condition
+Route::get('/daily-condition', function () {return view('daily_condition');});
+
 // ADMIN
 // Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
 // Admin / Homepage
