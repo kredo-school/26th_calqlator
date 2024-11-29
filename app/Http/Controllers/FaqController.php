@@ -66,8 +66,8 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'questions.*.question' => 'required|string|max:255',
-            'questions.*.answer' => 'required|string|max:255',
+            'faqs.*.question' => 'required|string|max:255',
+            'faqs.*.answer' => 'required|string|max:255',
         ]);
 
         foreach ($data['faqs'] as $item) {
@@ -80,7 +80,7 @@ class FaqController extends Controller
     
     public function complete()
     {
-        $questions = Faq::all();
+        $faqs = Faq::all();
 
         return view('admin.faqregistration.complete', compact('faqs'));
     }
