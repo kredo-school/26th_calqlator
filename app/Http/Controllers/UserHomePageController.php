@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DateTime;
 use App\Models\User;
 use App\Models\UserFoodBreakfast;
 use App\Models\UserFoodLunch;
@@ -27,6 +28,7 @@ class UserHomePageController extends Controller
     private $supplement;
     private $workout;
     private $weight;
+    protected $today;
 
     public function __construct(User $user, UserFoodBreakfast $breakfast, UserFoodLunch $lunch, UserFoodDinner $dinner, Condition $condition, UserSnack $snack, UserSupplement $supplement, UserExercise $workout,Weight $weight)
     {
@@ -41,9 +43,11 @@ class UserHomePageController extends Controller
         $this->weight = $weight;
     }
 
-    public function index(){
-        $date = now()->format('m / j / Y');
-        $today = now()->format('Y-m-d');
+    public function index($date){
+        // $today = new DateTime($date);
+        $passDate = Carbon::parse($date);
+        $today = $passDate->format('Y-m-d');
+        $titleDate = $passDate ->format('F  j , Y');
 
         $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
         $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
@@ -90,7 +94,8 @@ class UserHomePageController extends Controller
 
         $weight = $this->weight->where('user_id', Auth::user()->id)->where('date', $today)->first();
 
-        return view('users.homepage')->with('date', $date)
+        return view('users.homepage')->with('titleDate', $titleDate)
+                                     ->with('date', $date)   
                                      ->with('today', $today)
                                      ->with('breakfasts', $breakfasts)
                                      ->with('lunches', $lunches)
@@ -144,8 +149,8 @@ class UserHomePageController extends Controller
         return redirect()->back();
     }
 
-    public function getTotalCalories(){
-        $today = now()->format('Y-m-d');
+    public function getTotalCalories($date){
+        $today = $date;
 
         $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
         $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
@@ -179,8 +184,8 @@ class UserHomePageController extends Controller
         return $totalCalories;
     }
 
-    public function getWorkoutCalories(){
-        $today = now()->format('Y-m-d');
+    public function getWorkoutCalories($date){
+        $today =  $date;
 
         $workouts = $this->workout->where('user_id', Auth::user()->id)->where('date', $today)->get();
 
@@ -192,20 +197,20 @@ class UserHomePageController extends Controller
         return $workoutCalories;
     }
 
-    public function caloriesChart(){
-        $totalCalories = $this->getTotalCalories();
+    public function caloriesChart($date){
+        $totalCalories = $this->getTotalCalories($date);
 
         return response()->json($totalCalories);
     }
 
-    public function workoutChart(){
-        $workoutCalories = $this->getWorkoutCalories();
+    public function workoutChart($date){
+        $workoutCalories = $this->getWorkoutCalories($date);
 
         return response()->json($workoutCalories);
     }
 
-    public function proteinChart(){
-        $today = now()->format('Y-m-d');
+    public function proteinChart($date){
+        $today =  $date;
 
         $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
         $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
@@ -240,8 +245,8 @@ class UserHomePageController extends Controller
         return response()->json($totalProtein);
     }
 
-    public function fatChart(){
-        $today = now()->format('Y-m-d');
+    public function fatChart($date){
+        $today =  $date;
 
         $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
         $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
@@ -276,8 +281,8 @@ class UserHomePageController extends Controller
         return response()->json($totalFat);
     }
 
-    public function carbsChart(){
-        $today = now()->format('Y-m-d');
+    public function carbsChart($date){
+        $today =  $date;
 
         $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
         $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
@@ -335,7 +340,6 @@ class UserHomePageController extends Controller
         }
         return response()->json($weightData);
     } catch (\Exception $e) {
-        // Log the error and return a 500 error with a message
         \Log::error('Error fetching weight chart data: ' . $e->getMessage());
         return response()->json(['error' => 'Internal Server Error'], 500);
     }

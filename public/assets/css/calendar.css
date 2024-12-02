@@ -47,8 +47,10 @@ main{
 }
 /*  Calendar */
 .calendar-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
-    padding: 0;
     margin-top: 100px;
 }
 
@@ -101,7 +103,6 @@ thead tr:first-child{
 thead tr:first-child th{
     border: none;
     padding: 0;
-    /* background-color: transparent; */
 }
 
 thead tr:nth-child(2){
@@ -138,8 +139,8 @@ tbody td .top{
 
 tbody td .bottom{
     position: absolute;
-    top: 18px;
-    left: 0;
+    bottom: 0;
+    left: 0;;
     font-size: 16px;
     text-align: start;
     padding-left:5px; 
@@ -198,8 +199,12 @@ td.today{
     width: 60%;
 }
 
-.right-area{
+.image-area{
     width: 20%;
+    background-image: url(../images/christmas-tree-7642216_1280.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position:bottom;
 }
 }
 
@@ -212,5 +217,7 @@ td.today{
 .calendar-area{
     width: 100%;
 }
-
+.image-area{
+    display: none;
+}
 }

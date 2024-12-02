@@ -44,19 +44,19 @@ Route::post('/find/reset/user', [PasswordResetController::class, 'findResetUser'
 Route::post('/update/password/{id}', [PasswordResetController::class, 'update'])->name('update.password');
 
 // User / Home Page
-Route::get('/user/home', [UserHomePageController::class, 'index'])->name('user.home');
+Route::get('/user/home/{date}', [UserHomePageController::class, 'index'])->name('user.home');
 Route::delete('/user/breakfast/delete/{id}',[UserHomePageController::class, 'breakfastDelete'])->name('user.breakfast.delete');
 Route::delete('/user/lunch/delete/{id}',[UserHomePageController::class, 'lunchDelete'])->name('user.lunch.delete');
 Route::delete('/user/dinner/delete/{id}',[UserHomePageController::class, 'dinnerDelete'])->name('user.dinner.delete');
 Route::delete('/user/workout/delete/{id}',[UserHomePageController::class, 'workoutDelete'])->name('user.workout.delete');
 Route::delete('/user/supplement/delete/{id}',[UserHomePageController::class, 'supplementDelete'])->name('user.supplement.delete');
 Route::delete('/user/snack/delete/{id}',[UserHomePageController::class, 'snackDelete'])->name('user.snack.delete');
-Route::get('/user/home/calories/chart', [UserHomePageController::class, 'caloriesChart'])->name('user.home.calories.chart');
-Route::get('/user/home/workout/chart', [UserHomePageController::class, 'workoutChart'])->name('user.home.workout.chart');
-Route::get('/user/home/protein/chart', [UserHomePageController::class, 'proteinChart'])->name('user.home.protein.chart');
-Route::get('/user/home/fat/chart', [UserHomePageController::class, 'fatChart'])->name('user.home.fat.chart');
-Route::get('/user/home/carbs/chart', [UserHomePageController::class, 'carbsChart'])->name('user.home.carbs.chart');
-Route::get('/user/home/weight/chart', [UserHomePageController::class, 'weightChart'])->name('user.home.weight.chart');
+Route::get('/user/home/calories/chart/{date}', [UserHomePageController::class, 'caloriesChart'])->name('user.home.calories.chart');
+Route::get('/user/home/workout/chart/{date}', [UserHomePageController::class, 'workoutChart'])->name('user.home.workout.chart');
+Route::get('/user/home/protein/chart/{date}', [UserHomePageController::class, 'proteinChart'])->name('user.home.protein.chart');
+Route::get('/user/home/fat/chart/{date}', [UserHomePageController::class, 'fatChart'])->name('user.home.fat.chart');
+Route::get('/user/home/carbs/chart/{date}', [UserHomePageController::class, 'carbsChart'])->name('user.home.carbs.chart');
+// Route::get('/user/home/weight/chart', [UserHomePageController::class, 'weightChart'])->name('user.home.weight.chart');
 
 // User / Calendar
 Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');

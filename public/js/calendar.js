@@ -1,5 +1,6 @@
 'use strict';
 
+
 console.clear();
 
 {
@@ -105,10 +106,10 @@ console.clear();
                 const td = document.createElement('td');
 
                 const topSection = document.createElement('p');
-                const middleSection = document.createElement('div');
+                const bottomSection = document.createElement('div');
     
                 topSection.classList.add('top');
-                middleSection.classList.add('bottom');
+                bottomSection.classList.add('bottom');
 
                 topSection.textContent = `${String(date.date).padStart(2, ' ')}`; 
 
@@ -123,28 +124,44 @@ console.clear();
                                 if (response) {
                                     const weight = response.weight;
                                     const totalCalories = response.totalCalories;
-                                        if(weight === null){
-                                            middleSection.innerHTML = `${totalCalories} kcal <br> -- kg`;
+                                    const condition = response.condition;
+
+                                    if(weight === null){
+                                        bottomSection.innerHTML = `${totalCalories} kcal <br> -- kg`;
+                                    }
+                                    else{
+                                        if(condition === null){
+                                            bottomSection.innerHTML = `  <br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                        }else{
+                                            if(condition.condition === 1){
+                                                bottomSection.innerHTML = `😀<br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                            }else if(condition.condition === 2){
+                                                bottomSection.innerHTML = `😏<br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                            }else if(condition.condition === 3){
+                                                bottomSection.innerHTML = `😐<br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                            }else if(condition.condition === 4){
+                                                bottomSection.innerHTML = `😷<br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                            }else if(condition.condition === 5){
+                                                bottomSection.innerHTML = `😴<br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                            }
                                         }
-                                        else{
-                                            middleSection.innerHTML = `${totalCalories} kcal <br> ${weight.weight} kg`;
-                                        }
+                                    }
                                 }
                             }
                         },
                         error: function(xhr, status, error) {
                             console.error('Error fetching data: ' + error);
                             console.log('XHR response:', xhr.responseText);
-                            middleSection.innerHTML='Error fetching data.';
+                            bottomSection.innerHTML='Error fetching data.';
                         }
                     });
                 };
 
                 td.appendChild(topSection);   
-                td.appendChild(middleSection); 
+                td.appendChild(bottomSection);
 
                 td.addEventListener('click', () => {
-                    window.location.href = '/user/home/page/${date.date}'; 
+                    window.location.href = `/user/home/${selectedDate}`; 
                 });
                 td.style.cursor = 'pointer';
 

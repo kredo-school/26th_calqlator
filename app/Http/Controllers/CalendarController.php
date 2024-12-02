@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\UserFoodBreakfast;
 use App\Models\UserFoodLunch;
 use App\Models\UserFoodDinner; 
-// use App\Models\UserFoodSnack;
-// use App\Models\UserFoodSupplement;
+use App\Models\UserSnack;
+use App\Models\UserSupplement;
 use App\Models\Condition;
 use App\Models\Weight;
 use Illuminate\Http\Request;
@@ -19,17 +19,17 @@ class CalendarController extends Controller
     private $breakfast;
     private $lunch;
     private $dinner;
-    // private $snack;
-    // private $supplement;
+    private $snack;
+    private $supplement;
     private $condition;
 
 
-    public function __construct(Weight $weight, UserFoodBreakfast $breakfast, UserFoodLunch $lunch, UserFoodDinner $dinner,  Condition $condition){
+    public function __construct(Weight $weight, UserFoodBreakfast $breakfast, UserFoodLunch $lunch, UserFoodDinner $dinner,  UserSnack $snack, UserSupplement $supplement, Condition $condition){
         $this -> breakfast = $breakfast;
         $this -> lunch = $lunch;
         $this -> dinner = $dinner;
-        // $this -> snack = $snack;
-        // $this -> supplement = $supplement;
+        $this -> snack = $snack;
+        $this -> supplement = $supplement;
         $this -> weight = $weight;
         $this -> condition = $condition;
     }
@@ -80,15 +80,15 @@ class CalendarController extends Controller
         $breakfasts = $this->breakfast->where('user_id', $id)->where('date', $date)->get();
         $lunches = $this->lunch->where('user_id', $id)->where('date', $date)->get();
         $dinners = $this->dinner->where('user_id',$id)->where('date', $date)->get();
-        // $snacks = $this->snack->where('user_id', $id)->where('date', $today)->get();
-        // $supplements = $this->supplement->where('user_id', $id)->where('date', $today)->get();
+        $snacks = $this->snack->where('user_id', $id)->where('date', $date)->get();
+        $supplements = $this->supplement->where('user_id', $id)->where('date', $date)->get();
 
         $totalCalories = 0;
         $breakfastCalories = 0;
         $lunchCalories = 0;
         $dinnerCalories = 0;
-        // $snackCalories = 0;
-        // $supplementCalories = 0;
+        $snackCalories = 0;
+        $supplementCalories = 0;
 
         foreach($breakfasts as $breakfast){
             $breakfastCalories += $breakfast->amount * $breakfast->food->calories;
@@ -99,15 +99,14 @@ class CalendarController extends Controller
         foreach($dinners as $dinner){
             $dinnerCalories += $dinner->amount * $dinner->food->calories;
         }
-        // foreach($snacks as $snack){
-        //     $snackCalories += $snack->amount * $snack->food->calories;
-        // }
-        // foreach($supplements as $supplement){
-        //     $supplementCalories += $supplement->amount * $supplement->food->calories;
-        // }
+        foreach($snacks as $snack){
+            $snackCalories += $snack->amount * $snack->food->calories;
+        }
+        foreach($supplements as $supplement){
+            $supplementCalories += $supplement->amount * $supplement->food->calories;
+        }
 
-        $totalCalories = $breakfastCalories + $lunchCalories + $dinnerCalories;
-        // $totalCalories = $breakfastCalories + $lunchCalories + $dinnerCalories + $snackCalories + $supplementCalories;
+        $totalCalories = $breakfastCalories + $lunchCalories + $dinnerCalories + $snackCalories + $supplementCalories;
 
         return $totalCalories;
     }
@@ -117,7 +116,8 @@ class CalendarController extends Controller
 
         $totalCalories = $this ->getTotalCalories($date);
 
-        return response()->json(['weight'=> $weight->first(),'totalCalories' => $totalCalories]);
-    }
+        $condition = $this -> condition -> where('user_id', Auth::user()->id)->where('date', $date)->first();
 
+        return response()->json(['weight'=> $weight->first(),'totalCalories' => $totalCalories, 'condition' => $condition]);
+    }
 }

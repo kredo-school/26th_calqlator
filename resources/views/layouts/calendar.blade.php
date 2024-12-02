@@ -22,27 +22,15 @@
     <div id="app">
         @include('user-guest-navbar')
 
-        <main class="py-4">
-            <div class="row h-100 w-100">
+        <main>
+            <div class="row h-90 w-100 gx-0">
                 <div class="p-0 menu-area">
                     <ul class="list-group text-center border border-dark">
                         <h3 class="list-group-item m-0 list-title ">Summary of the month</h3>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="icon">😴</span>
-                                <span class="count">{{$smile5}}</span>
-                            </div>
-                        </li>
-                        <li class="list-group-item"> 
-                            <div class="d-flex">
-                                <span class="icon" >😷</span>
-                                <span class="count">{{$smile4}}</span>
-                            </div>
-                        </li>
-                        <li class="list-group-item"> 
-                            <div class="d-flex">
-                                <span class="icon">😐</span>
-                                <span class="count">{{$smile3}}</span>
+                                <span class="icon">😀</span>
+                                <span class="count">{{$smile1}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
@@ -53,8 +41,20 @@
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="icon">😀</span>
-                                <span class="count">{{$smile1}}</span>
+                                <span class="icon">😐</span>
+                                <span class="count">{{$smile3}}</span>
+                            </div>
+                        </li>
+                        <li class="list-group-item"> 
+                            <div class="d-flex">
+                                <span class="icon" >😷</span>
+                                <span class="count">{{$smile4}}</span>
+                            </div>
+                        </li>
+                        <li class="list-group-item"> 
+                            <div class="d-flex">
+                                <span class="icon">😴</span>
+                                <span class="count">{{$smile5}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
@@ -66,13 +66,10 @@
                     </ul>                
                 </div>
                 <div class="calendar-area p-0">
-                    <div class="col p-0 pb-5">
-                        @yield('content')
-                    </div>
-                    <div class="right-area">
-                        <div class="col">
-                        </div>
-                    </div>
+                    @yield('content')
+                </div>
+                <div class="image-area">
+
                 </div>
             </div>
         </main>
