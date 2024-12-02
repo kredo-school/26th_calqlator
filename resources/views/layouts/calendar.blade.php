@@ -23,7 +23,7 @@
         @include('user-guest-navbar')
 
         <main class="py-4">
-            <div class="row h-100">
+            <div class="row h-100 w-100">
                 <div class="p-0 menu-area">
                     <ul class="list-group text-center border border-dark">
                         <h3 class="list-group-item m-0 list-title ">Summary of the month</h3>
@@ -70,6 +70,8 @@
                         @yield('content')
                     </div>
                     <div class="right-area">
+                        <div class="col">
+                        </div>
                     </div>
                 </div>
             </div>

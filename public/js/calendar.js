@@ -66,10 +66,17 @@ console.clear();
     }
 
     function renderTitle(){
-        const prev = `${String(month).padStart(2, '0')}`;
+        let prev = `${String(month).padStart(2, '0')}`;
         const title = `${String(month+1).padStart(2, '0')}`;
-        const next = `${String(month+2).padStart(2, '0')}`;
+        let next = `${String(month+2).padStart(2, '0')}`;
         const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+   
+        if(month === 11){
+            next = '01';
+        }
+        if(month === 0){
+            prev = '12';
+        }
 
         document.getElementById('year').textContent = year; 
         document.getElementById('monthName').textContent = monthName[month]; 

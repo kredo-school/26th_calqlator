@@ -6,8 +6,7 @@
 <table id="calendar">
     <thead>
         <tr>
-            <th></th>
-            <th id="prev"></th>
+            <th id="prev"  colspan="2"></th>
             <th colspan="3" class="top"> 
                 <div class="row">
                     <div class="col" id="title">
@@ -18,8 +17,7 @@
                     </div> 
                 </div>
             </th>
-            <th id="next"></th>
-            <th></th>
+            <th id="next" colspan="2"></th>
         </tr>
         <tr>
             <th>Sun</th>
