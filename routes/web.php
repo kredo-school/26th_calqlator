@@ -12,6 +12,7 @@ use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\UserHomePageController;
 use App\Http\Controllers\Admin\HomesController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ExercisesController;
@@ -21,6 +22,20 @@ use App\Http\Controllers\WorkoutController;
 
 Auth::routes();
 
+Route::group(['middleware' => 'auth'], function(){
+
+    // User / Change Email
+    Route::post('/change-email', [App\Http\Controllers\UserController::class, 'changeEmail'])->name('change-email');
+
+    // User / Change Password
+    Route::post('/change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
+
+    // USER
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::patch('/user/update', [UserController::class, 'update'])->name('user.update');
+    Route::get('/user/{id}/show', [UserController::class, 'show'])->name('user.show');
+});
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Guest & User
