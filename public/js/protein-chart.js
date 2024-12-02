@@ -238,6 +238,9 @@ fetch('/user/home/protein/chart')
                                 right: 50,
                             }
                         },
+                        animation:{
+                            duration:0,
+                        },
                     },
                 });
                 

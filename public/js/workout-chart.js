@@ -244,6 +244,9 @@ fetch('/user/home/workout/chart')
                                 right: 50,
                             }
                         },
+                        animation:{
+                            duration:0,
+                        },
                     },
                 });
                 

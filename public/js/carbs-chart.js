@@ -237,9 +237,12 @@ fetch('/user/home/carbs/chart')
                             padding: {
                                 right: 50,
                             }
+                        },                        
+                        animation:{
+                            duration:0,
                         },
+
                     },
                 });
-                
             })
             .catch(error => console.error('Error fetching data:', error));

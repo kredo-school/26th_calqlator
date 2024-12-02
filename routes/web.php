@@ -51,7 +51,7 @@ Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 // User / ChatPage
 Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
 //User / Meal Registration
-Route::get('/meals', [MealController::class, 'index']);
+Route::get('/meals', [MealController::class, 'index'])->name('meals.registration');
 Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
 Route::get('/search', [MealController::class, 'search']);
 //User / Daily Condition

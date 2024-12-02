@@ -88,6 +88,8 @@ class UserHomePageController extends Controller
 
         $condition = $this->condition->where('user_id', Auth::user()->id)->where('date', $today)->first();
 
+        $weight = $this->weight->where('user_id', Auth::user()->id)->where('date', $today)->first();
+
         return view('users.homepage')->with('date', $date)
                                      ->with('today', $today)
                                      ->with('breakfasts', $breakfasts)
@@ -108,7 +110,8 @@ class UserHomePageController extends Controller
                                      ->with('dinnerTime', $dinnerTime)
                                      ->with('snackTime', $snackTime)
                                      ->with('supplementTime', $supplementTime)
-                                     ->with('condition', $condition);
+                                     ->with('condition', $condition)
+                                     ->with('weight', $weight);
     }
 
     public function breakfastDelete($id){

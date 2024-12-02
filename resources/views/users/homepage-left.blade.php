@@ -3,27 +3,39 @@
         <div class="col-4">
         </div>
         <div class="col-8 pe-0 border-bottom border-1 border-dark">
-            <a href="{{route('user.everyday.condition')}}" class="text-center fs-5">Today's Condition</a>
-            @if($condition->condition === 1)
-                <span class="condition-icon" value="smiley1" >😀</span>
-            @elseif($condition->condition === 2)
-                <span class="condition-icon" value="smiley2" >😏</span>
-            @elseif($condition->condition === 3)
-                <span class="condition-icon" value="smiley3" >😐</span>
-            @elseif($condition->condition === 4)
-                <span class="condition-icon" value="smiley4" >😷</span>
-            @elseif($condition->condition === 5)
-                <span class="condition-icon" value="smiley5" >😴</span>
+            <a href="" class="fs-5 fw-bold">Condition</a>
+
+            <span> Today's Condition: </span>
+            @if($condition !== null)
+                @if($condition->condition === 1)
+                    <span class="condition-icon" value="smiley1" >😀</span>
+                @elseif($condition->condition === 2)
+                    <span class="condition-icon" value="smiley2" >😏</span>
+                @elseif($condition->condition === 3)
+                    <span class="condition-icon" value="smiley3" >😐</span>
+                @elseif($condition->condition === 4)
+                    <span class="condition-icon" value="smiley4" >😷</span>
+                @elseif($condition->condition === 5)
+                    <span class="condition-icon" value="smiley5" >😴</span>
+                @endif
+            @else
+                <span>No Record</span>
             @endif
-            {{-- @foreach($condition->icon as $icon)
-                <span class="condition-icon" value="{{$icon->icon}}" >{{$icon->icon}}</span>
-            @endforeach --}}
+            <br>
+            <a href="" class="fs-5 fw-bold">Weight Graph</a>
+            <span> Today's weight: 
+                @if($weight)
+                {{rtrim(rtrim(number_format($weight->weight,2), '0'), '.') }}kg
+                @else
+                 - kg
+                @endif
+            </span>
         </div>
     </div>
 
         <input type="radio" id="page1" name="page">
         <input type="radio" id="page2" name="page" checked>
-        <input type="radio" id="page3" name="page">
+        {{-- <input type="radio" id="page3" name="page"> --}}
 
     <div class="container p-0 m-0">
         <div class="featured-wrapper">
@@ -65,14 +77,14 @@
                     </div>
                 </li>
 
-                <li>
+                {{-- <li>
                     <div>
                         <h4>Weight Graphs</h4>
                         <div>
                             <canvas id="weightChart"></canvas>
                         </div>
                     </div>
-                </li>
+                </li> --}}
             </ul>
             <ul class="arrows">
                 <li>
@@ -81,9 +93,9 @@
                 <li>
                     <label for="page2"></label>
                 </li>
-                <li>
+                {{-- <li>
                     <label for="page3"></label>
-                </li>
+                </li> --}}
             </ul>
             <ul class="circles">
                 <li>
@@ -92,9 +104,9 @@
                 <li>
                     <label for="page2"></label>
                 </li>
-                <li>
+                {{-- <li>
                     <label for="page3"></label>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div> 

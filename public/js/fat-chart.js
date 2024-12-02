@@ -238,8 +238,10 @@ fetch('/user/home/fat/chart')
                                 right: 50,
                             }
                         },
+                        animation:{
+                            duration:0,
+                        },
                     },
                 });
-                
             })
             .catch(error => console.error('Error fetching data:', error));

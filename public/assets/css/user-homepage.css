@@ -36,7 +36,7 @@ body{
         height: 100vh; 
         position:fixed;
         overflow-y: scroll;
-        padding-bottom:100px;
+        padding-bottom:200px;
     }
 
     .character-img{
@@ -66,7 +66,7 @@ body{
     }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 992px) {
     .scrollable {
         height: auto; 
         overflow-y: auto;
@@ -74,6 +74,13 @@ body{
 
     body{
         position: relative;
+        overflow-x: hidden;
+    }
+
+    .left-side,
+    .right-side {
+      position: relative;
+      overflow-y: auto;
     }
 
     .character-img{
@@ -235,41 +242,46 @@ nav{
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
   [id="page1"]:checked ~ .container .featured-list li:nth-child(1),
   [id="page2"]:checked ~ .container .featured-list li:nth-child(2),
-  [id="page3"]:checked ~ .container .featured-list li:nth-child(3),
+  /* [id="page3"]:checked ~ .container .featured-list li:nth-child(3), */
   [id^="page"]:checked ~ .container .arrows [for^="page"]:hover::before,
   [id^="page"]:checked ~ .container .arrows [for^="page"]:hover::after {
     opacity: 1;
   }
   
   [id="page1"]:checked ~ .container .arrows [for="page3"]::before,
-  [id="page2"]:checked ~ .container .arrows [for="page1"]::before,
-  [id="page3"]:checked ~ .container .arrows [for="page2"]::before {
+  [id="page2"]:checked ~ .container .arrows [for="page1"]::before
+  /* ,[id="page3"]:checked ~ .container .arrows [for="page2"]::before  */
+  {
     content: '';
-    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/arrow-prev-slideshow.svg);
+    background-image: url('/assets/images/arrow-prev-slideshow.svg');
   }
   
   [id="page1"]:checked ~ .container .arrows [for="page2"]::after,
-  [id="page2"]:checked ~ .container .arrows [for="page3"]::after,
-  [id="page3"]:checked ~ .container .arrows [for="page1"]::after {
+  [id="page2"]:checked ~ .container .arrows [for="page3"]::after
+  /* ,[id="page3"]:checked ~ .container .arrows [for="page1"]::after  */
+  {
     content: '';
-    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/arrow-next-slideshow.svg);
+    background-image: url('/assets/images/arrow-next-slideshow.svg');
   }
   
   [id="page1"]:checked ~ .container .circles [for="page1"],
-  [id="page2"]:checked ~ .container .circles [for="page2"],
-  [id="page3"]:checked ~ .container .circles [for="page3"] {
+  [id="page2"]:checked ~ .container .circles [for="page2"]
+  /* ,[id="page3"]:checked ~ .container .circles [for="page3"] */
+   {
     background: currentColor;
   }
   
   [id="page1"]:checked ~ .container [for="page1"] .outer,
-  [id="page2"]:checked ~ .container [for="page2"] .outer,
-  [id="page3"]:checked ~ .container [for="page3"] .outer {
+  [id="page2"]:checked ~ .container [for="page2"] .outer
+  /* ,[id="page3"]:checked ~ .container [for="page3"] .outer  */
+  {
     background: var(--overlay);
   }
   
   [id="page1"]:checked ~ .container [for="page1"] .inner,
-  [id="page2"]:checked ~ .container [for="page2"] .inner,
-  [id="page3"]:checked ~ .container [for="page3"] .inner {
+  [id="page2"]:checked ~ .container [for="page2"] .inner
+  /* ,[id="page3"]:checked ~ .container [for="page3"] .inner  */
+  {
     opacity: 1;
     transform: none;
   }
