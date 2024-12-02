@@ -20,12 +20,11 @@ class UserController extends Controller
     public function profile(){
         $user_a = $this->user->findOrFail(Auth::user()->id);
         $now = date('Ymd');
-
-        // 誕生日
+        // Date of Birth
         $birthday = "1990-07-01";
         $birthday = str_replace("-", "", $birthday);
         
-        // 年齢
+        // Age
         $age = floor(($now - $birthday) / 10000);
                 
         return view('user.profile')->with('user', $user_a);
