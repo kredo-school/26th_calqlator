@@ -1,10 +1,23 @@
+.licorice-regular {
+    font-family: "Licorice", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+ 
 main{
-    background-image: url(../assets/images/signup-bg.png);
+    background-image: url(../assets/images/signup-bg2.png);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
-    width: 100vw;
-    height: 100vh;
+    background-position: left bottom;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+}
+
+.signup-area{
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
 }
 
 .signup-btn{
@@ -13,6 +26,25 @@ main{
     font-weight: bold;
 }
 
-input{
+#first-name , #last-name , #username , #email , #password , #password-confirm{
     background-color: #C9E2AC;
+}
+
+label{
+    text-align: left;
+}
+
+.bottom-text{
+    color: #859D6B;
+}
+
+.bottom-text a{
+    color: #FFA488;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+.right-column{
+    margin-top: 50px;
+}
 }
