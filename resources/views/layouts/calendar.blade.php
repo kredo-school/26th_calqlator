@@ -15,87 +15,67 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <script src="https://kit.fontawesome.com/dbc5b98639.js" crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="{{ asset('assets/css/calendar.css') }}">
-
     <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="app">
         @include('user-guest-navbar')
 
-        <main class="py-4">
-            <div class="row h-100">
-                <div class="col-2 p-0 menu-area">
-                    <ul class="list-group text-center ms-auto border border-dark">
-                        <li class="list-group-item m-0 list-title">Summary</h3>
+        <main>
+            <div class="row h-90 w-100 gx-0">
+                <div class="p-0 menu-area">
+                    <ul class="list-group text-center border border-dark">
+                        <h3 class="list-group-item m-0 list-title ">Summary of the month</h3>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon">😀</span>
+                                <span class="count">{{$smile1}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon">😏</span>
+                                <span class="count">{{$smile2}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon">😐</span>
+                                <span class="count">{{$smile3}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon" >😷</span>
+                                <span class="count">{{$smile4}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon">😴</span>
+                                <span class="count">{{$smile5}}</span>
                             </div>
                         </li>
                         <li class="list-group-item"> 
                             <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
+                                <span class="icon">⭐</span>
+                                <span class="count">{{$star}}</span>
                             </div>
                         </li>
-                        <li class="list-group-item"> 
-                            <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
-                            </div>
-                        </li>
-                        <li class="list-group-item"> 
-                            <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
-                            </div>
-                        </li>
-                        <li class="list-group-item"> 
-                            <div class="d-flex">
-                                <span class="item-left">Item Left</span>
-                                <span class="item-right">Item Right</span>
-                            </div>
-                        </li>
-                       
                     </ul>                
                 </div>
-                <div class="col p-0 pb-5">
+                <div class="calendar-area p-0">
                     @yield('content')
                 </div>
-                <div class="col-2">
+                <div class="image-area">
 
                 </div>
             </div>
         </main>
        @include('user-guest-footer')
     </div>
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../js/calendar.js"></script>
 </body>
 </html>

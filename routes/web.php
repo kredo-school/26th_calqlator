@@ -2,15 +2,17 @@
     
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MealController;
-
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\FoodsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ConfirmationController;
+use App\Http\Controllers\UserHomePageController;
 use App\Http\Controllers\Admin\HomesController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ExercisesController;
@@ -20,6 +22,20 @@ use App\Http\Controllers\WorkoutController;
 
 Auth::routes();
 
+Route::group(['middleware' => 'auth'], function(){
+
+    // User / Change Email
+    Route::post('/change-email', [App\Http\Controllers\UserController::class, 'changeEmail'])->name('change-email');
+
+    // User / Change Password
+    Route::post('/change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
+
+    // USER
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::patch('/user/update', [UserController::class, 'update'])->name('user.update');
+    Route::get('/user/{id}/show', [UserController::class, 'show'])->name('user.show');
+});
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Guest & User
@@ -28,7 +44,20 @@ Route::post('/find/reset/user', [PasswordResetController::class, 'findResetUser'
 Route::post('/update/password/{id}', [PasswordResetController::class, 'update'])->name('update.password');
 
 // User / Home Page
-Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
+Route::get('/user/home/{date}', [UserHomePageController::class, 'index'])->name('user.home');
+Route::delete('/user/breakfast/delete/{id}',[UserHomePageController::class, 'breakfastDelete'])->name('user.breakfast.delete');
+Route::delete('/user/lunch/delete/{id}',[UserHomePageController::class, 'lunchDelete'])->name('user.lunch.delete');
+Route::delete('/user/dinner/delete/{id}',[UserHomePageController::class, 'dinnerDelete'])->name('user.dinner.delete');
+Route::delete('/user/workout/delete/{id}',[UserHomePageController::class, 'workoutDelete'])->name('user.workout.delete');
+Route::delete('/user/supplement/delete/{id}',[UserHomePageController::class, 'supplementDelete'])->name('user.supplement.delete');
+Route::delete('/user/snack/delete/{id}',[UserHomePageController::class, 'snackDelete'])->name('user.snack.delete');
+Route::get('/user/home/calories/chart/{date}', [UserHomePageController::class, 'caloriesChart'])->name('user.home.calories.chart');
+Route::get('/user/home/workout/chart/{date}', [UserHomePageController::class, 'workoutChart'])->name('user.home.workout.chart');
+Route::get('/user/home/protein/chart/{date}', [UserHomePageController::class, 'proteinChart'])->name('user.home.protein.chart');
+Route::get('/user/home/fat/chart/{date}', [UserHomePageController::class, 'fatChart'])->name('user.home.fat.chart');
+Route::get('/user/home/carbs/chart/{date}', [UserHomePageController::class, 'carbsChart'])->name('user.home.carbs.chart');
+// Route::get('/user/home/weight/chart', [UserHomePageController::class, 'weightChart'])->name('user.home.weight.chart');
+
 // User / Calendar
 Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
 Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
@@ -37,11 +66,12 @@ Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 // User / ChatPage
 Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
 //User / Meal Registration
-Route::get('/meals', [MealController::class, 'index']);
+Route::get('/meals', [MealController::class, 'index'])->name('meals.registration');
 Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
 Route::get('/search', [MealController::class, 'search']);
-//User / Daily Condition
+// User / Everyday Condition
 Route::get('/daily-condition', function () {return view('daily_condition');});
+
 
 // ADMIN
 // Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
