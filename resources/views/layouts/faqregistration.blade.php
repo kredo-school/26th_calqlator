@@ -11,7 +11,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/userlist.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/foodlist.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/exerciselist.css') }}">    <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/exerciselist.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
 
     <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
     <script src="{{asset('js/faqregistration.js')}}" crossorigin="anonymous"></script>
