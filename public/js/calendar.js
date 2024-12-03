@@ -1,5 +1,6 @@
 'use strict';
 
+
 console.clear();
 
 {
@@ -66,10 +67,17 @@ console.clear();
     }
 
     function renderTitle(){
-        const prev = `${String(month).padStart(2, '0')}`;
+        let prev = `${String(month).padStart(2, '0')}`;
         const title = `${String(month+1).padStart(2, '0')}`;
-        const next = `${String(month+2).padStart(2, '0')}`;
+        let next = `${String(month+2).padStart(2, '0')}`;
         const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+   
+        if(month === 11){
+            next = '01';
+        }
+        if(month === 0){
+            prev = '12';
+        }
 
         document.getElementById('year').textContent = year; 
         document.getElementById('monthName').textContent = monthName[month]; 
@@ -77,50 +85,6 @@ console.clear();
         document.getElementById('prev').innerHTML = `${prev} &laquo;`;
         document.getElementById('next').innerHTML = `&raquo; ${next}`;
     }
-
-    
-    // function getEachCell(date){
-                // var mergedDate = year+'-'+(month+1)+'-'+date.date;
-
-                // console.log(mergedDate);
-
-                // const td = document.createElement('td');
-
-                // const topSection = document.createElement('p');
-                // const bottomSection = document.createElement('div');
-    
-                // topSection.classList.add('top');
-                // bottomSection.classList.add('bottom');
-
-                // topSection.textContent = `${String(date.date).padStart(2, ' ')}`; 
-
-                // if(date.isDisabled === false){
-                //     bottomSection.innerHTML = `total kcal <br> weight kg`; 
-                // }
-
-                // td.appendChild(topSection);   
-                // td.appendChild(bottomSection); 
-
-                // td.addEventListener('click', () => {
-                //     window.location.href = '/user/home/page/${date.date}'; 
-                // });
-                // td.style.cursor = 'pointer';
-
-                // if(date.isToday){
-                //     td.classList.add('today'); 
-                // }
-
-                // if(date.isDisabled){
-                //     td.classList.add('disabled'); 
-                // }
-
-                // return td;
-    // }
-
-//     var specificDate = year+'-'+(month+1)+'-'+date.date;
-//     $.get('CalendarController.php',{date: specificDate}, function(data){
-// console.log(data);
-//     });
 
     function renderWeeks(){
         const dates = [
@@ -160,12 +124,28 @@ console.clear();
                                 if (response) {
                                     const weight = response.weight;
                                     const totalCalories = response.totalCalories;
-                                        if(weight === null){
-                                            bottomSection.innerHTML = `${totalCalories} kcal <br> -- kg`;
+                                    const condition = response.condition;
+
+                                    if(weight === null){
+                                        bottomSection.innerHTML = `${totalCalories} kcal <br> -- kg`;
+                                    }
+                                    else{
+                                        if(condition === null){
+                                            bottomSection.innerHTML = `  <br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                        }else{
+                                            if(condition.condition === 1){
+                                                bottomSection.innerHTML = `😀<br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                            }else if(condition.condition === 2){
+                                                bottomSection.innerHTML = `😏<br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                            }else if(condition.condition === 3){
+                                                bottomSection.innerHTML = `😐<br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                            }else if(condition.condition === 4){
+                                                bottomSection.innerHTML = `😷<br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                            }else if(condition.condition === 5){
+                                                bottomSection.innerHTML = `😴<br>${totalCalories} kcal <br> ${weight.weight} kg`;
+                                            }
                                         }
-                                        else{
-                                            bottomSection.innerHTML = `${totalCalories} kcal <br> ${weight.weight} kg`;
-                                        }
+                                    }
                                 }
                             }
                         },
@@ -178,10 +158,10 @@ console.clear();
                 };
 
                 td.appendChild(topSection);   
-                td.appendChild(bottomSection); 
+                td.appendChild(bottomSection);
 
                 td.addEventListener('click', () => {
-                    window.location.href = '/user/home/page/${date.date}'; 
+                    window.location.href = `/user/home/${selectedDate}`; 
                 });
                 td.style.cursor = 'pointer';
 

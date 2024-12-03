@@ -1,5 +1,4 @@
-
-fetch('/user/home/protein/chart')
+fetch(`/user/home/protein/chart/${date}`)
             .then(response => response.json())
             .then(totalProtein => {
                 let barColor = 'rgba(75, 192, 192, 0.7)'; 
