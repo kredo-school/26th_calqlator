@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use DateTime;
 use App\Models\User;
 use App\Models\UserFoodBreakfast;
@@ -15,6 +16,7 @@ use App\Models\UserSnack;
 use App\Models\UserSupplement;
 use App\Models\UserExercise;
 use App\Models\Weight;
+use App\Models\UserInformation;
 
 
 class UserHomePageController extends Controller
@@ -28,9 +30,10 @@ class UserHomePageController extends Controller
     private $supplement;
     private $workout;
     private $weight;
+    private $information;
     protected $today;
 
-    public function __construct(User $user, UserFoodBreakfast $breakfast, UserFoodLunch $lunch, UserFoodDinner $dinner, Condition $condition, UserSnack $snack, UserSupplement $supplement, UserExercise $workout,Weight $weight)
+    public function __construct(User $user, UserFoodBreakfast $breakfast, UserFoodLunch $lunch, UserFoodDinner $dinner, Condition $condition, UserSnack $snack, UserSupplement $supplement, UserExercise $workout,Weight $weight,UserInformation $information)
     {
         $this->user = $user;
         $this->breakfast = $breakfast;
@@ -41,13 +44,31 @@ class UserHomePageController extends Controller
         $this->supplement = $supplement;
         $this->workout = $workout;
         $this->weight = $weight;
+        $this->information = $information;
     }
 
+    private function isValidDate($date)
+    {
+        try {
+            Carbon::parse($date);
+            return true; 
+        } catch (\Exception $e) {
+            return false; 
+        }
+    }
     public function index($date){
-        // $today = new DateTime($date);
-        $passDate = Carbon::parse($date);
-        $today = $passDate->format('Y-m-d');
-        $titleDate = $passDate ->format('F  j , Y');
+        if(Route::is('login') || Route::is('register')){
+            $today=now()->format('Y-m-d');
+        }else{
+            if ($this->isValidDate($date)) {
+                $passDate = Carbon::parse($date);
+                $today = $passDate->format('Y-m-d');
+                $titleDate = $passDate->format('F j, Y');
+            } else {
+                $today = now()->format('Y-m-d');
+                $titleDate = now()->format('F j, Y');
+            }
+        }
 
         $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
         $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
@@ -319,30 +340,54 @@ class UserHomePageController extends Controller
 
     public function weightChart(){
         try{
-        // $today = now()->format('Y-m-d');
-        $today = Carbon::today();
-        $firstDayOfMonth = $today->copy()->startOfMonth();
-        $lastDayOfMonth = $today->copy()->endOfMonth();
+            // $today = now()->format('Y-m-d');
+            $today = Carbon::today();
+            $firstDayOfMonth = $today->copy()->startOfMonth();
+            $lastDayOfMonth = $today->copy()->endOfMonth();
+            
+            $weights = $this->weight
+                            ->where('user_id', Auth::user()->id)
+                            ->whereBetween('date', [$firstDayOfMonth, $lastDayOfMonth])  
+                            ->orderBy('date', 'asc') 
+                            ->get();
         
-        $weights = $this->weight
-                        ->where('user_id', Auth::user()->id)
-                        ->whereBetween('date', [$firstDayOfMonth, $lastDayOfMonth])  
-                        ->orderBy('date', 'asc') 
-                        ->get();
-      
-        $weightData=[];
-        foreach($weights as $weight){
-            $date = Carbon::parse($weight->date);
-            $weightData[] = [
-                'date' => $date->format('Y-m-d'), 
-                'weight' => $weight->weight
-            ];
+            $weightData=[];
+            foreach($weights as $weight){
+                $date = Carbon::parse($weight->date);
+                $weightData[] = [
+                    'date' => $date->format('Y-m-d'), 
+                    'weight' => $weight->weight
+                ];
+            }
+            return response()->json($weightData);
+        } catch (\Exception $e) {
+            \Log::error('Error fetching weight chart data: ' . $e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
         }
-        return response()->json($weightData);
-    } catch (\Exception $e) {
-        \Log::error('Error fetching weight chart data: ' . $e->getMessage());
-        return response()->json(['error' => 'Internal Server Error'], 500);
     }
+
+    public function getAge(){
+        $id = Auth::user()->id;
+        $userInfo = $this->information->where('user_id', $id)->first();
+        $birthday = Carbon::parse($userInfo->birthday);
+        $today = Carbon::now();
+
+        $age = Carbon::parse($birthday)->age;
+        return $age;
+    }
+
+    public function getBMR(){
+        $id = Auth::user()->id;
+        $userInfo = $this->information->where('user_id', $id)->first();
+        $userWeight = $this->weight->where('user_id', $id)->latest()->first();
+        $userGender = $userInfo->gender;
+
+
+    }
+    public function getGoalCalories(){
+        $user = Auth::user();
+        $goalCalories = $this->getBMR() * $this->getPAL;
+        return response()->json($goalCalories);
     }
 }
 

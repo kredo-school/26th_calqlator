@@ -37,7 +37,7 @@
                             @if($weight)
                                 {{rtrim(rtrim(number_format($weight->weight,2), '0'), '.') }}kg
                             @else
-                                No record
+                                No record 
                             @endif
                         </span>
                     </div>
