@@ -43,6 +43,9 @@ class RegistrationController extends Controller
             'calories.*' => 'required|integer'
         ]);
 
+        $names = $request->name;
+        $calories = $request->calories;
+
         foreach($request->name as $i=>$name) {
             $exercise = new Exercise();
             $exercise->name = $name;
@@ -50,6 +53,14 @@ class RegistrationController extends Controller
             $exercise->save();
         }
 
-        return response()->json(['success' => true]);
+        session()->flash('status', 'success');
+        session()->flash('names', $names);
+        session()->flash('calories', $calories);
+
+        return redirect()->route('admin.exercise.registration.complete');
+    }
+
+    public function exercise_complete() {
+        return view('admin.registration.exercises.comp');
     }
 }

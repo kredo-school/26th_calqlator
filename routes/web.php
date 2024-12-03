@@ -52,6 +52,7 @@ Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->na
 Route::group(['prefix' => 'admin/exercise/registration', 'as' => 'admin.exercise.registration.'], function(){
     Route::get('/', [RegistrationController::class, 'exercise_index'])->name('index');
     Route::post('/store', [RegistrationController::class, 'exercise_store'])->name('store');
+    Route::get('/complete', [RegistrationController::class, 'exercise_complete'])->name('complete');
 });
 // Admin / ChatPage
 Route::get('/admin/chatpage/index', [ChatController::class, 'index'])->name('admin.chatpage.index');
