@@ -1,14 +1,27 @@
 .exerciselist {
+    border-collapse: collapse;
+    width: 100%;
     background-color: #fffcf7;
     border: 1px solid black;
 }
 
 
 
+.exerciselist th, .exerciselist td {
+   padding: 10px;
+   text-align: center;
+    
+}
+
 .exerciselist th {
     background-color: #ffa488 !important;
     color: black !important;
-    
+    vertical-align: middle;
+    border-bottom: 1px solid black;
+}
+
+.exerciselist td {
+    border-bottom: 1px solid black;
 }
 
 .exercise-edit th {

@@ -29,7 +29,7 @@
         <!-- food list table -->
         <div class="foodlist-table">
             <div class="sortable-table">
-              <table class="table text-center mb-0" id="admin-table">
+              <table class="table text-center mb-0 foodlist" id="admin-table">
                 <thead class="foodlist">
                     <tr>
                         <th class="sortable-table" style="width: 20%" id="id-header">ID</th>

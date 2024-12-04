@@ -56,7 +56,7 @@ class ExercisesController extends Controller
         $request->session()->put('temp_data', $request->all());
 
         $exercise = Exercise::findOrFail($id);
-        return view('admin.exercises.confirm-edit', compact('food'));
+        return view('admin.exercises.confirm-edit', compact('exercise'));
     }
 
     /**

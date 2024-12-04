@@ -25,7 +25,7 @@
 
     <div class="user-table">
       <div class="sortable-table">
-        <table class="table text-center mb-0" id="admin-table">
+        <table class="table text-center mb-0 userlist" id="admin-table">
             <thead class="userlist">
                 <tr>
                   <th id="id-header" class="sortable-table">ID</th>
@@ -42,11 +42,9 @@
                   <td class="text-center">{{ $user->id }}</td>
                   <td>{{ $user->first_name }}</td>
                   <td>{{ $user->last_name }}</td>
-                  <td>{{ $user->user_name }}</td>
+                  <td>{{ $user->username }}</td>
                   <td>{{ $user->email }}</td>
-                  <td>
-                </div>
-               </td>        
+                  <td></td>        
                </tr>
              @endforeach                  
         </tbody>

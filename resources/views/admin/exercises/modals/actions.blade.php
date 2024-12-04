@@ -20,8 +20,8 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{{ $food->name }}</td>
-                                <td>{{ $food->calories_per_10min }}</td>
+                                <td>{{ $exercise->name }}</td>
+                                <td>{{ $exercise->calories }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="calory">Calory/ 10minute</label>
-                        <input type="number" name="calory" id="calory" value="{{ $exercise->calories_per_10min }}" class="form-control" required>
+                        <input type="number" name="calory" id="calory" value="{{ $exercise->calories }}" class="form-control" required>
                     </div>
 
                     <div class="modal-footer border-0 justify-content-center p-0 my-3">
@@ -76,7 +76,7 @@
                             <tr>
                                 <td>{{ $exercise->id }}</td>
                                 <td>{{ $exercise->name }}</td>
-                                <td>{{ $exercise->calory_per_10min }}</td>
+                                <td>{{ $exercise->calory }}</td>
                             </tr>
                         </tbody>
                     </table>

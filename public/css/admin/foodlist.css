@@ -1,12 +1,37 @@
 .foodlist {
-    margin-left: 250px;
-    margin-top: 60px;
-    padding: 20px;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
     background-color: #fffcf7;
-    min-height: calc(100vh - 60px);
+}
+
+.foodlist th, .foodlist td {
+    padding: 10px;
+    text-align: center;
 }
 
 .foodlist th {
     background-color: #ffd08e;
-    vertical-align: middle
+    color: black;
+    vertical-align: middle;
+    border-bottom: 1px solid black;
 }
+
+.foodlist td {
+    border-bottom: 1px solid black;
+}
+
+.foodlist-edit th {
+    background-color: #48b13a;
+}
+
+.cancel-btn {
+    background-color: #babebf;
+    color: #ffffff;
+}
+
+.edit-btn {
+    background-color: #71b668;
+    color: #ffffff;
+}
+

@@ -29,7 +29,7 @@
         <!-- exercise list table -->
         <div class="exerciselist-table">
             <div class="sortable-table">
-            <table class="table text-center mb-0" id="admin-table">
+            <table class="table text-center mb-0 exerciselist" id="admin-table">
                 <thead class="exerciselist">
                     <tr>
                         <th class="sortable-table" style="width: 10%" id="id-header">ID</th>
@@ -44,17 +44,17 @@
                     <tr>
                     <td class="text-center">{{ $exercise->id }}</td>
                     <td>{{ $exercise->name }}</td>
-                    <td>{{ $exercise->calories_per_10min }}</td>
+                    <td>{{ $exercise->calories }}</td>
                     <td>
                     <div class="d-flex justify-content-center gap-1">
-                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#confirm-food" ><i class="fas fa-pencil"></i> 
+                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#edit-exercise" ><i class="fas fa-pencil"></i> 
                         </button>
 
 
-                        <button class="btn p-0 ps-2 text-danger" data-bs-toggle="modal" data-bs-target="#delete-food">
+                        <button class="btn p-0 ps-2 text-danger" data-bs-toggle="modal" data-bs-target="#delete-exercise">
                             <i class="fa-solid fa-circle-minus"></i>
                         </button>
-                        @include('admin.foods.modals.actions')
+                        @include('admin.exercises.modals.actions')
                     </div>
                 </td>
               </tr>
