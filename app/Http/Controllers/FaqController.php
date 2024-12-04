@@ -56,6 +56,7 @@ class FaqController extends Controller
         return redirect()->back();
     }
 
+
     #FAQregistration
     public function reg_index()
     {
@@ -64,28 +65,31 @@ class FaqController extends Controller
 
     public function store(Request $request)
     {
-        // store in DB
-        $this->faq->question     = $request->question;
-        $this->faq->answer       = $request->answer;
-        $this->faq->save();
+        $data = $request->validate([
+            'faqs.*.question' => 'required|string|max:255',
+            'faqs.*.answer' => 'required|string|max:255',
+        ]);
 
-        // store in SESSION
-        $request->session()->put('form_data', $request->only(['question', 'answer']));
+        $sessionFaqs = session()->get('faqs', []);
 
-        // go to complete page
+        foreach ($data['faqs'] as $item) {
+            $question = Faq::create($item);
+            $sessionFaqs[] = $question->id; // 保存した質問のIDをセッションに追加
+        }
+
+        session()->put('faqs', $sessionFaqs);
+
         return redirect()->route('admin.faqregistration.complete');
 
     }
     
-    public function complete(Request $request)
+    public function complete()
     {
-        // use Data from SESSION
-        $formData = $request->session()->get('form_data');
+        $sessionFaqs = session()->get('faqs', []);
 
-        if(!$formData){
-            return redirect()->route('admin.faqregistration.index');
-        }
-        return view('admin.faqregistration.complete',compact('formData'));
+        $faqs = Faq::whereIn('id', $sessionFaqs)->get();
+
+        return view('admin.faqregistration.complete', compact('faqs'));
     }
 
 }
