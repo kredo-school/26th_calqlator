@@ -1,0 +1,52 @@
+.float-left {
+  float: left;
+  width: 30%;
+  background-color: aqua
+}
+
+.float-right {
+  float: right;
+  width: 70%;
+  background-color: blanchedalmond;
+}
+
+.personal-details {
+  /* display: flex; */
+  border: 1px solid black;
+  border-radius: 10px;
+.details {
+  width: 100%;
+	table-layout: fixed;
+  } 
+
+  .age{
+    font-size:15px;
+  }
+  .number1{
+    font-weight:500;
+  }
+  .height{
+      font-size:15px;
+  
+  }
+  .number2{
+    font-weight:500;
+  }
+  .current-weight{
+      font-size:15px;
+  }
+  .number3{
+    font-weight:500;
+  }
+
+  .bmi{
+      font-size:15px;
+  }
+  .number4{
+    font-weight:500;
+  }
+}
+
+.text-lg {
+  font-size: 1.5rem;
+}

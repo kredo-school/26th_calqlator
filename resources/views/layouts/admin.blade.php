@@ -11,7 +11,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{ asset('css/nav-menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmation.css') }}">
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/exerciseReg.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/userlist.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/foodlist.css') }}">
     <link rel="stylesheet" href="{{ asset('css/exerciselist.css') }}">    <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
@@ -98,7 +100,7 @@
                                 <i class="fa-solid fa-circle-question"></i> FAQ List <i class="fa-solid fa-table-list"></i>
                             </a>
                             <a href="{{ route('admin.food.confirmation')}}" class="list-group-item {{ request()->is('/admin/food/confirmation*') ? 'active' : '' }}">
-                                <i class="fa-solid fa-burger"></i> Food Confirmation <i class="fa-solid fa-square-check"></i> 
+                                <i class="fa-solid fa-burger"></i> Food Confirmation <i class="fa-solid fa-square-check"></i>
                             </a>
                             <a href="{{ route('admin.exercise.confirmation')}}" class="list-group-item {{ request()->is('/admin/exercise/confirmation*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-person-running"></i> Exercise Confirmation <i class="fa-solid fa-square-check"></i>                        </a>
@@ -128,10 +130,10 @@
 <script>
 $(document).ready(function() {
     $('#admin-table').DataTable({
-        paging: true, 
-        pageLength: 10, 
-        searching: false, 
-        ordering: true, 
+        paging: true,
+        pageLength: 10,
+        searching: false,
+        ordering: true,
     });
 });
 </script>

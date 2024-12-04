@@ -59,3 +59,8 @@
     color: white;
     background-color: #237a44;
 }
+
+.bg-yellow {
+    background-color:#fef39f67;
+    border: 4px solid #fccf80;
+}
