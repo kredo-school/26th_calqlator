@@ -33,7 +33,7 @@
                           Maximum file size is 1048 KB
                         </p>
                           @error('avatar')
-                        <p class="mb-0 te<form action="{{ route('user.update')}}" method="post" enctype="multipart/form-data">
+                        <p class="mb-0 te<form action="{{ route('user.update') }}" method="post" enctype="multipart/form-data">
                           @csrf 
                           @method('PATCH')
 
@@ -168,7 +168,7 @@
           <a href="{{ route('user.profile')}}" class="btn btn-secondary fw-bold mt-3 px-5">BACK</a>
         </div>
         <div class="col-md-3 offset-md-1">
-          @if (Route::has('password.request'))
+          @if (Route::has('user.update'))
             <a class="btn btn-warning fw-bold text-white mt-3 px-5" data-bs-toggle="modal" data-bs-target="#save-change">{{ __('SAVE') }}
             </a>
           @endif

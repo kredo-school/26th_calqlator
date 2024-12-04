@@ -18,7 +18,7 @@
 
             <div class="float-right">
 
-                <div class="personal-info">
+                <div class="start-date">
                     <h2 class="fw-bold">{{ $user->name }}</h2>
                     <h5>Start Date: {{ $user->created_at->format('d M, Y')}}</h5>
                 </div>
@@ -31,14 +31,16 @@
                                 <th>Height:</th>
                                 <th>Current<br>Weight:</th>
                                 <th>BMI:</th>
+                                <th>BMI Judge:</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>38</td>
+                                <td>{{ $age }}</td>
                                 <td>165cm</td>
                                 <td>60kg</td>
-                                <td>25</td>
+                                <td>22</td>
+                                <td>Normal</td>
                             </tr>
                         </tbody>
                     </table>
@@ -50,7 +52,7 @@
                             <td class="text-lg">5.0 kg weight loss</td>
                             <td>
                                 <div class="col-md-6 offset-md-1">
-                                    <a href="{{ route('user.profile')}}" class="btn btn-warning fw-bold text-white">Progress</a>
+                                    <a href="{{ route('user.home.weight.chart')}}" class="btn btn-warning fw-bold text-white">Progress</a>
                                 </div>
                             </td>
                           </tr>
@@ -59,7 +61,7 @@
                             <td class="text-lg">Goal: Lose Weight</td>
                             <td>   
                                 <div class="col-md-6 offset-md-1">
-                                    <a href="{{ route('user.profile')}}" class="btn btn-warning fw-bold text-white">Your Goal</a>
+                                    <a href="{{ route('user.goal')}}" class="btn btn-warning fw-bold text-white">Your Goal</a>
                                 </div></td>
                           </tr>
                     </table>

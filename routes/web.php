@@ -35,6 +35,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::patch('/user/update', [UserController::class, 'update'])->name('user.update');
     Route::get('/user/{id}/show', [UserController::class, 'show'])->name('user.show');
+
+    // USER / Goal
+    Route::get('/user/goal', [UserController::class, 'goal'])->name('user.goal');
 });
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

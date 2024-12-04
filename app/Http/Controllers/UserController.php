@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -21,13 +22,14 @@ class UserController extends Controller
         $user_a = $this->user->findOrFail(Auth::user()->id);
         $now = date('Ymd');
         // Date of Birth
-        $birthday = "1990-07-01";
-        $birthday = str_replace("-", "", $birthday);
+        $birthday = $user_a->date_of_birth;
+        // $birthday = str_replace("-", "", $birthday);
         
         // Age
-        $age = floor(($now - $birthday) / 10000);
+        // $age = floor(($now - $birthday) / 10000);
+        $age = Carbon::parse($birthday)->age;
                 
-        return view('user.profile')->with('user', $user_a);
+        return view('user.profile')->with('user', $user_a)->with('age', $age);
     }
 
     public function show($id){
@@ -44,8 +46,15 @@ class UserController extends Controller
     public function update(Request $request){
         $request->validate([
             'avatar' => 'max:1048|mimes:jpg,jpeg,png,gif',
-            'name' => 'required|max:50',
-            'email' => 'required|max:50|email|unique:users,email,'.Auth::user()->id
+            'username' => 'required|max:50',
+            'first name' => 'required|max:50',
+            'last name' => 'required|max:50',
+            'date of birth' => 'required|date',
+            'gender' => 'required',
+            'height' => 'required',
+            'weight' => 'required',
+            'email' => 'required|max:50|email|unique:users,email,'.Auth::user()->id,
+            'password' => 'required|string|min:10|confirmed',
             //CREATING/ADDING  unique:<table>,<column>       ex: unique:users,email
             //UPDATING         unique:<table>,<column>,<id>  ex:unique:users,email,1
         ]);
@@ -89,5 +98,37 @@ class UserController extends Controller
     }
 
     public function changeEmail(Request $request){
+    }
+
+    public function bmi(Request $request){
+        $height = $_GET['height'];
+        $weight = $_GET['weight'];
+
+        // if no errors, calculate BMI
+        if (count($err_msg) === 0) {
+
+        // BMI Formula
+        $bmi = calc_bmi($height, $weight);
+        }
+    }
+        
+        // Round to 1 decimal place
+        function calc_bmi($height, $weight){
+        return round($weight / ($height/100 * $height/100), 1);
+
+        // BMI Judgement
+        if($bmi <19.8){
+            return "Underweight";
+        }elseif($bmi <24.2){
+            return "Normal";
+        }elseif($bmi <26.4){
+            return "Overweight";
+        }else{
+            return "Obese";
+        }
+    }
+
+    public function goal(){
+        return view('user.goal');
     }
 }
