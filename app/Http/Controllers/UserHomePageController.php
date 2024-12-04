@@ -47,8 +47,7 @@ class UserHomePageController extends Controller
         $this->information = $information;
     }
 
-    private function isValidDate($date)
-    {
+    private function isValidDate($date){
         try {
             Carbon::parse($date);
             return true; 
@@ -56,6 +55,7 @@ class UserHomePageController extends Controller
             return false; 
         }
     }
+
     public function index($date){
         if(Route::is('login') || Route::is('register')){
             $today=now()->format('Y-m-d');
@@ -115,6 +115,11 @@ class UserHomePageController extends Controller
 
         $weight = $this->weight->where('user_id', Auth::user()->id)->where('date', $today)->first();
 
+        $goalCalories = ceil($this->getGoalCalories($date));
+        $remainingCalories = $goalCalories - $totalCalories;
+
+        $workoutGoal = $this->getWorkoutGoal($date);
+
         return view('users.homepage')->with('titleDate', $titleDate)
                                      ->with('date', $date)   
                                      ->with('today', $today)
@@ -137,7 +142,10 @@ class UserHomePageController extends Controller
                                      ->with('snackTime', $snackTime)
                                      ->with('supplementTime', $supplementTime)
                                      ->with('condition', $condition)
-                                     ->with('weight', $weight);
+                                     ->with('weight', $weight)
+                                     ->with('goalCalories', $goalCalories)
+                                     ->with('remainingCalories', $remainingCalories)
+                                     ->with('workoutGoal', $workoutGoal);
     }
 
     public function breakfastDelete($id){
@@ -220,14 +228,26 @@ class UserHomePageController extends Controller
 
     public function caloriesChart($date){
         $totalCalories = $this->getTotalCalories($date);
+        $goalCalories = $this->getGoalCalories($date);
 
-        return response()->json($totalCalories);
+        $chartData = [ 
+            'totalCalories' => $totalCalories,
+            'goalCalories' => $goalCalories
+        ];
+
+        return response()->json($chartData);
     }
 
     public function workoutChart($date){
         $workoutCalories = $this->getWorkoutCalories($date);
+        $workoutGoal = $this->getWorkoutGoal($date);
 
-        return response()->json($workoutCalories);
+        $workoutData = [
+            'workoutCalories' => $workoutCalories,
+            'workoutGoal' => $workoutGoal
+        ];
+
+        return response()->json($workoutData);
     }
 
     public function proteinChart($date){
@@ -340,7 +360,6 @@ class UserHomePageController extends Controller
 
     public function weightChart(){
         try{
-            // $today = now()->format('Y-m-d');
             $today = Carbon::today();
             $firstDayOfMonth = $today->copy()->startOfMonth();
             $lastDayOfMonth = $today->copy()->endOfMonth();
@@ -379,15 +398,168 @@ class UserHomePageController extends Controller
     public function getBMR(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-        $userWeight = $this->weight->where('user_id', $id)->latest()->first();
-        $userGender = $userInfo->gender;
+        $userWeightInfo = $this->weight->where('user_id', $id)->latest()->first();
+        
+        $weight = $userWeightInfo->weight;
+        $gender = $userInfo->gender;
+        $age = $this->getAge();
 
+        if($gender == 'male'){
+            if(1 <= $age && $age <= 2){
+                $BMR = 61 * $weight;
+            }else if(3 <= $age && $age <= 5){
+                $BMR = 54.8 * $weight;
+            }else if(6 <= $age && $age <= 7){
+                $BMR = 44.3 * $weight;
+            }else if(8 <= $age && $age <= 9){
+                $BMR = 40.8 * $weight;
+            }else if(10 <= $age && $age <= 11){
+                $BMR = 37.4 * $weight;
+            }else if(12 <= $age && $age <= 14){
+                $BMR = 31 * $weight;
+            }else if(15 <= $age && $age <= 17){
+                $BMR = 27 * $weight;
+            }else if(18 <= $age && $age <= 29){
+                $BMR = 23.7 * $weight;
+            }else if(30 <= $age && $age <= 49){
+                $BMR = 22.5 * $weight;
+            }else if(50 <= $age && $age <= 64){
+                $BMR = 21.8 * $weight;
+            }else if(65 <= $age && $age <= 74){
+                $BMR = 21.6 * $weight;
+            }else{
+                $BMR = 21.5 * $weight;
+            }
+        }else{
+            if(1 <= $age && $age <= 2){
+                $BMR = 59.7 * $weight;
+            }else if(3 <= $age && $age <= 5){
+                $BMR = 52.2 * $weight;
+            }else if(6 <= $age && $age <= 7){
+                $BMR = 41.9 * $weight;
+            }else if(8 <= $age && $age <= 9){
+                $BMR = 38.3 * $weight;
+            }else if(10 <= $age && $age <= 11){
+                $BMR = 34.8 * $weight;
+            }else if(12 <= $age && $age <= 14){
+                $BMR = 29.6 * $weight;
+            }else if(15 <= $age && $age <= 17){
+                $BMR = 25.3 * $weight;
+            }else if(18 <= $age && $age <= 29){
+                $BMR = 22.1 * $weight;
+            }else if(30 <= $age && $age <= 49){
+                $BMR = 21.9 * $weight;
+            }else{
+                $BMR = 20.7 * $weight;
+            }
+
+            return $BMR;
+        }
 
     }
-    public function getGoalCalories(){
-        $user = Auth::user();
-        $goalCalories = $this->getBMR() * $this->getPAL;
-        return response()->json($goalCalories);
+
+    public function getPAL(){
+        $age = $this->getAge();
+
+        if(1 <= $age && $age <= 2){
+            $PAL = 1.35;
+        }else if(3 <= $age && $age <= 5){
+            $PAL = 1.45;
+        }else if(6 <= $age && $age <= 7){
+            $PAL = 1.55;
+        }else if(8 <= $age && $age <= 9){
+            $PAL = 1.6;
+        }else if(10 <= $age && $age <= 11){
+            $PAL = 1.65;
+        }else if(12 <= $age && $age <= 14){
+            $PAL = 1.7;
+        }else if(15 <= $age && $age <= 64){
+            $PAL = 1.75;
+        }else if(65 <= $age && $age <= 74){
+            $PAL = 1.70;
+        }else{
+            $PAL = 1.65;
+        }
+
+        return $PAL;
+    }
+
+    public function getCaloriesDifference($date){
+        $id = Auth::user()->id;
+        $date = Carbon::parse($date)->format('Y-m-d');
+        $userInfo = $this->information->where('user_id', $id)->first();
+        $weight = $this -> weight -> where('user_id', $id)->where('date', $date)->first();
+
+        $todaysWeight = $weight->weight;
+        $goalWeight = $userInfo->goal_weight;
+        $goalDate = $userInfo->goal_date;    
+
+        $daysDifference = Carbon::parse($date)->diffInDays(Carbon::parse($goalDate));
+        if($userInfo->goal === 1){
+            $weightDifference = $todaysWeight - $goalWeight;
+        }else if($userInfo->goal === 3){
+            $weightDifference = $goalWeight - $todaysWeight;
+        }
+       
+        $everydayDifference = ($weightDifference * 7200) / $daysDifference;
+
+        return $everydayDifference;
+    }
+
+    public function getGoalCalories($date){
+        $id = Auth::user()->id;
+        $userInfo = $this->information->where('user_id', $id)->first();
+        $BMR = $this->getBMR();
+        $PAL = $this->getPAL();
+        $everydayDifference = $this->getCaloriesDifference($date);
+
+        $neededCalories = ceil($BMR * $PAL);
+
+        if($userInfo->goal === 1){
+            // if($userInfo->how === 1){
+                if($neededCalories - $everydayDifference > $this->getBMR()){
+                    $goalCalories = $neededCalories - $everydayDifference;
+                }else{
+                    $goalCalories = $this->getBMR();
+                }
+            // }else if ($userInfo->how === 2){
+            //     if($neededCalories - $everydayDifference / 2 > $this->getBMR()){
+            //         $goalCalories = $neededCalories - $everydayDifference / 2;
+            //     }else{
+            //         $goalCalories = $this->getBMR();
+            //     }
+            // }else{
+            //     $goalCalories = $neededCalories;
+            // }
+        }else if($userInfo->goal === 2){
+            $goalCalories = $neededCalories;
+        }else{
+            $goalCalories = $neededCalories + $everydayDifference;
+        }
+
+        return $goalCalories;
+    }
+
+    public function getWorkoutGoal($date){
+        $id = Auth::user()->id;
+        $userInfo = $this->information->where('user_id', $id)->first();
+        $BMR = $this->getBMR();
+        $PAL = $this->getPAL();
+        $everydayDifference = $this->getCaloriesDifference($date);
+
+        $neededCalories = ceil($BMR * $PAL);
+        
+        if($userInfo->goal === 1){
+            if($neededCalories - $everydayDifference > $this->getBMR()){
+                $workoutGoal = 0;
+            }else{
+                $workoutGoal = $BMR - $neededCalories + $everydayDifference;
+            }
+        }else{
+            $workoutGoal = 0;
+        }
+
+        return $workoutGoal;
     }
 }
 

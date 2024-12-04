@@ -47,8 +47,8 @@
     </div>
     <hr class="m-0 mt-1">
 
-        <input type="radio" id="page1" name="page">
-        <input type="radio" id="page2" name="page" checked>
+        <input type="radio" id="page1" name="page" checked>
+        <input type="radio" id="page2" name="page">
         {{-- <input type="radio" id="page3" name="page"> --}}
 
     <div class="container p-0 m-0">
@@ -60,14 +60,28 @@
                         <div class="chart-box">
                             <canvas id="caloriesChart"></canvas>
                         </div>
-                        <p class="text-center fw-bold mb-0">Remaining Calories :</p>
+                        <p class="text-center fw-bold mb-0">
+                            @if($goalCalories > $totalCalories)
+                                <span class="text-primary border border-primary rounded-2 px-1">Remaining Calories</span><span class="text-primary fs-5"> {{$remainingCalories}} kcal</span>
+                            @else
+                                <span class="text-danger border border-danger rounded-2 px-1">Excess Calories</span><span class="text-danger fs-5"> {{$remainingCalories}} kcal</span>
+                            @endif
+                        </p>
                     </div>
                     <div class="mt-3">
                         <h4>Total Workout</h4>
                         <div class="chart-box">
                             <canvas id="workoutChart"></canvas>
                         </div>
-                        <p class="text-center fw-bold mb-0">Remaining Calories :</p>
+                        <p class="text-center fw-bold mb-0">
+                            @if($workoutGoal !== 0)
+                                @if($workoutCalories > $workoutGoal)
+                                    <span class="text-primary border border-primary rounded-2 px-1">Extra Calories Consumed</span><span class="text-primary fs-5"> {{$workoutCalories - $workoutGoal}} kcal</span>
+                                @else
+                                    <span class="text-danger border border-danger rounded-2 px-1">Remaining Calories</span><span class="text-danger fs-5"> {{$workoutGoal - $workoutCalories}} kcal</span>
+                                @endif
+                            @endif
+                        </p>
                     </div>
                 </li>
 
@@ -77,14 +91,26 @@
                         <div class="chart-box">
                             <canvas id="proteinChart"></canvas>
                         </div>
-                        <p class="text-center fw-bold mb-0">Remaining Calories :</p>
+                        <p class="text-center fw-bold mb-0">
+                            @if($goalCalories > $totalCalories)
+                                <span class="text-primary border border-primary rounded-2 px-1">Remaining Calories</span><span class="text-primary fs-5"> {{$goalCalories - $totalCalories}} kcal</span>
+                            @else
+                                <span class="text-danger border border-danger rounded-2 px-1">Excess Calories</span><span class="text-danger fs-5"> {{$totalCalories - $goalCalories}} kcal</span>
+                            @endif
+                        </p>
                     </div>
                     <div>
                         <h4>Fat</h4>
                         <div class="chart-box">
                             <canvas id="fatChart"></canvas>
                         </div>
-                        <p class="text-center fw-bold mb-0">Remaining Calories :</p>
+                        <p class="text-center fw-bold mb-0">
+                            @if($goalCalories > $totalCalories)
+                                <span class="text-primary border border-primary rounded-2 px-1">Remaining Calories</span><span class="text-primary fs-5"> {{$goalCalories - $totalCalories}} kcal</span>
+                            @else
+                                <span class="text-danger border border-danger rounded-2 px-1">Excess Calories</span><span class="text-danger fs-5"> {{$totalCalories - $goalCalories}} kcal</span>
+                            @endif
+                        </p>
                     </div>
 
                     <div>
@@ -92,7 +118,13 @@
                         <div class="chart-box">
                             <canvas id="carbsChart"></canvas>
                         </div>
-                        <p class="text-center fw-bold mb-0">Remaining Calories :</p>
+                        <p class="text-center fw-bold mb-0">
+                            @if($goalCalories > $totalCalories)
+                                <span class="text-primary border border-primary rounded-2 px-1">Remaining Calories</span><span class="text-primary fs-5"> {{$goalCalories - $totalCalories}} kcal</span>
+                            @else
+                                <span class="text-danger border border-danger rounded-2 px-1">Excess Calories</span><span class="text-danger fs-5"> {{$totalCalories - $goalCalories}} kcal</span>
+                            @endif
+                        </p>
                     </div>
                         
                 </li>
