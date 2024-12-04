@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::table('user_informations', function (Blueprint $table) {
             $table->decimal('goal_weight')->nullable();
             $table->date('goal_date')->nullable();
+            $table->integer('how_to_lose')->nullable()->comment('1:meal | 2:half&half | 3:workout');
+            $table->integer('activity_level')->nullable()->comment('1:low | 2:medium | 3:high');
         });
     }
 
