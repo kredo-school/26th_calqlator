@@ -10,7 +10,7 @@
     <title>{{ config('app.name') }} | @yield('title')</title>
 
     <!-- Fonts -->
-    <!--<link rel="dns-prefetch" href="//fonts.bunny.net">-->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
