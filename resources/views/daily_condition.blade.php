@@ -76,7 +76,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="calculatorModalLabel"><img src="{{ asset('images/apple.png') }}" alt="" class="icon-image">Calculator</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                    <span aria-hidden="true"></span>
                 </button>
             </div>
             <div class="modal-body">
