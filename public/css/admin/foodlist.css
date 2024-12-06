@@ -35,3 +35,10 @@
     color: #ffffff;
 }
 
+.food-edit th {
+    background-color: #48b13a;
+}
+
+.food-delete th {
+    background-color: #f67373;
+}

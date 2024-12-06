@@ -47,11 +47,11 @@
                     <td>{{ $exercise->calories }}</td>
                     <td>
                     <div class="d-flex justify-content-center gap-1">
-                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#edit-exercise" ><i class="fas fa-pencil"></i> 
+                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#edit-exercise{{ $exercise->id }}" ><i class="fas fa-pencil"></i> 
                         </button>
 
 
-                        <button class="btn p-0 ps-2 text-danger" data-bs-toggle="modal" data-bs-target="#delete-exercise">
+                        <button class="btn p-0 ps-2 text-danger" data-bs-toggle="modal" data-bs-target="#delete-exercise{{ $exercise->id }}">
                             <i class="fa-solid fa-circle-minus"></i>
                         </button>
                         @include('admin.exercises.modals.actions')

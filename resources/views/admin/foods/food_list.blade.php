@@ -44,14 +44,14 @@
                     <tr>
 
                     <td class="text-center">{{ $food->id }}</td>
-                    <td>{{ $food->name }}</td>
+                    <td>{{ $food->item_name }}</td>
                     <td>{{ $food->calories }}</td>
                     <td>{{ $food->amount }}</td>
                     <td>
                     <div class="d-flex justify-content-center gap-2">
-                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#edit-food" ><i class="fas fa-pencil"></i> 
+                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#edit-food{{ $food->id }}" ><i class="fas fa-pencil"></i> 
                         </button>
-                        <button class="btn p-0 ps-3 text-danger" data-bs-toggle="modal" data-bs-target="#delete-food">
+                        <button class="btn p-0 ps-3 text-danger" data-bs-toggle="modal" data-bs-target="#delete-food{{ $food->id }}">
                             <i class="fa-solid fa-circle-minus"></i>
                         </button>
                         @include('admin.foods.modals.actions')
