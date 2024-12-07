@@ -70,18 +70,20 @@ class UserHomePageController extends Controller
             }
         }
 
-        $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $dinners = $this->dinner->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $snacks = $this->snack->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $workouts = $this->workout->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $id = Auth::user()->id;
 
-        $breakfastTime = $this -> breakfast -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
-        $lunchTime = $this -> lunch -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
-        $dinnerTime = $this -> dinner -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
-        $snackTime = $this -> snack -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
-        $supplementTime = $this -> supplement -> where('user_id', Auth::user()->id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
+        $breakfasts = $this->breakfast->where('user_id', $id)->where('date', $today)->get();
+        $lunches = $this->lunch->where('user_id', $id)->where('date', $today)->get();
+        $dinners = $this->dinner->where('user_id', $id)->where('date', $today)->get();
+        $snacks = $this->snack->where('user_id', $id)->where('date', $today)->get();
+        $supplements = $this->supplement->where('user_id', $id)->where('date', $today)->get();
+        $workouts = $this->workout->where('user_id', $id)->where('date', $today)->get();
+
+        $breakfastTime = $this -> breakfast -> where('user_id', $id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
+        $lunchTime = $this -> lunch -> where('user_id', $id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
+        $dinnerTime = $this -> dinner -> where('user_id', $id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
+        $snackTime = $this -> snack -> where('user_id', $id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
+        $supplementTime = $this -> supplement -> where('user_id', $id)->where('date', $today)->where('time_eaten', '!=', null)->orderBy('time_eaten', 'asc')->first();
 
         $totalCalories = 0;
         $breakfastCalories = 0;
@@ -111,14 +113,29 @@ class UserHomePageController extends Controller
             $workoutCalories += $workout->time/10 * $workout->exercise->calories;
         }
 
-        $condition = $this->condition->where('user_id', Auth::user()->id)->where('date', $today)->first();
+        $condition = $this->condition->where('user_id', $id)->where('date', $today)->first();
 
-        $weight = $this->weight->where('user_id', Auth::user()->id)->where('date', $today)->first();
+        $weight = $this->weight->where('user_id', $id)->where('date', $today)->first();
 
         $goalCalories = ceil($this->getGoalCalories($date));
-        $remainingCalories = $goalCalories - $totalCalories;
+        $remainingCalories = $totalCalories - $goalCalories;
 
         $workoutGoal = $this->getWorkoutGoal($date);
+
+        $totalProtein = $this->getTotalProtein($date);
+        $proteinMinMax = $this->getProteinMinMax();
+        $proteinMin = $proteinMinMax[0];
+        $proteinMax = $proteinMinMax[1];
+
+        $totalFat = $this->getTotalFat($date);
+        $fatMinMax = $this->getFatMinMax();
+        $fatMin = $fatMinMax[0];
+        $fatMax = $fatMinMax[1];
+
+        $totalCarbs = $this->getTotalCarbs($date);
+        $carbsMinMax = $this->getCarbsMinMax();
+        $carbsMin = $carbsMinMax[0];
+        $carbsMax = $carbsMinMax[1];
 
         return view('users.homepage')->with('titleDate', $titleDate)
                                      ->with('date', $date)   
@@ -145,7 +162,16 @@ class UserHomePageController extends Controller
                                      ->with('weight', $weight)
                                      ->with('goalCalories', $goalCalories)
                                      ->with('remainingCalories', $remainingCalories)
-                                     ->with('workoutGoal', $workoutGoal);
+                                     ->with('workoutGoal', $workoutGoal)
+                                     ->with('totalProtein', $totalProtein)
+                                     ->with('proteinMin', $proteinMin)
+                                     ->with('proteinMax', $proteinMax)
+                                     ->with('totalFat', $totalFat)
+                                     ->with('fatMin', $fatMin)
+                                     ->with('fatMax', $fatMax)
+                                     ->with('totalCarbs', $totalCarbs)
+                                     ->with('carbsMin', $carbsMin)
+                                     ->with('carbsMax', $carbsMax);
     }
 
     public function breakfastDelete($id){
@@ -179,13 +205,11 @@ class UserHomePageController extends Controller
     }
 
     public function getTotalCalories($date){
-        $today = $date;
-
-        $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $dinners = $this->dinner->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $snacks = $this->snack->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $date)->get();
+        $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $date)->get();
+        $dinners = $this->dinner->where('user_id', Auth::user()->id)->where('date', $date)->get();
+        $snacks = $this->snack->where('user_id', Auth::user()->id)->where('date', $date)->get();
+        $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $date)->get();
 
         $totalCalories = 0;
         $breakfastCalories = 0;
@@ -214,9 +238,7 @@ class UserHomePageController extends Controller
     }
 
     public function getWorkoutCalories($date){
-        $today =  $date;
-
-        $workouts = $this->workout->where('user_id', Auth::user()->id)->where('date', $today)->get();
+        $workouts = $this->workout->where('user_id', Auth::user()->id)->where('date', $date)->get();
 
         $workoutCalories = 0;
         foreach($workouts as $workout){
@@ -228,11 +250,13 @@ class UserHomePageController extends Controller
 
     public function caloriesChart($date){
         $totalCalories = $this->getTotalCalories($date);
-        $goalCalories = $this->getGoalCalories($date);
+        $goalCalories = ceil($this->getGoalCalories($date));
+        $BMR = $this->getBMR();
 
         $chartData = [ 
             'totalCalories' => $totalCalories,
-            'goalCalories' => $goalCalories
+            'goalCalories' => $goalCalories,
+            'BMR' => $BMR
         ];
 
         return response()->json($chartData);
@@ -240,7 +264,7 @@ class UserHomePageController extends Controller
 
     public function workoutChart($date){
         $workoutCalories = $this->getWorkoutCalories($date);
-        $workoutGoal = $this->getWorkoutGoal($date);
+        $workoutGoal = ceil($this->getWorkoutGoal($date));
 
         $workoutData = [
             'workoutCalories' => $workoutCalories,
@@ -251,111 +275,35 @@ class UserHomePageController extends Controller
     }
 
     public function proteinChart($date){
-        $today =  $date;
+        $totalProtein = $this->getTotalProtein($date);
+        $proteinMinMax = $this->getProteinMinMax();
+        $proteinData = [
+            'totalProtein' => $totalProtein,
+            'proteinMinMax' => $proteinMinMax
+        ];
 
-        $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $dinners = $this->dinner->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $snacks = $this->snack->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $today)->get();
-       
-        $totalProtein = 0;
-        $breakfastProtien = 0;
-        $lunchProtien = 0;
-        $dinnerProtien = 0;
-        $snackProtien = 0;
-        $supplementProtien = 0;
-        foreach($breakfasts as $breakfast){
-            $breakfastProtien += $breakfast->amount * $breakfast->food->protein;
-        }
-        foreach($lunches as $lunch){
-            $lunchProtien += $lunch->amount * $lunch->food->protein;
-        }
-        foreach($dinners as $dinner){
-            $dinnerProtien += $dinner->amount * $dinner->food->protein;
-        }
-        foreach($snacks as $snack){
-            $snackProtien += $snack->amount * $snack->food->protein;
-        }
-        foreach($supplements as $supplement){
-            $supplementProtien += $supplement->amount * $supplement->food->protein;
-        }
-
-        $totalProtein = $breakfastProtien + $lunchProtien + $dinnerProtien + $snackProtien + $supplementProtien;
-
-        return response()->json($totalProtein);
+        return response()->json($proteinData);
     }
 
     public function fatChart($date){
-        $today =  $date;
+        $totalFat = $this->getTotalFat($date);
+        $fatMinMax = $this->getFatMinMax();
 
-        $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $dinners = $this->dinner->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $snacks = $this->snack->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $today)->get();
-
-        $totalFat = 0;
-        $breakfastFat = 0;
-        $lunchFat = 0;
-        $dinnerFat = 0;
-        $snackFat = 0;
-        $supplementFat = 0;
-        foreach($breakfasts as $breakfast){
-            $breakfastFat += $breakfast->amount * $breakfast->food->fat;
-        }
-        foreach($lunches as $lunch){
-            $lunchFat += $lunch->amount * $lunch->food->fat;
-        }
-        foreach($dinners as $dinner){
-            $dinnerFat += $dinner->amount * $dinner->food->fat;
-        }
-        foreach($snacks as $snack){
-            $snackFat += $snack->amount * $snack->food->fat;
-        }
-        foreach($supplements as $supplement){
-            $supplementFat += $supplement->amount * $supplement->food->fat;
-        }
-
-        $totalFat = $breakfastFat + $lunchFat + $dinnerFat + $snackFat + $supplementFat;
-
-        return response()->json($totalFat);
+        $fatData = [
+            'totalFat' => $totalFat,
+            'fatMinMax' => $fatMinMax
+        ];
+        return response()->json($fatData);
     }
 
     public function carbsChart($date){
-        $today =  $date;
-
-        $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $dinners = $this->dinner->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $snacks = $this->snack->where('user_id', Auth::user()->id)->where('date', $today)->get();
-        $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $today)->get();
-
-        $totalCarbs = 0;
-        $breakfastCarbs = 0;
-        $lunchCarbs = 0;
-        $dinnerCarbs = 0;
-        $snackCarbs = 0;
-        $supplementCarbs = 0;
-        foreach($breakfasts as $breakfast){
-            $breakfastCarbs += $breakfast->amount * $breakfast->food->carbs;
-        }
-        foreach($lunches as $lunch){
-            $lunchCarbs += $lunch->amount * $lunch->food->carbs;
-        }
-        foreach($dinners as $dinner){
-            $dinnerCarbs += $dinner->amount * $dinner->food->carbs;
-        }
-        foreach($snacks as $snack){
-            $snackCarbs += $snack->amount * $snack->food->carbs;
-        }
-        foreach($supplements as $supplement){
-            $supplementCarbs += $supplement->amount * $supplement->food->carbs;
-        }
-
-        $totalCarbs = $breakfastCarbs + $lunchCarbs + $dinnerCarbs + $snackCarbs + $supplementCarbs;
-
-        return response()->json($totalCarbs);
+        $totalCarbs = $this->getTotalCarbs($date);
+        $carbsMinMax = $this->getCarbsMinMax();
+        $carbsData = [
+            'totalCarbs' => $totalCarbs,
+            'carbsMinMax' => $carbsMinMax
+        ];
+        return response()->json($carbsData);
     }
 
     public function weightChart(){
@@ -385,24 +333,105 @@ class UserHomePageController extends Controller
         }
     }
 
+    public function getReferenceWeight(){
+        $id = Auth::user()->id;
+        $userInfo = $this->information->where('user_id', $id)->first();
+        if($userInfo === null){
+            $gender = 'female';
+            $age = 20;
+        }else{
+            $gender = $userInfo->gender;
+            $age = $this->getAge();
+        }
+
+        if($gender == 'male'){
+            if(1 <= $age && $age <= 2){
+                $referenceWeight =11.5;
+            }else if(3 <= $age && $age <= 5){
+                $referenceWeight =16.5;
+            }else if(6 <= $age && $age <= 7){
+                $referenceWeight =22.2;
+            }else if(8 <= $age && $age <= 9){
+                $referenceWeight =28;
+            }else if(10 <= $age && $age <= 11){
+                $referenceWeight =35.6;
+            }else if(12 <= $age && $age <= 14){
+                $referenceWeight =49;
+            }else if(15 <= $age && $age <= 17){
+                $referenceWeight =59.7;
+            }else if(18 <= $age && $age <= 29){
+                $referenceWeight =64.5;
+            }else if(30 <= $age && $age <= 49){
+                $referenceWeight =68.1;
+            }else if(50 <= $age && $age <= 64){
+                $referenceWeight =68;
+            }else if(65 <= $age && $age <= 74){
+                $referenceWeight =65;
+            }else{
+                $referenceWeight =59.6;
+            }
+        }else if($gender == 'female'){
+            if(1 <= $age && $age <= 2){
+                $referenceWeight =11;
+            }else if(3 <= $age && $age <= 5){
+                $referenceWeight =16.1;
+            }else if(6 <= $age && $age <= 7){
+                $referenceWeight =21.9;
+            }else if(8 <= $age && $age <= 9){
+                $referenceWeight =27.4;
+            }else if(10 <= $age && $age <= 11){
+                $referenceWeight =36.3;
+            }else if(12 <= $age && $age <= 14){
+                $referenceWeight =47.5;
+            }else if(15 <= $age && $age <= 17){
+                $referenceWeight =51.9;
+            }else if(18 <= $age && $age <= 29){
+                $referenceWeight =50.3;
+            }else if(30 <= $age && $age <= 49){
+                $referenceWeight =53;
+            }else if(50 <= $age && $age <= 64){
+                $referenceWeight =53.8;
+            }else if(65 <= $age && $age <= 74){
+                $referenceWeight =52.1;
+            }else{
+                $referenceWeight =48.8;
+            }
+        }
+        return $referenceWeight;
+    }
+
     public function getAge(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-        $birthday = Carbon::parse($userInfo->birthday);
-        $today = Carbon::now();
+        if($userInfo === null){
+            $age = 20;
+        }else{
+            $birthday = Carbon::parse($userInfo->birthday);
+            $today = Carbon::now();
 
-        $age = Carbon::parse($birthday)->age;
+            $age = Carbon::parse($birthday)->age;
+        }
+        
         return $age;
     }
 
     public function getBMR(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
+        if($userInfo === null){
+            $gender = 'female';
+            $age = 20;
+        }else{
+            $gender = $userInfo->gender;
+            $age = $this->getAge();
+        }
+
         $userWeightInfo = $this->weight->where('user_id', $id)->latest()->first();
-        
-        $weight = $userWeightInfo->weight;
-        $gender = $userInfo->gender;
-        $age = $this->getAge();
+        if ($userWeightInfo === null) {
+            $weight = $this->getReferenceWeight();
+        } else {
+            $weight = $userWeightInfo->weight;
+        }
 
         if($gender == 'male'){
             if(1 <= $age && $age <= 2){
@@ -452,33 +481,80 @@ class UserHomePageController extends Controller
             }else{
                 $BMR = 20.7 * $weight;
             }
-
-            return $BMR;
         }
-
+        return $BMR;
     }
 
     public function getPAL(){
-        $age = $this->getAge();
-
-        if(1 <= $age && $age <= 2){
-            $PAL = 1.35;
-        }else if(3 <= $age && $age <= 5){
-            $PAL = 1.45;
-        }else if(6 <= $age && $age <= 7){
-            $PAL = 1.55;
-        }else if(8 <= $age && $age <= 9){
-            $PAL = 1.6;
-        }else if(10 <= $age && $age <= 11){
-            $PAL = 1.65;
-        }else if(12 <= $age && $age <= 14){
-            $PAL = 1.7;
-        }else if(15 <= $age && $age <= 64){
-            $PAL = 1.75;
-        }else if(65 <= $age && $age <= 74){
-            $PAL = 1.70;
+        $id = Auth::user()->id;
+        
+        $userInfo= $this -> information -> where('user_id', $id) -> first();
+        if($userInfo === null){
+            $age = 20;
+            $activityLevel = 2;
         }else{
-            $PAL = 1.65;
+            $age = $this->getAge();
+            $activityLevel = $userInfo -> activity_level;
+        }
+
+        if($activityLevel == 1){
+            if(6 <= $age && $age <= 7){
+                $PAL = 1.35;
+            }else if(8 <= $age && $age <= 9){
+                $PAL = 1.4;
+            }else if(10 <= $age && $age <= 11){
+                $PAL = 1.45;
+            }else if(12 <= $age && $age <= 14){
+                $PAL = 1.5;
+            }else if(15 <= $age && $age <= 17){
+                $PAL = 1.55;
+            }else if(18 <= $age && $age <= 64){
+                $PAL = 1.5;
+            }else if(65 <= $age && $age <= 74){
+                $PAL = 1.45;
+            }else if(75 <= $age){
+                $PAL = 1.4;
+            }else{
+                $PAL = 0;
+            }
+        }else if($activityLevel == 2){
+            if(1 <= $age && $age <= 2){
+                $PAL = 1.35;
+            }else if(3 <= $age && $age <= 5){
+                $PAL = 1.45;
+            }else if(6 <= $age && $age <= 7){
+                $PAL = 1.55;
+            }else if(8 <= $age && $age <= 9){
+                $PAL = 1.6;
+            }else if(10 <= $age && $age <= 11){
+                $PAL = 1.65;
+            }else if(12 <= $age && $age <= 14){
+                $PAL = 1.7;
+            }else if(15 <= $age && $age <= 64){
+                $PAL = 1.75;
+            }else if(65 <= $age && $age <= 74){
+                $PAL = 1.70;
+            }else{
+                $PAL = 1.65;
+            }
+        }else{
+            if(6 <= $age && $age <= 7){
+                $PAL = 1.75;
+            }else if(8 <= $age && $age <= 9){
+                $PAL = 1.8;
+            }else if(10 <= $age && $age <= 11){
+                $PAL = 1.85;
+            }else if(12 <= $age && $age <= 14){
+                $PAL = 1.9;
+            }else if(15 <= $age && $age <= 17){
+                $PAL = 1.95;
+            }else if(18 <= $age && $age <= 64){
+                $PAL = 2;
+            }else if(65 <= $age && $age <= 74){
+                $PAL = 1.95;
+            }else{
+                $PAL = 0;
+            }
         }
 
         return $PAL;
@@ -486,22 +562,45 @@ class UserHomePageController extends Controller
 
     public function getCaloriesDifference($date){
         $id = Auth::user()->id;
-        $date = Carbon::parse($date)->format('Y-m-d');
+        
+        $weight = $this -> weight -> where('user_id', $id)->where('date', $date)->first();    
+            if ($weight === null) {
+                $weight = $this->weight->where('user_id', $id)->latest()->first();
+                if ($weight === null) {
+                    $weight = $this->getReferenceWeight();
+                    $todaysWeight = $weight; 
+                } else {
+                    $todaysWeight = $weight->weight; 
+                }
+            } else {
+                $todaysWeight = $weight->weight; 
+            }
+
         $userInfo = $this->information->where('user_id', $id)->first();
-        $weight = $this -> weight -> where('user_id', $id)->where('date', $date)->first();
+            if($userInfo === null){
+                $goal = 1;
+                $goalWeight = $weight;
+                $goalDate = $date;
+            }else{
+                $goal = $userInfo->goal;
+                $goalWeight = $userInfo->goal_weight;
+                $goalDate = $userInfo->goal_date; 
+            }
 
-        $todaysWeight = $weight->weight;
-        $goalWeight = $userInfo->goal_weight;
-        $goalDate = $userInfo->goal_date;    
+        if($goalDate === $date){
+            $daysDifference = 1;
+        }else{
+            $daysDifference = Carbon::parse($date)->diffInDays(Carbon::parse($goalDate));
+        }
 
-        $daysDifference = Carbon::parse($date)->diffInDays(Carbon::parse($goalDate));
-        if($userInfo->goal === 1){
+        $weightDifference = 0;
+        if($goal === 1){
             $weightDifference = $todaysWeight - $goalWeight;
-        }else if($userInfo->goal === 3){
+        }else if($goal === 3){
             $weightDifference = $goalWeight - $todaysWeight;
         }
-       
         $everydayDifference = ($weightDifference * 7200) / $daysDifference;
+        
 
         return $everydayDifference;
     }
@@ -509,29 +608,37 @@ class UserHomePageController extends Controller
     public function getGoalCalories($date){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
+            if($userInfo === null){
+                $goal = 1;
+                $how = 2;
+            }else{
+                $goal = $userInfo->goal;
+                $how = $userInfo->how_to_lose;
+            }
+
         $BMR = $this->getBMR();
         $PAL = $this->getPAL();
         $everydayDifference = $this->getCaloriesDifference($date);
-
         $neededCalories = ceil($BMR * $PAL);
 
-        if($userInfo->goal === 1){
-            // if($userInfo->how === 1){
-                if($neededCalories - $everydayDifference > $this->getBMR()){
+        if($goal === 1){
+            if($how === 1){
+                if(($neededCalories - $everydayDifference) > $this->getBMR()){
                     $goalCalories = $neededCalories - $everydayDifference;
                 }else{
                     $goalCalories = $this->getBMR();
                 }
-            // }else if ($userInfo->how === 2){
-            //     if($neededCalories - $everydayDifference / 2 > $this->getBMR()){
-            //         $goalCalories = $neededCalories - $everydayDifference / 2;
-            //     }else{
-            //         $goalCalories = $this->getBMR();
-            //     }
-            // }else{
-            //     $goalCalories = $neededCalories;
-            // }
-        }else if($userInfo->goal === 2){
+            }else if ($how === 2){
+                $halfDifference = $everydayDifference / 2;
+                if($neededCalories - $halfDifference > $this->getBMR()){
+                    $goalCalories = $neededCalories - $halfDifference;
+                }else{
+                    $goalCalories = $this->getBMR();
+                }
+            }else{
+                $goalCalories = $neededCalories;
+            }
+        }else if($goal === 2){
             $goalCalories = $neededCalories;
         }else{
             $goalCalories = $neededCalories + $everydayDifference;
@@ -543,23 +650,849 @@ class UserHomePageController extends Controller
     public function getWorkoutGoal($date){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
+            if($userInfo === null){
+                $goal = 1;
+                $how = 2;
+            }else{
+                $goal = $userInfo->goal;
+                $how = $userInfo->how_to_lose;
+            }
         $BMR = $this->getBMR();
         $PAL = $this->getPAL();
         $everydayDifference = $this->getCaloriesDifference($date);
-
         $neededCalories = ceil($BMR * $PAL);
         
-        if($userInfo->goal === 1){
-            if($neededCalories - $everydayDifference > $this->getBMR()){
-                $workoutGoal = 0;
+        if($goal === 1){
+            if($how === 1){
+                if(($neededCalories - $everydayDifference) > $this->getBMR()){
+                    $workoutGoal = 0;
+                }else{
+                    $workoutGoal = $BMR - $neededCalories + $everydayDifference;
+                }
+            }else if($how === 2){
+                $halfDifference = $everydayDifference / 2;
+                if($neededCalories - $halfDifference > $this->getBMR()){
+                    $workoutGoal = $halfDifference;
+                }else{
+                    $workoutGoal = $BMR - $neededCalories + $everydayDifference;
+                }
             }else{
-                $workoutGoal = $BMR - $neededCalories + $everydayDifference;
+                $workoutGoal = $everydayDifference;
             }
+            
         }else{
             $workoutGoal = 0;
         }
 
         return $workoutGoal;
+    }
+
+    public function getTotalProtein($date){
+        $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $date)->get();
+        $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $date)->get();
+        $dinners = $this->dinner->where('user_id', Auth::user()->id)->where('date', $date)->get();
+        $snacks = $this->snack->where('user_id', Auth::user()->id)->where('date', $date)->get();
+        $supplements = $this->supplement->where('user_id', Auth::user()->id)->where('date', $date)->get();
+       
+        $totalProtein = 0;
+        $breakfastProtien = 0;
+        $lunchProtien = 0;
+        $dinnerProtien = 0;
+        $snackProtien = 0;
+        $supplementProtien = 0;
+        foreach($breakfasts as $breakfast){
+            $breakfastProtien += $breakfast->amount * $breakfast->food->protein;
+        }
+        foreach($lunches as $lunch){
+            $lunchProtien += $lunch->amount * $lunch->food->protein;
+        }
+        foreach($dinners as $dinner){
+            $dinnerProtien += $dinner->amount * $dinner->food->protein;
+        }
+        foreach($snacks as $snack){
+            $snackProtien += $snack->amount * $snack->food->protein;
+        }
+        foreach($supplements as $supplement){
+            $supplementProtien += $supplement->amount * $supplement->food->protein;
+        }
+
+        $totalProtein = $breakfastProtien + $lunchProtien + $dinnerProtien + $snackProtien + $supplementProtien;
+
+        return $totalProtein;
+    }
+    public function getProteinMinMax(){
+        $id = Auth::user()->id;
+        $userInfo = $this->information->where('user_id', $id)->first();
+        if($userInfo === null){
+            $gender = 'female';
+            $age = 20;
+            $activityLevel = 2;
+        }else{
+            $gender = $userInfo->gender;
+            $age = $this->getAge();
+            $activityLevel = $userInfo->activity_level;
+        }
+
+        if($gender == 'male'){
+            if($activityLevel == 1){
+                if(1 <= $age && $age <= 2){
+                    $proteinMin = 20;
+                    $proteinMax = 20;
+                }else if(3 <= $age && $age <= 5){
+                    $proteinMin = 25;
+                    $proteinMax = 25;
+                }else if(6 <= $age && $age <= 7){
+                    $proteinMin = 44;
+                    $proteinMax = 68;
+                }else if(8 <= $age && $age <= 9){
+                    $proteinMin = 52;
+                    $proteinMax = 80;
+                }else if(10 <= $age && $age <= 11){
+                    $proteinMin = 63;
+                    $proteinMax = 98;
+                }else if(12 <= $age && $age <= 14){
+                    $proteinMin = 75;
+                    $proteinMax = 115;
+                }else if(15 <= $age && $age <= 17){
+                    $proteinMin = 81;
+                    $proteinMax = 125;
+                }else if(18 <= $age && $age <= 49){
+                    $proteinMin = 75;
+                    $proteinMax = 115;
+                }else if(50 <= $age && $age <= 64){
+                    $proteinMin = 77;
+                    $proteinMax = 110;
+                }else if(65 <= $age && $age <= 74){
+                    $proteinMin = 77;
+                    $proteinMax = 103;
+                }else{
+                    $proteinMin = 68;
+                    $proteinMax = 90;
+                }
+            }else if($activityLevel == 2){
+                if(1 <= $age && $age <= 2){
+                    $proteinMin = 31;
+                    $proteinMax = 48;
+                }else if(3 <= $age && $age <= 5){
+                    $proteinMin = 42;
+                    $proteinMax = 65;
+                }else if(6 <= $age && $age <= 7){
+                    $proteinMin = 49;
+                    $proteinMax = 75;
+                }else if(8 <= $age && $age <= 9){
+                    $proteinMin = 60;
+                    $proteinMax =93;
+                }else if(10 <= $age && $age <= 11){
+                    $proteinMin = 72;
+                    $proteinMax = 110;
+                }else if(12 <= $age && $age <= 14){
+                    $proteinMin = 85;
+                    $proteinMax = 130;
+                }else if(15 <= $age && $age <= 17){
+                    $proteinMin = 91;
+                    $proteinMax = 140;
+                }else if(18 <= $age && $age <= 29){
+                    $proteinMin = 86;
+                    $proteinMax = 133;
+                }else if(30 <= $age && $age <= 49){
+                    $proteinMin = 88;
+                    $proteinMax = 135;
+                }else if(50 <= $age && $age <= 64){
+                    $proteinMin = 91;
+                    $proteinMax = 130;
+                }else if(65 <= $age && $age <= 74){
+                    $proteinMin = 90;
+                    $proteinMax = 120;
+                }else{
+                    $proteinMin = 79;
+                    $proteinMax = 105;
+                }
+            }else{
+                if(1 <= $age && $age <= 2){
+                    $proteinMin = 20;
+                    $proteinMax = 20;
+                }else if(3 <= $age && $age <= 5){
+                    $proteinMin = 25;
+                    $proteinMax = 25;
+                }else if(6 <= $age && $age <= 7){
+                    $proteinMin = 55;
+                    $proteinMax = 85;
+                }else if(8 <= $age && $age <= 9){
+                    $proteinMin = 67;
+                    $proteinMax = 103;
+                }else if(10 <= $age && $age <= 11){
+                    $proteinMin = 80;
+                    $proteinMax = 123;
+                }else if(12 <= $age && $age <= 14){
+                    $proteinMin = 94;
+                    $proteinMax = 145;
+                }else if(15 <= $age && $age <= 17){
+                    $proteinMin = 102;
+                    $proteinMax = 158;
+                }else if(18 <= $age && $age <= 49){
+                    $proteinMin = 99;
+                    $proteinMax = 153;
+                }else if(50 <= $age && $age <= 64){
+                    $proteinMin = 103;
+                    $proteinMax = 148;
+                }else if(65 <= $age && $age <= 74){
+                    $proteinMin = 103;
+                    $proteinMax = 138;
+                }else{
+                    $proteinMin = 60;
+                    $proteinMax = 60;
+                }
+            }
+        }else{
+            if($activityLevel == 1){
+                if(1 <= $age && $age <= 2){
+                    $proteinMin = 20;
+                    $proteinMax = 20;
+                }else if(3 <= $age && $age <= 5){
+                    $proteinMin = 25;
+                    $proteinMax = 25;
+                }else if(6 <= $age && $age <= 7){
+                    $proteinMin = 41;
+                    $proteinMax = 63;
+                }else if(8 <= $age && $age <= 9){
+                    $proteinMin = 47;
+                    $proteinMax = 73;
+                }else if(10 <= $age && $age <= 11){
+                    $proteinMin = 60;
+                    $proteinMax = 93;
+                }else if(12 <= $age && $age <= 14){
+                    $proteinMin = 68;
+                    $proteinMax = 105;
+                }else if(15 <= $age && $age <= 17){
+                    $proteinMin = 67;
+                    $proteinMax = 103;
+                }else if(18 <= $age && $age <= 49){
+                    $proteinMin = 57;
+                    $proteinMax = 88;
+                }else if(50 <= $age && $age <= 64){
+                    $proteinMin = 58;
+                    $proteinMax = 83;
+                }else if(65 <= $age && $age <= 74){
+                    $proteinMin = 58;
+                    $proteinMax = 78;
+                }else{
+                    $proteinMin = 53;
+                    $proteinMax = 70;
+                }
+            }else if($activityLevel == 2){
+                if(1 <= $age && $age <= 2){
+                    $proteinMin = 29;
+                    $proteinMax = 45;
+                }else if(3 <= $age && $age <= 5){
+                    $proteinMin = 39;
+                    $proteinMax = 60;
+                }else if(6 <= $age && $age <= 7){
+                    $proteinMin = 46;
+                    $proteinMax = 70;
+                }else if(8 <= $age && $age <= 9){
+                    $proteinMin = 55;
+                    $proteinMax = 85;
+                }else if(10 <= $age && $age <= 11){
+                    $proteinMin = 68;
+                    $proteinMax = 105;
+                }else if(12 <= $age && $age <= 14){
+                    $proteinMin = 78;
+                    $proteinMax = 120;
+                }else if(15 <= $age && $age <= 17){
+                    $proteinMin = 75;
+                    $proteinMax = 115;
+                }else if(18 <= $age && $age <= 29){
+                    $proteinMin = 65;
+                    $proteinMax = 100;
+                }else if(30 <= $age && $age <= 49){
+                    $proteinMin = 67;
+                    $proteinMax = 103;
+                }else if(50 <= $age && $age <= 64){
+                    $proteinMin = 68;
+                    $proteinMax = 98;
+                }else if(65 <= $age && $age <= 74){
+                    $proteinMin = 69;
+                    $proteinMax = 93;
+                }else{
+                    $proteinMin = 62;
+                    $proteinMax = 83;
+                }
+            }else if($activityLevel == 3){
+                if(1 <= $age && $age <= 2){
+                    $proteinMin = 20;
+                    $proteinMax = 20;
+                }else if(3 <= $age && $age <= 5){
+                    $proteinMin = 25;
+                    $proteinMax = 25;
+                }else if(6 <= $age && $age <= 7){
+                    $proteinMin = 52;
+                    $proteinMax = 80;
+                }else if(8 <= $age && $age <= 9){
+                    $proteinMin = 62;
+                    $proteinMax = 95;
+                }else if(10 <= $age && $age <= 11){
+                    $proteinMin = 76;
+                    $proteinMax = 118;
+                }else if(12 <= $age && $age <= 14){
+                    $proteinMin = 86;
+                    $proteinMax = 133;
+                }else if(15 <= $age && $age <= 17){
+                    $proteinMin = 83;    
+                    $proteinMax = 128;
+                }else if(18 <= $age && $age <= 29){
+                    $proteinMin = 75;
+                    $proteinMax = 115;
+                }else if(30 <= $age && $age <= 49){
+                    $proteinMin = 76;
+                    $proteinMax = 118;
+                }else if(50 <= $age && $age <= 64){
+                    $proteinMin = 79;
+                    $proteinMax = 113;
+                }else if(65 <= $age && $age <= 74){
+                    $proteinMin = 79;
+                    $proteinMax = 105;
+                }else{
+                    $proteinMin = 50;
+                    $proteinMax = 50;
+                }
+            }
+        }
+
+        $proteinMinMax = [$proteinMin, $proteinMax];
+        return $proteinMinMax;
+    }
+
+    public function getTotalFat($date){
+        $id = Auth::user()->id;
+
+        $breakfasts = $this->breakfast->where('user_id', $id)->where('date', $date)->get();
+        $lunches = $this->lunch->where('user_id',$id)->where('date', $date)->get();
+        $dinners = $this->dinner->where('user_id', $id)->where('date', $date)->get();
+        $snacks = $this->snack->where('user_id', $id)->where('date', $date)->get();
+        $supplements = $this->supplement->where('user_id', $id)->where('date', $date)->get();
+
+        $totalFat = 0;
+        $breakfastFat = 0;
+        $lunchFat = 0;
+        $dinnerFat = 0;
+        $snackFat = 0;
+        $supplementFat = 0;
+        foreach($breakfasts as $breakfast){
+            $breakfastFat += $breakfast->amount * $breakfast->food->fat;
+        }
+        foreach($lunches as $lunch){
+            $lunchFat += $lunch->amount * $lunch->food->fat;
+        }
+        foreach($dinners as $dinner){
+            $dinnerFat += $dinner->amount * $dinner->food->fat;
+        }
+        foreach($snacks as $snack){
+            $snackFat += $snack->amount * $snack->food->fat;
+        }
+        foreach($supplements as $supplement){
+            $supplementFat += $supplement->amount * $supplement->food->fat;
+        }
+
+        $totalFat = $breakfastFat + $lunchFat + $dinnerFat + $snackFat + $supplementFat;
+
+        return $totalFat;
+    }
+
+    public function getFatMinMax(){
+        $id = Auth::user()->id;
+        $userInfo = $this->information->where('user_id', $id)->first();
+        if($userInfo === null){
+            $gender = 'female';
+            $age = 20;
+            $activityLevel = 2;
+        }else{
+            $gender = $userInfo->gender;
+            $age = $this->getAge();
+            $activityLevel = $userInfo->activity_level;
+        }
+
+        if($gender == 'male'){
+            if($activityLevel == 1){
+                if(1 <= $age && $age <= 5){
+                    $fatMin = 0;
+                    $fatMax = 0;
+                }else if(6 <= $age && $age <= 7){
+                    $fatMin = 30;
+                    $fatMax = 45;
+                }else if(8 <= $age && $age <= 9){
+                    $fatMin = 36;
+                    $fatMax = 53;
+                }else if(10 <= $age && $age <= 11){
+                    $fatMin = 44;
+                    $fatMax = 65;
+                }else if(12 <= $age && $age <= 14){
+                    $fatMin = 52;
+                    $fatMax = 76;
+                }else if(15 <= $age && $age <= 17){
+                    $fatMin = 56;
+                    $fatMax = 83;
+                }else if(18 <= $age && $age <= 49){
+                    $fatMin = 52;
+                    $fatMax = 76;
+                }else if(50 <= $age && $age <= 64){
+                    $fatMin = 49;
+                    $fatMax = 73;
+                }else if(65 <= $age && $age <= 74){
+                    $fatMin = 46;
+                    $fatMax = 68;
+                }else{
+                    $fatMin = 40;
+                    $fatMax = 60;
+                }
+            }else if($activityLevel == 2){
+                if(1 <= $age && $age <= 2){
+                    $fatMin = 22;
+                    $fatMax = 31;
+                }else if(3 <= $age && $age <= 5){
+                    $fatMin = 29;
+                    $fatMax = 43;
+                }else if(6 <= $age && $age <= 7){
+                    $fatMin = 35;
+                    $fatMax = 51;
+                }else if(8 <= $age && $age <= 9){
+                    $fatMin = 42;
+                    $fatMax = 61;
+                }else if(10 <= $age && $age <= 11){
+                    $fatMin = 50;
+                    $fatMax = 75;
+                }else if(12 <= $age && $age <= 14){
+                    $fatMin = 58;
+                    $fatMax = 86;
+                }else if(15 <= $age && $age <= 17){
+                    $fatMin = 63;
+                    $fatMax = 93;
+                }else if(18 <= $age && $age <= 29){
+                    $fatMin = 59;
+                    $fatMax = 88;
+                }else if(30 <= $age && $age <= 49){
+                    $fatMin = 60;
+                    $fatMax = 90;
+                }else if(50 <= $age && $age <= 64){
+                    $fatMin = 58;
+                    $fatMax = 86;
+                }else if(65 <= $age && $age <= 74){
+                    $fatMin = 54;
+                    $fatMax = 80;
+                }else{
+                    $fatMin = 47;
+                    $fatMax = 70;
+                }
+            }else if($activityLevel == 3){
+                if(6 <= $age && $age <= 7){
+                    $fatMin = 39;
+                    $fatMax = 58;
+                }else if(8 <= $age && $age <= 9){
+                    $fatMin = 47;
+                    $fatMax = 70;
+                }else if(10 <= $age && $age <= 11){
+                    $fatMin = 56;
+                    $fatMax = 83;
+                }else if(12 <= $age && $age <= 14){
+                    $fatMin = 65;
+                    $fatMax = 96;
+                }else if(15 <= $age && $age <= 17){
+                    $fatMin = 70;
+                    $fatMax = 105;
+                }else if(18 <= $age && $age <= 49){
+                    $fatMin = 68;
+                    $fatMax = 101;
+                }else if(50 <= $age && $age <= 64){
+                    $fatMin = 66;
+                    $fatMax = 98;
+                }else if(65 <= $age && $age <= 74){
+                    $fatMin = 62;
+                    $fatMax = 91;
+                }else{
+                    $fatMin = 0;
+                    $fatMax = 0;
+                }
+            }
+        }else{
+            if($activityLevel == 1){
+                if(1 <= $age && $age <= 5){
+                    $fatMin = 0;
+                    $fatMax = 0;
+                }else if(6 <= $age && $age <= 7){
+                    $fatMin = 28;
+                    $fatMax = 41;
+                }else if(8 <= $age && $age <= 9){
+                    $fatMin = 34;
+                    $fatMax = 50;
+                }else if(10 <= $age && $age <= 11){
+                    $fatMin = 42;
+                    $fatMax = 61;
+                }else if(12 <= $age && $age <= 14){
+                    $fatMin = 48;
+                    $fatMax = 71;
+                }else if(15 <= $age && $age <= 17){
+                    $fatMin = 46;
+                    $fatMax = 68;
+                }else if(18 <= $age && $age <= 29){
+                    $fatMin = 38;
+                    $fatMax = 56;
+                }else if(30 <= $age && $age <= 49){
+                    $fatMin = 39;
+                    $fatMax = 58;
+                }else if(50 <= $age && $age <= 64){
+                    $fatMin = 37;
+                    $fatMax = 55;
+                }else if(65 <= $age && $age <= 74){
+                    $fatMin = 35;
+                    $fatMax = 51;
+                }else{
+                    $fatMin = 32;
+                    $fatMax = 46;
+                }
+            }else if($activityLevel == 2){
+                if(1 <= $age && $age <= 2){
+                    $fatMin = 20;
+                    $fatMax = 30;   
+                }else if(3 <= $age && $age <= 5){
+                    $fatMin = 28;
+                    $fatMax = 41;
+                }else if(6 <= $age && $age <= 7){
+                    $fatMin = 33;
+                    $fatMax = 48;
+                }else if(8 <= $age && $age <= 9){
+                    $fatMin = 38;
+                    $fatMax = 56;
+                }else if(10 <= $age && $age <= 11){
+                    $fatMin = 47;
+                    $fatMax = 70;
+                }else if(12 <= $age && $age <= 14){
+                    $fatMin = 54;
+                    $fatMax = 80;
+                }else if(15 <= $age && $age <= 17){
+                    $fatMin = 52;
+                    $fatMax = 76;
+                }else if(18 <= $age && $age <= 29){
+                    $fatMin = 45;
+                    $fatMax = 66;
+                }else if(30 <= $age && $age <= 49){
+                    $fatMin = 46;
+                    $fatMax = 68;
+                }else if(50 <= $age && $age <= 64){
+                    $fatMin = 44;
+                    $fatMax = 65;
+                }else if(65 <= $age && $age <= 74){
+                    $fatMin = 42;
+                    $fatMax = 61;
+                }else{
+                    $fatMin = 37;
+                    $fatMax = 55;  
+                }  
+            }else if($activityLevel == 3){
+                if(1 <= $age && $age <= 5){
+                    $fatMin = 0;
+                    $fatMax = 0;
+                }else if(6 <= $age && $age <= 7){
+                    $fatMin = 37;
+                    $fatMax = 55;
+                }else if(8 <= $age && $age <= 9){
+                    $fatMin = 43;
+                    $fatMax = 63;
+                }else if(10 <= $age && $age <= 11){
+                    $fatMin = 53;
+                    $fatMax = 78;
+                }else if(12 <= $age && $age <= 14){
+                    $fatMin = 60;
+                    $fatMax = 90;
+                }else if(15 <= $age && $age <= 17){
+                    $fatMin = 57;
+                    $fatMax = 85;                
+                }else if(18 <= $age && $age <= 29){
+                    $fatMin = 52;
+                    $fatMax = 76;
+                }else if(30 <= $age && $age <= 49){
+                    $fatMin = 53;
+                    $fatMax = 78;
+                }else if(50 <= $age && $age <= 64){
+                    $fatMin = 50;
+                    $fatMax = 75;
+                }else if(65 <= $age && $age <= 74){
+                    $fatMin = 47;
+                    $fatMax = 70;
+                }else{
+                    $fatMin = 0;
+                    $fatMax = 0;
+                }
+            }
+        }
+        $fatMinMax = [$fatMin, $fatMax];
+        return $fatMinMax;
+    }
+
+    public function getTotalCarbs($date){
+        $id = Auth::user()->id;
+
+        $breakfasts = $this->breakfast->where('user_id', $id)->where('date', $date)->get();
+        $lunches = $this->lunch->where('user_id', $id)->where('date', $date)->get();
+        $dinners = $this->dinner->where('user_id', $id)->where('date', $date)->get();
+        $snacks = $this->snack->where('user_id', $id)->where('date', $date)->get();
+        $supplements = $this->supplement->where('user_id', $id)->where('date', $date)->get();
+
+        $totalCarbs = 0;
+        $breakfastCarbs = 0;
+        $lunchCarbs = 0;
+        $dinnerCarbs = 0;
+        $snackCarbs = 0;
+        $supplementCarbs = 0;
+        foreach($breakfasts as $breakfast){
+            $breakfastCarbs += $breakfast->amount * $breakfast->food->carbs;
+        }
+        foreach($lunches as $lunch){
+            $lunchCarbs += $lunch->amount * $lunch->food->carbs;
+        }
+        foreach($dinners as $dinner){
+            $dinnerCarbs += $dinner->amount * $dinner->food->carbs;
+        }
+        foreach($snacks as $snack){
+            $snackCarbs += $snack->amount * $snack->food->carbs;
+        }
+        foreach($supplements as $supplement){
+            $supplementCarbs += $supplement->amount * $supplement->food->carbs;
+        }
+
+        $totalCarbs = $breakfastCarbs + $lunchCarbs + $dinnerCarbs + $snackCarbs + $supplementCarbs;
+
+        return $totalCarbs;
+    }
+
+    public function getCarbsMinMax(){
+        $id = Auth::user()->id;
+        $userInfo = $this->information->where('user_id', $id)->first();
+        if($userInfo === null){
+            $gender = 'female';
+            $age = 20;
+            $activityLevel = 2;
+        }else{
+            $gender = $userInfo->gender;
+            $age = $this->getAge();
+            $activityLevel = $userInfo->activity_level;
+        }
+
+        if($gender == 'male'){
+            if($activityLevel == 1){
+                if(1 <= $age && $age <= 5){
+                    $carbsMin = 0;
+                    $carbsMax = 0;
+                }else if(6 <= $age && $age <= 7){
+                    $carbsMin = 169;
+                    $carbsMax = 219;
+                }else if(8 <= $age && $age <= 9){
+                    $carbsMin = 200;
+                    $carbsMax = 260;
+                }else if(10 <= $age && $age <= 11){
+                    $carbsMin = 244;
+                    $carbsMax = 316;
+                }else if(12 <= $age && $age <= 14){
+                    $carbsMin = 288;
+                    $carbsMax = 373;
+                }else if(15 <= $age && $age <= 17){
+                    $carbsMin = 313;
+                    $carbsMax = 406;
+                }else if(18 <= $age && $age <= 49){
+                    $carbsMin = 288;
+                    $carbsMax = 373;
+                }else if(50 <= $age && $age <= 64){
+                    $carbsMin = 275;
+                    $carbsMax = 357;
+                }else if(65 <= $age && $age <= 74){
+                    $carbsMin = 257;
+                    $carbsMax = 333;
+                }else{
+                    $carbsMin = 225;
+                    $carbsMax = 292;
+                }
+            }else if($activityLevel == 2){
+                if(1 <= $age && $age <= 2){
+                    $carbsMin = 119;
+                    $carbsMax = 154;
+                }else if(3 <= $age && $age <= 5){
+                    $carbsMin = 163;
+                    $carbsMax = 211;
+                }else if(6 <= $age && $age <= 7){
+                    $carbsMin = 194;
+                    $carbsMax = 251;
+                }else if(8 <= $age && $age <= 9){
+                    $carbsMin = 232;
+                    $carbsMax = 300;
+                }else if(10 <= $age && $age <= 11){
+                    $carbsMin = 282;
+                    $carbsMax = 365;
+                }else if(12 <= $age && $age <= 14){
+                    $carbsMin = 325;
+                    $carbsMax = 422;
+                }else if(15 <= $age && $age <= 17){
+                    $carbsMin = 350;
+                    $carbsMax = 455;
+                }else if(18 <= $age && $age <= 29){
+                    $carbsMin = 332;
+                    $carbsMax = 430;
+                }else if(30 <= $age && $age <= 49){
+                    $carbsMin = 338;
+                    $carbsMax = 438;
+                }else if(50 <= $age && $age <= 64){
+                    $carbsMin = 325;
+                    $carbsMax = 422;
+                }else if(65 <= $age && $age <= 74){
+                    $carbsMin = 300;
+                    $carbsMax = 390;
+                }else{
+                    $carbsMin = 263;
+                    $carbsMax = 341;
+                }
+            }else if($activityLevel == 3){
+                if(1 <= $age && $age <= 5){
+                    $carbsMin = 0;
+                    $carbsMax = 0;
+                }else if(6 <= $age && $age <= 7){
+                    $carbsMin = 219;
+                    $carbsMax = 284;
+                }else if(8 <= $age && $age <= 9){
+                    $carbsMin = 263;
+                    $carbsMax = 341;
+                }else if(10 <= $age && $age <= 11){
+                    $carbsMin = 313;
+                    $carbsMax = 406;
+                }else if(12 <= $age && $age <= 14){
+                    $carbsMin = 363;
+                    $carbsMax = 471;
+                }else if(15 <= $age && $age <= 17){
+                    $carbsMin = 394;
+                    $carbsMax = 511;
+                }else if(18 <= $age && $age <= 49){
+                    $carbsMin = 382;
+                    $carbsMax = 495;
+                }else if(50 <= $age && $age <= 64){
+                    $carbsMin = 369;
+                    $carbsMax = 479;
+                }else if(65 <= $age && $age <= 74){
+                    $carbsMin = 344;
+                    $carbsMax = 446;
+                }else{
+                    $carbsMin = 0;
+                    $carbsMax = 0;
+                }
+            }
+        }else{
+            if($activityLevel == 1){
+                if(1 <= $age && $age <= 5){
+                    $carbsMin = 0;
+                    $carbsMax = 0;
+                }else if(6 <= $age && $age <= 7){
+                    $carbsMin = 157;
+                    $carbsMax = 203;
+                }else if(8 <= $age && $age <= 9){
+                    $carbsMin = 188;
+                    $carbsMax = 243;
+                }else if(10 <= $age && $age <= 11){
+                    $carbsMin = 232;
+                    $carbsMax = 300;
+                }else if(12 <= $age && $age <= 14){
+                    $carbsMin = 269;
+                    $carbsMax = 349;
+                }else if(15 <= $age && $age <= 17){
+                    $carbsMin = 257;
+                    $carbsMax = 333;  
+                }else if(18 <= $age && $age <= 29){
+                    $carbsMin = 213;
+                    $carbsMax = 276;
+                }else if(30 <= $age && $age <= 49){
+                    $carbsMin = 219;
+                    $carbsMax = 284;
+                }else if(50 <= $age && $age <= 64){
+                    $carbsMin = 207;
+                    $carbsMax = 268;
+                }else if(65 <= $age && $age <= 74){
+                    $carbsMin = 194;
+                    $carbsMax = 251;
+                }else{
+                    $carbsMin = 176;
+                    $carbsMax = 227;
+                }
+            }else if($activityLevel == 2){
+                if(1 <= $age && $age <= 2){
+                    $carbsMin = 113;
+                    $carbsMax = 146;
+                }else if(3 <= $age && $age <= 5){
+                    $carbsMin = 157;
+                    $carbsMax = 203;
+                }else if(6 <= $age && $age <= 7){
+                    $carbsMin = 182;
+                    $carbsMax = 235;
+                }else if(8 <= $age && $age <= 9){
+                    $carbsMin = 213;
+                    $carbsMax = 276;
+                }else if(10 <= $age && $age <= 11){
+                    $carbsMin = 263;
+                    $carbsMax = 341;
+                }else if(12 <= $age && $age <= 14){
+                    $carbsMin = 300;
+                    $carbsMax = 390;
+                }else if(15 <= $age && $age <= 17){
+                    $carbsMin = 288;
+                    $carbsMax = 373;
+                }else if(18 <= $age && $age <= 29){
+                    $carbsMin = 250;
+                    $carbsMax = 325;
+                }else if(30 <= $age && $age <= 49){
+                    $carbsMin = 257;
+                    $carbsMax = 333;
+                }else if(50 <= $age && $age <= 64){
+                    $carbsMin = 244;
+                    $carbsMax = 316;
+                }else if(65 <= $age && $age <= 74){
+                    $carbsMin = 232;
+                    $carbsMax = 300;
+                }else{
+                    $carbsMin = 207;
+                    $carbsMax = 268;
+                }
+            }else{
+                if(1 <= $age && $age <= 5){
+                    $carbsMin = 0;
+                    $carbsMax = 0;
+                }else if(6 <= $age && $age <= 7){
+                    $carbsMin = 207;
+                    $carbsMax = 268;
+                }else if(8 <= $age && $age <= 9){
+                    $carbsMin = 238;
+                    $carbsMax = 308;
+                }else if(10 <= $age && $age <= 11){
+                    $carbsMin = 294;
+                    $carbsMax = 381;
+                }else if(12 <= $age && $age <= 14){
+                    $carbsMin = 338;
+                    $carbsMax = 438;
+                }else if(15 <= $age && $age <= 17){
+                    $carbsMin = 319;
+                    $carbsMax = 414;
+                }else if(18 <= $age && $age <= 29){
+                    $carbsMin = 288;
+                    $carbsMax = 373;
+                }else if(30 <= $age && $age <= 49){
+                    $carbsMin = 294;
+                    $carbsMax = 381;
+                }else if(50 <= $age && $age <= 64){
+                    $carbsMin = 282;
+                    $carbsMax = 365;
+                }else if(65 <= $age && $age <= 74){
+                    $carbsMin = 263;
+                    $carbsMax = 341;
+                }else{
+                    $carbsMin = 0;
+                    $carbsMax = 0;
+                }
+            }
+        }
+        $carbsMinMax = [$carbsMin, $carbsMax];
+        return $carbsMinMax;
     }
 }
 
