@@ -103,6 +103,13 @@ Route::group(['prefix' => 'admin/exercise/registration', 'as' => 'admin.exercise
     Route::post('/store', [RegistrationController::class, 'exercise_store'])->name('store');
     Route::get('/complete', [RegistrationController::class, 'exercise_complete'])->name('complete');
 });
+
+Route::group(['prefix' => 'admin/food/registration', 'as' => 'admin.food.registration.'], function(){
+    Route::get('/', [RegistrationController::class, 'food_index'])->name('index');
+    Route::post('/store', [RegistrationController::class, 'food_store'])->name('store');
+    Route::get('/complete', [RegistrationController::class, 'food_complete'])->name('complete');
+});
+
 Route::get('/admin/faqregistration/complete', [FaqController::class, 'complete'])->name('admin.faqregistration.complete');
 
 // Workout Registration
