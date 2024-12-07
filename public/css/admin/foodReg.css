@@ -35,13 +35,6 @@
     box-shadow: 0 0.1em 0 #c00000;
 }
 
-.position {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
-}
-
 .del-btn {
     color: white;
     background-color:#d55555;
@@ -69,4 +62,15 @@
 .btn-save:hover {
     color: white;
     background-color: #237a44;
+}
+
+.bg-yellow {
+    background-color:#fef39f67;
+    border: 4px solid #fccf80;
+}
+
+.image-sm {
+    width: 4rem;
+    height: 35px;
+    object-fit: cover;
 }
