@@ -4,7 +4,7 @@
 
 <div class="row border border-1 border-dark rounded-1 justify-content-center m-0 mb-4 bg-white">
     <div class="row p-0 custom-flex-align">
-        <div class="col-3 border-end border-1 border-dark text-center">
+        <div class="col-3 text-center">
             <h4 class="h5 fw-bolder mt-2">Breakfast</h4>
             <img src="/assets/images/breakfast1.jpg" alt="breakfast" class="icon-img">
             @if($breakfastTime && $breakfastTime->time_eaten)
@@ -13,7 +13,7 @@
                 <p class="mt-2 mb-0 fs-5">Time eaten</p>
             @endif
         </div>
-        <div class="col justify-content-center text-center table-container">
+        <div class="col justify-content-center text-center table-container border-start border-1 border-dark">
             <table class="table border-bottom border-1 border-dark mb-0">
                 <thead>
                     <tr>
@@ -62,7 +62,7 @@
 
 <div class="row border border-1 border-dark rounded-1 justify-content-center m-0 mb-4 bg-white">
     <div class="row p-0 custom-flex-align">
-        <div class="col-3 border-end border-1 border-dark text-center">
+        <div class="col-3 text-center">
             <h4 class="h5 fw-bolder mt-2">Lunch</h4>
             <img src="/assets/images/lunch2.jpg" alt="lunch" class="icon-img">
             @if($lunchTime && $lunchTime->time_eaten)
@@ -71,7 +71,7 @@
                 <p class="mt-2 mb-0 fs-5">Time eaten</p>
             @endif
         </div>
-        <div class="col justify-content-center text-center">
+        <div class="col justify-content-center text-center border-start border-1 border-dark">
             <table class="table border-bottom border-1 border-dark mb-0">
                 <thead>
                     <tr>
@@ -120,7 +120,7 @@
 
 <div class="row border border-1 border-dark rounded-1 justify-content-center m-0 mb-4 bg-white">
     <div class="row p-0 custom-flex-align">
-        <div class="col-3 border-end border-1 border-dark text-center">
+        <div class="col-3 text-center">
             <h4 class="h5 fw-bolder mt-2">Dinner</h4>
             <img src="/assets/images/dinner1.jpg" alt="dinner" class="icon-img">
             @if($dinnerTime && $dinnerTime->time_eaten)
@@ -129,7 +129,7 @@
                 <p class="mt-2 mb-0 fs-5">Time eaten</p>
             @endif
         </div>
-        <div class="col justify-content-center text-center">
+        <div class="col justify-content-center text-center border-start border-1 border-dark">
             <table class="table border-bottom border-1 border-dark mb-0">
                 <thead>
                     <tr>
@@ -178,7 +178,7 @@
 
 <div class="row border border-1 border-dark rounded-1 justify-content-center m-0 mb-4 bg-white">
     <div class="row p-0 custom-flex-align">
-        <div class="col-3 border-end border-1 border-dark text-center">
+        <div class="col-3 text-center">
             <h4 class="h5 fw-bolder mt-2">Snack</h4>
             <img src="/assets/images/snack1.jpg" alt="snack" class="icon-img">
             @if($snackTime && $snackTime->time_eaten)
@@ -187,7 +187,7 @@
                 <p class="mt-2 mb-0 fs-5">Time eaten</p>
             @endif
         </div>
-        <div class="col justify-content-center text-center">
+        <div class="col justify-content-center text-center border-start border-1 border-dark">
             <table class="table border-bottom border-1 border-dark mb-0">
                 <thead>
                     <tr>
@@ -206,7 +206,7 @@
                             <td>{{ rtrim(rtrim(number_format($snack->amount,2), '0'), '.') }}</td>
                             <td>{{ $snack->food->calories * $snack->amount}} kcal</td>
                             <td>
-                                <form action="" method="POST">
+                                <form action="{{route('user.snack.delete', $snack->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm">
@@ -236,7 +236,7 @@
 
 <div class="row border border-1 border-dark rounded-1 justify-content-center m-0 mb-4 bg-white">
     <div class="row p-0 custom-flex-align">
-        <div class="col-3 border-end border-1 border-dark text-center">
+        <div class="col-3 text-center">
             <h4 class="h5 fw-bolder mt-2">Supplement</h4>
             <img src="/assets/images/supplement1.jpg" alt="supplement" class="icon-img">
             @if($supplementTime && $supplementTime->time_eaten)
@@ -245,7 +245,7 @@
                 <p class="mt-2 mb-0 fs-5">Time taken</p>
             @endif
         </div>
-        <div class="col justify-content-center text-center">
+        <div class="col justify-content-center text-center border-start border-1 border-dark">
             <table class="table border-bottom border-1 border-dark mb-0">
                 <thead>
                     <tr>
@@ -264,7 +264,7 @@
                             <td>{{ rtrim(rtrim(number_format($supplement->amount,2), '0'), '.') }}</td>
                             <td>{{ $supplement->food->calories * $supplement->amount}} kcal</td>
                             <td>
-                                <form action="" method="POST">
+                                <form action="{{route('user.supplement.delete', $supplement->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm">
@@ -294,11 +294,11 @@
 
 <div class="row border border-1 border-dark rounded-1 justify-content-center m-0 mb-4 bg-white">
     <div class="row p-0 custom-flex-align">
-        <div class="col-3 border-end border-1 border-dark text-center">
+        <div class="col-3 text-center">
             <h4 class="h5 fw-bolder mt-2">Workout</h4>
             <img src="/assets/images/workout1.jpg" alt="workout" class="icon-img">
         </div>
-        <div class="col justify-content-center text-center">
+        <div class="col justify-content-center text-center border-start border-1 border-dark">
             <table class="table border-bottom border-1 border-dark mb-0">
                 <thead>
                     <tr>
