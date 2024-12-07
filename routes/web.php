@@ -17,6 +17,8 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ExercisesController;
 use App\Http\Controllers\WorkoutController;
+use App\Http\Controllers\MealLunchController;
+use App\Http\Controllers\MealDinnerController;
 
 
 
@@ -69,6 +71,20 @@ Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.
 Route::get('/meals', [MealController::class, 'index'])->name('meals.registration');
 Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
 Route::get('/search', [MealController::class, 'search']);
+// User/ Meal Registration lunch
+Route::get('/meals/index_lunch', [MealLunchController::class, 'index'])->name('meals.index_lunch');
+Route::post('/meals', [MealLunchController::class, 'store'])->name('meals.store');
+Route::get('/search', [MealLunchController::class, 'search']);
+// User/ Meal Registration dinner
+Route::get('/meals/index_dinner', [MealDinnerController::class, 'index'])->name('meals.index_dinner');
+Route::post('/meals', [MealDinnerController::class, 'store'])->name('meals.store');
+Route::get('/search', [MealDinnerController::class, 'search']);
+Route::get('/meals/history', [MealDinnerController::class, 'history'])->name('meals.history');
+Route::get('/meals/{id}/edit', [MealDinnerController::class, 'edit'])->name('meals.edit');
+Route::put('/meals/{id}', [MealDinnerController::class, 'update'])->name('meals.update');
+
+
+
 // User / Everyday Condition
 Route::get('/daily-condition', function () {return view('daily_condition');});
 
