@@ -1,0 +1,35 @@
+.active-button {
+    background-color: orange;
+    color: white;
+}
+.bg-green {
+    background-color: rgb(126, 176, 126);
+}
+.bg-yellow {
+    background-color: rgb(233, 207, 73);
+}
+.bg-blue {
+    background-color: rgb(91, 152, 225);
+}
+.bg-red {
+    background-color: rgb(209, 164, 164);
+}
+.border-yellow {
+    border-color: rgb(249, 194, 127);
+    color: rgb(249, 194, 127);
+}
+.border-blue {
+    border-color: rgb(109, 174, 243);
+    color: rgb(109, 174, 243);
+}
+.border-green {
+    border-color: rgb(89, 187, 82);
+    color: rgb(89, 187, 82);
+}
+.size {
+    font-size: 3.7rem;
+}
+.circle {
+    border-radius: 25% / 35%;
+    padding: 10px;
+}
