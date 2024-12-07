@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/confirmation.css') }}">
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/foodReg.css') }}">
     <link rel="stylesheet" href="{{ asset('css/exerciseReg.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/userlist.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/foodlist.css') }}">
