@@ -113,7 +113,7 @@ console.clear();
 
                 topSection.textContent = `${String(date.date).padStart(2, ' ')}`; 
 
-                var selectedDate = year+'-'+(month+1)+'-'+date.date;  
+                let selectedDate = year+'-'+(month+1)+'-'+ (date.date < 10 ? '0' + date.date : date.date);  
 
                 if (selectedDate) {
                     $.ajax({
