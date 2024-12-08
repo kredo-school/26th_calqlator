@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meal Registration Dinner</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/ajax/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ asset('/css/meal.style.css') }}">
 </head>
@@ -27,26 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        @forelse ($meals as $meal)
-          <tr>
-            <form action="{{ route('meals.update', ['id' => $meal->id]) }}" method="POST">
-              @csrf
-              @method('PUT')
-              <td>{{ $meal->item }}</td>
-              <td>{{ $meal->calories }} kcal</td>
-              <td><input type="text" name="amount" value="{{ $meal->amount }}" class="form-control"></td>
-              <td><input type="time" name="time_eaten" value="{{ $meal->time_eaten }}" class="form-control"></td>
-              <td><input type="number" name="protein" value="{{ $meal->protein }}" class="form-control"></td>
-              <td><input type="number" name="carbohydrate" value="{{ $meal->carbohydrate }}" class="form-control"></td>
-              <td><input type="number" name="lipid" value="{{ $meal->lipid }}" class="form-control"></td>
-              <td><button type="submit" class="btn btn-outline-primary">Save</button></td>
-            </form>
-          </tr>
-        @empty
-          <tr>
-            <td colspan="8" class="text-center">No food registered</td>
-          </tr>
-        @endforelse
+        <!-- 初期状態では空 -->
       </tbody>
     </table>
     <div class="text-center p-2">
@@ -60,7 +41,7 @@
       </div>
     </form>
     <h2 class="history text-center">History</h2>
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="historyTable">
       <thead>
         <tr>
           <th>Item</th>
@@ -73,23 +54,7 @@
         </tr>
       </thead>
       <tbody>
-        @forelse ($meals as $meal)
-          <tr>
-            <td>{{ $meal->item }}</td>
-            <td>{{ $meal->calories }} kcal</td>
-            <td>{{ $meal->amount }}</td>
-            <td>{{ $meal->protein }} kcal</td>
-            <td>{{ $meal->carbohydrate }} kcal</td>
-            <td>{{ $meal->lipid }} kcal</td>
-            <td><button class="btn btn-outline-danger rounded-circle btn-sm add-to-meal" data-id="{{ $meal->id }}" data-item="{{ $meal->item }}" data-calories="{{ $meal->calories }}" data-amount="{{ $meal->amount }}" title="Add">
-              <i class="fa-solid fa-plus"></i>
-            </button> Add</td>
-          </tr>
-        @empty
-          <tr>
-            <td colspan="7" class="text-center">No food registered</td>
-          </tr>
-        @endforelse
+        <!-- JavaScriptでデータを挿入 -->
       </tbody>
     </table>
   </div>
@@ -130,19 +95,19 @@
                 </div>
               </div>
               <div class="form-group col-md-6">
-                <label for="calories">Time eaten</label>
+                <label for="time_eaten">Time eaten</label>
                 <input type="time" class="mborder form-control" id="time_eaten" name="time_eaten" placeholder="19:30" required>
               </div>
               <div class="form-group col-md-6">
-                <label for="calories">Protein</label>
+                <label for="protein">Protein</label>
                 <input type="number" class="mborder form-control" id="protein" name="protein" placeholder="50 kcal" required>
               </div>
               <div class="form-group col-md-6">
-                <label for="calories">Cabohydrate</label>
+                <label for="carbohydrate">Carbohydrate</label>
                 <input type="number" class="mborder form-control" id="carbohydrate" name="carbohydrate" placeholder="50 kcal" required>
               </div>
               <div class="form-group col-md-6">
-                <label for="calories">Lipid</label>
+                <label for="lipid">Lipid</label>
                 <input type="number" class="mborder form-control" id="lipid" name="lipid" placeholder="50 kcal" required>
               </div>
             </div>
@@ -170,28 +135,53 @@
       }
     });
 
-    document.querySelectorAll('.add-to-meal').forEach(button => {
-      button.addEventListener('click', function() {
-        const item = this.getAttribute('data-item');
-        const calories = this.getAttribute('data-calories');
-        const amount = this.getAttribute('data-amount');
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('/meals/history')
+        .then(response => response.json())
+        .then(data => {
+          const historyTableBody = document.querySelector('#historyTable tbody');
+          historyTableBody.innerHTML = ''; // 既存の内容をクリア
+          data.forEach(meal => {
+            const newRow = `
+              <tr>
+                <td>${meal.item}</td>
+                <td>${meal.calories} kcal</td>
+                <td>${meal.amount}</td>
+                <td>${meal.protein} kcal</td>
+                <td>${meal.carbohydrate} kcal</td>
+                <td>${meal.lipid} kcal</td>
+                <td><button class="btn btn-outline-danger rounded-circle btn-sm add-to-meal" data-item="${meal.item}" data-calories="${meal.calories}" data-amount="${meal.amount}" title="Add">
+                  <i class="fa-solid fa-plus"></i>
+                </button> Add</td>
+              </tr>
+            `;
+            historyTableBody.insertAdjacentHTML('beforeend', newRow);
+          });
 
-        // 上の表に追加
-        const newRow = `
-          <tr>
-            <td>${item}</td>
-            <td>${calories} kcal</td>
-            <td><input type="text" name="amount" value="${amount}" class="form-control"></td>
-            <td><input type="text" name="time_eaten" value="" class="form-control"></td>
-            <td><input type="number" name="protein" value="" class="form-control"></td>
-            <td><input type="number" name="carbohydrate" value="" class="form-control"></td>
-            <td><input type="number" name="lipid" value="" class="form-control"></td>
-            <td><button type="submit" class="btn btn-outline-primary">Save</button></td>
-          </tr>
-        `;
+          document.querySelectorAll('.add-to-meal').forEach(button => {
+            button.addEventListener('click', function() {
+              const item = this.getAttribute('data-item');
+              const calories = this.getAttribute('data-calories');
+              const amount = this.getAttribute('data-amount');
 
-        document.querySelector('#mealTable tbody').insertAdjacentHTML('beforeend', newRow);
-      });
+              // 上の表に追加
+              const newRow = `
+                <tr>
+                  <td>${item}</td>
+                  <td>${calories} kcal</td>
+                  <td><input type="text" name="amount" value="${amount}" class="form-control"></td>
+                  <td><input type="time" name="time_eaten" value="" class="form-control"></td>
+                  <td><input type="number" name="protein" value="" class="form-control"></td>
+                  <td><input type="number" name="carbohydrate" value="" class="form-control"></td>
+                  <td><input type="number" name="lipid" value="" class="form-control"></td>
+                  <td><button type="submit" class="btn btn-outline-primary">Save</button></td>
+                </tr>
+              `;
+
+              document.querySelector('#mealTable tbody').insertAdjacentHTML('beforeend', newRow);
+            });
+          });
+        });
     });
   </script>
 </body>

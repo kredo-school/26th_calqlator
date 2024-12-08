@@ -55,8 +55,9 @@ class MealDinnerController extends Controller
     public function history()
     {
         $meals = MealDinner::all();
-        return view('meals.history', compact('meals'));
+        return response()->json($meals);
     }
+
 
     public function edit($id)
     {
