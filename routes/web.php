@@ -70,8 +70,7 @@ Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.c
 Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
 // UserFAQ
 Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
-// User / ChatPage
-Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
+
 //User / Meal Registration
 Route::get('/meals', [MealController::class, 'index'])->name('meals.registration');
 Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
@@ -104,9 +103,15 @@ Route::group(['prefix' => 'admin/exercise/registration', 'as' => 'admin.exercise
     Route::post('/store', [RegistrationController::class, 'exercise_store'])->name('store');
     Route::get('/complete', [RegistrationController::class, 'exercise_complete'])->name('complete');
 });
+
+Route::group(['prefix' => 'admin/food/registration', 'as' => 'admin.food.registration.'], function(){
+    Route::get('/', [RegistrationController::class, 'food_index'])->name('index');
+    Route::post('/store', [RegistrationController::class, 'food_store'])->name('store');
+    Route::get('/complete', [RegistrationController::class, 'food_complete'])->name('complete');
+});
+
 Route::get('/admin/faqregistration/complete', [FaqController::class, 'complete'])->name('admin.faqregistration.complete');
-// Admin / ChatPage
-Route::get('/admin/chatpage/index', [ChatController::class, 'index'])->name('admin.chatpage.index');
+
 // Workout Registration
 Route::get('/workouts', [WorkoutController::class, 'index']);
 Route::post('/workouts', [WorkoutController::class, 'store'])->name('workouts.store');
@@ -132,3 +137,12 @@ Route::get('/admin/exercise/list', [ExercisesController::class, 'index'])->name(
 Route::get('/admin/exercise/edit/{id}', [ExercisesController::class, 'edit'])->name('admin.exercise.edit');
 Route::get('/admin/exercise/update/{id}', [ExercisesController::class, 'update'])->name('admin.exercises.update');
 Route::get('/admin/exercise/delete/{id}', [ExercisesController::class, 'delete'])->name('admin.exercise.delete');
+
+Route::middleware('auth')->group(function(){
+// User / ChatPage
+Route::get('/user/chat', [ChatController::class, 'userChat'])->name('chat.userChat');
+Route::post('/user/chat/store', [ChatController::class, 'storeQuestion'])->name('chat.storeQuestion');
+// Admin / ChatPage
+Route::get('/admin/chat', [ChatController::class, 'adminChat'])->name('chat.adminIndex');
+Route::post('/admin/chat/{question}', [ChatController::class, 'storeAnswer'])->name('chat.storeAnswer');
+});
