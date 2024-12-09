@@ -11,7 +11,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -118,9 +118,29 @@
                     </div>
                     <div class="col-3 p-0">
                         <div class="list-group text-center rounded-0">
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }} menu">
+                            <a href="" class="list-group-item menu">
                                 <h3 class="m-0">Contact Users</h3>
                             </a>
+                            @foreach ($users as $user)
+                            <div href="" class="list-group-item @if ($user->id == $selectedUser->id) active @endif">
+                                <a href="{{ route('chat.adminChat', ['user_id' => $user->id]) }}" class="text-decoration-none text-dark">
+                                    <div class="row">
+                                        <div class="col-4 text-end">
+                                            <i class="fa-solid fa-circle-user text-secondary icon-sm"></i> 
+                                        </div>
+                                        <div class="col-5 text-start">
+                                            <h4>{{ $user->name }}</h4>
+                                        </div>
+                                        <div class="col-3">
+                                            <button class="btn btn-sm shadow-none" {{--data-bs-toggle="dropdown"--}}>
+                                                <i class="fa-solid fa-ellipsis"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            @endforeach
+                            <!--
                             <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
                                 <div class="row">
                                     <div class="col-4 text-end">
@@ -241,6 +261,7 @@
                                     </div>
                                 </div>
                             </a>
+                            -->
 
 
                         {{--    @foreach (  as $user)

@@ -7,10 +7,14 @@ body{
     justify-content: center;
 }
 main{
-    display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.all-area{
+    margin-top: -250px;
+}
+
 /* left bar */
 .menu-area{
     display: flex;
