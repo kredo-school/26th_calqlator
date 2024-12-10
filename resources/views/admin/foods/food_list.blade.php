@@ -32,11 +32,11 @@
               <table class="table text-center mb-0 foodlist" id="admin-table">
                 <thead class="foodlist">
                     <tr>
-                        <th class="sortable-table" style="width: 20%" id="id-header">ID</th>
-                        <th class="sortable-table" style="width: 25%" id="name-header">Name</th>
-                        <th class="sortable-table" style="width: 25%" id="calories-header">Calories</th>
-                        <th class="sortable-table" style="width: 25%" id="amount-header">Amount</th>
-                        <th class="sortable-table" style="width: 20%"></th>
+                        <th class="sortable-table" style="width: 10%" id="id-header">ID</th>
+                        <th class="sortable-table" style="width: 35%" id="name-header">Name</th>
+                        <th class="sortable-table" style="width: 10%" id="calories-header">Calories</th>
+                        <th class="sortable-table" style="width: 35%" id="amount-header">Amount</th>
+                        <th class="sortable-table" style="width: 30%"></th>
                     </tr>
                 </thead>
                 <tbody>

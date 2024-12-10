@@ -7,7 +7,7 @@
     <div class="row">          
         <div class="col-12">
             <div class="d-flex align-items-center justify-content-between mb-4">
-            <h2 class="me-4 mb-0"><i class="fa-regular fa-user"></i> User List</h2>
+            <h2 class="me-4 mb-0"><i class="fa-solid fa-user"></i> User List</h2>
                 
 
  <!-- Search form -->

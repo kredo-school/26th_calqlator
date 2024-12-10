@@ -21,13 +21,16 @@
                         <tbody>
                             <tr>
                                 <td>
+                                    <form action="{{ route('admin.foods.update', $food->id) }}" method="post">
+                                        @csrf
+                                        @method('PATCH')
                                     <input type="text" name="item_name" class="form-control" value="{{ old('item_name', $food->item_name) }}" required>
                                 </td>
                                 <td>
-                                    <input type="number" name="calories" class="form-control" value="{{ old('calories', $food->calories) }}" required>
+                                    <input type="text" name="calories" class="form-control" value="{{ old('calories', $food->calories) }}" required>
                                 </td>
                                 <td>
-                                    <input type="number" name="amount" class="form-control" value="{{ old('amount'< $food->amount) }}" required>
+                                    <input type="text" name="amount" class="form-control" value="{{ old('amount', $food->amount) }}" required>
                                 </td>
                             </tr>
                         </tbody>
@@ -35,11 +38,9 @@
                 </div>
             </div>
             <div class="modal-footer border-0 justify-content-center p-0 my-3">
-                <form action="{{ route('admin.foods.update', $food->id) }}" method="post">
-                @csrf
-                @method('PATCH')
+               
                      <button type="button" data-bs-dismiss="modal" class="btn btn-sm px-4 me-3 cancel-btn">Cancel</button>
-                     <button type="submit" class="btn btn-sm px-4 edit-btn"><i class="fa-solid fa-circle-check"></i> Edit</button>
+                     <button type="submit" class="btn btn-sm px-4 edit-btn" value="{{ $food->item_name }}"><i class="fa-solid fa-circle-check"></i> Edit</button>
                 </form>
             </div>
         </div>

@@ -61,16 +61,17 @@ class ExercisesController extends Controller
      */
     public function update(Request $request, $id)
     {
+
        $validated = $request->validate([
             'name' => 'required|max:255',
-            'calories_per_10min' => 'required|numeric|min:0',
+            'calories' => 'required|numeric|min:0',
         ]);
 
         $exercise = Exercise::findOrFail($id);
         $exercise->update($validated);
 
-        return redirect()->route('admin.exercise.exercise_list')
-            ->with('success', 'Exercise updated successfully');
+        return redirect()->route('admin.exercises.list');
+            
     }
 
     /**
@@ -90,7 +91,6 @@ class ExercisesController extends Controller
         $exercise = Exercise::findOrFail($id);
         $exercise->delete();
 
-        return redirect()->route('admin.exercise.exercise_list')
-             ->with('success', 'Exercise deleted successfully.');
+        return redirect()->route('admin.exercises.list');
     }
 }

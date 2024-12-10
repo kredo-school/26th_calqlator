@@ -33,7 +33,7 @@
                 <thead class="exerciselist">
                     <tr>
                         <th class="sortable-table" style="width: 10%" id="id-header">ID</th>
-                        <th class="sortable-table" style="width: 30%" id="name-header">NAME</th>
+                        <th class="sortable-table" style="width: 30%; " id="name-header">NAME</th>
                         <th class="sortable-table" style="width: 30%" id="calories-header">CALORY/10 Minute</th>
                         <th class="sortable-table" style="width: 30%"></th>
                     </tr>

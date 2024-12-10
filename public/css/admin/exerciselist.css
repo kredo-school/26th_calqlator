@@ -5,13 +5,11 @@
     background-color: #fffcf7;
 }
 
-
-
-.exerciselist th, .exerciselist td {
-   padding: 10px;
-   text-align: center;
-    
-}
+.exerciselist th , .exerciselist td {
+    padding: 10px;
+    text-align: center;
+     
+ }
 
 .exerciselist th {
     background-color: #ffa488;

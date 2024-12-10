@@ -61,10 +61,10 @@ Route::get('/admin/chatpage/index', [ChatController::class, 'index'])->name('adm
 // Admin / user list
 Route::get('/admin/user/list', [UsersController::class, 'index'])->name('admin.users.list');
 // Admin / food list
-Route::get('/admin/food/list', [FoodsController::class, 'index'])->name('admin.foods.list'); 
+Route::get('/admin/food/list', [FoodsController::class, 'index'])->name('admin.foods.food_list'); 
 Route::get('/admin/food/edit/{id}', [FoodsController::class, 'edit'])->name('admin.foods.edit');
 Route::patch('/admin/food/update/{id}', [FoodsController::class, 'update'])->name('admin.foods.update');
-Route::delete('/admin/food/delete/{id}', [FoodsController::class, 'delete'])->name('admin.foods.destroy');
+Route::delete('/admin/food/delete/{id}', [FoodsController::class, 'delete'])->name('admin.foods.delete');
 // Admin / exercise list
 Route::get('/admin/exercise/list', [ExercisesController::class, 'index'])->name('admin.exercises.list');
 Route::get('/admin/exercise/edit/{id}', [ExercisesController::class, 'edit'])->name('admin.exercise.edit');

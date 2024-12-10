@@ -21,7 +21,7 @@ class FoodsController extends Controller
         $search = $request->input('search');
 
         $foods = Food::when($search, function ($query, $search) {
-            return $query->where('name', 'like', "%{$search}%");
+            return $query->where('item_name', 'like', "%{$search}%");
         })
             ->orderBy('id', 'asc')
             ->get();
@@ -46,16 +46,15 @@ class FoodsController extends Controller
     public function foodEdit(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'calory' => 'required|numeric|min:0',
-            'amount' => 'required|numeric|min:0',
+            'item_name' => 'required|string|max:255',
+            'calories' => 'required|numeric',
+            'amount' => 'required|string|max*255',
         ]);
 
         $request->session()->put('temp_data', $request->all());
 
         $food = Food::findOrFail($id);
-        return view('admin.foods.modals.action', compact('food'));
+        return view('admin.foods.modals.action', compact('foods'));
     }
 
     /**
@@ -72,8 +71,8 @@ class FoodsController extends Controller
         $food = Food::findOrFail($id);
         $food->update($request->all());
 
-        return redirect()->route('admin.foods.food_list')
-            ->with('success', 'Food updated successfully');
+        return redirect()->route('admin.foods.food_list');
+     
     }
 
     /**
@@ -82,7 +81,7 @@ class FoodsController extends Controller
     public function foodDelete($id)
     {
         $food = Food::findOrFail($id);
-        return view('admin.foods.modals.action', compact('food'));
+        return view('admin.foods.modals.action', compact('foods'));
     }
 
     /**
@@ -93,7 +92,8 @@ class FoodsController extends Controller
         $food = Food::findOrFail($id);
         $food->delete();
 
-        return redirect()->route('admin.foods.food_list')
-            ->with('success', 'Food deleted successfully.');
+        return redirect()->route('admin.foods.food_list');
+            
     }
- }
+}
+ 
