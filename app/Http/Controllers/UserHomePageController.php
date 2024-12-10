@@ -174,36 +174,6 @@ class UserHomePageController extends Controller
                                      ->with('carbsMax', $carbsMax);
     }
 
-    public function breakfastDelete($id){
-        $this->breakfast->where('id', $id)->delete();
-        return redirect()->back();
-    }
-
-    public function lunchDelete($id){
-        $this->lunch->where('id', $id)->delete();
-        return redirect()->back();
-    }
-
-    public function dinnerDelete($id){
-        $this->dinner->where('id', $id)->delete();
-        return redirect()->back();
-    }
-
-    public function workoutDelete($id){
-        $this->workout->where('id', $id)->delete();
-        return redirect()->back();
-    }
-
-    public function supplementDelete($id){
-        $this->supplement->where('id', $id)->delete();
-        return redirect()->back();
-    }
-
-    public function snackDelete($id){
-        $this->snack->where('id', $id)->delete();
-        return redirect()->back();
-    }
-
     public function getTotalCalories($date){
         $breakfasts = $this->breakfast->where('user_id', Auth::user()->id)->where('date', $date)->get();
         $lunches = $this->lunch->where('user_id', Auth::user()->id)->where('date', $date)->get();
@@ -306,95 +276,25 @@ class UserHomePageController extends Controller
         return response()->json($carbsData);
     }
 
-    public function weightChart(){
-        try{
-            $today = Carbon::today();
-            $firstDayOfMonth = $today->copy()->startOfMonth();
-            $lastDayOfMonth = $today->copy()->endOfMonth();
-            
-            $weights = $this->weight
-                            ->where('user_id', Auth::user()->id)
-                            ->whereBetween('date', [$firstDayOfMonth, $lastDayOfMonth])  
-                            ->orderBy('date', 'asc') 
-                            ->get();
-        
-            $weightData=[];
-            foreach($weights as $weight){
-                $date = Carbon::parse($weight->date);
-                $weightData[] = [
-                    'date' => $date->format('Y-m-d'), 
-                    'weight' => $weight->weight
-                ];
-            }
-            return response()->json($weightData);
-        } catch (\Exception $e) {
-            \Log::error('Error fetching weight chart data: ' . $e->getMessage());
-            return response()->json(['error' => 'Internal Server Error'], 500);
-        }
-    }
-
     public function getReferenceWeight(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-        if($userInfo === null){
-            $gender = 'female';
-            $age = 20;
-        }else{
-            $gender = $userInfo->gender;
-            $age = $this->getAge();
-        }
+        $age = $userInfo && $userInfo->birthday ? $this->getAge() : 20;
+        $gender = $userInfo && $userInfo->gender ? $userInfo->gender : 'female';
 
-        if($gender == 'male'){
-            if(1 <= $age && $age <= 2){
-                $referenceWeight =11.5;
-            }else if(3 <= $age && $age <= 5){
-                $referenceWeight =16.5;
-            }else if(6 <= $age && $age <= 7){
-                $referenceWeight =22.2;
-            }else if(8 <= $age && $age <= 9){
-                $referenceWeight =28;
-            }else if(10 <= $age && $age <= 11){
-                $referenceWeight =35.6;
-            }else if(12 <= $age && $age <= 14){
-                $referenceWeight =49;
-            }else if(15 <= $age && $age <= 17){
-                $referenceWeight =59.7;
-            }else if(18 <= $age && $age <= 29){
-                $referenceWeight =64.5;
-            }else if(30 <= $age && $age <= 49){
-                $referenceWeight =68.1;
-            }else if(50 <= $age && $age <= 64){
-                $referenceWeight =68;
-            }else if(65 <= $age && $age <= 74){
-                $referenceWeight =65;
-            }else{
-                $referenceWeight =59.6;
-            }
-        }else if($gender == 'female'){
-            if(1 <= $age && $age <= 2){
-                $referenceWeight =11;
-            }else if(3 <= $age && $age <= 5){
-                $referenceWeight =16.1;
-            }else if(6 <= $age && $age <= 7){
-                $referenceWeight =21.9;
-            }else if(8 <= $age && $age <= 9){
-                $referenceWeight =27.4;
-            }else if(10 <= $age && $age <= 11){
-                $referenceWeight =36.3;
-            }else if(12 <= $age && $age <= 14){
-                $referenceWeight =47.5;
-            }else if(15 <= $age && $age <= 17){
-                $referenceWeight =51.9;
-            }else if(18 <= $age && $age <= 29){
-                $referenceWeight =50.3;
-            }else if(30 <= $age && $age <= 49){
-                $referenceWeight =53;
-            }else if(50 <= $age && $age <= 64){
-                $referenceWeight =53.8;
-            }else if(65 <= $age && $age <= 74){
-                $referenceWeight =52.1;
-            }else{
-                $referenceWeight =48.8;
+        $referenceWeights = [
+            'male' => [
+                [1, 2, 11.5], [3, 5, 16.5], [6, 7, 22.2], [8, 9, 28], [10, 11, 35.6], [12, 14, 49], [15, 17, 59.7], [18, 29, 64.5], [30, 49, 68.1], [50, 64, 68], [65, 74, 65], [75, null, 59.6], 
+            ],
+            'female' => [
+                [1, 2, 11], [3, 5, 16.1], [6, 7, 21.9], [8, 9, 27.4], [10, 11, 36.3], [12, 14, 47.5], [15, 17, 51.9], [18, 29, 50.3], [30, 49, 53], [50, 64, 53.8], [65, 74, 52.1], [75, null, 48.8],
+            ],
+        ];
+        $referenceWeight = 0;
+        foreach ($referenceWeights[$gender] as [$minAge, $maxAge, $weight]) {
+            if ($age >= $minAge && ($maxAge === null || $age <= $maxAge)) {
+                $referenceWeight = $weight;
+                break;
             }
         }
         return $referenceWeight;
@@ -403,14 +303,7 @@ class UserHomePageController extends Controller
     public function getAge(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-        if($userInfo === null){
-            $age = 20;
-        }else{
-            $birthday = Carbon::parse($userInfo->birthday);
-            $today = Carbon::now();
-
-            $age = Carbon::parse($birthday)->age;
-        }
+        $age = $userInfo && $userInfo->birthday ? Carbon::parse($userInfo->birthday)->age : 20;
         
         return $age;
     }
@@ -418,145 +311,55 @@ class UserHomePageController extends Controller
     public function getBMR(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-        if($userInfo === null){
-            $gender = 'female';
-            $age = 20;
-        }else{
-            $gender = $userInfo->gender;
-            $age = $this->getAge();
-        }
+        $age = $userInfo && $userInfo->birthday ? $this->getAge() : 20;
+        $gender = $userInfo && $userInfo->gender ? $userInfo->gender : 'female';
 
-        $userWeightInfo = $this->weight->where('user_id', $id)->latest()->first();
-        if ($userWeightInfo === null) {
-            $weight = $this->getReferenceWeight();
-        } else {
-            $weight = $userWeightInfo->weight;
-        }
+        $userWeightInfo = $this->weight->where('user_id', $id)->orderBy('date','desc')->first();
+        $weight = $userWeightInfo ? $userWeightInfo->weight : $this->getReferenceWeight();
 
-        if($gender == 'male'){
-            if(1 <= $age && $age <= 2){
-                $BMR = 61 * $weight;
-            }else if(3 <= $age && $age <= 5){
-                $BMR = 54.8 * $weight;
-            }else if(6 <= $age && $age <= 7){
-                $BMR = 44.3 * $weight;
-            }else if(8 <= $age && $age <= 9){
-                $BMR = 40.8 * $weight;
-            }else if(10 <= $age && $age <= 11){
-                $BMR = 37.4 * $weight;
-            }else if(12 <= $age && $age <= 14){
-                $BMR = 31 * $weight;
-            }else if(15 <= $age && $age <= 17){
-                $BMR = 27 * $weight;
-            }else if(18 <= $age && $age <= 29){
-                $BMR = 23.7 * $weight;
-            }else if(30 <= $age && $age <= 49){
-                $BMR = 22.5 * $weight;
-            }else if(50 <= $age && $age <= 64){
-                $BMR = 21.8 * $weight;
-            }else if(65 <= $age && $age <= 74){
-                $BMR = 21.6 * $weight;
-            }else{
-                $BMR = 21.5 * $weight;
-            }
-        }else{
-            if(1 <= $age && $age <= 2){
-                $BMR = 59.7 * $weight;
-            }else if(3 <= $age && $age <= 5){
-                $BMR = 52.2 * $weight;
-            }else if(6 <= $age && $age <= 7){
-                $BMR = 41.9 * $weight;
-            }else if(8 <= $age && $age <= 9){
-                $BMR = 38.3 * $weight;
-            }else if(10 <= $age && $age <= 11){
-                $BMR = 34.8 * $weight;
-            }else if(12 <= $age && $age <= 14){
-                $BMR = 29.6 * $weight;
-            }else if(15 <= $age && $age <= 17){
-                $BMR = 25.3 * $weight;
-            }else if(18 <= $age && $age <= 29){
-                $BMR = 22.1 * $weight;
-            }else if(30 <= $age && $age <= 49){
-                $BMR = 21.9 * $weight;
-            }else{
-                $BMR = 20.7 * $weight;
+        $BMRnumber=[
+            'male' => [
+                [1, 2, 61], [3, 5, 54.8], [6, 7, 44.3], [8, 9, 40.8], [10, 11, 37.4], [12, 14, 31], [15, 17, 27], [18, 29, 23.7], [30, 49, 22.5], [50, 64, 21.8], [65, 74, 21.6], [75, null, 21.5],
+                ],
+            'female' => [
+                [1, 2, 59.7], [3, 5, 52.2], [6, 7, 41.9], [8, 9, 38.3], [10, 11, 34.8], [12, 14, 29.6], [15, 17, 25.3], [18, 29, 22.1], [30, 49, 21.9], [50, 64, 20.7], [65, null, 20.7],
+            ],
+        ];
+        $BMR = 0;
+        foreach ($BMRnumber[$gender] as [$minAge, $maxAge, $number]) {
+            if ($age >= $minAge && ($maxAge === null || $age <= $maxAge)) {
+                $BMR = $number * $weight;
+                break;
             }
         }
         return $BMR;
     }
 
     public function getPAL(){
-        $id = Auth::user()->id;
-        
+        $id = Auth::user()->id;     
         $userInfo= $this -> information -> where('user_id', $id) -> first();
-        if($userInfo === null){
-            $age = 20;
-            $activityLevel = 2;
-        }else{
-            $age = $this->getAge();
-            $activityLevel = $userInfo -> activity_level;
-        }
+        $age = $userInfo && $userInfo->birthday ? $this->getAge() : 20;
+        $activityLevel = $userInfo && $userInfo->activity_level ? $userInfo->activity_level : 2;
+        
+        $palValues =[
+            '1' => [
+                [1,5,1],[6, 7, 1.35], [8, 9, 1.4], [10, 11, 1.45], [12, 14, 1.5], [15, 17, 1.55], [18, 64, 1.5], [65, 74, 1.45], [75, null, 1.4],  
+            ],
+            '2' => [
+                [1, 2, 1.35], [3, 5, 1.45], [6, 7, 1.55], [8, 9, 1.6], [10, 11, 1.65], [12, 14, 1.7], [15, 64, 1.75], [65, 74, 1.7], [75, null, 1.65],
+            ],
+            '3' => [
+                [1,5,1],[6, 7, 1.75], [8, 9, 1.8], [10, 11, 1.85], [12, 14, 1.9], [15, 17, 1.95], [18, 64, 2], [65, 74, 1.95], [75, null, 1], 
+            ],
+        ];
 
-        if($activityLevel == 1){
-            if(6 <= $age && $age <= 7){
-                $PAL = 1.35;
-            }else if(8 <= $age && $age <= 9){
-                $PAL = 1.4;
-            }else if(10 <= $age && $age <= 11){
-                $PAL = 1.45;
-            }else if(12 <= $age && $age <= 14){
-                $PAL = 1.5;
-            }else if(15 <= $age && $age <= 17){
-                $PAL = 1.55;
-            }else if(18 <= $age && $age <= 64){
-                $PAL = 1.5;
-            }else if(65 <= $age && $age <= 74){
-                $PAL = 1.45;
-            }else if(75 <= $age){
-                $PAL = 1.4;
-            }else{
-                $PAL = 0;
-            }
-        }else if($activityLevel == 2){
-            if(1 <= $age && $age <= 2){
-                $PAL = 1.35;
-            }else if(3 <= $age && $age <= 5){
-                $PAL = 1.45;
-            }else if(6 <= $age && $age <= 7){
-                $PAL = 1.55;
-            }else if(8 <= $age && $age <= 9){
-                $PAL = 1.6;
-            }else if(10 <= $age && $age <= 11){
-                $PAL = 1.65;
-            }else if(12 <= $age && $age <= 14){
-                $PAL = 1.7;
-            }else if(15 <= $age && $age <= 64){
-                $PAL = 1.75;
-            }else if(65 <= $age && $age <= 74){
-                $PAL = 1.70;
-            }else{
-                $PAL = 1.65;
-            }
-        }else{
-            if(6 <= $age && $age <= 7){
-                $PAL = 1.75;
-            }else if(8 <= $age && $age <= 9){
-                $PAL = 1.8;
-            }else if(10 <= $age && $age <= 11){
-                $PAL = 1.85;
-            }else if(12 <= $age && $age <= 14){
-                $PAL = 1.9;
-            }else if(15 <= $age && $age <= 17){
-                $PAL = 1.95;
-            }else if(18 <= $age && $age <= 64){
-                $PAL = 2;
-            }else if(65 <= $age && $age <= 74){
-                $PAL = 1.95;
-            }else{
-                $PAL = 0;
+        $PAL = 1.725;
+        foreach ($palValues[$activityLevel] as [$minAge, $maxAge, $pal]) {
+            if ($age >= $minAge && ($maxAge === null || $age <= $maxAge)) {
+                $PAL = $pal;
+                break;
             }
         }
-
         return $PAL;
     }
 
@@ -577,15 +380,9 @@ class UserHomePageController extends Controller
             }
 
         $userInfo = $this->information->where('user_id', $id)->first();
-            if($userInfo === null){
-                $goal = 1;
-                $goalWeight = $weight;
-                $goalDate = $date;
-            }else{
-                $goal = $userInfo->goal;
-                $goalWeight = $userInfo->goal_weight;
-                $goalDate = $userInfo->goal_date; 
-            }
+        $goal = $userInfo && $userInfo->goal ? $userInfo->goal : 2;
+        $goalWeight = $userInfo && $userInfo->goal_weight ? $userInfo->goal_weight : $todaysWeight;
+        $goalDate = $userInfo && $userInfo->goal_date ? $userInfo->goal_date : $date;
 
         if($goalDate === $date){
             $daysDifference = 1;
@@ -608,13 +405,8 @@ class UserHomePageController extends Controller
     public function getGoalCalories($date){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-            if($userInfo === null){
-                $goal = 1;
-                $how = 2;
-            }else{
-                $goal = $userInfo->goal;
-                $how = $userInfo->how_to_lose;
-            }
+        $goal = $userInfo && $userInfo->goal ? $userInfo->goal : 2;
+        $how = $userInfo && $userInfo->how_to_lose ? $userInfo->how_to_lose : 2;
 
         $BMR = $this->getBMR();
         $PAL = $this->getPAL();
@@ -650,13 +442,9 @@ class UserHomePageController extends Controller
     public function getWorkoutGoal($date){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-            if($userInfo === null){
-                $goal = 1;
-                $how = 2;
-            }else{
-                $goal = $userInfo->goal;
-                $how = $userInfo->how_to_lose;
-            }
+        $goal = $userInfo && $userInfo->goal ? $userInfo->goal : 2;
+        $how = $userInfo && $userInfo->how_to_lose ? $userInfo->how_to_lose : 2;
+        
         $BMR = $this->getBMR();
         $PAL = $this->getPAL();
         $everydayDifference = $this->getCaloriesDifference($date);
@@ -720,241 +508,44 @@ class UserHomePageController extends Controller
 
         return $totalProtein;
     }
+
     public function getProteinMinMax(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-        if($userInfo === null){
-            $gender = 'female';
-            $age = 20;
-            $activityLevel = 2;
-        }else{
-            $gender = $userInfo->gender;
-            $age = $this->getAge();
-            $activityLevel = $userInfo->activity_level;
-        }
+        $gender = $userInfo->gender ?? 'female';
+        $age = $userInfo ? $this->getAge() : 20;
+        $activityLevel = $userInfo->activity_level ?? 2;
 
-        if($gender == 'male'){
-            if($activityLevel == 1){
-                if(1 <= $age && $age <= 2){
-                    $proteinMin = 20;
-                    $proteinMax = 20;
-                }else if(3 <= $age && $age <= 5){
-                    $proteinMin = 25;
-                    $proteinMax = 25;
-                }else if(6 <= $age && $age <= 7){
-                    $proteinMin = 44;
-                    $proteinMax = 68;
-                }else if(8 <= $age && $age <= 9){
-                    $proteinMin = 52;
-                    $proteinMax = 80;
-                }else if(10 <= $age && $age <= 11){
-                    $proteinMin = 63;
-                    $proteinMax = 98;
-                }else if(12 <= $age && $age <= 14){
-                    $proteinMin = 75;
-                    $proteinMax = 115;
-                }else if(15 <= $age && $age <= 17){
-                    $proteinMin = 81;
-                    $proteinMax = 125;
-                }else if(18 <= $age && $age <= 49){
-                    $proteinMin = 75;
-                    $proteinMax = 115;
-                }else if(50 <= $age && $age <= 64){
-                    $proteinMin = 77;
-                    $proteinMax = 110;
-                }else if(65 <= $age && $age <= 74){
-                    $proteinMin = 77;
-                    $proteinMax = 103;
-                }else{
-                    $proteinMin = 68;
-                    $proteinMax = 90;
-                }
-            }else if($activityLevel == 2){
-                if(1 <= $age && $age <= 2){
-                    $proteinMin = 31;
-                    $proteinMax = 48;
-                }else if(3 <= $age && $age <= 5){
-                    $proteinMin = 42;
-                    $proteinMax = 65;
-                }else if(6 <= $age && $age <= 7){
-                    $proteinMin = 49;
-                    $proteinMax = 75;
-                }else if(8 <= $age && $age <= 9){
-                    $proteinMin = 60;
-                    $proteinMax =93;
-                }else if(10 <= $age && $age <= 11){
-                    $proteinMin = 72;
-                    $proteinMax = 110;
-                }else if(12 <= $age && $age <= 14){
-                    $proteinMin = 85;
-                    $proteinMax = 130;
-                }else if(15 <= $age && $age <= 17){
-                    $proteinMin = 91;
-                    $proteinMax = 140;
-                }else if(18 <= $age && $age <= 29){
-                    $proteinMin = 86;
-                    $proteinMax = 133;
-                }else if(30 <= $age && $age <= 49){
-                    $proteinMin = 88;
-                    $proteinMax = 135;
-                }else if(50 <= $age && $age <= 64){
-                    $proteinMin = 91;
-                    $proteinMax = 130;
-                }else if(65 <= $age && $age <= 74){
-                    $proteinMin = 90;
-                    $proteinMax = 120;
-                }else{
-                    $proteinMin = 79;
-                    $proteinMax = 105;
-                }
-            }else{
-                if(1 <= $age && $age <= 2){
-                    $proteinMin = 20;
-                    $proteinMax = 20;
-                }else if(3 <= $age && $age <= 5){
-                    $proteinMin = 25;
-                    $proteinMax = 25;
-                }else if(6 <= $age && $age <= 7){
-                    $proteinMin = 55;
-                    $proteinMax = 85;
-                }else if(8 <= $age && $age <= 9){
-                    $proteinMin = 67;
-                    $proteinMax = 103;
-                }else if(10 <= $age && $age <= 11){
-                    $proteinMin = 80;
-                    $proteinMax = 123;
-                }else if(12 <= $age && $age <= 14){
-                    $proteinMin = 94;
-                    $proteinMax = 145;
-                }else if(15 <= $age && $age <= 17){
-                    $proteinMin = 102;
-                    $proteinMax = 158;
-                }else if(18 <= $age && $age <= 49){
-                    $proteinMin = 99;
-                    $proteinMax = 153;
-                }else if(50 <= $age && $age <= 64){
-                    $proteinMin = 103;
-                    $proteinMax = 148;
-                }else if(65 <= $age && $age <= 74){
-                    $proteinMin = 103;
-                    $proteinMax = 138;
-                }else{
-                    $proteinMin = 60;
-                    $proteinMax = 60;
-                }
-            }
-        }else{
-            if($activityLevel == 1){
-                if(1 <= $age && $age <= 2){
-                    $proteinMin = 20;
-                    $proteinMax = 20;
-                }else if(3 <= $age && $age <= 5){
-                    $proteinMin = 25;
-                    $proteinMax = 25;
-                }else if(6 <= $age && $age <= 7){
-                    $proteinMin = 41;
-                    $proteinMax = 63;
-                }else if(8 <= $age && $age <= 9){
-                    $proteinMin = 47;
-                    $proteinMax = 73;
-                }else if(10 <= $age && $age <= 11){
-                    $proteinMin = 60;
-                    $proteinMax = 93;
-                }else if(12 <= $age && $age <= 14){
-                    $proteinMin = 68;
-                    $proteinMax = 105;
-                }else if(15 <= $age && $age <= 17){
-                    $proteinMin = 67;
-                    $proteinMax = 103;
-                }else if(18 <= $age && $age <= 49){
-                    $proteinMin = 57;
-                    $proteinMax = 88;
-                }else if(50 <= $age && $age <= 64){
-                    $proteinMin = 58;
-                    $proteinMax = 83;
-                }else if(65 <= $age && $age <= 74){
-                    $proteinMin = 58;
-                    $proteinMax = 78;
-                }else{
-                    $proteinMin = 53;
-                    $proteinMax = 70;
-                }
-            }else if($activityLevel == 2){
-                if(1 <= $age && $age <= 2){
-                    $proteinMin = 29;
-                    $proteinMax = 45;
-                }else if(3 <= $age && $age <= 5){
-                    $proteinMin = 39;
-                    $proteinMax = 60;
-                }else if(6 <= $age && $age <= 7){
-                    $proteinMin = 46;
-                    $proteinMax = 70;
-                }else if(8 <= $age && $age <= 9){
-                    $proteinMin = 55;
-                    $proteinMax = 85;
-                }else if(10 <= $age && $age <= 11){
-                    $proteinMin = 68;
-                    $proteinMax = 105;
-                }else if(12 <= $age && $age <= 14){
-                    $proteinMin = 78;
-                    $proteinMax = 120;
-                }else if(15 <= $age && $age <= 17){
-                    $proteinMin = 75;
-                    $proteinMax = 115;
-                }else if(18 <= $age && $age <= 29){
-                    $proteinMin = 65;
-                    $proteinMax = 100;
-                }else if(30 <= $age && $age <= 49){
-                    $proteinMin = 67;
-                    $proteinMax = 103;
-                }else if(50 <= $age && $age <= 64){
-                    $proteinMin = 68;
-                    $proteinMax = 98;
-                }else if(65 <= $age && $age <= 74){
-                    $proteinMin = 69;
-                    $proteinMax = 93;
-                }else{
-                    $proteinMin = 62;
-                    $proteinMax = 83;
-                }
-            }else if($activityLevel == 3){
-                if(1 <= $age && $age <= 2){
-                    $proteinMin = 20;
-                    $proteinMax = 20;
-                }else if(3 <= $age && $age <= 5){
-                    $proteinMin = 25;
-                    $proteinMax = 25;
-                }else if(6 <= $age && $age <= 7){
-                    $proteinMin = 52;
-                    $proteinMax = 80;
-                }else if(8 <= $age && $age <= 9){
-                    $proteinMin = 62;
-                    $proteinMax = 95;
-                }else if(10 <= $age && $age <= 11){
-                    $proteinMin = 76;
-                    $proteinMax = 118;
-                }else if(12 <= $age && $age <= 14){
-                    $proteinMin = 86;
-                    $proteinMax = 133;
-                }else if(15 <= $age && $age <= 17){
-                    $proteinMin = 83;    
-                    $proteinMax = 128;
-                }else if(18 <= $age && $age <= 29){
-                    $proteinMin = 75;
-                    $proteinMax = 115;
-                }else if(30 <= $age && $age <= 49){
-                    $proteinMin = 76;
-                    $proteinMax = 118;
-                }else if(50 <= $age && $age <= 64){
-                    $proteinMin = 79;
-                    $proteinMax = 113;
-                }else if(65 <= $age && $age <= 74){
-                    $proteinMin = 79;
-                    $proteinMax = 105;
-                }else{
-                    $proteinMin = 50;
-                    $proteinMax = 50;
-                }
+        $proteinCases = [
+            'male' => [
+                '1' => [
+                    [1,2,[20,20]], [3,5,[25,25]], [6,7,[44,68]], [8,9,[52,80]], [10,11,[63,98]], [12,14,[75,115]], [15,17,[81,125]], [18,49,[75,115]], [50,64,[77,110]], [65,74,[77,103]], [75,null,[68,90]]
+                ],
+                '2' => [
+                    [1,2,[31,48]], [3,5,[42,65]], [6,7,[49,75]], [8,9,[60,93]], [10,11,[72,110]], [12,14,[85,130]], [15,17,[91,140]], [18,29,[86,133]], [30,49,[88,135]], [50,64,[91,130]], [65,74,[90,120]], [75,null,[79,105]]
+                ],
+                '3' => [
+                    [1,2,[20,20]], [3,5,[25,25]], [6,7,[55,85]], [8,9,[67,103]], [10,11,[80,123]], [12,14,[94,145]], [15,17,[102,158]], [18,49,[99,153]], [50,64,[103,148]], [65,74,[103,138]], [75,null,[60,60]]
+                ]
+            ],
+            'female' => [
+                '1' => [
+                    [1,2,[20,20]], [3,5,[25,25]], [6,7,[41,63]], [8,9,[47,73]], [10,11,[60,93]], [12,14,[68,105]], [15,17,[67,103]], [18,49,[57,88]], [50,64,[58,83]], [65,74,[58,78]], [75,null,[53,70]]
+                ],
+                '2' => [
+                    [1,2,[29,45]], [3,5,[39,60]], [6,7,[46,70]], [8,9,[55,85]], [10,11,[68,105]], [12,14,[78,120]], [15,17,[75,115]], [18,29,[65,100]], [30,49,[67,103]], [50,64,[68,98]], [65,74,[69,93]], [75,null,[62,83]]
+                ],
+                '3' => [
+                    [1,2,[20,20]], [3,5,[25,25]], [6,7,[52,80]], [8,9,[62,95]], [10,11,[76,118]], [12,14,[86,133]], [15,17,[83,128]], [18,29,[75,115]], [30,49,[76,118]], [50,64,[79,113]], [65,74,[79,105]], [75,null,[50,50]]
+                ]
+            ]
+        ];
+        $proteinMin = 0;
+        $proteinMax = 0;
+        foreach($proteinCases[$gender][$activityLevel] as $case){
+            if (($case[1] === null && $age >= $case[0]) || ($age >= $case[0] && $age <= $case[1])) {
+                list($proteinMin, $proteinMax) = $case[2];
+                break;
             }
         }
 
@@ -1001,226 +592,40 @@ class UserHomePageController extends Controller
     public function getFatMinMax(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-        if($userInfo === null){
-            $gender = 'female';
-            $age = 20;
-            $activityLevel = 2;
-        }else{
-            $gender = $userInfo->gender;
-            $age = $this->getAge();
-            $activityLevel = $userInfo->activity_level;
-        }
+        $gender = $userInfo->gender ?? 'female';
+        $age = $userInfo ? $this->getAge() : 20;
+        $activityLevel = $userInfo->activity_level ?? 2;
 
-        if($gender == 'male'){
-            if($activityLevel == 1){
-                if(1 <= $age && $age <= 5){
-                    $fatMin = 0;
-                    $fatMax = 0;
-                }else if(6 <= $age && $age <= 7){
-                    $fatMin = 30;
-                    $fatMax = 45;
-                }else if(8 <= $age && $age <= 9){
-                    $fatMin = 36;
-                    $fatMax = 53;
-                }else if(10 <= $age && $age <= 11){
-                    $fatMin = 44;
-                    $fatMax = 65;
-                }else if(12 <= $age && $age <= 14){
-                    $fatMin = 52;
-                    $fatMax = 76;
-                }else if(15 <= $age && $age <= 17){
-                    $fatMin = 56;
-                    $fatMax = 83;
-                }else if(18 <= $age && $age <= 49){
-                    $fatMin = 52;
-                    $fatMax = 76;
-                }else if(50 <= $age && $age <= 64){
-                    $fatMin = 49;
-                    $fatMax = 73;
-                }else if(65 <= $age && $age <= 74){
-                    $fatMin = 46;
-                    $fatMax = 68;
-                }else{
-                    $fatMin = 40;
-                    $fatMax = 60;
-                }
-            }else if($activityLevel == 2){
-                if(1 <= $age && $age <= 2){
-                    $fatMin = 22;
-                    $fatMax = 31;
-                }else if(3 <= $age && $age <= 5){
-                    $fatMin = 29;
-                    $fatMax = 43;
-                }else if(6 <= $age && $age <= 7){
-                    $fatMin = 35;
-                    $fatMax = 51;
-                }else if(8 <= $age && $age <= 9){
-                    $fatMin = 42;
-                    $fatMax = 61;
-                }else if(10 <= $age && $age <= 11){
-                    $fatMin = 50;
-                    $fatMax = 75;
-                }else if(12 <= $age && $age <= 14){
-                    $fatMin = 58;
-                    $fatMax = 86;
-                }else if(15 <= $age && $age <= 17){
-                    $fatMin = 63;
-                    $fatMax = 93;
-                }else if(18 <= $age && $age <= 29){
-                    $fatMin = 59;
-                    $fatMax = 88;
-                }else if(30 <= $age && $age <= 49){
-                    $fatMin = 60;
-                    $fatMax = 90;
-                }else if(50 <= $age && $age <= 64){
-                    $fatMin = 58;
-                    $fatMax = 86;
-                }else if(65 <= $age && $age <= 74){
-                    $fatMin = 54;
-                    $fatMax = 80;
-                }else{
-                    $fatMin = 47;
-                    $fatMax = 70;
-                }
-            }else if($activityLevel == 3){
-                if(6 <= $age && $age <= 7){
-                    $fatMin = 39;
-                    $fatMax = 58;
-                }else if(8 <= $age && $age <= 9){
-                    $fatMin = 47;
-                    $fatMax = 70;
-                }else if(10 <= $age && $age <= 11){
-                    $fatMin = 56;
-                    $fatMax = 83;
-                }else if(12 <= $age && $age <= 14){
-                    $fatMin = 65;
-                    $fatMax = 96;
-                }else if(15 <= $age && $age <= 17){
-                    $fatMin = 70;
-                    $fatMax = 105;
-                }else if(18 <= $age && $age <= 49){
-                    $fatMin = 68;
-                    $fatMax = 101;
-                }else if(50 <= $age && $age <= 64){
-                    $fatMin = 66;
-                    $fatMax = 98;
-                }else if(65 <= $age && $age <= 74){
-                    $fatMin = 62;
-                    $fatMax = 91;
-                }else{
-                    $fatMin = 0;
-                    $fatMax = 0;
-                }
-            }
-        }else{
-            if($activityLevel == 1){
-                if(1 <= $age && $age <= 5){
-                    $fatMin = 0;
-                    $fatMax = 0;
-                }else if(6 <= $age && $age <= 7){
-                    $fatMin = 28;
-                    $fatMax = 41;
-                }else if(8 <= $age && $age <= 9){
-                    $fatMin = 34;
-                    $fatMax = 50;
-                }else if(10 <= $age && $age <= 11){
-                    $fatMin = 42;
-                    $fatMax = 61;
-                }else if(12 <= $age && $age <= 14){
-                    $fatMin = 48;
-                    $fatMax = 71;
-                }else if(15 <= $age && $age <= 17){
-                    $fatMin = 46;
-                    $fatMax = 68;
-                }else if(18 <= $age && $age <= 29){
-                    $fatMin = 38;
-                    $fatMax = 56;
-                }else if(30 <= $age && $age <= 49){
-                    $fatMin = 39;
-                    $fatMax = 58;
-                }else if(50 <= $age && $age <= 64){
-                    $fatMin = 37;
-                    $fatMax = 55;
-                }else if(65 <= $age && $age <= 74){
-                    $fatMin = 35;
-                    $fatMax = 51;
-                }else{
-                    $fatMin = 32;
-                    $fatMax = 46;
-                }
-            }else if($activityLevel == 2){
-                if(1 <= $age && $age <= 2){
-                    $fatMin = 20;
-                    $fatMax = 30;   
-                }else if(3 <= $age && $age <= 5){
-                    $fatMin = 28;
-                    $fatMax = 41;
-                }else if(6 <= $age && $age <= 7){
-                    $fatMin = 33;
-                    $fatMax = 48;
-                }else if(8 <= $age && $age <= 9){
-                    $fatMin = 38;
-                    $fatMax = 56;
-                }else if(10 <= $age && $age <= 11){
-                    $fatMin = 47;
-                    $fatMax = 70;
-                }else if(12 <= $age && $age <= 14){
-                    $fatMin = 54;
-                    $fatMax = 80;
-                }else if(15 <= $age && $age <= 17){
-                    $fatMin = 52;
-                    $fatMax = 76;
-                }else if(18 <= $age && $age <= 29){
-                    $fatMin = 45;
-                    $fatMax = 66;
-                }else if(30 <= $age && $age <= 49){
-                    $fatMin = 46;
-                    $fatMax = 68;
-                }else if(50 <= $age && $age <= 64){
-                    $fatMin = 44;
-                    $fatMax = 65;
-                }else if(65 <= $age && $age <= 74){
-                    $fatMin = 42;
-                    $fatMax = 61;
-                }else{
-                    $fatMin = 37;
-                    $fatMax = 55;  
-                }  
-            }else if($activityLevel == 3){
-                if(1 <= $age && $age <= 5){
-                    $fatMin = 0;
-                    $fatMax = 0;
-                }else if(6 <= $age && $age <= 7){
-                    $fatMin = 37;
-                    $fatMax = 55;
-                }else if(8 <= $age && $age <= 9){
-                    $fatMin = 43;
-                    $fatMax = 63;
-                }else if(10 <= $age && $age <= 11){
-                    $fatMin = 53;
-                    $fatMax = 78;
-                }else if(12 <= $age && $age <= 14){
-                    $fatMin = 60;
-                    $fatMax = 90;
-                }else if(15 <= $age && $age <= 17){
-                    $fatMin = 57;
-                    $fatMax = 85;                
-                }else if(18 <= $age && $age <= 29){
-                    $fatMin = 52;
-                    $fatMax = 76;
-                }else if(30 <= $age && $age <= 49){
-                    $fatMin = 53;
-                    $fatMax = 78;
-                }else if(50 <= $age && $age <= 64){
-                    $fatMin = 50;
-                    $fatMax = 75;
-                }else if(65 <= $age && $age <= 74){
-                    $fatMin = 47;
-                    $fatMax = 70;
-                }else{
-                    $fatMin = 0;
-                    $fatMax = 0;
-                }
+        $fatCases = [
+            'male' => [
+                '1' => [
+                    [1,5,[0,0]], [6,7,[30,45]], [8,9,[36,53]], [10,11,[44,65]], [12,14,[52,76]], [15,17,[56,83]], [18,49,[52,76]], [50,64,[49,73]], [65,74,[46,68]], [75,null,[40,60]]
+                ],
+                '2' => [
+                    [1,2,[22,31]], [3,5,[29,43]], [6,7,[35,51]], [8,9,[42,61]], [10,11,[50,75]], [12,14,[58,86]], [15,17,[63,93]], [18,29,[59,88]], [30,49,[60,90]], [50,64,[58,86]], [65,74,[54,80]], [75,null,[47,70]]
+                ],
+                '3' => [
+                    [1,5,[0,0]], [6,7,[39,58]], [8,9,[47,70]], [10,11,[56,83]], [12,14,[65,96]], [15,17,[70,105]], [18,49,[68,101]], [50,64,[66,98]], [65,74,[62,91]], [75,null,[0,0]]
+                ]
+            ],
+            'female' => [
+                '1' => [
+                    [1,5,[0,0]], [6,7,[28,41]], [8,9,[34,50]], [10,11,[42,61]], [12,14,[48,71]], [15,17,[46,68]], [18,29,[38,56]], [30,49,[39,58]], [50,64,[37,55]], [65,74,[35,51]], [75,null,[32,46]]
+                ],
+                '2' => [
+                    [1,2,[20,30]], [3,5,[28,41]], [6,7,[33,48]], [8,9,[38,56]], [10,11,[47,70]], [12,14,[54,80]], [15,17,[52,76]], [18,29,[45,66]], [30,49,[46,68]], [50,64,[44,65]], [65,74,[42,61]], [75,null,[37,55]]
+                ],
+                '3' => [
+                    [1,5,[0,0]], [6,7,[37,55]], [8,9,[43,63]], [10,11,[53,78]], [12,14,[60,90]], [15,17,[57,85]], [18,29,[52,76]], [30,49,[53,78]], [50,64,[50,75]], [65,74,[47,70]], [75,null,[0,0]]
+                ]
+            ]
+        ];
+        $fatMin = 0;
+        $fatMax = 0;
+        foreach($fatCases[$gender][$activityLevel] as $case){
+            if (($case[1] === null && $age >= $case[0]) || ($age >= $case[0] && $age <= $case[1])) {
+                list($fatMin, $fatMax) = $case[2];
+                break;
             }
         }
         $fatMinMax = [$fatMin, $fatMax];
@@ -1266,233 +671,43 @@ class UserHomePageController extends Controller
     public function getCarbsMinMax(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-        if($userInfo === null){
-            $gender = 'female';
-            $age = 20;
-            $activityLevel = 2;
-        }else{
-            $gender = $userInfo->gender;
-            $age = $this->getAge();
-            $activityLevel = $userInfo->activity_level;
-        }
+        $gender = $userInfo->gender ?? 'female';
+        $age = $userInfo ? $this->getAge() : 20;
+        $activityLevel = $userInfo->activity_level ?? 2;
 
-        if($gender == 'male'){
-            if($activityLevel == 1){
-                if(1 <= $age && $age <= 5){
-                    $carbsMin = 0;
-                    $carbsMax = 0;
-                }else if(6 <= $age && $age <= 7){
-                    $carbsMin = 169;
-                    $carbsMax = 219;
-                }else if(8 <= $age && $age <= 9){
-                    $carbsMin = 200;
-                    $carbsMax = 260;
-                }else if(10 <= $age && $age <= 11){
-                    $carbsMin = 244;
-                    $carbsMax = 316;
-                }else if(12 <= $age && $age <= 14){
-                    $carbsMin = 288;
-                    $carbsMax = 373;
-                }else if(15 <= $age && $age <= 17){
-                    $carbsMin = 313;
-                    $carbsMax = 406;
-                }else if(18 <= $age && $age <= 49){
-                    $carbsMin = 288;
-                    $carbsMax = 373;
-                }else if(50 <= $age && $age <= 64){
-                    $carbsMin = 275;
-                    $carbsMax = 357;
-                }else if(65 <= $age && $age <= 74){
-                    $carbsMin = 257;
-                    $carbsMax = 333;
-                }else{
-                    $carbsMin = 225;
-                    $carbsMax = 292;
-                }
-            }else if($activityLevel == 2){
-                if(1 <= $age && $age <= 2){
-                    $carbsMin = 119;
-                    $carbsMax = 154;
-                }else if(3 <= $age && $age <= 5){
-                    $carbsMin = 163;
-                    $carbsMax = 211;
-                }else if(6 <= $age && $age <= 7){
-                    $carbsMin = 194;
-                    $carbsMax = 251;
-                }else if(8 <= $age && $age <= 9){
-                    $carbsMin = 232;
-                    $carbsMax = 300;
-                }else if(10 <= $age && $age <= 11){
-                    $carbsMin = 282;
-                    $carbsMax = 365;
-                }else if(12 <= $age && $age <= 14){
-                    $carbsMin = 325;
-                    $carbsMax = 422;
-                }else if(15 <= $age && $age <= 17){
-                    $carbsMin = 350;
-                    $carbsMax = 455;
-                }else if(18 <= $age && $age <= 29){
-                    $carbsMin = 332;
-                    $carbsMax = 430;
-                }else if(30 <= $age && $age <= 49){
-                    $carbsMin = 338;
-                    $carbsMax = 438;
-                }else if(50 <= $age && $age <= 64){
-                    $carbsMin = 325;
-                    $carbsMax = 422;
-                }else if(65 <= $age && $age <= 74){
-                    $carbsMin = 300;
-                    $carbsMax = 390;
-                }else{
-                    $carbsMin = 263;
-                    $carbsMax = 341;
-                }
-            }else if($activityLevel == 3){
-                if(1 <= $age && $age <= 5){
-                    $carbsMin = 0;
-                    $carbsMax = 0;
-                }else if(6 <= $age && $age <= 7){
-                    $carbsMin = 219;
-                    $carbsMax = 284;
-                }else if(8 <= $age && $age <= 9){
-                    $carbsMin = 263;
-                    $carbsMax = 341;
-                }else if(10 <= $age && $age <= 11){
-                    $carbsMin = 313;
-                    $carbsMax = 406;
-                }else if(12 <= $age && $age <= 14){
-                    $carbsMin = 363;
-                    $carbsMax = 471;
-                }else if(15 <= $age && $age <= 17){
-                    $carbsMin = 394;
-                    $carbsMax = 511;
-                }else if(18 <= $age && $age <= 49){
-                    $carbsMin = 382;
-                    $carbsMax = 495;
-                }else if(50 <= $age && $age <= 64){
-                    $carbsMin = 369;
-                    $carbsMax = 479;
-                }else if(65 <= $age && $age <= 74){
-                    $carbsMin = 344;
-                    $carbsMax = 446;
-                }else{
-                    $carbsMin = 0;
-                    $carbsMax = 0;
-                }
-            }
-        }else{
-            if($activityLevel == 1){
-                if(1 <= $age && $age <= 5){
-                    $carbsMin = 0;
-                    $carbsMax = 0;
-                }else if(6 <= $age && $age <= 7){
-                    $carbsMin = 157;
-                    $carbsMax = 203;
-                }else if(8 <= $age && $age <= 9){
-                    $carbsMin = 188;
-                    $carbsMax = 243;
-                }else if(10 <= $age && $age <= 11){
-                    $carbsMin = 232;
-                    $carbsMax = 300;
-                }else if(12 <= $age && $age <= 14){
-                    $carbsMin = 269;
-                    $carbsMax = 349;
-                }else if(15 <= $age && $age <= 17){
-                    $carbsMin = 257;
-                    $carbsMax = 333;  
-                }else if(18 <= $age && $age <= 29){
-                    $carbsMin = 213;
-                    $carbsMax = 276;
-                }else if(30 <= $age && $age <= 49){
-                    $carbsMin = 219;
-                    $carbsMax = 284;
-                }else if(50 <= $age && $age <= 64){
-                    $carbsMin = 207;
-                    $carbsMax = 268;
-                }else if(65 <= $age && $age <= 74){
-                    $carbsMin = 194;
-                    $carbsMax = 251;
-                }else{
-                    $carbsMin = 176;
-                    $carbsMax = 227;
-                }
-            }else if($activityLevel == 2){
-                if(1 <= $age && $age <= 2){
-                    $carbsMin = 113;
-                    $carbsMax = 146;
-                }else if(3 <= $age && $age <= 5){
-                    $carbsMin = 157;
-                    $carbsMax = 203;
-                }else if(6 <= $age && $age <= 7){
-                    $carbsMin = 182;
-                    $carbsMax = 235;
-                }else if(8 <= $age && $age <= 9){
-                    $carbsMin = 213;
-                    $carbsMax = 276;
-                }else if(10 <= $age && $age <= 11){
-                    $carbsMin = 263;
-                    $carbsMax = 341;
-                }else if(12 <= $age && $age <= 14){
-                    $carbsMin = 300;
-                    $carbsMax = 390;
-                }else if(15 <= $age && $age <= 17){
-                    $carbsMin = 288;
-                    $carbsMax = 373;
-                }else if(18 <= $age && $age <= 29){
-                    $carbsMin = 250;
-                    $carbsMax = 325;
-                }else if(30 <= $age && $age <= 49){
-                    $carbsMin = 257;
-                    $carbsMax = 333;
-                }else if(50 <= $age && $age <= 64){
-                    $carbsMin = 244;
-                    $carbsMax = 316;
-                }else if(65 <= $age && $age <= 74){
-                    $carbsMin = 232;
-                    $carbsMax = 300;
-                }else{
-                    $carbsMin = 207;
-                    $carbsMax = 268;
-                }
-            }else{
-                if(1 <= $age && $age <= 5){
-                    $carbsMin = 0;
-                    $carbsMax = 0;
-                }else if(6 <= $age && $age <= 7){
-                    $carbsMin = 207;
-                    $carbsMax = 268;
-                }else if(8 <= $age && $age <= 9){
-                    $carbsMin = 238;
-                    $carbsMax = 308;
-                }else if(10 <= $age && $age <= 11){
-                    $carbsMin = 294;
-                    $carbsMax = 381;
-                }else if(12 <= $age && $age <= 14){
-                    $carbsMin = 338;
-                    $carbsMax = 438;
-                }else if(15 <= $age && $age <= 17){
-                    $carbsMin = 319;
-                    $carbsMax = 414;
-                }else if(18 <= $age && $age <= 29){
-                    $carbsMin = 288;
-                    $carbsMax = 373;
-                }else if(30 <= $age && $age <= 49){
-                    $carbsMin = 294;
-                    $carbsMax = 381;
-                }else if(50 <= $age && $age <= 64){
-                    $carbsMin = 282;
-                    $carbsMax = 365;
-                }else if(65 <= $age && $age <= 74){
-                    $carbsMin = 263;
-                    $carbsMax = 341;
-                }else{
-                    $carbsMin = 0;
-                    $carbsMax = 0;
-                }
+        $carbsCases = [
+            'male' => [
+                '1' => [
+                    [1,5,[0,0]], [6,7,[169,219]], [8,9,[200,260]], [10,11,[244,316]], [12,14,[288,373]], [15,17,[313,406]], [18,49,[288,373]], [50,64,[275,357]], [65,74,[257,333]], [75,null,[225,292]]
+                ],
+                '2' => [
+                    [1,2,[119,154]], [3,5,[163,211]], [6,7,[194,251]], [8,9,[232,300]], [10,11,[282,365]], [12,14,[325,422]], [15,17,[350,455]], [18,29,[332,430]], [30,49,[338,438]], [50,64,[325,422]], [65,74,[300,390]], [75,null,[263,34]]
+                ],
+                '3' => [
+                    [1,5,[0,0]], [6,7,[219,284]], [8,9,[263,341]], [10,11,[313,406]], [12,14,[363,471]], [15,17,[394,511]], [18,49,[382,495]], [50,64,[369,479]], [65,74,[344,446]], [75,null,[0,0]]
+                ]
+            ],
+            'female' => [
+                '1' => [
+                    [1,5,[0,0]], [6,7,[157,203]], [8,9,[188,243]], [10,11,[232,300]], [12,14,[269,349]], [15,17,[257,333]], [18,29,[213,276]], [30,49,[219,284]], [50,64,[207,268]], [65,74,[194,251]], [75,null,[176,227]]
+                ],
+                '2' => [
+                    [1,2,[113,146]], [3,5,[157,203]], [6,7,[182,235]], [8,9,[213,276]], [10,11,[263,341]], [12,14,[300,390]], [15,17,[288,373]], [18,29,[250,325]], [30,49,[257,333]], [50,64,[244,316]], [65,74,[232,300]], [75,null,[207,268]]
+                ],
+                '3' => [
+                    [1,5,[0,0]], [6,7,[207,268]], [8,9,[238,308]], [10,11,[294,381]], [12,14,[338,438]], [15,17,[319,414]], [18,29,[288,373]], [30,49,[294,381]], [50,64,[282,365]], [65,74,[263,341]], [75,null,[0,0]]
+                ]
+            ]
+        ];
+        $carbsMin = 0;
+        $carbsMax = 0;
+        foreach($carbsCases[$gender][$activityLevel] as $case){
+            if (($case[1] === null && $age >= $case[0]) || ($age >= $case[0] && $age <= $case[1])) {
+                list($carbsMin, $carbsMax) = $case[2];
+                break;
             }
         }
         $carbsMinMax = [$carbsMin, $carbsMax];
         return $carbsMinMax;
     }
 }
-

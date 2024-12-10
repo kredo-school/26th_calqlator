@@ -34,11 +34,11 @@
                     </div>
                     <div class="col text-start align-self-center fw-bold">
                         <span> :
-                            {{-- @if($weight)
-                                {{rtrim(rtrim(number_format($weight->weight,2), '0'), '.') }}kg
+                            @if($weight)
+                                {{rtrim(rtrim(number_format($weight->weight,2), '0'), '.') }}kg 
                             @else
                                 No record 
-                            @endif --}}
+                            @endif
                         </span>
                     </div>
                 </div>
