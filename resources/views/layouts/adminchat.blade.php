@@ -116,14 +116,14 @@
 
                         </div>
                     </div>
-                    <div class="col-3 p-0">
+                    <div class="col-auto p-0">
                         <div class="list-group text-center rounded-0">
-                            <a href="" class="list-group-item menu">
+                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }} menu">
                                 <h3 class="m-0">Contact Users</h3>
                             </a>
                             @foreach ($users as $user)
-                            <div href="" class="list-group-item @if ($user->id == $selectedUser->id) active @endif">
-                                <a href="{{ route('chat.adminChat', ['user_id' => $user->id]) }}" class="text-decoration-none text-dark">
+                            <div href="" class="@if ($user->id == $selectedUserId) active @endif">
+                                <a href="{{ route('chat.adminChat', ['user_id' => $user->id]) }}" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
                                     <div class="row">
                                         <div class="col-4 text-end">
                                             <i class="fa-solid fa-circle-user text-secondary icon-sm"></i> 

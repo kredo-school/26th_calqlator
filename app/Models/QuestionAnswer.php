@@ -8,6 +8,6 @@ class QuestionAnswer extends Model
 {
     protected $table = 'question_answer';
     public $timestamps = false; 
-    protected $fillable = ['category_id', 'post_id'];
+    protected $fillable = ['question_id', 'answer_id'];
     
 }
