@@ -2,22 +2,28 @@ const url = window.location.pathname;
 const date = url.split('/').pop(); 
 fetch(`/user/home/calories/chart/${date}`)
             .then(response => response.json())
-            .then(totalCalories => {
+            .then(chartData => {
                 let barColor = 'rgba(75, 192, 192, 0.7)'; 
                 let borderColor = 'black'; 
+                let totalCalories = chartData.totalCalories;
+                let goalCalories = chartData.goalCalories;
+                let BMR = chartData.BMR;
         
-                if (totalCalories < 1000) {
-                    barColor = 'rgba(255, 255, 0, 0.7)';  
+                if (totalCalories < BMR) {
+                    barColor = 'rgba(255, 218, 141, 1)';  
                     borderColor = 'rgba(255, 255, 0, 1)';
-                } else if (totalCalories >= 1000 && totalCalories <= 2000) {
-                    barColor = 'rgba(54, 162, 235, 0.7)';  
+                } else if (goalCalories-500 <= totalCalories && totalCalories <= goalCalories+500) {
+                    barColor = 'rgba(255, 164, 136, 1)';  
                     borderColor = 'rgba(54, 162, 235, 1)';
                 } else {
-                    barColor = 'rgba(255, 99, 132, 0.7)'; 
+                    barColor = 'rgba(255, 99, 132, 0.8)'; 
                     borderColor = 'rgba(255, 99, 132, 1)';
                 }
 
                 const ctx = document.getElementById('caloriesChart').getContext('2d'); 
+                const gradientBg = ctx.createLinearGradient(0, 0, 250, 0);
+                gradientBg.addColorStop(0.2,'rgba(255, 164, 136, 0.7)');
+                gradientBg.addColorStop(1,'rgba(255, 50, 50, 0.9)');
                 const caloriesChart = new Chart(ctx, {
                     plugins: [ChartDataLabels],
                     type: 'bar',
@@ -26,8 +32,14 @@ fetch(`/user/home/calories/chart/${date}`)
                         datasets: [
                             {
                                 data: [totalCalories],
-                                backgroundColor: barColor,  
-                                barPercentage: 0.6,
+                                backgroundColor: function(){
+                                    if(totalCalories > goalCalories){
+                                        return gradientBg;
+                                    }else{
+                                        return barColor;
+                                    }  
+                                },
+                                barPercentage: 0.5,
                                 borderColor: 'transparent',
                                 borderRadius: {
                                     topLeft: function(){
@@ -48,80 +60,52 @@ fetch(`/user/home/calories/chart/${date}`)
                                     },
                                 },
                                 borderWidth: 1,
-                                borderSkipped: 'right',
+                                borderSkipped: false,
                                 datalabels: {
                                     display: true,  
                                     color: 'black',
                                     labels: {
                                         total: {
-                                            align: function(value, context) {
-                                                if (totalCalories < 1200 || 2800 < totalCalories) {
-                                                    return 'top';
-                                                } else {
-                                                    return 'bottom';
-                                                }
-                                            },
+                                            align: 'top',
                                             anchor: 'end',
                                             font: {
                                                 weight: 'bold',  
                                                 size: 14  
                                             },
                                             formatter: function(value, context) {
-                                                if(800 < totalCalories){
-                                                    return "Total";
-                                                }else{
-                                                    return " ";
-                                                }
-                                            },   
-                                            offset: function(value, context) {
-                                                if (totalCalories < 1200 || 2800 < totalCalories) {
-                                                    return '10';
-                                                } else {
-                                                    return '15';
-                                                }                   
-                                            }
-                                        },
-                                        calories: {
-                                            align: 'center',  
-                                            anchor: function(){
-                                                if (totalCalories < 1600) {
-                                                    return 'end';
-                                                }else{
-                                                    return 'center';
-                                                }
-                                            },
-                                            font: {
-                                                weight: 'bold',  
-                                                size: 14  
-                                            },
-                                            formatter: function(value,context) {
-                                                if (1000 < totalCalories ) {
-                                                    return value.toFixed(0) + " kcal";
-                                                } else {
-                                                    return "";
-                                                }                    
-                                            },
-                                            offset: 10
+                                                    return ["         Total: " + totalCalories + "kcal","               ▼"];
+                                            }, 
+                                            offset: 10,
+                                            color: '#D85F00',
                                         },
                                     },
                                 },
-                                order:2,
+                                order:3,
                             },
                             {
-                                data: [[ totalCalories,2000 ]],
-                                borderColor: function(){
-                                    if (totalCalories < 2000) {
-                                        return 'rgba(255, 99, 132, 0.7)';
+                                data: [[ totalCalories, goalCalories ]],
+                                borderColor: '#3E5F75',
+                                borderWidth: 2,
+                                barPercentage: 0.5,
+                                backgroundColor: function(){
+                                    if(totalCalories < goalCalories){
+                                        return 'rgb(193, 217, 230)';
                                     }else{
-                                        return 'red';
+                                        return 'transparent';
                                     }
                                 },
-                                borderWidth: 2,
-                                barPercentage: 0.6,
-                                borderSkipped: false,
+                                borderSkipped: function(){
+                                    if (totalCalories === 0){
+                                        return false;
+                                    }else if (totalCalories < goalCalories){
+                                        return 'left';
+                                    }else{
+                                        return 'right';
+                                    }
+                                },
                                 borderRadius: {
                                     topLeft: function(){
-                                        if(totalCalories <= 50){
+                                        if(totalCalories <= 50 || totalCalories === 0){
                                             return 10;
                                         }else if (totalCalories <= 150){
                                             return 5;
@@ -130,7 +114,7 @@ fetch(`/user/home/calories/chart/${date}`)
                                         }
                                     },
                                     bottomLeft: function(){
-                                        if(totalCalories <= 50){
+                                        if(totalCalories <= 50|| totalCalories === 0){
                                             return 10;
                                         }else if (totalCalories <= 150){
                                             return 5;
@@ -141,12 +125,12 @@ fetch(`/user/home/calories/chart/${date}`)
                                 },
                                 datalabels: {
                                     display: true,  
-                                    color: 'black', 
+                                    color: '#3E5F75', 
                                     labels: {
                                         goal: {
-                                            align:'top',
+                                            align:'bottom',
                                             anchor: function(){
-                                                if (totalCalories < 2000) {
+                                                if (totalCalories < goalCalories) {
                                                     return 'end';
                                                 }else{
                                                     return 'start';
@@ -156,59 +140,25 @@ fetch(`/user/home/calories/chart/${date}`)
                                                 weight: 'bold',  
                                                 size: 14  
                                             },
-                                            formatter: function() {
-                                                    return "Goal";
-                                            },
-                                            offset:10,
-                                        },
-                                        total: {
-                                            align:'top',
-                                            anchor: 'start',
-                                            font: {
-                                                weight: 'bold',  
-                                                size: 14  
-                                            },
                                             formatter: function(value, context) {
-                                                if (totalCalories <= 800) {
-                                                    return "        Total";
-                                                } else {
-                                                    return " ";
-                                                }                                        
+                                                return   ["          ▲","Goal: "+ goalCalories + "kcal"];
                                             },
-                                            offset:10
-                                        },
-                                        calories2: {
-                                            align:'bottom',
-                                            anchor: 'start',
-                                            font: {
-                                                weight: 'bold',  
-                                                size: 14  
-                                            },
-                                            formatter: function(value, context) {
-                                                if (300 < totalCalories && totalCalories <= 1000) {
-                                                    return "      " +value[0].toFixed(0)+ "kcal";
-                                                }else if (totalCalories <= 300){
-                                                    return "            " +value[0].toFixed(0)+ "kcal";
-                                                }else {
-                                                    return " ";
-                                                }                                        
-                                            },
-                                            offset:10
+                                            offset:15,
                                         },
                                     },
                                 },
                                 order:2
                             },
                             {
-                                data: [3000],
+                                data: [goalCalories +1000],
                                 backgroundColor: 'rgba(255, 255, 255, 0)',
                                 borderColor: 'black',        
-                                barPercentage: 0.6,
+                                barPercentage: 0.5,
                                 borderRadius: 10,
                                 borderWidth: 2,
                                 borderSkipped: false,
                                 datalabels: {
-                                    display: false
+                                    display: false,  
                                 },
                                 order:1
                             },
@@ -221,7 +171,7 @@ fetch(`/user/home/calories/chart/${date}`)
                         scales: {
                             x: {
                                 display: false,
-                                min:-50,
+                                min:-(goalCalories +1000)/4,
                             },
                             y: {
                                 stacked: true,
