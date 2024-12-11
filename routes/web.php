@@ -18,6 +18,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ExercisesController;
 use App\Http\Controllers\WorkoutController;
+use App\Http\Controllers\UserHomeDeleteController;
 
 
 
@@ -39,7 +40,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::patch('/user/update', [UserController::class, 'update'])->name('user.update');
     Route::get('/user/{id}/show', [UserController::class, 'show'])->name('user.show');
 });
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Guest & User
 Route::get('/', function () {return view('home');})->name('home');
@@ -52,12 +52,12 @@ Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home'
 // UserFAQ
 // use App\Http\Controllers\FaqController;
 Route::get('/user/home/{date}', [UserHomePageController::class, 'index'])->name('user.home');
-Route::delete('/user/breakfast/delete/{id}',[UserHomePageController::class, 'breakfastDelete'])->name('user.breakfast.delete');
-Route::delete('/user/lunch/delete/{id}',[UserHomePageController::class, 'lunchDelete'])->name('user.lunch.delete');
-Route::delete('/user/dinner/delete/{id}',[UserHomePageController::class, 'dinnerDelete'])->name('user.dinner.delete');
-Route::delete('/user/workout/delete/{id}',[UserHomePageController::class, 'workoutDelete'])->name('user.workout.delete');
-Route::delete('/user/supplement/delete/{id}',[UserHomePageController::class, 'supplementDelete'])->name('user.supplement.delete');
-Route::delete('/user/snack/delete/{id}',[UserHomePageController::class, 'snackDelete'])->name('user.snack.delete');
+Route::delete('/user/breakfast/delete/{id}',[UserHomeDeleteController::class, 'breakfastDelete'])->name('user.breakfast.delete');
+Route::delete('/user/lunch/delete/{id}',[UserHomeDeleteController::class, 'lunchDelete'])->name('user.lunch.delete');
+Route::delete('/user/dinner/delete/{id}',[UserHomeDeleteController::class, 'dinnerDelete'])->name('user.dinner.delete');
+Route::delete('/user/workout/delete/{id}',[UserHomeDeleteController::class, 'workoutDelete'])->name('user.workout.delete');
+Route::delete('/user/supplement/delete/{id}',[UserHomeDeleteController::class, 'supplementDelete'])->name('user.supplement.delete');
+Route::delete('/user/snack/delete/{id}',[UserHomeDeleteController::class, 'snackDelete'])->name('user.snack.delete');
 Route::get('/user/home/calories/chart/{date}', [UserHomePageController::class, 'caloriesChart'])->name('user.home.calories.chart');
 Route::get('/user/home/workout/chart/{date}', [UserHomePageController::class, 'workoutChart'])->name('user.home.workout.chart');
 Route::get('/user/home/protein/chart/{date}', [UserHomePageController::class, 'proteinChart'])->name('user.home.protein.chart');

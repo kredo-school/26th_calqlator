@@ -11,7 +11,7 @@
                         <img src="{{asset('/assets/images/today2.png')}}" class="today-img" alt="today">
                     </div>
                     <div class="row">
-                        <img src="/assets/images/character.png" alt="character" class="character-img ">
+                        <img src="/assets/images/santa3.png" alt="character" class="character-img ">
                     </div>
                 </div>
                 <div class="col-7 p-0 border border-1 border-dark rounded-3 bg-white">
