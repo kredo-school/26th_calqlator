@@ -35,7 +35,10 @@ class ChatController extends Controller
                 ->with('answers')
                 ->orderBy('created_at')
                 ->get()
-            : [];
+                ->groupBy(function ($item) {
+                    return $item->created_at->format('Y-m-d');
+                })
+            : collect();
 
         return view('admin.chatpage.index', compact('users', 'questions','selectedUser', 'selectedUserId'));
     }
@@ -64,6 +67,7 @@ class ChatController extends Controller
     {
         $request->validate([
             'answer' => 'required',
+            'question_id' => 'required|exists:questions,id',
         ]);
 
         $answer = Answer::create([
@@ -77,10 +81,17 @@ class ChatController extends Controller
 
         $questionId = $request->input('question_id');
         $qa = QuestionAnswer::where('question_id', $questionId)->first();
-        $qa->update(['answer_id' => $answer->id]);
+        
+        if ($qa) {
+            $qa->update(['answer_id' => $answer->id]);
+            Question::where('id', $questionId)->update(['checked' => true]);
+        } else {
+            QuestionAnswer::create([
+                'question_id' => $questionId,
+                'answer_id' => $answer->id,
+            ]);
+        }
 
-        Question::where('id', $questionId)->update(['checked' => true]);
-
-        return redirect()->route('admin.chat', ['user_id' => $request->input('user_id')]);
+        return redirect()->route('chat.adminChat', ['user_id' => $request->input('user_id')]);
     }
 }
