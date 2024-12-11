@@ -143,6 +143,6 @@ Route::middleware('auth')->group(function(){
 Route::get('/user/chat', [ChatController::class, 'userChat'])->name('chat.userChat');
 Route::post('/user/chat/store', [ChatController::class, 'storeQuestion'])->name('chat.storeQuestion');
 // Admin / ChatPage
-Route::get('/admin/chat', [ChatController::class, 'adminChat'])->name('chat.adminIndex');
-Route::post('/admin/chat/{question}', [ChatController::class, 'storeAnswer'])->name('chat.storeAnswer');
+Route::get('/admin/chat', [ChatController::class, 'adminChat'])->name('chat.adminChat');
+Route::post('/admin/chat/store', [ChatController::class, 'storeAnswer'])->name('chat.storeAnswer');
 });

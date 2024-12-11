@@ -65,21 +65,35 @@ body {
     align-self: flex-end;
 }
 
+.message.s {
+    display: flex;
+}
+
 .message.sent {
-    align-self: flex-end;
+    align-self: flex-start;
     background-color: #dcf8c6;
-    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    margin-left: 4rem;
+    padding-bottom: 0;
+}
+
+.r {
+    display: flex;
+    flex-flow: column;
+    justify-content: right;
 }
 
 .icon.received {
-    align-self: flex-start;
+    align-self: flex-end;
 }
 
+
 .message.received {
-    align-self: flex-start;
+    align-self: flex-end;
     background-color: #ffffff;
-    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     border: 1px solid #e0e0e0;
+    margin-right: 4rem;
 }
 
 .message .timestamp {
