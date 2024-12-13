@@ -54,11 +54,19 @@ class ChatController extends Controller
             'question' => $request->input('question'),
         ]);
 
+        $answer = Answer::create([
+            'user_id' => 0,
+            'answer' => null,
+        ]);
+
         // $this->question->user_id = Auth::user()->id;
         // $this->question->question = $request->question;
         // $this->question->save();
 
-        QuestionAnswer::create(['question_id' => $question->id]);
+        QuestionAnswer::create([
+            'question_id' => $question->id,
+            'answer_id' => null,
+        ]);
 
         return redirect()->back();
     }
