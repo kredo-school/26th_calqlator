@@ -46,7 +46,7 @@
         <div class="row text-center">
             @if(Auth::user())
                 <p class="fs-5">If you can not find the answer you are looking for, 
-                    <br>please contact us from <a href="">Contact</a></p>
+                    <br>please contact us from <a href="{{route('chat.userChat')}}">Contact</a></p>
             @else
                 <p class="fs-5">If you can not find the answer you are looking for, 
                     <br>please <a href="{{ route('register')}}">register</a> an account and contact us!</p>

@@ -45,10 +45,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/user/{id}/show', [UserController::class, 'show'])->name('user.show');
 
     // User / Home Page
-    Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
-
-    // UserFAQ
-    // use App\Http\Controllers\FaqController;
     Route::get('/user/home/{date}', [UserHomePageController::class, 'index'])->name('user.home');
     Route::delete('/user/breakfast/delete/{id}',[UserHomeDeleteController::class, 'breakfastDelete'])->name('user.breakfast.delete');
     Route::delete('/user/lunch/delete/{id}',[UserHomeDeleteController::class, 'lunchDelete'])->name('user.lunch.delete');
@@ -67,7 +63,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
     Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
    
-    // UserFAQ
+    // User / FAQ
     Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 
     //User / Meal Registration
