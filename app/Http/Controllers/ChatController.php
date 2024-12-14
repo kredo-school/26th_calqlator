@@ -54,9 +54,10 @@ class ChatController extends Controller
             'question' => $request->input('question'),
         ]);
 
-        $answer = Answer::create([
-            'user_id' => 0,
+        $temporaryAnswer = Answer::create([
+            'user_id' => null,
             'answer' => null,
+            'created_at' => null,
         ]);
 
         // $this->question->user_id = Auth::user()->id;
@@ -65,7 +66,7 @@ class ChatController extends Controller
 
         QuestionAnswer::create([
             'question_id' => $question->id,
-            'answer_id' => null,
+            'answer_id' => $temporaryAnswer->id,
         ]);
 
         return redirect()->back();
@@ -78,26 +79,19 @@ class ChatController extends Controller
             'question_id' => 'required|exists:questions,id',
         ]);
 
-        $answer = Answer::create([
-            'user_id' => Auth::user()->id,
-            'answer' => $request->input('answer'),
-        ]);
-
-        // $this->answer->user_id = Auth::user()->id;
-        // $this->answer->answer = $request->answer;
-        // $this->answer->save();
-
         $questionId = $request->input('question_id');
+        $newAnswerText = $request->input('answer');
+
         $qa = QuestionAnswer::where('question_id', $questionId)->first();
-        
+
         if ($qa) {
-            $qa->update(['answer_id' => $answer->id]);
-            Question::where('id', $questionId)->update(['checked' => true]);
-        } else {
-            QuestionAnswer::create([
-                'question_id' => $questionId,
-                'answer_id' => $answer->id,
+            $temporaryAnswer = Answer::find($qa->answer_id);
+            $temporaryAnswer->update([
+                'user_id' => Auth::user()->id,
+                'answer' => $newAnswerText,
             ]);
+
+            Question::where('id', $questionId)->update(['checked' => true]);
         }
 
         return redirect()->route('chat.adminChat', ['user_id' => $request->input('user_id')]);

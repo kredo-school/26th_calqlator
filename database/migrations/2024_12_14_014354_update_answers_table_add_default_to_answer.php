@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('answers', function (Blueprint $table) {
-            $table->unsignedBigInteger('answer')->nullable()->change(); // answer_id を NULL 許容に変更
+            $table->string('answer')->default('No answer yet')->change();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('answers', function (Blueprint $table) {
-            $table->unsignedBigInteger('answer')->nullable(false)->change(); // 元に戻す
+            $table->string('answer')->default(null)->change(); // 元の状態
         });
     }
 };

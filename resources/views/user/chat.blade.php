@@ -29,7 +29,7 @@
             @if ($questions->isNotEmpty())
                 @forelse ($questions->groupBy(function ($item) { return $item->created_at->format('Y-m-d');}) as $date => $dayQuestions)
                     <div class="chat-date text-center font-weight-bold"><u>{{ $date }}</u></div>
-                    @forelse ($dayQuestions as $question)
+                    @foreach ($dayQuestions as $question)
                         <!-- sending -->
                         <div class="icon sent">
                             <i class="fa-solid fa-circle-user text-secondary icon-ssm"></i>
@@ -44,33 +44,23 @@
                             </div>
                         </div>
                         <!-- received -->
-                        @forelse ($question->answers as $answer)
+                        @foreach ($question->answers as $answer)
                             <div class="r">
                                 <div class="icon received">
                                     <i class="fa-solid fa-circle-user text-secondary icon-ssm"></i>
                                     Admin
                                 </div>
                                 <div class="message received">
-                                    {{ $answer->answer }}
-                                    <div class="timestamp">
-                                        {{ $answer->created_at->format('H:i') }}
-                                    </div>
+                                    {{ $answer->answer ?? 'No answer yet'}}
+                                    @if ($answer->created_at)
+                                        <div class="timestamp">
+                                            {{ $answer->created_at->format('H:i')}}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
-                        @empty
-                            <div class="r">
-                                <div class="icon received">
-                                    <i class="fa-solid fa-circle-user text-secondary icon-ssm"></i>
-                                    Admin
-                                </div>
-                                <div class="message notreceived">
-                                    <p>No answer yet.</p>
-                                </div>
-                            </div>
-                        @endforelse
-                    @empty
-                        <p>No questions available for this date.</p>
-                    @endforelse
+                        @endforeach
+                    @endforeach
                 @empty
                     <p>No questions available.</p>
                 @endforelse    
