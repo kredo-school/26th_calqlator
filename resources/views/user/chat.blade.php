@@ -1,13 +1,13 @@
-@extends('layouts.user')
+@extends('layouts.userchat')
 
-@section('title', 'ChatPage')
+@section('title', 'User: ChatPage')
 
 @section('content')
 <div class="chat-container">
     <!-- chat title -->
     <div class="chat-header">
         <div class="row">
-            <div class="col-8 text-start">
+            <div class="col-8 text-center">
                 <h3>
                     Contact Form
                 </h3>
@@ -25,31 +25,57 @@
 
     <!-- chat message -->
     <div class="chat-messages">
-        <div class="date text-center">
-            2024/10/11
-        </div>
-        <!-- sending -->
-        <div class="icon sent">
-            <img src="../assets/images/character.png" alt="" class="icon-apple">
-        </div>
-        <div class="message sent me-5">
-            Hello！
-            <div class="timestamp">10:00</div>
-        </div>
-        <!-- received -->
-        <div class="icon received">
-            <i class="fa-solid fa-circle-user text-secondary icon-lg"></i>
-        </div>
-        <div class="message received ms-5">
-            Hello! How are you?
-            <div class="timestamp">10:01</div>
+        <div class="chat-box">
+            @if ($questions->isNotEmpty())
+                @forelse ($questions->groupBy(function ($item) { return $item->created_at->format('Y-m-d');}) as $date => $dayQuestions)
+                    <div class="chat-date text-center font-weight-bold"><u>{{ $date }}</u></div>
+                    @foreach ($dayQuestions as $question)
+                        <!-- sending -->
+                        <div class="icon sent">
+                            <i class="fa-solid fa-circle-user text-secondary icon-ssm"></i>
+                            <strong>You</strong>
+                        </div>
+                        <div class="message s">
+                            <div class="message sent">
+                                {{ $question->question }}
+                                <div class="timestamp">
+                                    {{ $question->created_at->format('H:i')}}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- received -->
+                        @foreach ($question->answers as $answer)
+                            <div class="r">
+                                <div class="icon received">
+                                    <i class="fa-solid fa-circle-user text-secondary icon-ssm"></i>
+                                    Admin
+                                </div>
+                                <div class="message received">
+                                    {{ $answer->answer ?? 'No answer yet'}}
+                                    @if ($answer->created_at)
+                                        <div class="timestamp">
+                                            {{ $answer->created_at->format('H:i')}}
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    @endforeach
+                @empty
+                    <p>No questions available.</p>
+                @endforelse    
+            @else
+                <p class="text-center">No Contact</p>
+            @endif
         </div>
     </div>
-
     <!-- input field -->
-    <div class="chat-input">
-        <input type="text" placeholder="input your message ...">
-        <button><i class="fa-solid fa-paper-plane"></i></button>
+    <div class="chat-input mt-4">
+        <form action="{{ route('chat.storeQuestion') }}" method="POST">
+            @csrf
+                <input name="question" type="text" placeholder="input your message ...">
+                <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
     </div>
 </div>
 @endSection
