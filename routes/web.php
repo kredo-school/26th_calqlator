@@ -25,6 +25,10 @@ use App\Http\Controllers\UserHomeDeleteController;
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Guest & User
+Route::get('/', function () {return view('home');})->name('home');
+Route::post('/find/reset/user', [PasswordResetController::class, 'findResetUser'])->name('find.user.reset.id');
+Route::post('/update/password/{id}', [PasswordResetController::class, 'update'])->name('update.password');
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -39,45 +43,42 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::patch('/user/update', [UserController::class, 'update'])->name('user.update');
     Route::get('/user/{id}/show', [UserController::class, 'show'])->name('user.show');
+
+    // User / Home Page
+    Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
+
+    // UserFAQ
+    // use App\Http\Controllers\FaqController;
+    Route::get('/user/home/{date}', [UserHomePageController::class, 'index'])->name('user.home');
+    Route::delete('/user/breakfast/delete/{id}',[UserHomeDeleteController::class, 'breakfastDelete'])->name('user.breakfast.delete');
+    Route::delete('/user/lunch/delete/{id}',[UserHomeDeleteController::class, 'lunchDelete'])->name('user.lunch.delete');
+    Route::delete('/user/dinner/delete/{id}',[UserHomeDeleteController::class, 'dinnerDelete'])->name('user.dinner.delete');
+    Route::delete('/user/workout/delete/{id}',[UserHomeDeleteController::class, 'workoutDelete'])->name('user.workout.delete');
+    Route::delete('/user/supplement/delete/{id}',[UserHomeDeleteController::class, 'supplementDelete'])->name('user.supplement.delete');
+    Route::delete('/user/snack/delete/{id}',[UserHomeDeleteController::class, 'snackDelete'])->name('user.snack.delete');
+    Route::get('/user/home/calories/chart/{date}', [UserHomePageController::class, 'caloriesChart'])->name('user.home.calories.chart');
+    Route::get('/user/home/workout/chart/{date}', [UserHomePageController::class, 'workoutChart'])->name('user.home.workout.chart');
+    Route::get('/user/home/protein/chart/{date}', [UserHomePageController::class, 'proteinChart'])->name('user.home.protein.chart');
+    Route::get('/user/home/fat/chart/{date}', [UserHomePageController::class, 'fatChart'])->name('user.home.fat.chart');
+    Route::get('/user/home/carbs/chart/{date}', [UserHomePageController::class, 'carbsChart'])->name('user.home.carbs.chart');
+    // Route::get('/user/home/weight/chart', [UserHomePageController::class, 'weightChart'])->name('user.home.weight.chart');
+
+    // User / Calendar
+    Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
+    Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
+   
+    // UserFAQ
+    Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
+
+    //User / Meal Registration
+    Route::get('/meals', [MealController::class, 'index'])->name('meals.registration');
+    Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
+    Route::get('/search', [MealController::class, 'search']);
+   
+    // User / Everyday Condition
+    Route::get('/daily-condition', function () {return view('daily_condition');});
+
 });
-
-// Guest & User
-Route::get('/', function () {return view('home');})->name('home');
-Route::post('/find/reset/user', [PasswordResetController::class, 'findResetUser'])->name('find.user.reset.id');
-Route::post('/update/password/{id}', [PasswordResetController::class, 'update'])->name('update.password');
-
-// User / Home Page
-Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
-
-// UserFAQ
-// use App\Http\Controllers\FaqController;
-Route::get('/user/home/{date}', [UserHomePageController::class, 'index'])->name('user.home');
-Route::delete('/user/breakfast/delete/{id}',[UserHomeDeleteController::class, 'breakfastDelete'])->name('user.breakfast.delete');
-Route::delete('/user/lunch/delete/{id}',[UserHomeDeleteController::class, 'lunchDelete'])->name('user.lunch.delete');
-Route::delete('/user/dinner/delete/{id}',[UserHomeDeleteController::class, 'dinnerDelete'])->name('user.dinner.delete');
-Route::delete('/user/workout/delete/{id}',[UserHomeDeleteController::class, 'workoutDelete'])->name('user.workout.delete');
-Route::delete('/user/supplement/delete/{id}',[UserHomeDeleteController::class, 'supplementDelete'])->name('user.supplement.delete');
-Route::delete('/user/snack/delete/{id}',[UserHomeDeleteController::class, 'snackDelete'])->name('user.snack.delete');
-Route::get('/user/home/calories/chart/{date}', [UserHomePageController::class, 'caloriesChart'])->name('user.home.calories.chart');
-Route::get('/user/home/workout/chart/{date}', [UserHomePageController::class, 'workoutChart'])->name('user.home.workout.chart');
-Route::get('/user/home/protein/chart/{date}', [UserHomePageController::class, 'proteinChart'])->name('user.home.protein.chart');
-Route::get('/user/home/fat/chart/{date}', [UserHomePageController::class, 'fatChart'])->name('user.home.fat.chart');
-Route::get('/user/home/carbs/chart/{date}', [UserHomePageController::class, 'carbsChart'])->name('user.home.carbs.chart');
-// Route::get('/user/home/weight/chart', [UserHomePageController::class, 'weightChart'])->name('user.home.weight.chart');
-
-// User / Calendar
-Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
-Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
-// UserFAQ
-Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
-
-//User / Meal Registration
-Route::get('/meals', [MealController::class, 'index'])->name('meals.registration');
-Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
-Route::get('/search', [MealController::class, 'search']);
-// User / Everyday Condition
-Route::get('/daily-condition', function () {return view('daily_condition');});
-
 
 // ADMIN
 // Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}

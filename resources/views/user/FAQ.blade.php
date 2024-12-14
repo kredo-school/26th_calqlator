@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
+@section('title', 'FAQ')
+
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/faq.css') }}">
-
+<main class="faq-main">
 <div class="container">
     <div class="row justify-content-center">
         <form action="{{ route('user.faq')}}" method="get">
@@ -47,10 +49,11 @@
                     <br>please contact us from <a href="">Contact</a></p>
             @else
                 <p class="fs-5">If you can not find the answer you are looking for, 
-                    <br>please <a href="">register</a> an account and contact us!</p>
+                    <br>please <a href="{{ route('register')}}">register</a> an account and contact us!</p>
             @endif
         </div>
     </div>
 </div>
+</main>
 <script src="js/faq.js"></script>
 @endsection
