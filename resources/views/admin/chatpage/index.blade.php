@@ -7,9 +7,9 @@
     <!-- chat title -->
     <div class="chat-header">
         <div class="row">
-            <div class="col-8 text-start">
+            <div class="col-8 text-center">
                 <h3>
-                    User name
+                    @if ($selectedUser)  {{ $selectedUser->name }} @else No User @endif
                 </h3>
             </div>
             <div class="col-4 text-end">
@@ -25,28 +25,72 @@
 
     <!-- chat message -->
     <div class="chat-messages">
-        <!-- sending -->
-        <div class="icon sent">
-            <i class="fa-solid fa-circle-user text-secondary icon-ssm"></i>
-        </div>
-        <div class="message sent">
-            Hello！
-            <div class="timestamp">10:00</div>
-        </div>
-        <!-- received -->
-        <div class="icon received">
-            <i class="fa-solid fa-circle-user text-secondary icon-ssm"></i>
-        </div>
-        <div class="message received">
-            Hello! How are you?
-            <div class="timestamp">10:01</div>
-        </div>
-    </div>
+        @if ($selectedUserId)
+            <form action="{{ route('chat.storeAnswer') }}" method="POST">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ $selectedUserId }}">
+                <div class="chat-box">
+                    @forelse ($questions as $date => $dayQuestions)
+                        <div class="chat-date text-center font-weight-bold"><u>{{ $date }}</u></div>
+                            @forelse ($dayQuestions as $question)
+                                @if ($question)
+                                    <!-- sending -->
+                                    <div class="icon sent">
+                                        <i class="fa-solid fa-circle-user text-secondary icon-ssm"></i>
+                                        <strong>{{ $selectedUser->name }}</strong>
+                                    </div>
+                                    <div class="message s">
+                                        <div class="message sent">
+                                            {{ $question->question }}
+                                        <div class="timestamp">
+                                            {{ $question->created_at->format('H:i')}}
+                                        </div>
+                                        <input type="checkbox" name="question_id" value="{{ $question->id }}">
+                                        @if ($question->checked == '2')
+                                            <p>Read</p>
+                                        @else
+                                            <p>UnRead</p>
+                                        @endif
+                                        </div>
+                                    </div>
+                                    @forelse ($question->answers as $answer)
+                                    <!-- received -->
+                                    <div class="r">
+                                        <div class="icon received">
+                                            <i class="fa-solid fa-circle-user text-secondary icon-ssm"></i>
+                                            Admin
+                                        </div>
+                                        <div class="message received">
+                                                {{ $answer->answer }}
+                                            <div class="timestamp">
+                                                {{ $answer->created_at->format('H:i') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @empty
+                                        <p>Not answered yet.</p>
+                                    @endforelse
+                                @else
+                                    <p>No data found this question.</p>
+                                @endif
+                            @empty
+                                <p>No questions for this date.</p>
+                            @endforelse
+                        </div>
+                    @empty
+                        <p>No questions avairable.</p>
+                    @endforelse
 
-    <!-- input field -->
-    <div class="chat-input">
-        <input type="text" placeholder="input your message ...">
-        <button><i class="fa-solid fa-paper-plane"></i></button>
+                    <!-- input field -->
+                    <div class="chat-input">
+                        <input name="answer" type="text" placeholder="input your message ...">
+                        <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </form>
+        @else
+            <p>Please select User you chat from left bar.</p>
+        @endif
     </div>
 </div>
 @endSection

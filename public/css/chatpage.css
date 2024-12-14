@@ -49,6 +49,7 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }
 
 .message {
@@ -62,24 +63,43 @@ body {
 }
 
 .icon.sent {
-    align-self: flex-end;
+    align-self: flex-start;
+}
+
+.message.s {
+    display: flex;
 }
 
 .message.sent {
-    align-self: flex-end;
+    align-self: flex-start;
     background-color: #dcf8c6;
-    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    margin-left: 4rem;
+    padding-bottom: 0;
+}
+
+.r {
+    display: flex;
+    flex-flow: column;
+    justify-content: right;
 }
 
 .icon.received {
-    align-self: flex-start;
+    align-self: flex-end;
 }
 
+
 .message.received {
-    align-self: flex-start;
+    align-self: flex-end;
     background-color: #ffffff;
-    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     border: 1px solid #e0e0e0;
+    margin-right: 4rem;
+}
+
+.message.notreceived {
+    align-self: flex-end;
+    margin-right: 4rem;
 }
 
 .message .timestamp {
@@ -91,8 +111,20 @@ body {
 
 .chat-input {
     display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0.5rem;
     border-top: 1px solid #ddd;
+    width: 100%;
+}
+
+.chat-input form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    width: 100%;
+    max-width: 800px;
 }
 
 .chat-search {
@@ -101,22 +133,23 @@ body {
 
 .chat-input input {
     flex: 1;
+    max-width: 100%;
     padding: 0.8rem;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 1.5rem;
     outline: none;
+    margin-right: 0.5rem;
 }
 
 .chat-input button {
-    margin-left: 0.5rem;
-    padding: 0 1.2rem;
+    padding: 0 1.5rem;
     font-size: 1rem;
     font-weight: bold;
     color: white;
     background-color: #859D6B;
     border: none;
-    border-radius: 50%;
+    border-radius: 1.5rem;
     cursor: pointer;
     outline: none;
 }
@@ -141,4 +174,40 @@ a.list-group-item-b{
 .list-group-item-b.active{
     color: #C9E2AC;
     background-color: #859D6B;
+}
+
+.sort-arrow{
+    cursor: pointer;
+}
+
+.dataTables_length{
+    display: none;
+}
+
+#admin-table_info , #admin-table_paginate{
+    text-align: center;
+}
+
+#admin-table_next{
+    margin-left: 5px;
+}
+
+#admin-table_next::after{
+    content: " >>";
+}
+
+#admin-table_previous{
+    margin-right: 5px;
+}
+
+#admin-table_previous::before{
+    content: "<< ";
+}
+
+.paginate_button{
+    cursor: pointer;
+}
+
+a.paginate_button , a.paginate_button.current{
+    margin-right: 5px;
 }
