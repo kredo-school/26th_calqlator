@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }} | @yield('title')</title>
+    <title>{{ config('app.name', 'Cal-Q-Lator')}}  | @yield('title')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -15,10 +15,11 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    
-    <link rel="stylesheet" href="{{ asset('css/user-nav-menu.css') }}"> 
-    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/user-nav-menu.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/confirmation.css') }}">
     <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
 
     <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
 </head>
@@ -83,9 +84,10 @@
                 </ul>
             </div>
         </nav>
-
-        <main class="py-4">
-            @yield('content')
+        <main class="py-3">
+            <div class="">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>

@@ -49,6 +49,7 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }
 
 .message {
@@ -62,7 +63,7 @@ body {
 }
 
 .icon.sent {
-    align-self: flex-end;
+    align-self: flex-start;
 }
 
 .message.s {
@@ -96,6 +97,11 @@ body {
     margin-right: 4rem;
 }
 
+.message.notreceived {
+    align-self: flex-end;
+    margin-right: 4rem;
+}
+
 .message .timestamp {
     font-size: 0.8rem;
     color: #999;
@@ -105,8 +111,20 @@ body {
 
 .chat-input {
     display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0.5rem;
     border-top: 1px solid #ddd;
+    width: 100%;
+}
+
+.chat-input form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    width: 100%;
+    max-width: 800px;
 }
 
 .chat-search {
@@ -115,22 +133,23 @@ body {
 
 .chat-input input {
     flex: 1;
+    max-width: 100%;
     padding: 0.8rem;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 1.5rem;
     outline: none;
+    margin-right: 0.5rem;
 }
 
 .chat-input button {
-    margin-left: 0.5rem;
-    padding: 0 1.2rem;
+    padding: 0 1.5rem;
     font-size: 1rem;
     font-weight: bold;
     color: white;
     background-color: #859D6B;
     border: none;
-    border-radius: 50%;
+    border-radius: 1.5rem;
     cursor: pointer;
     outline: none;
 }
