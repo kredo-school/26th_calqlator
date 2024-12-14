@@ -8,10 +8,7 @@
             <a href="{{route('user.faq')}}" class="nav-link px-2">FAQ</a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link px-2">Manual</a>
-        </li>
-        <li class="nav-item">
-            <a href="" class="nav-link px-2">Contact</a>
+            <a href="{{route('chat.userChat')}}" class="nav-link px-2">Contact</a>
         </li>
     </ul>
 </footer>
