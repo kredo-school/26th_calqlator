@@ -29,14 +29,14 @@
         <!-- food list table -->
         <div class="foodlist-table">
             <div class="sortable-table">
-              <table class="table text-center mb-0" id="admin-table">
+              <table class="table text-center mb-0 foodlist" id="admin-table">
                 <thead class="foodlist">
                     <tr>
-                        <th class="sortable-table" style="width: 20%" id="id-header">ID</th>
-                        <th class="sortable-table" style="width: 25%" id="name-header">Name</th>
-                        <th class="sortable-table" style="width: 25%" id="calories-header">Calories</th>
-                        <th class="sortable-table" style="width: 25%" id="amount-header">Amount</th>
-                        <th class="sortable-table" style="width: 20%"></th>
+                        <th class="sortable-table" style="width: 10%" id="id-header">ID</th>
+                        <th class="sortable-table" style="width: 35%" id="name-header">Name</th>
+                        <th class="sortable-table" style="width: 10%" id="calories-header">Calories</th>
+                        <th class="sortable-table" style="width: 35%" id="amount-header">Amount</th>
+                        <th class="sortable-table" style="width: 30%"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,14 +44,14 @@
                     <tr>
 
                     <td class="text-center">{{ $food->id }}</td>
-                    <td>{{ $food->name }}</td>
+                    <td>{{ $food->item_name }}</td>
                     <td>{{ $food->calories }}</td>
                     <td>{{ $food->amount }}</td>
                     <td>
                     <div class="d-flex justify-content-center gap-2">
-                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#edit-food" ><i class="fas fa-pencil"></i> 
+                        <button class="btn p-0 text-success" data-bs-toggle="modal" data-bs-target="#edit-food{{ $food->id }}" ><i class="fas fa-pencil"></i> 
                         </button>
-                        <button class="btn p-0 ps-3 text-danger" data-bs-toggle="modal" data-bs-target="#delete-food">
+                        <button class="btn p-0 ps-3 text-danger" data-bs-toggle="modal" data-bs-target="#delete-food{{ $food->id }}">
                             <i class="fa-solid fa-circle-minus"></i>
                         </button>
                         @include('admin.foods.modals.actions')

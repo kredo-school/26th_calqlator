@@ -85,14 +85,15 @@ Route::get('/admin/food/confirmation',[ConfirmationController::class, 'food_inde
 Route::get('/admin/exercise/confirmation',[ConfirmationController::class, 'exercise_index'])->name('admin.exercise.confirmation');
 Route::patch('/admin/confirmation/confirm/{id}',[ConfirmationController::class, 'confirm'])->name('admin.confirm');
 Route::delete('/admin/confirmation/delete/{id}',[ConfirmationController::class, 'delete'])->name('admin.delete');
+
 // Admin / FAQ list
 Route::get('/admin/faqlist/index', [FaqController::class, 'indexlist'])->name('admin.faqlist.index');
 Route::patch('/admin/faqlist/update/{id}',[FaqController::class, 'update'])->name('admin.faqlist.update');
 Route::delete('/admin/faqlist/delete/{id}',[FaqController::class, 'delete'])->name('admin.faqlist.delete');
+Route::get('/admin/faqlist/search',[FaqController::class, 'search'])->name('admin.faqlist.search');
 // Admin / FAQRegistration
 Route::get('/admin/faqregistration/index', [FaqController::class, 'reg_index'])->name('admin.faqregistration.index');
 Route::get('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
-Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
 
 // Admin / ExerciseRegistration
 Route::group(['prefix' => 'admin/exercise/registration', 'as' => 'admin.exercise.registration.'], function(){
@@ -119,21 +120,16 @@ Route::get('/workout-search', [WorkoutController::class, 'workout.search']);
 
 // Admin / user list
 Route::get('/admin/user/list', [UsersController::class, 'index'])->name('admin.users.list');
-Route::get('/admin/user/edit/{id}', [UsersController::class, 'edit'])->name('admin.users.edit');
-Route::put('/admin/user/update/{id}', [UsersController::class, 'update'])->name('admin.users.update');
-Route::delete('/admin/user/delete/{id}', [UsersController::class, 'destroy'])->name('admin.users.destroy');
-
 // Admin / food list
-Route::get('/admin/food/list', [FoodsController::class, 'index'])->name('admin.foods.list');
+Route::get('/admin/food/list', [FoodsController::class, 'index'])->name('admin.foods.food_list');
 Route::get('/admin/food/edit/{id}', [FoodsController::class, 'edit'])->name('admin.foods.edit');
-Route::put('/admin/food/update/{id}', [FoodsController::class, 'update'])->name('admin.foods.update');
-Route::delete('/admin/food/delete/{id}', [FoodsController::class, 'destroy'])->name('admin.foods.destroy');
-
+Route::patch('/admin/food/update/{id}', [FoodsController::class, 'update'])->name('admin.foods.update');
+Route::delete('/admin/food/delete/{id}', [FoodsController::class, 'delete'])->name('admin.foods.delete');
 // Admin / exercise list
 Route::get('/admin/exercise/list', [ExercisesController::class, 'index'])->name('admin.exercises.list');
 Route::get('/admin/exercise/edit/{id}', [ExercisesController::class, 'edit'])->name('admin.exercise.edit');
-Route::get('/admin/exercise/update/{id}', [ExercisesController::class, 'update'])->name('admin.exercises.update');
-Route::get('/admin/exercise/delete/{id}', [ExercisesController::class, 'delete'])->name('admin.exercise.delete');
+Route::patch('/admin/exercise/update/{id}', [ExercisesController::class, 'update'])->name('admin.exercises.update');
+Route::delete('/admin/exercise/delete/{id}', [ExercisesController::class, 'delete'])->name('admin.exercise.delete');
 
 Route::middleware('auth')->group(function(){
 // User / ChatPage

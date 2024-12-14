@@ -129,7 +129,7 @@
                                             <i class="fa-solid fa-circle-user text-secondary icon-sm"></i> 
                                         </div>
                                         <div class="col-5 text-start">
-                                            <h4>{{ $user->name }}</h4>
+                                            <h4>{{ $user->username }}</h4>
                                         </div>
                                         <div class="col-3">
                                             <button class="btn btn-sm shadow-none" {{--data-bs-toggle="dropdown"--}}>
