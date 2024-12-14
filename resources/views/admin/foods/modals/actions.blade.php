@@ -1,6 +1,6 @@
 {{-- Edit --}}
 <div class="modal fade" id="edit-food{{ $food->id }}">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 50%;">
         <div class="modal-content text-dark text-start">
             <div class="modal-header border-0 pb-0 pt-3 px-5">
                 <h3 class="h4">Edit the Food</h3>
@@ -39,8 +39,8 @@
             </div>
             <div class="modal-footer border-0 justify-content-center p-0 my-3">
                
-                     <button type="button" data-bs-dismiss="modal" class="btn btn-sm px-4 me-3 cancel-btn">Cancel</button>
-                     <button type="submit" class="btn btn-sm px-4 edit-btn" value="{{ $food->item_name }}"><i class="fa-solid fa-circle-check"></i> Edit</button>
+                     <button type="button" data-bs-dismiss="modal" class="btn btn-sm px-4 me-3 cancel-btn" style="width: 120px;">Cancel</button>
+                     <button type="submit" class="btn btn-sm px-4 edit-btn" style="width: 120px;" value="{{ $food->item_name }}"><i class="fa-solid fa-circle-check"></i> Edit</button>
                 </form>
             </div>
         </div>
@@ -50,7 +50,7 @@
 
 {{-- DELETE --}}
 <div class="modal fade" id="delete-food{{ $food->id }}">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 50%;">
         <div class="modal-content text-dark text-start">
             <div class="modal-header border-0 pb-0 pt-3 px-5">
                 <h3 class="h4">Delete Food</h3>

@@ -32,9 +32,24 @@
     color: #ffffff;
 }
 
+.exercise-edit {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
+    background-color: #fffcf7;
+}
+
+.exercise-edit th, .exercise-edit td {
+    padding: 10px;
+    text-align: center;
+}
+
 .exercise-edit th {
     background-color: #48b13a;
+    border-bottom: 1px solid black;
 }
+
 .exercise-delete th {
     background-color: #f67373;
 }
+
