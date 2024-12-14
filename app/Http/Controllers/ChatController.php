@@ -89,6 +89,8 @@ class ChatController extends Controller
             $temporaryAnswer->update([
                 'user_id' => Auth::user()->id,
                 'answer' => $newAnswerText,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
 
             Question::where('id', $questionId)->update(['checked' => true]);
