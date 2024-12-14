@@ -37,7 +37,7 @@
                                     <!-- sending -->
                                     <div class="icon sent">
                                         <i class="fa-solid fa-circle-user text-secondary icon-ssm"></i>
-                                        <strong>{{ $selectedUser->name }}</strong>
+                                        <strong>{{ $selectedUser->username }}</strong>
                                     </div>
                                     <div class="message s">
                                         <div class="message sent">
@@ -61,10 +61,12 @@
                                             Admin
                                         </div>
                                         <div class="message received">
-                                                {{ $answer->answer }}
-                                            <div class="timestamp">
-                                                {{ $answer->created_at->format('H:i') }}
-                                            </div>
+                                                {{ $answer->answer ?? 'No answer yet'}}
+                                                @if ($answer->created_at)
+                                                    <div class="timestamp">
+                                                        {{ $answer->created_at->format('H:i') }}
+                                                    </div>
+                                                @endif
                                         </div>
                                     </div>
                                     @empty
