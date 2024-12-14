@@ -35,6 +35,11 @@
     color: #ffffff;
 }
 
+.pagination a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
 .food-edit th {
     background-color: #48b13a;
 }
