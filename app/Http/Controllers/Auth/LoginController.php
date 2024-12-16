@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -24,12 +25,18 @@ class LoginController extends Controller
     /**
      * Where to redirect users after login.
      *
-     * @var string
+     * @return string
      */
     protected function redirectTo(){
-        $date = Carbon::now()->format('Y-m-d');
-        
-        return '/user/home/' . $date;
+        $roleId = Auth::user()->role_id;
+
+        if ($roleId == 1) {
+            return '/admin/home';  
+        } else {
+            $date = Carbon::now()->format('Y-m-d');
+            return '/user/home/' . $date;
+        }
+        return '/';
     }
 
     /**
