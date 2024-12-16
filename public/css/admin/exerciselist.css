@@ -32,6 +32,14 @@
     color: #ffffff;
 }
 
+.edit-table {
+    border: 1px solid black;
+}
+
+.edit-table thead {
+    border-bottom:2px solid black;
+}
+
 .exercise-edit {
     border-collapse: collapse;
     width: 100%;
@@ -53,3 +61,10 @@
     background-color: #f67373;
 }
 
+.delete-table {
+    border: 1px solid black;
+}
+
+.delete-table thead {
+    border-bottom:2px solid black;
+}
