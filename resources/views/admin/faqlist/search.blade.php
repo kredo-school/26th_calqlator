@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'FAQ List')
+@section('title', 'Admin: FAQ List_search')
 
 @section('content')
 <div class="row">

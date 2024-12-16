@@ -23,7 +23,7 @@
         @include('user-guest-navbar')
 
         <main>
-            <div class="row h-90 w-100 gx-0">
+            <div class="row h-100 w-100 g-0 all-area">
                 <div class="p-0 menu-area">
                     <ul class="list-group text-center border border-dark">
                         <h3 class="list-group-item m-0 list-title ">Summary of the month</h3>

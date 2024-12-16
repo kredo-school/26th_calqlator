@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{ asset('css/exerciseReg.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/userlist.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/foodlist.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/exerciselist.css') }}">    <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/exerciselist.css') }}">    <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
 
     <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
 </head>
@@ -97,7 +97,7 @@
                             <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
                                 <i class="fa-solid fa-dumbbell"></i> Exercise List <i class="fa-solid fa-table-list"></i>
                             </a>
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                            <a href="{{ route('admin.faqlist.index')}}" class="list-group-item {{ request()->is('/admin/faqlist/index*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-circle-question"></i> FAQ List <i class="fa-solid fa-table-list"></i>
                             </a>
                             <a href="{{ route('admin.food.confirmation')}}" class="list-group-item {{ request()->is('/admin/food/confirmation*') ? 'active' : '' }}">
@@ -111,7 +111,7 @@
                             <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
                                 <i class="fa-solid fa-person-walking"></i> Exercise Registeration <i class="fa-solid fa-square-plus"></i>
                             </a>
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                            <a href="{{ route('admin.faqregistration.index')}}" class="list-group-item {{ request()->is('/admin/faqregistration/index*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-person-circle-question"></i> FAQ Registeration <i class="fa-solid fa-square-plus"></i>
                             </a>
                             <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }} list-group-item-action">

@@ -20,12 +20,9 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
-    <script src="{{ asset('assets/js/chart.js') }}"></script>
-    <script src="{{ asset('assets/js/datalabels.js') }}"></script>
+    <script src="https://kit.fontawesome.com/dbc5b98639.js" crossorigin="anonymous"></script>
 
-
-    <link rel="stylesheet" href="{{ asset('assets/css/user-homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/homepage.css') }}">
 
 </head>
 <body>
@@ -36,12 +33,6 @@
         </main>
        @include('user-guest-footer')
     </div>
-    <script src="{{ asset('js/calories-chart.js') }}"></script>
-    <script src="{{ asset('js/workout-chart.js') }}"></script>
-    <script src="{{ asset('js/protein-chart.js') }}"></script>
-    <script src="{{ asset('js/fat-chart.js') }}"></script>
-    <script src="{{ asset('js/carbs-chart.js') }}"></script>
-    {{-- <script src="{{ asset('js/weight-chart.js') }}"></script> --}}
 </body>
 </html>
 

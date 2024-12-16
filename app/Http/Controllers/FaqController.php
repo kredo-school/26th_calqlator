@@ -91,4 +91,14 @@ class FaqController extends Controller
 
         return view('admin.faqregistration.complete', compact('faqs'));
     }
+
+    public function search(Request $request)
+    {
+        $list_faqs = $this->faq->where('question' , 'like', '%' . $request->search . '%')->get();
+
+        return view('admin.faqlist.search')
+                ->with('list_faqs' , $list_faqs)
+                ->with('search' , $request->search);
+    }
+
 }

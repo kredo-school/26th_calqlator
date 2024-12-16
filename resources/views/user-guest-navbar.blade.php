@@ -51,7 +51,7 @@
                              <a href="{{route('user.home',$date=now()->format('Y-m-d'))}}" class="dropdown-item">
                                 Home
                             </a>
-                             <a href="" class="dropdown-item">
+                             <a href="{{route('user.profile')}}" class="dropdown-item">
                                 My Page
                             </a>
                              <a href="" class="dropdown-item">
