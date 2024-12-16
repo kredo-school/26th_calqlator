@@ -7,19 +7,19 @@
     <!-- chat title -->
     <div class="chat-header">
         <div class="row">
-            <div class="col-8 text-center">
+            <div class="text-center">
                 <h3>
-                    @if ($selectedUser)  {{ $selectedUser->name }} @else No User @endif
+                    @if ($selectedUser)  {{ $selectedUser->username }} @else No User @endif
                 </h3>
             </div>
-            <div class="col-4 text-end">
+            <!--<div class="col-4">
                 <form action="#" class="search text-end">
                     <div class="chat-search">
-                        <input type="searchquestion" name="searchquestion" placeholder="Search message..." class="form-control form-control-sm me-1">
+                        <input type="search" name="adminSearch" placeholder="Search message..." class="form-control form-control-sm me-1">
                         <button><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </form>
-            </div>
+            </div>-->
         </div>
     </div>
 

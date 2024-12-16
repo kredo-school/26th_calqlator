@@ -14,9 +14,15 @@ class ChatController extends Controller
     private $question;
     private $answer;
 
+    public function __construct()
+    {
+        $this->question = new Question();
+        $this->answer = new Answer(); 
+    }
+
     public function userChat(){
         $questions = Question::with('answers')->where('user_id', Auth::user()->id)->get();
-        return view('user.chat', compact('questions'));
+        return view('user.chatpage.chat', compact('questions'));
     }
 
     public function adminChat(Request $request)
@@ -89,11 +95,22 @@ class ChatController extends Controller
             $temporaryAnswer->update([
                 'user_id' => Auth::user()->id,
                 'answer' => $newAnswerText,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
 
             Question::where('id', $questionId)->update(['checked' => true]);
         }
 
         return redirect()->route('chat.adminChat', ['user_id' => $request->input('user_id')]);
+    }
+
+    public function userSearch(Request $request)
+    {
+        $questions = Question::where('question', 'like', '%' . $request->userSearch . '%')->get();
+
+        return view('user.chatpage.search')
+                ->with('questions' , $questions)
+                ->with('userSearch' , $request->userSearch);
     }
 }

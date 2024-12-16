@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth'], function(){
     // User / ChatPage
     Route::get('/user/chat', [ChatController::class, 'userChat'])->name('chat.userChat');
     Route::post('/user/chat/store', [ChatController::class, 'storeQuestion'])->name('chat.storeQuestion');
+    Route::get('/user/chat/search',[ChatController::class, 'userSearch'])->name('user.chat.search');
 
     // ADMIN
     Route::group(['middleware' => 'admin'], function(){
@@ -117,5 +118,6 @@ Route::group(['middleware' => 'auth'], function(){
         // Admin / ChatPage
         Route::get('/admin/chat', [ChatController::class, 'adminChat'])->name('chat.adminChat');
         Route::post('/admin/chat/store', [ChatController::class, 'storeAnswer'])->name('chat.storeAnswer');
+        // Route::get('/admin/chat/search',[ChatController::class, 'adminSearch'])->name('admin.chat.search');
     });
 });

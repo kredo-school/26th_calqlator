@@ -13,9 +13,9 @@
                 </h3>
             </div>
             <div class="col-4 text-end">
-                <form action="#" class="search text-end">
+                <form action="{{ route('user.chat.search') }}" class="search text-end">
                     <div class="chat-search">
-                        <input type="searchquestion" name="searchquestion" placeholder="Search message..." class="form-control form-control-sm me-1">
+                        <input type="search" name="userSearch" placeholder="Search message..." class="form-control form-control-sm me-1">
                         <button><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </form>
