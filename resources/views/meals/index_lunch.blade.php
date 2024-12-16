@@ -3,165 +3,342 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meal Registration lunch</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('/css/meal.style.css') }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>Meal Registration lunch</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('/css/meal.style.css') }}">
 </head>
 <body>
-    <div class="container mt-5">
-      <div class="underline-container">
-        <h2 class="underline text-left">Meal Registration lunch</h2>
-      </div>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Calories</th>
-                    <th>Amount</th>
-                    <th>Time eaten</th>
-                    <th>Protein</th>
-                    <th>Carbohydrate</th>
-                    <th>Lipid</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($meals as $meal)
-                    <tr>
-                        <td>{{ $meal->item }}</td>
-                        <td>{{ $meal->calories }} kcal</td>
-                        <td>{{ $meal->amount }}</td>
-                        <td>{{ $meal->time_eaten }}</td>
-                        <td>{{ $meal->Protein }} kcal</td>
-                        <td>{{ $meal->Carbohydrate }} kcal</td>
-                        <td>{{ $meal->Lipid }} kcal</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="7" class="text-center">No food registered</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-        <div class="text-center p-2">
-            <button class="btn btn-outline-danger rounded-circle btn-sm" data-toggle="modal" data-target="#addFoodModal" title="Add">
-                <i class="fa-solid fa-plus"></i>
-            </button> Add Food
-        </div>
-        
-        <form action="/search" method="GET" class="d-flex justify-content-center">
-            <div class="form-group">
-                <input type="text" class="form-control w-80" name="query" placeholder="Search...">
-            </div>
-        </form>
-        <h2 class="history text-center">History</h2>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Calories</th>
-                    <th>Per amount</th>
-                    <th>Protein</th>
-                    <th>Carbohydrate</th>
-                    <th>Lipid</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Example search results -->
-                <tr>
-                    <td>Meat Sauce Pasta</td>
-                    <td>626 kcal</td>
-                    <td>per serving (dry pasta 100g)</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><button class="btn btn-outline-danger rounded-circle btn-sm" data-toggle="modal" data-target="#addFoodModal" title="Add">
-                        <i class="fa-solid fa-plus"></i>
-                    </button> Add</td>
-                </tr>
-                <tr>
-                    <td>Carbonara</td>
-                    <td>589 kcal</td>
-                    <td>per serving</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><button class="btn btn-outline-danger rounded-circle btn-sm" data-toggle="modal" data-target="#addFoodModal" title="Add"><i class="fas fa-plus"></i>
-                    </button> Add</td>
-                </tr>
-                <!-- Add more search results as necessary -->
-            </tbody>
-        </table>
+  <div class="container mt-5">
+    <div class="underline-container">
+      <h2 class="underline text-left">Meal Registration Lunch</h2>
     </div>
-    
-<!-- Modal -->
-<div class="modal fade" id="addFoodModal" tabindex="-1" aria-labelledby="addFoodModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content  text-center">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addFoodModalLabel">Register my own meal</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
+    <form id="mealForm" action="{{ route('meals.store') }}" method="POST">
+      @csrf
+      <table class="table table-bordered" id="mealTable">
+          <thead>
+              <tr>
+                  <th>Item</th>
+                  <th>Calories</th>
+                  <th>Amount</th>
+                  <th>Time eaten</th>
+                  <th>Protein</th>
+                  <th>Carbohydrate</th>
+                  <th>Lipid</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td colspan="7" class="text-center">No food registered</td>
+              </tr>
+          </tbody>
+      </table>
+      <div class="text-center p-2">
+          <button type="submit" class="btn btn-outline-primary">Save</button>
       </div>
-      <div class="modal-body">
-        <form id="addFoodForm" action="{{ route('meals.store') }}" method="POST">
-          @csrf
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="item">Food Name</label>
-              <input type="text" class="mborder form-control" id="item" name="item" placeholder="Banana" required>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="calories">Calories per amount</label>
-              <input type="number" class="mborder form-control" id="calories" name="calories" placeholder="50 kcal" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="amount">Amount</label>
-              <div class="input-group">
-                <input type="number" class="mborder form-control" id="amount" name="amount" placeholder="50" required>
-                <div class="input-group-append">
-                  <select class="mborder form-control" id="unit" name="unit" required>
-                    <option value="g">g</option>
-                    <option value="ml">ml</option>
-                    <option value="quantity">quantity</option>
-                    <option value="one meal">one meal</option>
-                  </select>
+  </form>
+    <div class="text-center p-2">
+      <button class="btn btn-outline-danger rounded-circle btn-sm" data-toggle="modal" data-target="#addFoodModal" title="Add">
+        <i class="fa-solid fa-plus"></i>
+      </button> Add Food
+    </div>
+    <form id="searchForm" action="{{ route('meals.search') }}" method="POST" class="d-flex justify-content-center">
+      @csrf
+      @method('PUT')
+      <div class="form-group">
+        <input type="text" class="form-control w-80" name="query" placeholder="Search...">
+      </div>
+    </form>
+    <h2 class="history text-center">History</h2>
+    <table class="table table-bordered" id="historyTable">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Calories</th>
+          <th>Per amount</th>
+          <th>Protein</th>
+          <th>Carbohydrate</th>
+          <th>Lipid</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- JavaScriptでデータを挿入 -->
+      </tbody>
+    </table>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="addFoodModal" tabindex="-1" aria-labelledby="addFoodModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content text-center">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addFoodModalLabel">Register my own meal</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addFoodForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="item">Food Name</label>
+                <input type="text" class="mborder form-control" id="item" name="item" placeholder="Banana" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="calories">Calories per amount</label>
+                <input type="number" class="mborder form-control" id="calories" name="calories" placeholder="50 kcal" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="amount_value">Amount</label>
+                <div class="input-group">
+                  <input type="number" class="mborder form-control" id="amount_value" name="amount_value" placeholder="50" required>
+                  <div class="input-group-append">
+                    <select class="mborder form-control" id="amount_unit" name="amount_unit" required>
+                      <option value="g">g</option>
+                      <option value="ml">ml</option>
+                      <option value="quantity">quantity</option>
+                      <option value="one meal">one meal</option>
+                    </select>
+                  </div>
                 </div>
               </div>
+              <div class="form-group col-md-6">
+                <label for="time_eaten">Time eaten</label>
+                <input type="time" class="mborder form-control" id="time_eaten" name="time_eaten" placeholder="19:30" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="protein">Protein</label>
+                <input type="number" class="mborder form-control" id="protein" name="protein" placeholder="50 kcal" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="carbohydrate">Carbohydrate</label>
+                <input type="number" class="mborder form-control" id="carbohydrate" name="carbohydrate" placeholder="50 kcal" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="lipid">Lipid</label>
+                <input type="number" class="mborder form-control" id="lipid" name="lipid" placeholder="50 kcal" required>
+              </div>
             </div>
+            <button type="button" class="btn btn-outline-primary" id="addFoodButton">ADD</button>
+          </form>
+          <div class="form-group mt-3">
+            <button type="button" class="btn btn-outline-secondary" id="sendRequestButton">
+              <i class="fas fa-check" id="checkIcon" style="display: none;"></i>
+            </button> Send request to add to database
           </div>
-          <button type="submit" class="btn btn-outline-primary">ADD</button>
-        </form>
-        <div class="form-group mt-3">
-          <button type="button" class="btn btn-outline-secondary" id="sendRequestButton">
-            <i class="fas fa-check" id="checkIcon" style="display: none;"></i>
-          </button> Send request to add to database
         </div>
       </div>
     </div>
   </div>
-</div>
- 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-document.getElementById('sendRequestButton').addEventListener('click', function() {
-  var checkIcon = document.getElementById('checkIcon');
-  if (checkIcon.style.display === 'none') {
-    checkIcon.style.display = 'inline';
-  } else {
-    checkIcon.style.display = 'none';
-  }
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    document.getElementById('addFoodButton').addEventListener('click', function() {
+      const item = document.getElementById('item').value;
+      const calories = document.getElementById('calories').value;
+      const amount = document.getElementById('amount_value').value + ' ' + document.getElementById('amount_unit').value;
+      const timeEaten = document.getElementById('time_eaten').value;
+      const protein = document.getElementById('protein').value;
+      const carbohydrate = document.getElementById('carbohydrate').value;
+      const lipid = document.getElementById('lipid').value;
+
+      const newRow = `
+        <tr>
+          <td>${item}</td>
+          <td>${calories} kcal</td>
+          <td><input type="text" name="amount" value="${amount}" class="form-control"></td>
+          <td><input type="time" name="time_eaten" value="${timeEaten}" class="form-control"></td>
+          <td><input type="number" name="protein" value="${protein}" class="form-control"></td>
+          <td><input type="number" name="carbohydrate" value="${carbohydrate}" class="form-control"></td>
+          <td><input type="number" name="lipid" value="${lipid}" class="form-control"></td>
+        </tr>
+      `;
+
+      const mealTableBody = document.querySelector('#mealTable tbody');
+      if (mealTableBody.querySelector('tr td[colspan="7"]')) {
+        mealTableBody.innerHTML = ''; // "No food registered" をクリア
+      }
+      mealTableBody.insertAdjacentHTML('beforeend', newRow);
+      $('#addFoodModal').modal('hide');
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('/meals/history')
+        .then(response => response.json())
+        .then(data => {
+          const historyTableBody = document.querySelector('#historyTable tbody');
+          historyTableBody.innerHTML = ''; // 既存の内容をクリア
+          data.forEach(meal => {
+            const newRow = `
+            <tr>
+              <td>${meal.item}</td>
+              <td>${meal.calories} kcal</td>
+              <td>${meal.amount}</td>
+              <td>${meal.protein} kcal</td>
+              <td>${meal.carbohydrate} kcal</td>
+              <td>${meal.lipid} kcal</td>
+              <td><button class="btn btn-outline-danger rounded-circle btn-sm add-to-meal" data-id="${meal.id}" data-item="${meal.item}" data-calories="${meal.calories}" data-amount="${meal.amount}" title="Add">
+                <i class="fa-solid fa-plus"></i>
+              </button> Add</td>
+            </tr>
+          `;
+          historyTableBody.insertAdjacentHTML('beforeend', newRow);
+        });
+
+        document.querySelectorAll('.add-to-meal').forEach(button => {
+          button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const item = this.getAttribute('data-item');
+            const calories = this.getAttribute('data-calories');
+            const amount = this.getAttribute('data-amount');
+
+            // 上の表に追加
+            const newRow = `
+              <tr>
+                <td>${item}</td>
+                <td>${calories} kcal</td>
+                <td><input type="text" name="amount" value="${amount}" class="form-control"></td>
+                <td><input type="time" name="time_eaten" value="" class="form-control"></td>
+                <td><input type="number" name="protein" value="" class="form-control"></td>
+                <td><input type="number" name="carbohydrate" value="" class="form-control"></td>
+                <td><input type="number" name="lipid" value="" class="form-control"></td>
+              </tr>
+            `;
+
+            const mealTableBody = document.querySelector('#mealTable tbody');
+            if (mealTableBody.querySelector('tr td[colspan="7"]')) {
+              mealTableBody.innerHTML = ''; // "No food registered" をクリア
+            }
+            mealTableBody.insertAdjacentHTML('beforeend', newRow);
+          });
+        });
+      });
+
+      document.getElementById('mealForm').addEventListener('submit', function(event) {
+    //event.preventDefault();
+
+    const formData = new FormData(this);
+    const totalCalories = calculateTotalCalories();
+    formData.append('totalCalories', totalCalories);
+
+    fetch(this.action, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: formData,
+    }).then(response => {
+        if (!response.ok) {
+            return response.text().then(text => { throw new Error(text); });
+        }
+        return response.json();
+    })
+    .then(data => {
+       console.log(data);//サーバーからのレスポンスをログに出力
+        if (data.success) {
+            alert('Meal updated successfully.');
+            window.location.href = "{{ route('meals.confirmation_lunch') }}?totalCalories=" + totalCalories;
+        } else {
+          alert('Failed to update meal: ' + data.message); // エラーメッセージを表示
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);// ネットワークエラーやその他のエラーをログに出力
+        alert('An error occurred while updating the meal.');
+    });
 });
 
+function calculateTotalCalories() {
+    let totalCalories = 0;
+    document.querySelectorAll('#mealTable tbody tr').forEach(row => {
+        const calories = parseInt(row.querySelector('td:nth-child(2)').textContent);
+        totalCalories += calories;
+    });
+    return totalCalories;
+}
+    });
 
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+      event.preventDefault();//ページリロードを防ぐ
+      const query = document.querySelector('input[name="query"]').value;
 
+      fetch('/meals/search', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ query: query })
+      })
+      .then(response => {
+        if (!response.ok) {
+          return response.text().then(text => { throw new Error(text); });
+        }
+        return response.json();
+      })
+      .then(data => {
+        const historyTableBody = document.querySelector('#historyTable tbody');
+        historyTableBody.innerHTML = ''; // 既存の内容をクリア
 
-    </script>
+        if (data.length === 0) {
+          historyTableBody.innerHTML = '<tr><td colspan="7" class="text-center">No results found</td></tr>';
+        } else {
+          data.forEach(meal => {
+            const newRow = `
+              <tr>
+                <td>${meal.item}</td>
+                <td>${meal.calories} kcal</td>
+                <td>${meal.amount}</td>
+                <td>${meal.protein} kcal</td>
+                <td>${meal.carbohydrate} kcal</td>
+                <td>${meal.lipid} kcal</td>
+                <td><button class="btn btn-outline-danger rounded-circle btn-sm add-to-meal" data-item="${meal.item}" data-calories="${meal.calories}" data-amount="${meal.amount}" data-protein="${meal.protein}" data-carbohydrate="${meal.carbohydrate}" data-lipid="${meal.lipid}" title="Add">
+                  <i class="fa-solid fa-plus"></i>
+                </button> Add</td>
+              </tr>
+            `;
+            historyTableBody.insertAdjacentHTML('beforeend', newRow);
+          });
+
+          // Addボタンのイベントリスナーを再設定
+          document.querySelectorAll('.add-to-meal').forEach(button => {
+            button.addEventListener('click', function() {
+              const item = this.getAttribute('data-item');
+              const calories = this.getAttribute('data-calories');
+              const amount = this.getAttribute('data-amount');
+              const protein = this.getAttribute('data-protein');
+              const carbohydrate = this.getAttribute('data-carbohydrate');
+              const lipid = this.getAttribute('data-lipid');
+
+              // 上の表に追加
+              const newRow = `
+                <tr>
+                  <td>${item}</td>
+                  <td>${calories} kcal</td>
+                  <td><input type="text" name="amount" value="${amount}" class="form-control"></td>
+                  <td><input type="time" name="time_eaten" value="" class="form-control"></td>
+                  <td><input type="number" name="protein" value="${protein}" class="form-control"></td>
+                  <td><input type="number" name="carbohydrate" value="${carbohydrate}" class="form-control"></td>
+                  <td><input type="number" name="lipid" value="${lipid}" class="form-control"></td>
+                </tr>
+              `;
+
+              const mealTableBody = document.querySelector('#mealTable tbody');
+              if (mealTableBody.querySelector('tr td[colspan="7"]')) {
+                mealTableBody.innerHTML = ''; // "No food registered" をクリア
+              }
+              mealTableBody.insertAdjacentHTML('beforeend', newRow);
+            });
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while searching for meals.');
+      });
+    });
+  </script>
 </body>
 </html>

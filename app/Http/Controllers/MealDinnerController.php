@@ -16,12 +16,12 @@ class MealDinnerController extends Controller
 
     public function store(Request $request)
     {
+        dd($request);
         // バリデーション
         $request->validate([
             'item' => 'required|string',
-            'calories' => 'required|integer',
-            'amount_value' => 'required|integer',
-            'amount_unit' => 'required|string',
+            //'calories' => 'required|integer',
+            'amount' => 'required|string',
             'protein' => 'nullable|integer',
             'carbohydrate' => 'nullable|integer',
             'lipid' => 'nullable|integer',
@@ -49,7 +49,7 @@ class MealDinnerController extends Controller
     {
         $query = $request->input('query');
         $meals = MealDinner::where('item', 'LIKE', "%$query%")->get();
-        return view('meals.index_dinner', compact('meals'));
+        return response()->json($meals);
     }
 
     public function history()
@@ -57,7 +57,6 @@ class MealDinnerController extends Controller
         $meals = MealDinner::all();
         return response()->json($meals);
     }
-
 
     public function edit($id)
     {
@@ -81,7 +80,15 @@ class MealDinnerController extends Controller
         $meal = MealDinner::findOrFail($id);
         $meal->update($request->all());
 
-        // リダイレクト
-        return redirect()->route('meals.index_dinner')->with('success', 'Meal updated successfully.');
+        // 成功レスポンスを返す
+        return response()->json(['success' => true]);
+    }
+
+    public function confirmationDinner()
+    {
+        $today = date('Y-m-d');
+        $meals = MealDinner::where('date', $today)->get();
+        $totalCalories = $meals->sum('calories');
+        return view('meals.confirmation_dinner', compact('meals', 'totalCalories'));
     }
 }
