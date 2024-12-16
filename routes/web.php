@@ -29,6 +29,8 @@ Auth::routes();
 Route::get('/', function () {return view('home');})->name('home');
 Route::post('/find/reset/user', [PasswordResetController::class, 'findResetUser'])->name('find.user.reset.id');
 Route::post('/update/password/{id}', [PasswordResetController::class, 'update'])->name('update.password');
+ // User / FAQ
+ Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 
 Route::group(['middleware' => 'auth'], function(){
     // User / Change Email
@@ -56,8 +58,6 @@ Route::group(['middleware' => 'auth'], function(){
     // User / Calendar
     Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
     Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
-    // User / FAQ
-    Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
     //User / Meal Registration
     Route::get('/meals', [MealController::class, 'index'])->name('meals.registration');
     Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
