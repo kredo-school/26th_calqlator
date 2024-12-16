@@ -46,20 +46,6 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ms-auto">
-                    <!-- Authentication Links -->
-                    {{-- @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                        @endif
-
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @else --}}
                         <li class="nav-item">
                             <a class="nav-link logout" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
@@ -71,7 +57,6 @@
                                 @csrf
                             </form>
                         </li>
-                    {{-- @endguest --}}
                 </ul>
             </div>
         </nav>
@@ -109,7 +94,7 @@
                             <a href="{{ route('admin.food.registration.index')}}" class="list-group-item {{ request()->is('/admin/food/registration*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-carrot"></i> Food Registeration <i class="fa-solid fa-square-plus"></i>
                             </a>
-                            <a href="" class="list-group-item {{ request()->is('/workouts*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.exercise.registration.index')}}" class="list-group-item {{ request()->is('admin/exercise/registration*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-person-walking"></i> Exercise Registeration <i class="fa-solid fa-square-plus"></i>
                             </a>
                             <a href="{{ route('admin.faqregistration.index')}}" class="list-group-item {{ request()->is('/admin/faqregistration/index*') ? 'active' : '' }}">
