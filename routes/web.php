@@ -2,10 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WeightController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CalendarController;
@@ -28,7 +26,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/weight', [App\Http\Controllers\WeightController::class, 'weight'])->name('weight');
 Route::group(['middleware' => 'auth'], function(){
 
     // User / Change Email
@@ -51,7 +48,7 @@ Route::post('/find/reset/user', [PasswordResetController::class, 'findResetUser'
 Route::post('/update/password/{id}', [PasswordResetController::class, 'update'])->name('update.password');
 
 // User / Home Page
-Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
+// Route::get('/user/home', [HomePageController::class, 'index'])->name('user.home');
 
 // UserFAQ
 // use App\Http\Controllers\FaqController;
@@ -82,6 +79,10 @@ Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
 Route::get('/search', [MealController::class, 'search']);
 // User / Everyday Condition
 Route::get('/daily-condition', function () {return view('daily_condition');});
+// User / Weight Graph
+Route::get('/user/weight', [WeightController::class, 'weight'])->name('weight');
+Route::get('/user/weight/chart', [WeightController::class, 'weightChart'])->name('user.weight.chart');
+Route::get('/user/weight/chart', [WeightController::class, 'weightChart'])->name('user.weight.chart');
 
 
 // ADMIN
