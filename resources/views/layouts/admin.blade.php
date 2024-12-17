@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/nav-menu.css') }}">
     <link rel="stylesheet" href="{{ asset('css/confirmation.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/homepage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/foodReg.css') }}">
     <link rel="stylesheet" href="{{ asset('css/exerciseReg.css') }}">
@@ -104,7 +104,7 @@
                                 <i class="fa-solid fa-burger"></i> Food Confirmation <i class="fa-solid fa-square-check"></i>
                             </a>
                             <a href="{{ route('admin.exercise.confirmation')}}" class="list-group-item {{ request()->is('/admin/exercise/confirmation*') ? 'active' : '' }}">
-                                <i class="fa-solid fa-person-running"></i> Exercise Confirmation <i class="fa-solid fa-square-check"></i>                        
+                                <i class="fa-solid fa-person-running"></i> Exercise Confirmation <i class="fa-solid fa-square-check"></i>
                             </a>
                             <a href="{{ route('admin.food.registration.index')}}" class="list-group-item {{ request()->is('/admin/food/registration*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-carrot"></i> Food Registeration <i class="fa-solid fa-square-plus"></i>
