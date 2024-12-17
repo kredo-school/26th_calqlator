@@ -20,14 +20,18 @@
                     <label class="form-label fs-5 fw-bold green">No.1</label>
                     <div class="col-3">
                         <label for="name" class="form-label fw-bold">Food Name</label>
-                        <input type="text" name="item_name[]" id="name" class="form-control custom-border" placeholder="ex) Banana" autofocus>
+                        <input type="text" name="item_name[]" id="name" class="form-control custom-border" placeholder="ex) Banana" autofocus required>
                         @error('item_name')
                             <div class="text-danger small">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-3">
                         <label for="image" class="form-label fw-bold">Image</label>
-                        <input type="file" name="image[]" id="image" class="form-control">
+                        <input type="file" name="image[]" id="image" class="form-control" aria-describedby="image">
+                        <div id="image" class="form-text text-muted">
+                            <p class="my-0">Allowed formats: jpeg, jpg, png, gif.</p>
+                            <p class="my-0">Maximum file size is 1048kb.</p>
+                        </div>
                         @error('image')
                             <div class="text-danger small">{{ $message }}</div>
                         @enderror
@@ -35,7 +39,7 @@
                     <div class="col-2">
                         <label for="calory" class="form-label fw-bold">Foods Calory</label>
                         <div class="input-group d-flex align-items-center">
-                            <input type="number" name="calories[]" id="calory" class="form-control custom-border w-50" placeholder="ex) 40">
+                            <input type="number" name="calories[]" id="calory" class="form-control custom-border w-50" placeholder="ex) 40" required>
                             <span class="input-group-append">kcal</span>
                         </div>
                         @error('calory')
@@ -44,7 +48,7 @@
                     </div>
                     <div class="col-3">
                         <label for="amount" class="form-label fw-bold">Per Amount</label>
-                        <input type="text" name="amount[]" id="amount" class="form-control custom-border" placeholder="ex) 1 per" aria-describedby="amount">
+                        <input type="text" name="amount[]" id="amount" class="form-control custom-border" placeholder="ex) 1 per" aria-describedby="amount" required>
                         <small id="amount" class="form-text text-muted">Please also input the unit of measurement for the amount of ingredients.</small>
                         @error('amount')
                             <div class="text-danger small">{{ $message }}</div>
