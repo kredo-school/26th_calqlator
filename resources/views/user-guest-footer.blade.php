@@ -9,7 +9,7 @@
         </li>
         @if(Auth::user())
             <li class="nav-item">
-                <a href="{{route('chat.userChat')}}" class="nav-link px-2">Contact</a>
+                <a href="{{route('chat.userChat')}}" class="nav-link px-2 calendar-link">Cont<img src="{{asset('/images/a-img.png')}}" alt="a" class="a-img">ct</a>
             </li>
         @endif
     </ul>
