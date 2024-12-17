@@ -11,10 +11,6 @@ main{
     align-items: center;
 }
 
-.all-area{
-    margin-top: -250px;
-}
-
 /* left bar */
 .menu-area{
     display: flex;
@@ -194,6 +190,10 @@ td.today{
 }
 
 @media (min-width: 768px) {
+.all-area{
+    margin-top: -130px;
+}
+
 .menu-area{
     width: 20%;
     justify-content: end;
