@@ -3,11 +3,11 @@
     <nav class="navbar navbar-expand-md py-0 px-5" role="navigation">
         @guest
             <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="Cal-Q-Lator" class="logo">
+                <img src="{{ asset('/assets/images/logo.png') }}" alt="Cal-Q-Lator" class="logo">
             </a>
         @else
             <a class="navbar-brand" href="{{ route('user.home', $date=now()->format('Y-m-d')) }}">
-                <img src="{{ asset('assets/images/logo.png') }}" alt="Cal-Q-Lator" class="logo">
+                <img src="{{ asset('/assets/images/logo.png') }}" alt="Cal-Q-Lator" class="logo">
             </a>
         @endguest
 
@@ -37,8 +37,8 @@
                     @endif
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.calendar') }}">
-                            Calendar
+                        <a class="nav-link calendar-link" href="{{ route('user.calendar') }}">
+                            C<img src="{{asset('/images/a-img.png')}}" alt="a" class="a-img">lend<img src="{{asset('/images/a-img.png')}}" alt="a" class="a-img">r
                         </a>
                     </li>
 
@@ -51,11 +51,11 @@
                              <a href="{{route('user.home',$date=now()->format('Y-m-d'))}}" class="dropdown-item">
                                 Home
                             </a>
-                             <a href="{{route('user.profile')}}" class="dropdown-item">
-                                My Page
+                             <a href="{{route('user.profile')}}" class="dropdown-item calendar-link">
+                                My P<img src="{{asset('/images/a-img.png')}}" alt="a" class="dropdown-a-img">ge
                             </a>
-                             <a href="" class="dropdown-item">
-                                User Information
+                             <a href="" class="dropdown-item calendar-link">
+                                User Inform<img src="{{asset('/images/a-img.png')}}" alt="a" class="dropdown-a-img">tion
                             </a>
 
                             <hr class="dropdown-divider">
