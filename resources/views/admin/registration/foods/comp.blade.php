@@ -17,7 +17,15 @@
                                 <div class="row">
                                     <div class="col text-end fs-2">{{ $item_names }}</div>
                                     <div class="col text-center fs-2">{{ session('calories')[$index] }} kcal</div>
-                                    <div class="col text-center"><img src="{{ session('images')[$index] }}" alt="Save Image" class="image-sm"></div>
+                                    @if (isset(session('images')[$index]) && session('images')[$index] != null)
+                                        <div class="col text-center">
+                                            <img src="{{ session('images')[$index] }}" alt="Saved Image" class="image-sm">
+                                        </div>
+                                    @else
+                                        <div class="col text-center">
+                                            <p class="my-0 fs-2">Not registered</p>
+                                        </div>
+                                    @endif
                                     <div class="col text-start fs-2">{{ session('amounts')[$index] }} </div>
                                 </div>
                             @endforeach

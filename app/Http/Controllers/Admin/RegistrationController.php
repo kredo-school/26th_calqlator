@@ -41,9 +41,7 @@ class RegistrationController extends Controller
         foreach($request->item_name as $i => $item_name) {
             $food = new Food;
             $food->item_name = $item_name;
-            if (isset($array_images[$i])) {
-                $food->image = $array_images[$i];
-            }
+            $food->image = isset($array_images[$i]) ? $array_images[$i] : null;
             $food->calories = $calories[$i];
             $food->amount = $amounts[$i];
             $food->save();

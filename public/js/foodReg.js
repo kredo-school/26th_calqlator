@@ -26,6 +26,7 @@ function add() {
     input_name.setAttribute('id', 'name_'+count);
     input_name.classList.add('form-control', 'custom-border');
     input_name.setAttribute('placeholder', 'ex) Banana');
+    input_name.setAttribute('required', 'true');
     divCol_name.appendChild(input_name);
 
     let errorName = document.createElement('DIV');
@@ -50,6 +51,21 @@ function add() {
     input_image.setAttribute('id', 'image_'+count);
     input_image.classList.add('form-control');
     divCol_image.appendChild(input_image);
+
+    let text_image = document.createElement('DIV');
+    text_image.setAttribute('id', 'image');
+    text_image.classList.add('form-text', 'text-muted');
+
+    let image_formats = document.createElement('P');
+    image_formats.classList.add('my-0');
+    image_formats.textContent = 'Allowed formats: jpeg, jpg, png, gif.';
+    text_image.appendChild(image_formats);
+
+    let image_size = document.createElement('P');
+    image_size.classList.add('my-0');
+    image_size.textContent = 'Maximum file size is 1048kb.';
+    text_image.appendChild(image_size);
+    divCol_image.appendChild(text_image);
 
     let errorImage = document.createElement('DIV');
     errorImage.classList.add('text-danger', 'small');
@@ -76,6 +92,7 @@ function add() {
     input_calory.setAttribute('id', 'calory_'+count);
     input_calory.classList.add('form-control', 'custom-border', 'w-50');
     input_calory.setAttribute('placeholder', 'ex) 40');
+    input_calory.setAttribute('required', 'true');
     inputGroup_cal.appendChild(input_calory);
 
     let span_cal = document.createElement('SPAN');
@@ -108,6 +125,7 @@ function add() {
     input_amount.classList.add('form-control', 'custom-border');
     input_amount.setAttribute('placeholder', 'ex) 1 per');
     input_amount.setAttribute('aria-describedby', 'amount');
+    input_amount.setAttribute('required', 'true');
     divCol_amount.appendChild(input_amount);
 
     let small_amount = document.createElement('SMALL');
