@@ -7,8 +7,10 @@
         <li class="nav-item">
             <a href="{{route('user.faq')}}" class="nav-link px-2">FAQ</a>
         </li>
-        <li class="nav-item">
-            <a href="{{route('chat.userChat')}}" class="nav-link px-2">Contact</a>
-        </li>
+        @if(Auth::user())
+            <li class="nav-item">
+                <a href="{{route('chat.userChat')}}" class="nav-link px-2 calendar-link">Cont<img src="{{asset('/images/a-img.png')}}" alt="a" class="a-img">ct</a>
+            </li>
+        @endif
     </ul>
 </footer>

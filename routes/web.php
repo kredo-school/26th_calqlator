@@ -24,13 +24,12 @@ use App\Http\Controllers\UserHomeDeleteController;
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Guest & User
 Route::get('/', function () {return view('home');})->name('home');
 Route::post('/find/reset/user', [PasswordResetController::class, 'findResetUser'])->name('find.user.reset.id');
 Route::post('/update/password/{id}', [PasswordResetController::class, 'update'])->name('update.password');
- // User / FAQ
- Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
+// User / FAQ
+Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 
 Route::group(['middleware' => 'auth'], function(){
     // User / Change Email
