@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Weight;
 
 class User extends Authenticatable
 {
@@ -47,4 +48,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function latestWeight() {
+        return $this->hasOne(Weight::class)->latestOfMany();
+      }
+
+    public function OldestWeight() {
+        return $this->hasOne(Weight::class)->oldestOfMany();
+      }
+
+    public function goalWeight() {
+        return $this->hasOne(Weight::class)->goalOfMany();
+    }
+
+    public function weights() {
+        return $this->hasMany(Weight::class);
+      }
 }

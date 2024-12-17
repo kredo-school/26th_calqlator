@@ -1,5 +1,4 @@
-
-fetch('/user/home/carbs/chart')
+fetch(`/user/home/carbs/chart/${date}`)
             .then(response => response.json())
             .then(totalCarbs => {
                 let barColor = 'rgba(75, 192, 192, 0.7)'; 

@@ -1,37 +1,51 @@
 <div class="row border border-2 border-dark rounded-1 bg-white p-0 left-box">
     <div class="row mt-1">
-        <div class="col-4">
-        </div>
-        <div class="col-8 pe-0 border-bottom border-1 border-dark">
-            <a href="" class="fs-5 fw-bold">Condition</a>
-
-            <span> Today's Condition: </span>
-            @if($condition !== null)
-                @if($condition->condition === 1)
-                    <span class="condition-icon" value="smiley1" >😀</span>
-                @elseif($condition->condition === 2)
-                    <span class="condition-icon" value="smiley2" >😏</span>
-                @elseif($condition->condition === 3)
-                    <span class="condition-icon" value="smiley3" >😐</span>
-                @elseif($condition->condition === 4)
-                    <span class="condition-icon" value="smiley4" >😷</span>
-                @elseif($condition->condition === 5)
-                    <span class="condition-icon" value="smiley5" >😴</span>
-                @endif
-            @else
-                <span>No Record</span>
-            @endif
-            <br>
-            <a href="" class="fs-5 fw-bold">Weight Graph</a>
-            <span> Today's weight: 
-                @if($weight)
-                {{rtrim(rtrim(number_format($weight->weight,2), '0'), '.') }}kg
-                @else
-                 - kg
-                @endif
-            </span>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col-auto pe-0">
+                        <a href="" class="fs-5 fw-bold text-center">Condition</a>
+                    </div>
+                    <div class="col text-start align-self-center fw-bold">
+                        <span>  :
+                            @if($condition !== null)
+                                @if($condition->condition === 1)
+                                😀
+                                @elseif($condition->condition === 2)
+                                😏
+                                @elseif($condition->condition === 3)
+                                😐
+                                @elseif($condition->condition === 4)
+                                😷
+                                @elseif($condition->condition === 5)
+                                😴
+                                @endif
+                            @else
+                                No record
+                            @endif
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                    <div class="row">
+                    <div class="col-auto pe-0 align-self-center text-center">
+                        <a href="" class="fs-5 fw-bold">Weight</a>
+                    </div>
+                    <div class="col text-start align-self-center fw-bold">
+                        <span> :
+                            @if($weight)
+                                {{rtrim(rtrim(number_format($weight->weight,2), '0'), '.') }}kg
+                            @else
+                                No record
+                            @endif
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <hr class="m-0 mt-1">
 
         <input type="radio" id="page1" name="page">
         <input type="radio" id="page2" name="page" checked>
@@ -46,12 +60,14 @@
                         <div class="chart-box">
                             <canvas id="caloriesChart"></canvas>
                         </div>
+                        <p class="text-center fw-bold mb-0">Remaining Calories :</p>
                     </div>
                     <div class="mt-3">
                         <h4>Total Workout</h4>
                         <div class="chart-box">
                             <canvas id="workoutChart"></canvas>
                         </div>
+                        <p class="text-center fw-bold mb-0">Remaining Calories :</p>
                     </div>
                 </li>
 
@@ -61,20 +77,24 @@
                         <div class="chart-box">
                             <canvas id="proteinChart"></canvas>
                         </div>
+                        <p class="text-center fw-bold mb-0">Remaining Calories :</p>
                     </div>
-                    <div>
-                        <h4>Carbon</h4>
-                        <div class="chart-box">
-                            <canvas id="carbsChart"></canvas>
-                        </div>
-                    </div>
-
                     <div>
                         <h4>Fat</h4>
                         <div class="chart-box">
                             <canvas id="fatChart"></canvas>
                         </div>
+                        <p class="text-center fw-bold mb-0">Remaining Calories :</p>
                     </div>
+
+                    <div>
+                        <h4>Carbon</h4>
+                        <div class="chart-box">
+                            <canvas id="carbsChart"></canvas>
+                        </div>
+                        <p class="text-center fw-bold mb-0">Remaining Calories :</p>
+                    </div>
+                        
                 </li>
 
                 {{-- <li>

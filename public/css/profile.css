@@ -1,53 +1,103 @@
+.profile-area{
+  background-color: white;
+  border-radius: 10px;
+}
+
 .float-left {
   float: left;
   width: 30%;
-  background-color: white
+  background-color: white;
+  border-radius: 10px 0 0 0;
+}
+
+.img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .float-right {
   float: right;
   width: 70%;
   background-color: white;
+  border-radius: 0 10px 0 0;
 }
 
 .personal-details {
   /* display: flex; */
-  border: 1px solid black;
+  border: 1px solid #f2f5f8;
+  background-color:#f2f5f8;
   border-radius: 10px;
+}
 
 .details {
   width: 100%;
 	table-layout: fixed;
+  font-size: 20px;
+  font-weight: bold;
   } 
 
   .age{
-    font-size:15px;
+    font-size:10px;
+    color: #a1aab9;
   }
   .number1{
     font-weight:500;
   }
   .height{
-      font-size:15px;
+      font-size:10px;
+      color: #a1aab9;
   
   }
   .number2{
     font-weight:500;
   }
   .current-weight{
-      font-size:15px;
+      font-size:10px;
+      color: #a1aab9;
   }
   .number3{
     font-weight:500;
   }
 
   .bmi{
-      font-size:15px;
+      font-size:10px;
+      color: #a1aab9;
   }
   .number4{
     font-weight:500;
   }
+
+.personal-table {
+  background-color:white;
+}
+
+.table {
+  background-color:white;
 }
 
 .text-lg {
   font-size: 1.5rem;
+  background-color:transparent !important;
+}
+
+.progress-btn{
+  background-color: #FFDA8D;
+  border: none;
+  font-weight: bold;
+}
+
+.goal-btn{
+  background-color: #FFDA8D;
+  border: none;
+  font-weight: bold;
+}
+
+tr td{
+  background-color: transparent !important;
+}
+.details th{
+  font-weight: initial;
 }

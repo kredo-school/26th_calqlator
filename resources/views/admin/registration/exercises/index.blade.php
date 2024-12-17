@@ -41,11 +41,11 @@
                 </div>
             </div>
             <div class="w-50">
-                <button type="submit" class="btn btn-save fw-bold mt-5 btn-lg" data-bs-toggle="modal" data-bs-target="#exercise-save">Save</button>
+                <button type="submit" class="btn btn-save fw-bold mt-5 btn-lg">Save</button>
             </div>
         </form>
-
-        @include('admin.registration.modal.complete')
     </div>
+
     <script src="{{ asset('js/exerciseReg.js') }}" defer></script>
+
 @endsection

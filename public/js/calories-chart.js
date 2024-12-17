@@ -1,4 +1,6 @@
-fetch('/user/home/calories/chart')
+const url = window.location.pathname;
+const date = url.split('/').pop(); 
+fetch(`/user/home/calories/chart/${date}`)
             .then(response => response.json())
             .then(totalCalories => {
                 let barColor = 'rgba(75, 192, 192, 0.7)'; 
@@ -15,7 +17,7 @@ fetch('/user/home/calories/chart')
                     borderColor = 'rgba(255, 99, 132, 1)';
                 }
 
-                const ctx = document.getElementById('caloriesChart').getContext('2d');
+                const ctx = document.getElementById('caloriesChart').getContext('2d'); 
                 const caloriesChart = new Chart(ctx, {
                     plugins: [ChartDataLabels],
                     type: 'bar',
