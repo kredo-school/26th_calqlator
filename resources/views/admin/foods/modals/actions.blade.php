@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="modal-footer border-0 justify-content-center p-0 my-3">
-                <form action="{{ route('admin.delete', $food->id)}}" method="post">
+                <form action="{{ route('admin.foods.delete', $food->id)}}" method="post">
                     @csrf 
                     @method('DELETE')
                     <button type="button" data-bs-dismiss="modal" class="btn btn-sm px-4 me-3 cancel-btn">Cancel</button>

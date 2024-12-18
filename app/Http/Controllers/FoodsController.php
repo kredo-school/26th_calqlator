@@ -23,6 +23,7 @@ class FoodsController extends Controller
         $foods = Food::when($search, function ($query, $search) {
             return $query->where('item_name', 'like', "%{$search}%");
         })
+            ->where('status','approved')    
             ->orderBy('id', 'asc')
             ->get();
 
