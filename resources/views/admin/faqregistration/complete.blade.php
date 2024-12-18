@@ -13,7 +13,7 @@
                 </div>
                 <div class="border border-3 border-warning rounded-3 bg-warning-subtle p-3 ms-5 me-5">
                     <div class="text-center">
-                        <p class="h4">The following questions and answers have added</p>
+                        <p class="h5">The following questions and answers have added</p>
                         @foreach($faqs as $faq)
                             <div class="row">
                                 <div class="col-3"></div>
@@ -24,10 +24,9 @@
                         @endforeach
                     </div>
                     <div class="row">
-                        <div class="col-6"></div>
-                        <div class="col text-end">
+                        <div class="col text-center">
                             <a href="{{ route('admin.faqregistration.index')}}">
-                                <button type="button" class="btn btn-secondary btn-sm">
+                                <button type="button" class="btn text-success btn-outline-success px-4">
                                     Back
                                 </button>
                             </a>
