@@ -22,6 +22,7 @@ class ExercisesController extends Controller
        $exercises = Exercise::when($search, function($query, $search) {
             return $query->where('name', 'like', "%{$search}%");
         })
+            ->where('status','approved')
             ->orderBy('id', 'asc')
             ->get();
             
