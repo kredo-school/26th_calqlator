@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\WeightController;
 use App\Http\Controllers\FoodsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ConfirmationController;
@@ -61,6 +62,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/search', [MealController::class, 'search']);
     // User / Everyday Condition
     Route::get('/daily-condition', function () {return view('daily_condition');});
+    // User / Weight
+    Route::get('/user/weight', [WeightController::class, 'weight'])->name('weight');
+    Route::get('/user/weight/chart', [WeightController::class, 'weightChart'])->name('weight.chart');
     // User / ChatPage
     Route::get('/user/chat', [ChatController::class, 'userChat'])->name('chat.userChat');
     Route::post('/user/chat/store', [ChatController::class, 'storeQuestion'])->name('chat.storeQuestion');
