@@ -73,8 +73,10 @@ Route::group(['middleware' => 'auth'], function(){
         // Admin / Food & Exercise Confirmation
         Route::get('/admin/food/confirmation',[ConfirmationController::class, 'food_index'])->name('admin.food.confirmation');
         Route::get('/admin/exercise/confirmation',[ConfirmationController::class, 'exercise_index'])->name('admin.exercise.confirmation');
-        Route::patch('/admin/confirmation/confirm/{id}',[ConfirmationController::class, 'confirm'])->name('admin.confirm');
-        Route::delete('/admin/confirmation/delete/{id}',[ConfirmationController::class, 'delete'])->name('admin.delete');
+        Route::patch('/admin/food/confirmation/confirm/{id}',[ConfirmationController::class, 'foodConfirm'])->name('admin.food.confirm');
+        Route::patch('/admin/exercise/confirmation/confirm/{id}',[ConfirmationController::class, 'exerciseConfirm'])->name('admin.exercise.confirm');
+        Route::delete('/admin/food/confirmation/delete/{id}',[ConfirmationController::class, 'foodDelete'])->name('admin.food.confirmation.delete');
+        Route::delete('/admin/exercise/confirmation/delete/{id}',[ConfirmationController::class, 'exerciseDelete'])->name('admin.exercise.confirmation.delete');
         // Admin / FAQ list
         Route::get('/admin/faqlist/index', [FaqController::class, 'indexlist'])->name('admin.faqlist.index');
         Route::patch('/admin/faqlist/update/{id}',[FaqController::class, 'update'])->name('admin.faqlist.update');
