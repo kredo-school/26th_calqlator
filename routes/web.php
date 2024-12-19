@@ -13,6 +13,7 @@ use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\UserHomePageController;
 use App\Http\Controllers\Admin\HomesController;
 use App\Http\Controllers\Admin\RegistrationController;
+use App\Http\Controllers\ChangeEmailController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChatController;
@@ -23,6 +24,8 @@ use App\Http\Controllers\MealLunchController;
 use App\Http\Controllers\MealDinnerController;
 use App\Http\Controllers\SearchController;
 
+use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\GoalController;
 use App\Http\Controllers\UserHomeDeleteController;
 
 Auth::routes();
@@ -35,15 +38,6 @@ Route::post('/update/password/{id}', [PasswordResetController::class, 'update'])
  Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 
 Route::group(['middleware' => 'auth'], function(){
-    // User / Change Email
-    Route::post('/change-email', [App\Http\Controllers\UserController::class, 'changeEmail'])->name('change-email');
-    // User / Change Password
-    Route::post('/change-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
-    // USER
-    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
-    Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
-    Route::patch('/user/update', [UserController::class, 'update'])->name('user.update');
-    Route::get('/user/{id}/show', [UserController::class, 'show'])->name('user.show');
     // User / Home Page
     Route::get('/user/home/{date}', [UserHomePageController::class, 'index'])->name('user.home');
     Route::delete('/user/breakfast/delete/{id}',[UserHomeDeleteController::class, 'breakfastDelete'])->name('user.breakfast.delete');
@@ -73,6 +67,23 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/user/chat', [ChatController::class, 'userChat'])->name('chat.userChat');
     Route::post('/user/chat/store', [ChatController::class, 'storeQuestion'])->name('chat.storeQuestion');
     Route::get('/user/chat/search',[ChatController::class, 'userSearch'])->name('user.chat.search');
+    // USER / Profile
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::patch('/user/update', [UserController::class, 'update'])->name('user.update');
+    Route::get('/user/{id}/show', [UserController::class, 'show'])->name('user.show');
+    Route::get('/user/weight_change', [UserController::class, 'show'])->name('user.weight_change');
+    // User / Change Email
+    Route::get('/user/{user}/emailchange_show', 'UserController@emailchange_show')->name('emailchange_before');
+    Route::patch('/email/change', [ChangeEmailController::class, 'update'])->name('email.change');
+    // User / Change Password
+    Route::get('/user/{user}/passwordchange_show', 'UserController@passwordchange_show')->name('passwordchange_before');
+    Route::patch('/password/change', [ChangePasswordController::class, 'update'])->name('password.change');
+    // USER / Goal
+    Route::get('/user/goal', [GoalController::class, 'goal'])->name('user.goal');
+    Route::get('/user/goal/edit', [GoalController::class, 'edit'])->name('user.goal.edit');
+    Route::patch('/user/goal/update', [GoalController::class, 'update'])->name('user.goal.update');
+
 
 // User / Calendar
 Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
