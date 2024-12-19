@@ -9,7 +9,7 @@
             <h2>Exercise Confirmation</h2>
 
             <div class="confirmation-table sortable-table">
-                <table class="table text-center mb-0 " id="admin-table">
+                <table class="table text-center mb-0 border border-dark" id="admin-table">
                     <thead class="exercise-confirmation">
                         <tr>
                             <th id="id" class="sortable">ID <span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
@@ -47,7 +47,7 @@
                             <input type="text" name="search" value="{{ $search }}" class="form-control form-control-sm m-0 p-0 w-100" placeholder="search exercises...">
                         </div>
                         <div class="col-auto text-center">
-                            <button type="submit" class="btn btn-sm btn-border border-secondary text-secondary mx-auto">Search</button>
+                            <button type="submit" class="btn btn-sm text-secondary mx-auto"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                 </form>

@@ -13,6 +13,8 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    const ADMIN_ROLE_ID = 1;
+    const USER_ROLE_ID = 2;
     /**
      * The attributes that are mass assignable.
      *
@@ -63,4 +65,14 @@ class User extends Authenticatable
     public function weights() {
         return $this->hasMany(Weight::class);
       }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
 }

@@ -17,7 +17,7 @@ class ExercisesController extends Controller
 
     public function index(Request $request)
     {
-        $search = $request->input('search', '');
+        $search = $request->input('search');
 
        $exercises = Exercise::when($search, function($query, $search) {
             return $query->where('name', 'like', "%{$search}%");
@@ -25,10 +25,7 @@ class ExercisesController extends Controller
             ->orderBy('id', 'asc')
             ->get();
             
-        return view('admin.exercises.exercise_list', [
-            'exercises' => $exercises,
-            'search' => $search,
-        ]);
+        return view('admin.exercises.exercise_list', compact('exercises'));
     }
 
     /**
@@ -36,8 +33,8 @@ class ExercisesController extends Controller
      */
     public function edit($id)
     {
-        $food = Exercise::findOrFail($id);
-        $foods = Exercise::all();
+        $exercise = Exercise::findOrFail($id);
+        $exercises = Exercise::all();
         return view('exercise.edit', compact('exercise', 'exercises'));
     }
 
@@ -45,7 +42,7 @@ class ExercisesController extends Controller
     /**
      * Show confirmation page before updating
      */
-    public function confirmEdit(Request $request, $id)
+    public function exerciseEdit(Request $request, $id)
     {
         $request->validate([
             'id' => 'required|exists:categories,id',
@@ -56,45 +53,44 @@ class ExercisesController extends Controller
         $request->session()->put('temp_data', $request->all());
 
         $exercise = Exercise::findOrFail($id);
-        return view('admin.exercises.confirm-edit', compact('food'));
+        return view('admin.exercises.modals.action', compact('exercise'));
     }
 
     /**
-     * Update the food
+     * Update the exercise
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'id' => 'required|exists:categories,id',
+
+       $validated = $request->validate([
             'name' => 'required|max:255',
-            'calories_per_10min' => 'required|numeric|min:0',
+            'calories' => 'required|numeric|min:0',
         ]);
 
         $exercise = Exercise::findOrFail($id);
         $exercise->update($validated);
 
-        return redirect()->route('admin.exercise.exercise_list')
-            ->with('success', 'Exercise updated successfully');
+        return redirect()->route('admin.exercises.list');
+            
     }
 
     /**
      * Show confirmation page before deleting
      */
-    public function confirmDelete($id)
+    public function exerciseDelete($id)
     {
         $exercise = Exercise::findOrFail($id);
-        return view('admin.exercises.confirm-delete', compact('exercise'));
+        return view('admin.exercises.modals.action', compact('exercise'));
     }
 
     /**
-     * Remove the food
+     * Remove the exercise
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $exercise = Exercise::findOrFail($id);
         $exercise->delete();
 
-        return redirect()->route('admin.exercise.exercise_list')
-             ->with('success', 'Exercise deleted successfully.');
+        return redirect()->route('admin.exercises.list');
     }
 }

@@ -29,6 +29,22 @@ main{
     width: auto;
 }
 
+.calendar-link{
+    display: inline-flex;      
+    align-items: center;      
+    justify-content: flex-start;
+}
+
+.a-img{
+    height: 15px;
+    width: auto;
+}
+
+.dropdown-a-img{
+    height: 12px;
+    width: auto;
+}
+
 .nav-item{
     font-size: large;
 }

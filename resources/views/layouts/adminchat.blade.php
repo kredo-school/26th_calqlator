@@ -116,11 +116,31 @@
 
                         </div>
                     </div>
-                    <div class="col-3 p-0">
+                    <div class="col-auto p-0">
                         <div class="list-group text-center rounded-0">
                             <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }} menu">
                                 <h3 class="m-0">Contact Users</h3>
                             </a>
+                            @foreach ($users as $user)
+                            <div href="" class="@if ($user->id == $selectedUserId) active @endif">
+                                <a href="{{ route('chat.adminChat', ['user_id' => $user->id]) }}" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                                    <div class="row">
+                                        <div class="col-4 text-end">
+                                            <i class="fa-solid fa-circle-user text-secondary icon-sm"></i> 
+                                        </div>
+                                        <div class="col-5 text-start">
+                                            <h4>{{ $user->username }}</h4>
+                                        </div>
+                                        <div class="col-3">
+                                            <button class="btn btn-sm shadow-none" {{--data-bs-toggle="dropdown"--}}>
+                                                <i class="fa-solid fa-ellipsis"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            @endforeach
+                            <!--
                             <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
                                 <div class="row">
                                     <div class="col-4 text-end">
@@ -241,6 +261,7 @@
                                     </div>
                                 </div>
                             </a>
+                            -->
 
 
                         {{--    @foreach (  as $user)

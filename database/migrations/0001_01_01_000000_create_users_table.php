@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->longtext('avatar')->nullable();
             $table->string('email');
-            $table->string('name');
             $table->string('password');
             $table->integer('role_id')->default(2)->comment('1:admin | 2:user');
             $table->timestamps();
