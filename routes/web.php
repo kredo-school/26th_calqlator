@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\WeightController;
 use App\Http\Controllers\FoodsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ConfirmationController;
@@ -55,6 +56,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/search', [MealController::class, 'search']);
     // User / Everyday Condition
     Route::get('/daily-condition', function () {return view('daily_condition');});
+    // User / Weight
+    Route::get('/user/weight', [WeightController::class, 'weight'])->name('weight');
+    Route::get('/user/weight/chart', [WeightController::class, 'weightChart'])->name('weight.chart');
     // User / ChatPage
     Route::get('/user/chat', [ChatController::class, 'userChat'])->name('chat.userChat');
     Route::post('/user/chat/store', [ChatController::class, 'storeQuestion'])->name('chat.storeQuestion');
@@ -84,8 +88,10 @@ Route::group(['middleware' => 'auth'], function(){
         // Admin / Food & Exercise Confirmation
         Route::get('/admin/food/confirmation',[ConfirmationController::class, 'food_index'])->name('admin.food.confirmation');
         Route::get('/admin/exercise/confirmation',[ConfirmationController::class, 'exercise_index'])->name('admin.exercise.confirmation');
-        Route::patch('/admin/confirmation/confirm/{id}',[ConfirmationController::class, 'confirm'])->name('admin.confirm');
-        Route::delete('/admin/confirmation/delete/{id}',[ConfirmationController::class, 'delete'])->name('admin.delete');
+        Route::patch('/admin/food/confirmation/confirm/{id}',[ConfirmationController::class, 'foodConfirm'])->name('admin.food.confirm');
+        Route::patch('/admin/exercise/confirmation/confirm/{id}',[ConfirmationController::class, 'exerciseConfirm'])->name('admin.exercise.confirm');
+        Route::delete('/admin/food/confirmation/delete/{id}',[ConfirmationController::class, 'foodDelete'])->name('admin.food.confirmation.delete');
+        Route::delete('/admin/exercise/confirmation/delete/{id}',[ConfirmationController::class, 'exerciseDelete'])->name('admin.exercise.confirmation.delete');
         // Admin / FAQ list
         Route::get('/admin/faqlist/index', [FaqController::class, 'indexlist'])->name('admin.faqlist.index');
         Route::patch('/admin/faqlist/update/{id}',[FaqController::class, 'update'])->name('admin.faqlist.update');
@@ -93,7 +99,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/admin/faqlist/search',[FaqController::class, 'search'])->name('admin.faqlist.search');
         // Admin / FAQRegistration
         Route::get('/admin/faqregistration/index', [FaqController::class, 'reg_index'])->name('admin.faqregistration.index');
-        Route::get('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
+        Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
         Route::get('/admin/faqregistration/complete', [FaqController::class, 'complete'])->name('admin.faqregistration.complete');
         // Admin / ExerciseRegistration
         Route::group(['prefix' => 'admin/exercise/registration', 'as' => 'admin.exercise.registration.'], function(){

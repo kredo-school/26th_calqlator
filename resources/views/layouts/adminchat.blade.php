@@ -71,28 +71,28 @@
             </div>
         </nav>
 
-        <main class="py-3">
-            <div class="row mx-3">
-                @if (request()->is('admin/home'))
-                    <div class="col">
-                        @yield('content')
-                    </div>
-                @else
+        @if (request()->is('admin/home'))
+            <div class="col">
+                @yield('content')
+            </div>
+        @else
+            <main class="py-3">
+                <div class="row mx-3">
                     <div class="col-auto p-0">
                         <div class="list-group text-center rounded-0">
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }} menu">
+                            <a href="{{route('admin.home')}}" class="list-group-item {{ request()->is('/admin/home*') ? 'active' : '' }} menu">
                                 <h3 class="m-0">Menu Bar</h3>
                             </a>
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                            <a href="{{ route('admin.users.list')}}" class="list-group-item {{ request()->is('/admin/user/list*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-user"></i> User List <i class="fa-solid fa-table-list"></i>
                             </a>
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                            <a href="{{route('admin.foods.food_list')}}" class="list-group-item {{ request()->is('/admin/food/list*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-utensils"></i> Food List <i class="fa-solid fa-table-list"></i>
                             </a>
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                            <a href="{{route('admin.exercises.list')}}" class="list-group-item {{ request()->is('/admin/exercise/list*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-dumbbell"></i> Exercise List <i class="fa-solid fa-table-list"></i>
                             </a>
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                            <a href="{{ route('admin.faqlist.index')}}" class="list-group-item {{ request()->is('/admin/faqlist/index*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-circle-question"></i> FAQ List <i class="fa-solid fa-table-list"></i>
                             </a>
                             <a href="{{ route('admin.food.confirmation')}}" class="list-group-item {{ request()->is('/admin/food/confirmation*') ? 'active' : '' }}">
@@ -101,19 +101,18 @@
                             <a href="{{ route('admin.exercise.confirmation')}}" class="list-group-item {{ request()->is('/admin/exercise/confirmation*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-person-running"></i> Exercise Confirmation <i class="fa-solid fa-square-check"></i>
                             </a>
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                            <a href="{{ route('admin.food.registration.index')}}" class="list-group-item {{ request()->is('/admin/food/registration*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-carrot"></i> Food Registeration <i class="fa-solid fa-square-plus"></i>
                             </a>
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                            <a href="{{ route('admin.exercise.registration.index')}}" class="list-group-item {{ request()->is('admin/exercise/registration*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-person-walking"></i> Exercise Registeration <i class="fa-solid fa-square-plus"></i>
                             </a>
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                            <a href="{{ route('admin.faqregistration.index')}}" class="list-group-item {{ request()->is('/admin/faqregistration/index*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-person-circle-question"></i> FAQ Registeration <i class="fa-solid fa-square-plus"></i>
                             </a>
-                            <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
+                            <a href="{{ route('chat.adminChat')}}" class="list-group-item {{ request()->is('/admin/chat*') ? 'active' : '' }} list-group-item-action">
                                 <i class="fa-solid fa-comments"></i> Chat Page
                             </a>
-
                         </div>
                     </div>
                     <div class="col-auto p-0">
@@ -262,8 +261,8 @@
                                 </div>
                             </a>
                             -->
-
-
+                        
+                        
                         {{--    @foreach (  as $user)
                                 <a href="" class="list-group-item {{ request()->is('') ? 'active' : '' }}">
                                     @if ($user->avatar)
@@ -279,9 +278,9 @@
                     <div class="col-6 p-0">
                         @yield('content')
                     </div>
-                @endif
-            </div>
-        </main>
+                </div>
+            </main>
+        @endif
     </div>
 </body>
 </html>

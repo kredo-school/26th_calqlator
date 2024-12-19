@@ -49,14 +49,22 @@ class ConfirmationController extends Controller
 
     }
 
-    public function confirm($id){
+    public function foodConfirm($id){
         $this->food->where('id', $id)->update(['status' => 'approved']);
+        return redirect()->back();
+    }
+
+    public function exerciseConfirm($id){
         $this->exercise->where('id', $id)->update(['status' => 'approved']);
         return redirect()->back();
     }
 
-    public function delete($id){
+    public function foodDelete($id){
         $this->food->where('id', $id)->delete();
+        return redirect()->back();
+    }
+
+    public function exerciseDelete($id){
         $this->exercise->where('id', $id)->delete();
         return redirect()->back();
     }

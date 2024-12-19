@@ -3,14 +3,14 @@
 @section('title', 'Admin: FAQregistration')
 
 @section('content')
-    <form action="{{ route('admin.faqregistration.store')}}" method="POST">
-        @csrf
-        <div class="row my-3">
-            <div class="col-2"></div>
-            <div class="col-2 fw-bold mt-2">
-                FAQ Registration
+<form action="{{ route('admin.faqregistration.store')}}" method="POST">
+    @csrf
+    <div class="container mt-5 w-75">
+        <div class="row">
+            <div class="col-auto mb-2">
+                <h3 class="mb-0 fw-bold">FAQ Registration</h3>
             </div>
-            <div class="col-1">
+            <div class="col px-0">
                 <button type="button" id="add-faq" class="btn btn-outline-0 btn-lg">
                     <i class="fa-solid fa-circle-plus text-danger"></i>
                 </button>
@@ -41,6 +41,7 @@
                 </div>
             </div>
         </div>
-    </form>
-    <script src="{{ asset('js/faqregistrationPlus.js')}}"></script>
+    </div>
+</form>
+<script src="{{ asset('js/faqregistrationPlus.js')}}"></script>
 @endsection

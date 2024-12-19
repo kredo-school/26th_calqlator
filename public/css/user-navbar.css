@@ -38,6 +38,7 @@ main{
 .a-img{
     height: 15px;
     width: auto;
+    margin-top:2px;
 }
 
 .dropdown-a-img{
@@ -78,15 +79,15 @@ footer {
     z-index: 1000; 
 }
 @media (min-width: 768px) {
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background-color: #C9E2AC;
-    border-bottom: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    height: 70px;
-}
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: #C9E2AC;
+        border-bottom: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        height: 70px;
+    }
 }
 @media (max-width: 768px) {
     .navbar {
