@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <p>Are you sure you want to edit?</p>
                 <table class="table align-middle text-secondary">
-                    <thead class="small table-success text-secondary">
+                    <thead class="small table-success text-secondary faqlistEdit">
                         <tr>
                             <th>ID</th>
                             <th>Questions</th>
@@ -52,7 +52,7 @@
             <div class="modal-body">
                 <p>Are you sure you want to delete?</p>
                 <table class="table align-middle text-secondary">
-                    <thead class="small table-danger text-secondary">
+                    <thead class="small table-danger text-secondary faqlistCancel">
                         <tr>
                             <th>ID</th>
                             <th>Questions</th>

@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/admin/faqlist/search',[FaqController::class, 'search'])->name('admin.faqlist.search');
         // Admin / FAQRegistration
         Route::get('/admin/faqregistration/index', [FaqController::class, 'reg_index'])->name('admin.faqregistration.index');
-        Route::get('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
+        Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
         Route::get('/admin/faqregistration/complete', [FaqController::class, 'complete'])->name('admin.faqregistration.complete');
         // Admin / ExerciseRegistration
         Route::group(['prefix' => 'admin/exercise/registration', 'as' => 'admin.exercise.registration.'], function(){

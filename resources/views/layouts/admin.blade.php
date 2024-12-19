@@ -24,7 +24,9 @@
     <link rel="stylesheet" href="{{ asset('css/exerciseReg.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/userlist.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/foodlist.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin/exerciselist.css') }}">    <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/exerciselist.css') }}">    
+    <link rel="stylesheet" href="{{ asset('css/chatpage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/faqlist.css') }}">
 
     <script src="{{asset('js/fontawesome.js')}}" crossorigin="anonymous"></script>
 </head>
