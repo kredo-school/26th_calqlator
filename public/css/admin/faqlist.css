@@ -1,0 +1,36 @@
+.faqlist {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
+    background-color: #fffcf7;
+}
+
+.faqlist th, .faqlist td {
+    padding: 10px;
+    text-align: center;
+}
+
+.faqlist th {
+    background-color: #6495ed;
+    color: black;
+    vertical-align: middle;
+    border-bottom: 1px solid black;
+}
+
+.faqlistEdit th {
+    background-color: #48b13a;
+}
+
+.faqlistCancel th {
+    background-color: #f67373;
+}
+
+.faqlist td {
+    border-bottom: 1px solid black;
+}
+
+.cancel-btn {
+    background-color: #babebf;
+    color: #ffffff;
+}
+

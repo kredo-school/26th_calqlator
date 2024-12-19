@@ -1,6 +1,6 @@
 {{-- Edit --}}
 <div class="modal fade" id="edit-food{{ $food->id }}">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 50%;">
         <div class="modal-content text-dark text-start">
             <div class="modal-header border-0 pb-0 pt-3 px-5">
                 <h3 class="h4">Edit the Food</h3>
@@ -8,10 +8,10 @@
             <div class="modal-body px-5 py-0">
                 <p class="mb-0">Are you sure you want to edit?</p>
 
-                {{-- Confirmation table --}}
-                <div class="confirmation-table mb-4">
-                    <table class="table table-borderless text-center text-dark mb-0">
-                        <thead>
+                {{-- edit table --}}
+                <div class="m-1 edit-table">
+                    <table class="table text-center text-dark mb-0">
+                        <thead class="food-edit">
                             <tr>
                                 <th>Name</th>
                                 <th>Calory</th>
@@ -20,51 +20,37 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{{ $food->name }}</td>
-                                <td>{{ $food->calory }}</td>
-                                <td>{{ $food->amount }}</td>
+                                <td>
+                                    <form action="{{ route('admin.foods.update', $food->id) }}" method="post">
+                                        @csrf
+                                        @method('PATCH')
+                                    <input type="text" name="item_name" class="form-control" value="{{ old('item_name', $food->item_name) }}" required>
+                                </td>
+                                <td>
+                                    <input type="text" name="calories" class="form-control" value="{{ old('calories', $food->calories) }}" required>
+                                </td>
+                                <td>
+                                    <input type="text" name="amount" class="form-control" value="{{ old('amount', $food->amount) }}" required>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
-                {{-- Edit Form --}}
-                <form action="{{ route('admin.foods.update', $food->id) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-
-                    <div class="form-group mb-3">
-                        <input type="text" name="name" id="name" value="{{ $food->name }}" class="form-control" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <input type="number" name="calory" id="calory" value="{{ $food->calory }}" class="form-control" required>
-                    </div>
-                    <div class="form-group mb-3">
-                        <div class="input-group">
-                            <input type="number" name="amount" id="amount" value="{{ $food->amount }}" class="form-control" required>
-                            <select name="unit" id="unit" class="form-select" required>
-                                <option value="g" {{ $food->unit === 'g' ? 'selected' : '' }}>g</option>
-                                <option value="ml" {{ $food->unit === 'ml' ? 'selected' : '' }}>ml</option>
-                                <option value="quantity" {{ $food->unit === 'quantity' ? 'selected' : '' }}>quantity</option>
-                                <option value="one meal" {{ $food->unit === 'one meal' ? 'selected' : '' }}>one meal</option>
-                            </select>
-                        </div>
-                    
-
-                    <div class="modal-footer border-0 justify-content-center p-0 my-3">
-                        <button type="button" data-bs-dismiss="modal" class="btn btn-sm px-4 me-3 cancel-btn">Cancel"></button>
-                        <button type="submit" class="btn btn-sm px-4 edit-btn"><i class="fa-solid fa-circle-check"></i> Update</button>
-                    </div>
+            </div>
+            <div class="modal-footer border-0 justify-content-center p-0 my-3">
+               
+                     <button type="button" data-bs-dismiss="modal" class="btn btn-sm px-4 me-3 cancel-btn" style="width: 120px;">Cancel</button>
+                     <button type="submit" class="btn btn-sm px-4 edit-btn" style="width: 120px;" value="{{ $food->item_name }}"><i class="fa-solid fa-circle-check"></i> Edit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-</div>
+
 
 {{-- DELETE --}}
 <div class="modal fade" id="delete-food{{ $food->id }}">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 50%;">
         <div class="modal-content text-dark text-start">
             <div class="modal-header border-0 pb-0 pt-3 px-5">
                 <h3 class="h4">Delete Food</h3>
@@ -74,7 +60,7 @@
 
                 <div class="m-1 delete-table" >
                     <table class="table table-borderless text-center text-dark mb-0">
-                        <thead>
+                        <thead class="food-delete">
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
@@ -85,7 +71,7 @@
                         <tbody>
                             <tr>
                                 <td>{{ $food->id }}</td>
-                                <td>{{ $food->name }}</td>
+                                <td>{{ $food->item_name }}</td>
                                 <td>{{ $food->calories }}</td>
                                 <td>{{ $food->amount }}</td>
                             </tr>
@@ -94,7 +80,7 @@
                 </div>
             </div>
             <div class="modal-footer border-0 justify-content-center p-0 my-3">
-                <form action="{{ route('admin.delete', $food->id)}}" method="post">
+                <form action="{{ route('admin.foods.delete', $food->id)}}" method="post">
                     @csrf 
                     @method('DELETE')
                     <button type="button" data-bs-dismiss="modal" class="btn btn-sm px-4 me-3 cancel-btn">Cancel</button>

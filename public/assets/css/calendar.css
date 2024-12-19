@@ -1,16 +1,16 @@
 body{
     background-color:#FFFCF7;
-    font-family: 'Poppins';
+    font-family: 'Noto Sans JP', sans-serif;
     width: 100vw;
     padding: 0;
     margin: 0;
     justify-content: center;
 }
 main{
-    display: flex;
     justify-content: center;
     align-items: center;
 }
+
 /* left bar */
 .menu-area{
     display: flex;
@@ -190,6 +190,10 @@ td.today{
 }
 
 @media (min-width: 768px) {
+.all-area{
+    margin-top: -130px;
+}
+
 .menu-area{
     width: 20%;
     justify-content: end;

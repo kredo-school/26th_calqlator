@@ -1,0 +1,70 @@
+.exerciselist {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
+    background-color: #fffcf7;
+}
+
+.exerciselist th , .exerciselist td {
+    padding: 10px;
+    text-align: center;
+     
+ }
+
+.exerciselist th {
+    background-color: #ffa488;
+    color: black;
+    vertical-align: middle;
+    border-bottom: 1px solid black;
+}
+
+.exerciselist td {
+    border-bottom: 1px solid black;
+}
+
+.cancel-btn {
+    background-color: #babebf;
+    color: #ffffff;
+}
+
+.edit-btn {
+    background-color: #71b668;
+    color: #ffffff;
+}
+
+.edit-table {
+    border: 1px solid black;
+}
+
+.edit-table thead {
+    border-bottom:2px solid black;
+}
+
+.exercise-edit {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
+    background-color: #fffcf7;
+}
+
+.exercise-edit th, .exercise-edit td {
+    padding: 10px;
+    text-align: center;
+}
+
+.exercise-edit th {
+    background-color: #48b13a;
+    border-bottom: 1px solid black;
+}
+
+.exercise-delete th {
+    background-color: #f67373;
+}
+
+.delete-table {
+    border: 1px solid black;
+}
+
+.delete-table thead {
+    border-bottom:2px solid black;
+}

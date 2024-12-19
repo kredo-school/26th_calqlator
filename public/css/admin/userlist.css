@@ -1,13 +1,23 @@
 .userlist {
-    margin-left: 250px;
-    margin-top: 60px;
-    padding: 20px;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
     background-color: #fffcf7;
-    min-height: calc(100vh - 60px);
+}
+
+.userlist th, .userlist td {
+    padding: 10px;
+    text-align: center;
 }
 
 .userlist th {
     background-color: #c9e2ac;
     color: black;
     vertical-align: middle;
+    border-bottom: 1px solid black;
 }
+
+.userlist td {
+    border-bottom: 1px solid black;
+}
+

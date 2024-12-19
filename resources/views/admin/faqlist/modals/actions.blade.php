@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <p>Are you sure you want to edit?</p>
                 <table class="table align-middle text-secondary">
-                    <thead class="small table-success text-secondary">
+                    <thead class="small table-success text-secondary faqlistEdit">
                         <tr>
                             <th>ID</th>
                             <th>Questions</th>
@@ -30,7 +30,7 @@
                 <form action="{{ route('admin.faqlist.update', $faq->id) }}" method="post">
                     @csrf
                     @method('PATCH')
-                    <button type="button" class="btn btn-secondary btn-sm">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
                         Cancel
                     </button>
                     <button type="submit" class="btn btn-success btn-sm"><i class="fa-solid fa-circle-check text-white"></i>Edit</button>
@@ -52,7 +52,7 @@
             <div class="modal-body">
                 <p>Are you sure you want to delete?</p>
                 <table class="table align-middle text-secondary">
-                    <thead class="small table-danger text-secondary">
+                    <thead class="small table-danger text-secondary faqlistCancel">
                         <tr>
                             <th>ID</th>
                             <th>Questions</th>
@@ -72,7 +72,9 @@
                 <form action="{{ route('admin.faqlist.delete', $faq->id) }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button type="button" class="btn btn-secondary btn-sm text-white">Cancel</button>
+                    <button type="button" class="btn btn-secondary btn-sm text-white" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
                     <button type="submit" class="btn btn-danger btn-sm text-white"><i class="fa-solid fa-circle-check text-white"></i>Delete</button>
                 </form>
             </div>

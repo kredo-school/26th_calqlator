@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_users', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('questions', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->nullable()->change(); 
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin_users');
+        Schema::table('questions', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->nullable(false)->change(); 
+        });
     }
 };

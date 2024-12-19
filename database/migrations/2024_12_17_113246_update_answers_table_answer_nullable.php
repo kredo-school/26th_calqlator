@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-      Schema::table('users', function (Blueprint $table) {
-        $table->datetime('date_of_birth')->nullable()->after('name');          // 構文
-        $table->string('gender', 10)->nullable()->after('date_of_birth');     // 例
-    });
-
+        Schema::table('answers', function (Blueprint $table) {
+            $table->string('answer')->nullable()->change(); 
+        });
     }
 
     /**
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-
+        Schema::table('answers', function (Blueprint $table) {
+            $table->string('answer')->nullable(false)->change(); 
+        });
     }
 };

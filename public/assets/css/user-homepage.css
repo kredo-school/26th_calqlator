@@ -1,6 +1,6 @@
 body{
     background-color:#FFFCF7;
-    font-family: 'Poppins';
+    font-family: 'Noto Sans JP', sans-serif;
     width: 100vw;
     height: 100vh;
     padding: 0;
@@ -85,7 +85,6 @@ body{
 
     .character-img{
         width: 100%;
-        float: right;
     }
 
     .right-side{
@@ -299,15 +298,14 @@ nav{
     position: relative;
     width: 100%; 
     max-width: 100%;
-    height: auto;
+    height: 120px;
     padding: 0px;
     margin: 0px;
 }
 
 canvas {
     width: 100% !important;   
-    height: 70px ;  
-    margin-left: 30px;
+    height: 60px ;  
     overflow:auto;
 }
 
