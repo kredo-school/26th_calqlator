@@ -43,7 +43,7 @@ body {
 }
 
 .chat-messages {
-    width: 60%;
+    width: 90%;
     margin: 0 auto;
     flex: 1;
     padding: 1rem;
@@ -55,7 +55,7 @@ body {
 
 .message {
     margin-bottom: 1rem;
-    max-width: 70%;
+    max-width: 90%;
     padding: 0.8rem;
     border-radius: 1rem;
     line-height: 1.4;
@@ -75,7 +75,7 @@ body {
     align-self: flex-start;
     background-color: #dcf8c6;
     border-top-left-radius: 0;
-    margin-left: 4rem;
+    margin-left: 2rem;
     padding-bottom: 0;
 }
 
