@@ -4,12 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMealsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -22,17 +20,16 @@ class CreateMealsTable extends Migration
             $table->integer('protein')->nullable();
             $table->integer('carbohydrate')->nullable();
             $table->integer('lipid')->nullable();
+            $table->date('date')->default(DB::raw('CURRENT_DATE'));
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
         Schema::dropIfExists('meals');
     }
-}
+};

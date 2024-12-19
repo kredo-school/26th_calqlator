@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Meal Registration lunch</title>
+  <title>Meal Registration Lunch</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ asset('/css/meal.style.css') }}">
@@ -14,7 +14,7 @@
     <div class="underline-container">
       <h2 class="underline text-left">Meal Registration Lunch</h2>
     </div>
-    <form id="mealForm" action="{{ route('meals.store') }}" method="POST">
+    <form id="mealForm" action="{{ route('meals.store.lunch') }}" method="POST">
       @csrf
       <table class="table table-bordered" id="mealTable">
           <thead>
@@ -26,11 +26,12 @@
                   <th>Protein</th>
                   <th>Carbohydrate</th>
                   <th>Lipid</th>
+                  <th>Date</th>
               </tr>
           </thead>
           <tbody>
               <tr>
-                  <td colspan="7" class="text-center">No food registered</td>
+                  <td colspan="8" class="text-center">No food registered</td>
               </tr>
           </tbody>
       </table>
@@ -45,7 +46,6 @@
     </div>
     <form id="searchForm" action="{{ route('meals.search') }}" method="POST" class="d-flex justify-content-center">
       @csrf
-      @method('PUT')
       <div class="form-group">
         <input type="text" class="form-control w-80" name="query" placeholder="Search...">
       </div>
@@ -119,6 +119,11 @@
                 <label for="lipid">Lipid</label>
                 <input type="number" class="mborder form-control" id="lipid" name="lipid" placeholder="50 kcal" required>
               </div>
+              <div class="form-group col-md-6">
+                 <label for="date">Date</label>
+                 <input type="date" class="mborder form-control" id="date" name="date" required>
+              </div>
+
             </div>
             <button type="button" class="btn btn-outline-primary" id="addFoodButton">ADD</button>
           </form>
@@ -143,21 +148,23 @@
       const protein = document.getElementById('protein').value;
       const carbohydrate = document.getElementById('carbohydrate').value;
       const lipid = document.getElementById('lipid').value;
+      const date = document.getElementById('date').value;
 
       const newRow = `
         <tr>
-          <td>${item}</td>
-          <td>${calories} kcal</td>
-          <td><input type="text" name="amount" value="${amount}" class="form-control"></td>
-          <td><input type="time" name="time_eaten" value="${timeEaten}" class="form-control"></td>
-          <td><input type="number" name="protein" value="${protein}" class="form-control"></td>
-          <td><input type="number" name="carbohydrate" value="${carbohydrate}" class="form-control"></td>
-          <td><input type="number" name="lipid" value="${lipid}" class="form-control"></td>
+          <td><input type="hidden" name="item[]" value="${item}">${item}</td>
+          <td><input type="hidden" name="calories[]" value="${calories}">${calories}</td>
+          <td><input type="text" name="amount[]" value="${amount}" class="form-control"></td>
+          <td><input type="time" name="time_eaten[]" value="${timeEaten}" class="form-control"></td>
+          <td><input type="number" name="protein[]" value="${protein}" class="form-control"></td>
+          <td><input type="number" name="carbohydrate[]" value="${carbohydrate}" class="form-control"></td>
+          <td><input type="number" name="lipid[]" value="${lipid}" class="form-control"></td>
+          <td><input type="date" name="date[]" value="${date}" class="form-control"></td>
         </tr>
       `;
 
       const mealTableBody = document.querySelector('#mealTable tbody');
-      if (mealTableBody.querySelector('tr td[colspan="7"]')) {
+      if (mealTableBody.querySelector('tr td[colspan="8"]')) {
         mealTableBody.innerHTML = ''; // "No food registered" をクリア
       }
       mealTableBody.insertAdjacentHTML('beforeend', newRow);
@@ -193,22 +200,25 @@
             const item = this.getAttribute('data-item');
             const calories = this.getAttribute('data-calories');
             const amount = this.getAttribute('data-amount');
+            const date = this.getAttribute('data-date');
 
             // 上の表に追加
             const newRow = `
               <tr>
                 <td>${item}</td>
-                <td>${calories} kcal</td>
-                <td><input type="text" name="amount" value="${amount}" class="form-control"></td>
-                <td><input type="time" name="time_eaten" value="" class="form-control"></td>
-                <td><input type="number" name="protein" value="" class="form-control"></td>
-                <td><input type="number" name="carbohydrate" value="" class="form-control"></td>
-                <td><input type="number" name="lipid" value="" class="form-control"></td>
+                <td><input type="hidden" name="calories[]" value="${calories}" class="form-control">${calories} kcal</td>
+                <td><input type="text" name="amount[]" value="${amount}" class="form-control"></td>
+                <td><input type="time" name="time_eaten[]" value="" class="form-control"></td>
+                <td><input type="number" name="protein[]" value="" class="form-control"></td>
+                <td><input type="number" name="carbohydrate[]" value="" class="form-control"></td>
+                <td><input type="number" name="lipid[]" value="" class="form-control"></td>
+                <td><input type="date" name="date[]" value="${date}" class="form-control"></td>
               </tr>
             `;
 
             const mealTableBody = document.querySelector('#mealTable tbody');
-            if (mealTableBody.querySelector('tr td[colspan="7"]')) {
+
+            if (mealTableBody.querySelector('tr td[colspan="8"]')) {
               mealTableBody.innerHTML = ''; // "No food registered" をクリア
             }
             mealTableBody.insertAdjacentHTML('beforeend', newRow);
@@ -216,39 +226,74 @@
         });
       });
 
-      document.getElementById('mealForm').addEventListener('submit', function(event) {
-    //event.preventDefault();
+      
 
-    const formData = new FormData(this);
-    const totalCalories = calculateTotalCalories();
-    formData.append('totalCalories', totalCalories);
 
-    fetch(this.action, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: formData,
-    }).then(response => {
-        if (!response.ok) {
-            return response.text().then(text => { throw new Error(text); });
-        }
-        return response.json();
-    })
-    .then(data => {
-       console.log(data);//サーバーからのレスポンスをログに出力
-        if (data.success) {
-            alert('Meal updated successfully.');
-            window.location.href = "{{ route('meals.confirmation_lunch') }}?totalCalories=" + totalCalories;
-        } else {
-          alert('Failed to update meal: ' + data.message); // エラーメッセージを表示
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);// ネットワークエラーやその他のエラーをログに出力
-        alert('An error occurred while updating the meal.');
-    });
-});
+//       document.getElementById('mealForm').addEventListener('submit', function(event) {
+//     event.preventDefault(); // フォームのデフォルト送信を防ぐ
+
+//     const formData = new FormData(this);
+//     const totalCalories = calculateTotalCalories(); // 総カロリーを計算
+//     formData.append('totalCalories', totalCalories); // 総カロリーを追加
+
+//     fetch(this.action, {
+//         method: 'POST',
+//         headers: {
+//             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+//         },
+//         body: formData, // フォームデータを送信
+//     }).then(response => {
+//         if (!response.ok) {
+//             return response.text().then(text => { throw new Error(text); });
+//         }
+//         return response.json(); // サーバーからのレスポンスをJSONとして解析
+//     }).then(data => {
+//         if (data.success) {
+//             // 登録が成功した場合、confirmation_lunchページへリダイレクト
+//             window.location.href = "{{ route('meals.confirmation_lunch') }}?totalCalories=" + totalCalories;
+//         } else {
+//             alert('Failed to save meal: ' + data.message);
+//         }
+//     }).catch(error => {
+//         console.error('Error:', error);
+//         alert('An error occurred while saving the meal.');
+//     });
+// });
+
+
+//       document.getElementById('mealForm').addEventListener('submit', function(event) {
+//     event.preventDefault();
+
+//     const formData = new FormData(this);
+//     const totalCalories = calculateTotalCalories();
+//     formData.append('totalCalories', totalCalories);
+
+//     fetch(this.action, {
+//         method: 'POST',
+//         headers: {
+//             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+//         },
+//         body: formData,
+//     }).then(response => {
+//         if (!response.ok) {
+//             return response.text().then(text => { throw new Error(text); });
+//         }
+//         return response.json();
+//     })
+//     .then(data => {
+//        console.log(data);//サーバーからのレスポンスをログに出力
+//         if (data.success) {
+//             alert('Meal updated successfully.');
+//             window.location.href = "{{ route('meals.confirmation_lunch') }}?totalCalories=" + totalCalories;
+//         } else {
+//           alert('Failed to update meal: ' + data.message); // エラーメッセージを表示
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);// ネットワークエラーやその他のエラーをログに出力
+//         alert('An error occurred while updating the meal.');
+//     });
+// });
 
 function calculateTotalCalories() {
     let totalCalories = 0;
@@ -311,6 +356,7 @@ function calculateTotalCalories() {
               const protein = this.getAttribute('data-protein');
               const carbohydrate = this.getAttribute('data-carbohydrate');
               const lipid = this.getAttribute('data-lipid');
+              const date = this.getAttribute('data-date');
 
               // 上の表に追加
               const newRow = `
@@ -322,11 +368,12 @@ function calculateTotalCalories() {
                   <td><input type="number" name="protein" value="${protein}" class="form-control"></td>
                   <td><input type="number" name="carbohydrate" value="${carbohydrate}" class="form-control"></td>
                   <td><input type="number" name="lipid" value="${lipid}" class="form-control"></td>
+                  <td><input type="date" name="date[]" value="${date}" class="form-control"></td>
                 </tr>
               `;
 
               const mealTableBody = document.querySelector('#mealTable tbody');
-              if (mealTableBody.querySelector('tr td[colspan="7"]')) {
+              if (mealTableBody.querySelector('tr td[colspan="8"]')) {
                 mealTableBody.innerHTML = ''; // "No food registered" をクリア
               }
               mealTableBody.insertAdjacentHTML('beforeend', newRow);

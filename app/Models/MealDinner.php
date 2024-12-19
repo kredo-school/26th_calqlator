@@ -19,5 +19,8 @@ class MealDinner extends Model
         'protein',
         'carbohydrate',
         'lipid',
+        'date',
     ];
+
+    protected $casts = [ 'time_eaten' => 'datetime', ];
 }

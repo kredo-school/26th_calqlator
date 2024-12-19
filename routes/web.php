@@ -69,7 +69,7 @@ Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
 Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
 //User / Meal Registration
 Route::get('/meals/index', [MealController::class, 'index'])->name('meals.index');
-Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
+Route::post('/meals/store', [MealController::class, 'store'])->name('meals.store');
 Route::put('/meals/search', [MealController::class, 'search'])->name('meals.search');
 Route::get('/meals/history', [MealController::class, 'history'])->name('meals.history');
 Route::get('/meals/{id}/edit', [MealController::class, 'edit'])->name('meals.edit');
@@ -77,7 +77,7 @@ Route::put('/meals/{id}', [MealController::class, 'update'])->name('meals.update
 Route::get('/meals/confirmation_morning', [MealController::class, 'confirmationMorning'])->name('meals.confirmation_morning');
 // User/ Meal Registration lunch
 Route::get('/meals/index_lunch', [MealLunchController::class, 'index'])->name('meals.index_lunch');
-Route::post('/meals', [MealLunchController::class, 'store'])->name('meals.store');
+Route::post('/meals/lunch/store', [MealLunchController::class, 'storeLunch'])->name('meals.store.lunch');
 Route::put('/meals/search', [MealLunchController::class, 'search'])->name('meals.search');
 Route::get('/meals/history', [MealLunchController::class, 'history'])->name('meals.history');
 Route::get('/meals/{id}/edit', [MealLunchController::class, 'edit'])->name('meals.edit');
@@ -85,12 +85,13 @@ Route::put('/meals/{id}', [MealLunchController::class, 'update'])->name('meals.u
 Route::get('/meals/confirmation_lunch', [MealLunchController::class, 'confirmationLunch'])->name('meals.confirmation_lunch');
 // User/ Meal Registration dinner
 Route::get('/meals/index_dinner', [MealDinnerController::class, 'index'])->name('meals.index_dinner');
-Route::post('/meals', [MealDinnerController::class, 'store'])->name('meals.store');
+Route::post('/meals/dinner/store', [MealDinnerController::class, 'storeDinner'])->name('meals.store.dinner');
 Route::put('/meals/search', [MealDinnerController::class, 'search'])->name('meals.search');
 Route::get('/meals/history', [MealDinnerController::class, 'history'])->name('meals.history');
 Route::get('/meals/{id}/edit', [MealDinnerController::class, 'edit'])->name('meals.edit');
 Route::put('/meals/{id}', [MealDinnerController::class, 'update'])->name('meals.update');
 Route::get('/meals/confirmation_dinner', [MealDinnerController::class, 'confirmationDinner'])->name('meals.confirmation_dinner');
+
 
 
 
