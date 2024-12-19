@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Answer extends Model
 {
     protected $fillable = ['user_id', 'answer', 'created_at', 'updated_at'];
-    public $timestamps = false; 
 
     public function questions()
     {
