@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Meal extends Model
+class MealLunch extends Model
 {
     use HasFactory;
 
-    protected $table = 'meals'; // テーブル名を明示的に指定
+    protected $table = 'meals_lunch'; // テーブル名を明示的に指定
 
     protected $fillable = [
         'item',
