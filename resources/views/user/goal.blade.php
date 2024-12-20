@@ -88,37 +88,50 @@
                               @enderror
                             </div>
                         </div>
-
-                        <div class="row align-items-center mt-5">
-                            <label for="update_weight" class="col-5 h5 text-md-start">{{ __("What's your current weight (kg) ?") }}</label><br>
-                              <div class="col-3">
-                                <div class="form-group">
-                                  <input type="number" name="latest_weight" id="latest_weight" value="{{ old('weight', $latest_weight) }}" min="30"  max="250" step="0.1" class="form-control form-select-lg">
-                                  @error('update_weight')
-                                    <p class="mb-0 text-danger small">{{ $message }}</p>
-                                  @enderror
+                        <div class="d-flex align-items-center container mt-5">
+                          <div class="col-5 d-flex align-items-center">
+                              <label for="update_weight" class="col-5 h5 text-md-start">{{ __("What's your current weight (kg) ?") }}</label><br>
+                                <div class="col-4">
+                                  <div class="form-group">
+                                    <input type="number" name="latest_weight" id="latest_weight" value="{{ old('weight', $latest_weight) }}" min="30"  max="250" step="0.1" class="form-control form-select-lg">
+                                    @error('update_weight')
+                                      <p class="mb-0 text-danger small">{{ $message }}</p>
+                                    @enderror
+                                  </div>
                                 </div>
-                              </div>
+                          </div>
+                          <div class="col-3 h5 ms-4">
+                            <p>Current BMI = <span class="fw-bold"> {{ $bmi }} </span>
+                            </p>
+                          </div>
 
-                              <div class="col-md-3 h5 ms-4">
-                                <p>Current BMI = {{ $bmi }} </p>
-                              </div>
+                          <div class="col-4 col h5 ms-4">
+                            <p>Current BMI Judge= <span class="fw-bold"> {{ $bmi_judgement }} </span>
+                            </p>
+                          </div>
                         </div>
 
-                        <div class="row align-items-center mt-4">
-                            <label for="goal_weight" class="col-5 h5 text-md-start">{{ __("What's your goal weight (kg) ?") }} </label>
-                              <div class="col-3">
-                                <div class="form-group">
-                                  <input type="number" name="goal_weight" id="goal_weight" value="{{ $user_information->goal_weight }}" min="30"  max="250" step="0.1" class="form-control form-select-lg">
-                                  @error('goal_weight')
-                                    <p class="mb-0 text-danger small">{{ $message }}</p>
-                                  @enderror
+                        <div class="d-flex align-items-center container mt-5">
+                          <div class="col-5 d-flex align-items-center">
+                              <label for="goal_weight" class="col-5 h5 text-md-start">{{ __("What's your goal weight (kg) ?") }}</label><br>
+                                <div class="col-4">
+                                  <div class="form-group">
+                                    <input type="number" name="goal_weight" id="goal_weight" value="{{ $user_information->goal_weight }}" min="30"  max="250" step="0.1" class="form-control form-select-lg">
+                                    @error('goal_weight')
+                                      <p class="mb-0 text-danger small">{{ $message }}</p>
+                                    @enderror
+                                  </div>
                                 </div>
-                              </div>
+                          </div>
+                          <div class="col-3 h5 ms-4">
+                            <p>Goal BMI = <span class="fw-bold"> {{ $goal_bmi }} </span>
+                            </p>
+                          </div>
 
-                              <div class="col-md-3 h5 ms-4">
-                                <p>Goal BMI = {{ $goal_bmi }} </p>
-                              </div>
+                          <div class="col-4 col h5 ms-4">
+                            <p>Goal BMI Judge= <span class="fw-bold"> {{ $goal_bmi_judgement }} </span>
+                            </p>
+                          </div>
                         </div>
 
                         <div class="row align-items-center mt-5">

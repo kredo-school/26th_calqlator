@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/profile-edit.css') }}">
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row justify-content-center profile-area">
             <div class="float-left">
                 <div class="d-flex flex-column align-items-center m-5">
@@ -60,7 +60,7 @@
                         </td>
                         <td style="border: none;">
                         <div class="col-md-7 offset-md-1">
-                            <a href="{{ route('user.goal')}}" class="btn progress-btn fw-bold btn-lg px-5 py-2">Progress</a>
+                            <a href="{{ route('weight')}}" class="btn progress-btn fw-bold btn-lg px-5 py-2">Progress</a>
                         </div>
                         </td>
                     </tr>
