@@ -23,7 +23,7 @@ use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\MealLunchController;
 use App\Http\Controllers\MealDinnerController;
 use App\Http\Controllers\SearchController;
-
+use App\Http\Controllers\EverydayConditionController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\UserHomeDeleteController;
@@ -59,7 +59,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
     Route::get('/search', [MealController::class, 'search']);
     // User / Everyday Condition
-    Route::get('/daily-condition', function () {return view('daily_condition');});
+    Route::get('/daily-condition/{date}',[EverydayConditionController::class, 'index'])->name('daily.condition');
+    Route::post('/daily-condition/store/{date}', [EverydayConditionController::class, 'store'])->name('condition.store');
     // User / Weight
     Route::get('/user/weight', [WeightController::class, 'weight'])->name('weight');
     Route::get('/user/weight/chart', [WeightController::class, 'weightChart'])->name('weight.chart');
