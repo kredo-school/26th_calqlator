@@ -60,7 +60,7 @@
                                    Menu 
                             </a>
     
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                  <a href="{{route('user.home',$date=now()->format('Y-m-d'))}}" class="dropdown-item">
                                     Home
                                 </a>
