@@ -7,57 +7,57 @@
 @endpush
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-5 w-50">
     <h1 class="mt-5">Every day Condition</h1>
     <div class="row justify-content-center">
-        <form>
+        <form action="{{route('condition.store',$date)}}" method="POST">
+            @csrf
             <div class="form-group">
                 <img src="{{ asset('images/goodjob.png') }}" alt="" class="icon-image"><label for="icon">Today's Condition</label>
-                <select class="form-control col-3" id="icon">
-                    <option class="smile" value="smiley1" >😀</option>
-                    <option class="smile" value="smiley2" >😏</option>
-                    <option class="smile" value="smiley3" >😐</option>
-                    <option class="smile" value="smiley4" >😷</option>
-                    <option class="smile" value="smiley5" >😴</option>
+                <select class="form-control col-3" id="smile" name="smile">
+                    <option class="smile" value="1" >😀</option>
+                    <option class="smile" value="2" >😏</option>
+                    <option class="smile" value="3" >😐</option>
+                    <option class="smile" value="4" >😷</option>
+                    <option class="smile" value="5" >😴</option>
                     <!-- 他のアイコンも同様に追加 -->
                 </select>
             </div>
             <div class="form-group">
-                <label for="weight" class="weight-icon" >Weight (Kg)</label><img src="{{ asset('images/weight.png') }}" alt="" class="icon-image"><label for="icon">
-                <input type="number" class="form-control col-4" id="weight" placeholder="50" data-toggle="modal" data-target="#calculatorModal">
+                <label for="weight" class="weight-icon" >Weight (Kg)<img src="{{ asset('images/weight.png') }}" alt="" class="icon-image"></label>
+                <input type="number" class="form-control col-3" step="0.01" id="weight" name="weight" data-toggle="modal" data-target="#calculatorModal">
             </div>
             <div class="form-group">
-                <img src="{{ asset('images/pen.png') }}" alt="" class="icon-image"><label for="diary">Diary</label>
+                <img src="{{ asset('images/pen.png') }}" alt="" class="icon-image">Diary
             </div>
             <div class="form-group">
                 <label for="icon">Icon</label>
-                <select class="form-control col-3" id="icon">
-                    <option>🏃</option>
-                    <option>🏃‍♀️</option>
-                    <option>🚴</option>
-                    <option>🤺</option>
-                    <option>⛷️</option>
-                    <option>🏂</option>
-                    <option>🏌</option>
-                    <option>🏄</option>
-                    <option>🏊</option>
-                    <option>🏕️</option>
-                    <option>🏥</option>
-                    <option>🗽</option>
-                    <option>♨ </option>
-                    <option>🎡</option>
-                    <option>🚂</option>
-                    <option>🚗</option>
-                    <option>✈</option>
-                    <option>☃</option>
-                    <option>🐶</option>
-                    <option>🗽</option>
-                    <option>🎶</option>
+                <select class="form-control col-3" id="icon" name="icon">
+                    <option value="1">🏃</option>
+                    <option value="2">🏃‍♀️</option>
+                    <option value="3">🚴</option>
+                    <option value="4">🤺</option>
+                    <option value="5">⛷️</option>
+                    <option value="6">🏂</option>
+                    <option value="7">🏌</option>
+                    <option value="8">🏄</option>
+                    <option value="9">🏊</option>
+                    <option value="10">🏕️</option>
+                    <option value="11">🏥</option>
+                    <option value="12">🗽</option>
+                    <option value="13">♨ </option>
+                    <option value="14">🎡</option>
+                    <option value="15">🚂</option>
+                    <option value="16">🚗</option>
+                    <option value="17">✈</option>
+                    <option value="18">☃</option>
+                    <option value="19">🐶</option>
+                    <option value="20">🎶</option>
                 </select>
             </div>
             <div class="form-group-1">
                 <label for="comment">Comment</label>
-                <textarea class="form-control" id="comment" rows="3"></textarea>
+                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
             </div>
             <form action="views\users\calendar.blade.php" method="POST">
                 @csrf

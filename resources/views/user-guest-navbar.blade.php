@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('css/user-navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user-navbar.css') }}">
 
     <nav class="navbar navbar-expand-md py-0 px-5" role="navigation">
         @guest
@@ -54,7 +54,7 @@
                              <a href="{{route('user.profile')}}" class="dropdown-item calendar-link">
                                 My P<img src="{{asset('/images/a-img.png')}}" alt="a" class="dropdown-a-img">ge
                             </a>
-                             <a href="" class="dropdown-item calendar-link">
+                             <a href="{{route('user.edit')}}" class="dropdown-item calendar-link">
                                 User Inform<img src="{{asset('/images/a-img.png')}}" alt="a" class="dropdown-a-img">tion
                             </a>
 
