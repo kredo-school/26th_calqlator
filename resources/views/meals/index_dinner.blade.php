@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Meal Registration Morning</title>
+  <title>Meal Registration Dinner</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ asset('/css/meal.style.css') }}">
@@ -12,9 +12,9 @@
 <body>
   <div class="container mt-5">
     <div class="underline-container">
-      <h2 class="underline text-left">Meal Registration Morning</h2>
+      <h2 class="underline text-left">Meal Registration Dinner</h2>
     </div>
-    <form id="mealForm" action="{{ route('meals.store') }}" method="POST">
+    <form id="mealForm" action="{{ route('meals.store.dinner') }}" method="POST">
       @csrf
       <table class="table table-bordered" id="mealTable">
           <thead>
@@ -249,8 +249,8 @@
 //         return response.json(); // サーバーからのレスポンスをJSONとして解析
 //     }).then(data => {
 //         if (data.success) {
-//             // 登録が成功した場合、confirmation_morningページへリダイレクト
-//             window.location.href = "{{ route('meals.confirmation_morning') }}?totalCalories=" + totalCalories;
+//             // 登録が成功した場合、confirmation_dinnerページへリダイレクト
+//             window.location.href = "{{ route('meals.confirmation_dinner') }}?totalCalories=" + totalCalories;
 //         } else {
 //             alert('Failed to save meal: ' + data.message);
 //         }
@@ -284,7 +284,7 @@
 //        console.log(data);//サーバーからのレスポンスをログに出力
 //         if (data.success) {
 //             alert('Meal updated successfully.');
-//             window.location.href = "{{ route('meals.confirmation_morning') }}?totalCalories=" + totalCalories;
+//             window.location.href = "{{ route('meals.confirmation_dinner') }}?totalCalories=" + totalCalories;
 //         } else {
 //           alert('Failed to update meal: ' + data.message); // エラーメッセージを表示
 //         }

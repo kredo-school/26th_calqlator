@@ -4,7 +4,7 @@
             <div class="col">
                 <div class="row">
                     <div class="col-auto pe-0">
-                        <a href="" class="fs-5 fw-bold text-center">Condition</a>
+                        <a href="{{route('daily.condition', $date)}}" class="fs-5 fw-bold text-center">Condition</a>
                     </div>
                     <div class="col text-start align-self-center fw-bold">
                         <span>  :
@@ -30,7 +30,7 @@
             <div class="col">
                     <div class="row">
                     <div class="col-auto pe-0 align-self-center text-center">
-                        <a href="" class="fs-5 fw-bold">Weight</a>
+                        <a href="{{route('weight')}}" class="fs-5 fw-bold">Weight</a>
                     </div>
                     <div class="col text-start align-self-center fw-bold">
                         <span> :
@@ -42,6 +42,74 @@
                         </span>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto pe-0">
+                <a href="{{route('daily.condition', $date)}}" class="fs-5 fw-bold text-center">Icon</a>
+            </div>
+            <div class="col text-start align-self-center fw-bold">
+                <span>  :
+                    @if($condition !== null)
+                        @if($condition->icon === 1)
+                        🏃
+                        @elseif($condition->icon=== 2)
+                        🏃‍♀️
+                        @elseif($condition->icon === 3)
+                        🚴
+                        @elseif($condition->icon === 4)
+                        🤺
+                        @elseif($condition->icon === 5)
+                        ⛷️
+                        @elseif($condition->icon === 6)
+                        🏂
+                        @elseif($condition->icon === 7)
+                        🏌
+                        @elseif($condition->icon === 8)
+                        🏄
+                        @elseif($condition->icon === 9)
+                        🏊
+                        @elseif($condition->icon === 10)
+                        🏕️
+                        @elseif($condition->icon === 11)
+                        🏥
+                        @elseif($condition->icon === 12)
+                        🗽
+                        @elseif($condition->icon === 13)
+                        ♨ 
+                        @elseif($condition->icon === 14)
+                        🎡
+                        @elseif($condition->icon === 15)
+                        🚂
+                        @elseif($condition->icon === 16)
+                        🚗
+                        @elseif($condition->icon === 17)
+                        ✈
+                        @elseif($condition->icon === 18)
+                        ☃
+                        @elseif($condition->icon === 19)
+                        🐶
+                        @elseif($condition->icon === 20)
+                        🎶
+                        @endif
+                    @else
+                        No record
+                    @endif
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto pe-0">
+                <a href="{{route('daily.condition', $date)}}" class="fs-5 fw-bold text-center">Comment</a>
+            </div>
+            <div class="col text-start align-self-center fw-bold">
+                <span>  :
+                    @if($condition !== null)
+                        {{ $condition->comment }}
+                    @else
+                        No record
+                    @endif
+                </span>
             </div>
         </div>
     </div>
