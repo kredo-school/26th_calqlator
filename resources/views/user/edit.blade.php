@@ -5,7 +5,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/profile-edit.css') }}">
 
-<div class="container">
+<div class="container mt-5">
   <form method="POST" id="edit-form" action="{{ route('user.update') }}" enctype="multipart/form-data">
               @csrf
               @method('PATCH')
