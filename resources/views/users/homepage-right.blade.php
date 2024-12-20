@@ -224,7 +224,7 @@
                     </tbody>
                 @endforelse
             </table>
-                <a href="{{ route('meals.registration')}}" class="btn btn-sm text-decoration-none fs-5 fw-bold">
+                <a href="{{ route('meals.index')}}" class="btn btn-sm text-decoration-none fs-5 fw-bold">
                     <i class="fa-solid fa-circle-plus"></i> Add
                 </a>
         </div>
@@ -282,7 +282,7 @@
                     </tbody>
                 @endforelse
             </table>
-                <a href="{{ route('meals.registration')}}" class="btn btn-sm text-decoration-none fs-5 fw-bold">
+                <a href="{{ route('meals.index')}}" class="btn btn-sm text-decoration-none fs-5 fw-bold">
                     <i class="fa-solid fa-circle-plus"></i> Add
                 </a>
         </div>
@@ -333,7 +333,7 @@
                     </tbody>
                 @endforelse
             </table>
-                <a href="{{ route('meals.registration')}}" class="btn btn-sm text-decoration-none fs-5 fw-bold">
+                <a href="{{ route('meals.index')}}" class="btn btn-sm text-decoration-none fs-5 fw-bold">
                     <i class="fa-solid fa-circle-plus"></i> Add
                 </a>
         </div>
