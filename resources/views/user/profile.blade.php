@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/profile-edit.css') }}">
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row justify-content-center profile-area">
             <div class="float-left">
                 <div class="d-flex flex-column align-items-center m-5">
