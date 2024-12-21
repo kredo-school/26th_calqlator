@@ -23,7 +23,7 @@ use App\Http\Controllers\WorkoutController;
 use App\Http\Controllers\MealLunchController;
 use App\Http\Controllers\MealDinnerController;
 use App\Http\Controllers\SearchController;
-
+use App\Http\Controllers\MealSnackController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\UserHomeDeleteController;
@@ -116,6 +116,15 @@ Route::get('/meals/history', [MealDinnerController::class, 'history'])->name('me
 Route::get('/meals/{id}/edit', [MealDinnerController::class, 'edit'])->name('meals.edit');
 Route::put('/meals/{id}', [MealDinnerController::class, 'update'])->name('meals.update');
 Route::get('/meals/confirmation_dinner', [MealDinnerController::class, 'confirmationDinner'])->name('meals.confirmation_dinner');
+// User/ Meal Registration Snack
+Route::get('/meals/index_snack', [MealSnackController::class, 'index'])->name('meals.index_snack');
+Route::post('/meals/snack/store', [MealSnackController::class, 'storeSnack'])->name('meals.store.snack');
+Route::put('/meals/search', [MealSnackController::class, 'search'])->name('meals.search');
+Route::get('/meals/history', [MealSnackController::class, 'history'])->name('meals.history');
+Route::get('/meals/{id}/edit', [MealSnackController::class, 'edit'])->name('meals.edit');
+Route::put('/meals/{id}', [MealSnackController::class, 'update'])->name('meals.update');
+Route::get('/meals/confirmation_snack', [MealSnackController::class, 'confirmationSnack'])->name('meals.confirmation_snack');
+
 
 
 
