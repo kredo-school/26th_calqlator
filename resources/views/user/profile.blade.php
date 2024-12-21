@@ -13,7 +13,7 @@
                 <div class="d-flex flex-column align-items-center m-5">
                     {{-- image --}}
                     @if(Auth::user()->avatar)
-                        <img src="{{ asset('storage/avatar/'.Auth::user()->avatar)}}" alt="" class="avatar rounded-circle image-lg">
+                        <img src="{{ Auth::user()->avatar}}" alt="" class="avatar rounded-circle image-lg">
                     @else 
                         <i class="far fa-circle-user fa-10x"></i>
                     @endif

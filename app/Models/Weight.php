@@ -7,6 +7,7 @@ use App\Models\User;
 
 class Weight extends Model
 {
+    use HasFactory;
     protected $table = 'weights';
     
 

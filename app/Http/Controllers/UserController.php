@@ -115,12 +115,9 @@ class UserController extends Controller
         ]);
         $user_a = User::findOrFail(Auth::user()->id);
 
-        if ($request->hasFile('avatar')) {
-            $extension = $request->file('avatar')->getClientOriginalExtension();
-            $file_name = Auth::user()->id . "." .$extension;
-            $path = $request->file('avatar')->storeAs('avatar', $file_name, 'public');
-            // $request->file('avatar')->storeAs('public',$file_name);
-            $user_a->avatar = $file_name;
+        if($request->avatar){
+            $user_a->avatar = 'data:image/'.$request->avatar->extension().
+                                ';base64,'.base64_encode(file_get_contents($request->avatar));
         }
 
         $user_a->username = $request->username;

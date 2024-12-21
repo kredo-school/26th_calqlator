@@ -19,7 +19,7 @@
                           <div class="user-profile">
                               {{-- image --}}
                               @if(Auth::user()->avatar)
-                              <img src="{{ asset('storage/avatar/'.Auth::user()->avatar)}}" alt="" class="avatar rounded-circle image-lg" style=" display: block; margin-left: auto; margin-right: auto;">
+                              <img src="{{ Auth::user()->avatar}}" alt="" class="avatar rounded-circle image-lg" style=" display: block; margin-left: auto; margin-right: auto;">
                               @else
                               <i class="far fa-circle-user fa-10x"></i>
                               @endif
