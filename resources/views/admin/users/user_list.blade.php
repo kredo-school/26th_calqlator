@@ -28,11 +28,11 @@
         <table class="table text-center mb-0 userlist" id="admin-table">
             <thead class="userlist">
                 <tr>
-                  <th id="id-header" class="sortable-table">ID</th>
-                  <th id="fname-header" class="sortable-table">FIRST NAME</th>
-                  <th id="lname-header" class="sortable-table">LAST NAME</th>
-                  <th id="uname-header" class="sortable-table">USER NAME</th>
-                  <th id="email-header" class="sortable-table">EMAIL</th>
+                  <th id="id-header" class="sortable-table">ID<span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
+                  <th id="fname-header" class="sortable-table">First Name<span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
+                  <th id="lname-header" class="sortable-table">Last Name<span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
+                  <th id="uname-header" class="sortable-table">User Name<span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
+                  <th id="email-header" class="sortable-table">Email<span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
                   <th></th>
                 </tr>
             </thead>

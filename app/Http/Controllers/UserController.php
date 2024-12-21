@@ -14,10 +14,12 @@ class UserController extends Controller
 {
     const LOCAL_STORAGE_FOLDER = 'public/avatars/';
     private $user;
+    private $weight;
 
-    public function __construct(User $user)
+    public function __construct(User $user, Weight $weight)
     {
         $this->middleware('auth'); 
+        $this->weight = $weight;
     }
 
     public function show($id)
@@ -31,21 +33,28 @@ class UserController extends Controller
 }
 
     public function profile(){
-        $user_a = UserInformation::findOrFail(Auth::user()->id);
-        $user = User::findOrFail(Auth::user()->id);
-        $latest_weight = $user->latestWeight;
-        $oldest_weight = $user->OldestWeight;
-        $weight_difference = $latest_weight->weight - $oldest_weight->weight;
-        $bmi = $this->calculateBMI($latest_weight->weight, $user_a->height);
-        $bmi_judgement = $this->getJudgementBMI($bmi);
-
+        $user_a = UserInformation::find(Auth::user()->id);
+        $user = User::findOrFail(Auth::user()->id); 
+        $latest_weight = $this->weight->where('user_id', Auth::user()->id)->orderBy('date', 'DESC')->first();
+        $oldest_weight = $this->weight->where('user_id', Auth::user()->id)->orderBy('date', 'ASC')->first();
+        $weight_difference = ($latest_weight && $oldest_weight) ? $latest_weight->weight - $oldest_weight->weight : 0;
+        $bmi = ($latest_weight && $user_a && isset($user_a->height)) ? $this->calculateBMI($latest_weight->weight, $user_a->height) : 0;
+        if($bmi === 0){
+            $bmi_judgement = 'No data';
+        }else{
+            $bmi_judgement = $this->getJudgementBMI($bmi);
+        }
         // birthday
-        $birthday = $user_a->birthday;
+        $birthday = $user_a ? $user_a->birthday ?? 'No data' : 'No data';
         
         // Age
-        $years = Carbon::parse($birthday)->age;
+        if ($birthday && $birthday != 'No data') {
+            $years = Carbon::parse($birthday)->age;
+        } else {
+            $years = 'No data'; 
+        }
                 
-        return view('user.profile')->with('user', $user_a)->with('age', $years)->with('latest_weight', $latest_weight?->weight)->with('weight_difference', $weight_difference)->with('bmi', $bmi)->with('bmi_judgement', $bmi_judgement);
+        return view('user.profile')->with('user', $user_a)->with('age', $years)->with('latest_weight', $latest_weight)->with('weight_difference', $weight_difference)->with('bmi', $bmi)->with('bmi_judgement', $bmi_judgement)->with('oldest_weight', $oldest_weight);
     }
     private function calculateBMI(float $weight, float $height): float{
         if ($height <= 0) {

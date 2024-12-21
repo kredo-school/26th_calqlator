@@ -312,16 +312,16 @@ class UserHomePageController extends Controller
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
         $age = $userInfo && $userInfo->birthday ? $this->getAge() : 20;
-        $gender = $userInfo && $userInfo->gender ? $userInfo->gender : 'female';
+        $gender = $userInfo && $userInfo->gender ? $userInfo->gender : 'Female';
 
         $userWeightInfo = $this->weight->where('user_id', $id)->orderBy('date','desc')->first();
         $weight = $userWeightInfo ? $userWeightInfo->weight : $this->getReferenceWeight();
 
         $BMRnumber=[
-            'male' => [
+            'Male' => [
                 [1, 2, 61], [3, 5, 54.8], [6, 7, 44.3], [8, 9, 40.8], [10, 11, 37.4], [12, 14, 31], [15, 17, 27], [18, 29, 23.7], [30, 49, 22.5], [50, 64, 21.8], [65, 74, 21.6], [75, null, 21.5],
                 ],
-            'female' => [
+            'Female' => [
                 [1, 2, 59.7], [3, 5, 52.2], [6, 7, 41.9], [8, 9, 38.3], [10, 11, 34.8], [12, 14, 29.6], [15, 17, 25.3], [18, 29, 22.1], [30, 49, 21.9], [50, 64, 20.7], [65, null, 20.7],
             ],
         ];
@@ -506,18 +506,18 @@ class UserHomePageController extends Controller
 
         $totalProtein = $breakfastProtien + $lunchProtien + $dinnerProtien + $snackProtien + $supplementProtien;
 
-        return $totalProtein;
+        return round($totalProtein);
     }
 
     public function getProteinMinMax(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-        $gender = $userInfo->gender ?? 'female';
+        $gender = $userInfo->gender ?? 'Female';
         $age = $userInfo ? $this->getAge() : 20;
         $activityLevel = $userInfo->activity_level ?? 2;
 
         $proteinCases = [
-            'male' => [
+            'Male' => [
                 '1' => [
                     [1,2,[20,20]], [3,5,[25,25]], [6,7,[44,68]], [8,9,[52,80]], [10,11,[63,98]], [12,14,[75,115]], [15,17,[81,125]], [18,49,[75,115]], [50,64,[77,110]], [65,74,[77,103]], [75,null,[68,90]]
                 ],
@@ -528,7 +528,7 @@ class UserHomePageController extends Controller
                     [1,2,[20,20]], [3,5,[25,25]], [6,7,[55,85]], [8,9,[67,103]], [10,11,[80,123]], [12,14,[94,145]], [15,17,[102,158]], [18,49,[99,153]], [50,64,[103,148]], [65,74,[103,138]], [75,null,[60,60]]
                 ]
             ],
-            'female' => [
+            'Female' => [
                 '1' => [
                     [1,2,[20,20]], [3,5,[25,25]], [6,7,[41,63]], [8,9,[47,73]], [10,11,[60,93]], [12,14,[68,105]], [15,17,[67,103]], [18,49,[57,88]], [50,64,[58,83]], [65,74,[58,78]], [75,null,[53,70]]
                 ],
@@ -586,18 +586,18 @@ class UserHomePageController extends Controller
 
         $totalFat = $breakfastFat + $lunchFat + $dinnerFat + $snackFat + $supplementFat;
 
-        return $totalFat;
+        return round($totalFat);
     }
 
     public function getFatMinMax(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-        $gender = $userInfo->gender ?? 'female';
+        $gender = $userInfo->gender ?? 'Female';
         $age = $userInfo ? $this->getAge() : 20;
         $activityLevel = $userInfo->activity_level ?? 2;
 
         $fatCases = [
-            'male' => [
+            'Male' => [
                 '1' => [
                     [1,5,[0,0]], [6,7,[30,45]], [8,9,[36,53]], [10,11,[44,65]], [12,14,[52,76]], [15,17,[56,83]], [18,49,[52,76]], [50,64,[49,73]], [65,74,[46,68]], [75,null,[40,60]]
                 ],
@@ -608,7 +608,7 @@ class UserHomePageController extends Controller
                     [1,5,[0,0]], [6,7,[39,58]], [8,9,[47,70]], [10,11,[56,83]], [12,14,[65,96]], [15,17,[70,105]], [18,49,[68,101]], [50,64,[66,98]], [65,74,[62,91]], [75,null,[0,0]]
                 ]
             ],
-            'female' => [
+            'Female' => [
                 '1' => [
                     [1,5,[0,0]], [6,7,[28,41]], [8,9,[34,50]], [10,11,[42,61]], [12,14,[48,71]], [15,17,[46,68]], [18,29,[38,56]], [30,49,[39,58]], [50,64,[37,55]], [65,74,[35,51]], [75,null,[32,46]]
                 ],
@@ -665,18 +665,18 @@ class UserHomePageController extends Controller
 
         $totalCarbs = $breakfastCarbs + $lunchCarbs + $dinnerCarbs + $snackCarbs + $supplementCarbs;
 
-        return $totalCarbs;
+        return round($totalCarbs);
     }
 
     public function getCarbsMinMax(){
         $id = Auth::user()->id;
         $userInfo = $this->information->where('user_id', $id)->first();
-        $gender = $userInfo->gender ?? 'female';
+        $gender = $userInfo->gender ?? 'Female';
         $age = $userInfo ? $this->getAge() : 20;
         $activityLevel = $userInfo->activity_level ?? 2;
 
         $carbsCases = [
-            'male' => [
+            'Male' => [
                 '1' => [
                     [1,5,[0,0]], [6,7,[169,219]], [8,9,[200,260]], [10,11,[244,316]], [12,14,[288,373]], [15,17,[313,406]], [18,49,[288,373]], [50,64,[275,357]], [65,74,[257,333]], [75,null,[225,292]]
                 ],
@@ -687,7 +687,7 @@ class UserHomePageController extends Controller
                     [1,5,[0,0]], [6,7,[219,284]], [8,9,[263,341]], [10,11,[313,406]], [12,14,[363,471]], [15,17,[394,511]], [18,49,[382,495]], [50,64,[369,479]], [65,74,[344,446]], [75,null,[0,0]]
                 ]
             ],
-            'female' => [
+            'Female' => [
                 '1' => [
                     [1,5,[0,0]], [6,7,[157,203]], [8,9,[188,243]], [10,11,[232,300]], [12,14,[269,349]], [15,17,[257,333]], [18,29,[213,276]], [30,49,[219,284]], [50,64,[207,268]], [65,74,[194,251]], [75,null,[176,227]]
                 ],

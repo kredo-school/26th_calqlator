@@ -32,9 +32,9 @@
             <table class="table text-center mb-0 exerciselist" id="admin-table">
                 <thead class="exerciselist">
                     <tr>
-                        <th class="sortable-table" style="width: 10%" id="id-header">ID</th>
-                        <th class="sortable-table" style="width: 30%; " id="name-header">NAME</th>
-                        <th class="sortable-table" style="width: 30%" id="calories-header">CALORY/10 Minute</th>
+                        <th class="sortable-table" style="width: 10%" id="id-header">ID<span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
+                        <th class="sortable-table" style="width: 30%; " id="name-header">Name<span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
+                        <th class="sortable-table" style="width: 30%" id="calories-header">Calories/10 min<span class="sort-arrow"><i class="fas fa-sort"></i></span></th>
                         <th class="sortable-table" style="width: 30%"></th>
                     </tr>
                 </thead>
