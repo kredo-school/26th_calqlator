@@ -31,19 +31,26 @@ class UserController extends Controller
 }
 
     public function profile(){
-        $user_a = UserInformation::findOrFail(Auth::user()->id);
+        $user_a = UserInformation::find(Auth::user()->id);
         $user = User::findOrFail(Auth::user()->id);
         $latest_weight = $user->latestWeight;
         $oldest_weight = $user->OldestWeight;
-        $weight_difference = $latest_weight->weight - $oldest_weight->weight;
-        $bmi = $this->calculateBMI($latest_weight->weight, $user_a->height);
-        $bmi_judgement = $this->getJudgementBMI($bmi);
-
+        $weight_difference = ($latest_weight && $oldest_weight) ? $latest_weight->weight - $oldest_weight->weight : 'No data';
+        $bmi = ($latest_weight) ? $this->calculateBMI($latest_weight->weight, $user_a->height) : 'No data';
+        if($bmi === 'No data'){
+            $bmi_judgement = 'No data';
+        }else{
+            $bmi_judgement = $this->getJudgementBMI($bmi);
+        }
         // birthday
-        $birthday = $user_a->birthday;
+        $birthday = $user_a ? $user_a->birthday ?? 'No data' : 'No data';
         
         // Age
-        $years = Carbon::parse($birthday)->age;
+        if ($birthday && $birthday != 'No data') {
+            $years = Carbon::parse($birthday)->age;
+        } else {
+            $years = 'No data'; 
+        }
                 
         return view('user.profile')->with('user', $user_a)->with('age', $years)->with('latest_weight', $latest_weight?->weight)->with('weight_difference', $weight_difference)->with('bmi', $bmi)->with('bmi_judgement', $bmi_judgement);
     }
