@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('protein')->nullable();
             $table->integer('carbohydrate')->nullable();
             $table->integer('lipid')->nullable();
-            $table->date('date')->default(DB::raw('CURRENT_DATE'));
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }

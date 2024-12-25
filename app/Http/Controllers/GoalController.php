@@ -31,7 +31,7 @@ class GoalController extends Controller
     }
     
     public function goal(){
-        $user_information = UserInformation::findOrFail(Auth::user()->id);
+        $user_information = UserInformation::find(Auth::user()->id);
         $user = User::findOrFail(Auth::user()->id);
         $weights = Weight::where('user_id', Auth::user()->id)->where('date', Carbon::today())->get();
         $latest_weight = "";
@@ -39,10 +39,20 @@ class GoalController extends Controller
             $latest_weight = $weights->first()->weight;
         }
 
-        $bmi = $this->calculateBMI($latest_weight, $user_information->height);
+        $bmi = $this->calculateBMI($latest_weight, $user_information ? $user_information->height : 0);
         $bmi_judgement = $this->getJudgementBMI($bmi);
-        $goal_bmi = $this->calculateBMI($user_information->goal_weight, $user_information->height);
-        $goal_bmi_judgement = $this->getJudgementBMI($goal_bmi);
+        $goal_weight = $user_information->goal_weight ?? null;
+        $height = $user_information->height ?? null;
+        if ($goal_weight !== null && $height !== null) {
+            $goal_bmi = $this->calculateBMI($goal_weight, $height);
+        } else {
+            $goal_bmi = null;
+        }
+        if($goal_bmi === null){
+            $goal_bmi_judgement = '';
+        }else{
+            $goal_bmi_judgement = $this->getJudgementBMI($goal_bmi);
+        }
                 
         return view('user.goal')
             ->with('user', $user)

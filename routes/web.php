@@ -54,10 +54,6 @@ Route::group(['middleware' => 'auth'], function(){
     // User / Calendar
     Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
     Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
-    //User / Meal Registration
-    Route::get('/meals', [MealController::class, 'index'])->name('meals.registration');
-    Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
-    Route::get('/search', [MealController::class, 'search']);
     // User / Everyday Condition
     Route::get('/daily-condition/{date}',[EverydayConditionController::class, 'index'])->name('daily.condition');
     Route::post('/daily-condition/store/{date}', [EverydayConditionController::class, 'store'])->name('condition.store');
@@ -65,6 +61,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/user/weight', [WeightController::class, 'weight'])->name('weight');
     Route::get('/user/weight/chart', [WeightController::class, 'weightChart'])->name('weight.chart');
     // User / ChatPage
+    Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
     Route::get('/user/chat', [ChatController::class, 'userChat'])->name('chat.userChat');
     Route::post('/user/chat/store', [ChatController::class, 'storeQuestion'])->name('chat.storeQuestion');
     Route::get('/user/chat/search',[ChatController::class, 'userSearch'])->name('user.chat.search');
@@ -84,93 +81,31 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/user/goal', [GoalController::class, 'goal'])->name('user.goal');
     Route::get('/user/goal/edit', [GoalController::class, 'edit'])->name('user.goal.edit');
     Route::patch('/user/goal/update', [GoalController::class, 'update'])->name('user.goal.update');
+    //User / Meal Registration
+    Route::get('/meals/index', [MealController::class, 'index'])->name('meals.index');
+    Route::post('/meals/store', [MealController::class, 'store'])->name('meals.store');
+    Route::put('/meals/search', [MealController::class, 'search'])->name('meals.search');
+    Route::get('/meals/history', [MealController::class, 'history'])->name('meals.history');
+    Route::get('/meals/{id}/edit', [MealController::class, 'edit'])->name('meals.edit');
+    Route::put('/meals/{id}', [MealController::class, 'update'])->name('meals.update');
+    Route::get('/meals/confirmation_morning', [MealController::class, 'confirmationMorning'])->name('meals.confirmation_morning');
+    // User/ Meal Registration lunch
+    Route::get('/meals/index_lunch', [MealLunchController::class, 'index'])->name('meals.index_lunch');
+    Route::post('/meals/lunch/store', [MealLunchController::class, 'storeLunch'])->name('meals.store.lunch');
+    Route::put('/meals/search', [MealLunchController::class, 'search'])->name('meals.search');
+    Route::get('/meals/history', [MealLunchController::class, 'history'])->name('meals.history');
+    Route::get('/meals/{id}/edit', [MealLunchController::class, 'edit'])->name('meals.edit');
+    Route::put('/meals/{id}', [MealLunchController::class, 'update'])->name('meals.update');
+    Route::get('/meals/confirmation_lunch', [MealLunchController::class, 'confirmationLunch'])->name('meals.confirmation_lunch');
+    // User/ Meal Registration dinner
+    Route::get('/meals/index_dinner', [MealDinnerController::class, 'index'])->name('meals.index_dinner');
+    Route::post('/meals/dinner/store', [MealDinnerController::class, 'storeDinner'])->name('meals.store.dinner');
+    Route::put('/meals/search', [MealDinnerController::class, 'search'])->name('meals.search');
+    Route::get('/meals/history', [MealDinnerController::class, 'history'])->name('meals.history');
+    Route::get('/meals/{id}/edit', [MealDinnerController::class, 'edit'])->name('meals.edit');
+    Route::put('/meals/{id}', [MealDinnerController::class, 'update'])->name('meals.update');
+    Route::get('/meals/confirmation_dinner', [MealDinnerController::class, 'confirmationDinner'])->name('meals.confirmation_dinner');
 
-
-// User / Calendar
-Route::get('/user/calendar', [CalendarController::class, 'index'])->name('user.calendar');
-Route::get('/user/calendar/info/{date}', [CalendarController::class, 'everydayInfo'])->name('user.calendar.info');
-// UserFAQ 
-Route::get('/faq', [FaqController::class, 'index'])->name('user.faq');
-// User / ChatPage
-Route::get('/chatpage/index', [ChatController::class, 'userindex'])->name('user.chatpage.index');
-//User / Meal Registration
-Route::get('/meals/index', [MealController::class, 'index'])->name('meals.index');
-Route::post('/meals/store', [MealController::class, 'store'])->name('meals.store');
-Route::put('/meals/search', [MealController::class, 'search'])->name('meals.search');
-Route::get('/meals/history', [MealController::class, 'history'])->name('meals.history');
-Route::get('/meals/{id}/edit', [MealController::class, 'edit'])->name('meals.edit');
-Route::put('/meals/{id}', [MealController::class, 'update'])->name('meals.update');
-Route::get('/meals/confirmation_morning', [MealController::class, 'confirmationMorning'])->name('meals.confirmation_morning');
-// User/ Meal Registration lunch
-Route::get('/meals/index_lunch', [MealLunchController::class, 'index'])->name('meals.index_lunch');
-Route::post('/meals/lunch/store', [MealLunchController::class, 'storeLunch'])->name('meals.store.lunch');
-Route::put('/meals/search', [MealLunchController::class, 'search'])->name('meals.search');
-Route::get('/meals/history', [MealLunchController::class, 'history'])->name('meals.history');
-Route::get('/meals/{id}/edit', [MealLunchController::class, 'edit'])->name('meals.edit');
-Route::put('/meals/{id}', [MealLunchController::class, 'update'])->name('meals.update');
-Route::get('/meals/confirmation_lunch', [MealLunchController::class, 'confirmationLunch'])->name('meals.confirmation_lunch');
-// User/ Meal Registration dinner
-Route::get('/meals/index_dinner', [MealDinnerController::class, 'index'])->name('meals.index_dinner');
-Route::post('/meals/dinner/store', [MealDinnerController::class, 'storeDinner'])->name('meals.store.dinner');
-Route::put('/meals/search', [MealDinnerController::class, 'search'])->name('meals.search');
-Route::get('/meals/history', [MealDinnerController::class, 'history'])->name('meals.history');
-Route::get('/meals/{id}/edit', [MealDinnerController::class, 'edit'])->name('meals.edit');
-Route::put('/meals/{id}', [MealDinnerController::class, 'update'])->name('meals.update');
-Route::get('/meals/confirmation_dinner', [MealDinnerController::class, 'confirmationDinner'])->name('meals.confirmation_dinner');
-
-
-
-
-
-// User / Everyday Condition
-Route::get('/daily-condition', function () {return view('daily_condition');});
-
-
-// ADMIN
-// Route::group(['prefix' => 'admin', 'as' => 'admin.' , 'middleware' => 'admin'], function(){}
-// Admin / Homepage
-Route::get('/admin/home',[HomesController::class, 'index'])->name('admin.home');
-// Admin / Food & Exercise Confirmation
-Route::get('/admin/food/confirmation',[ConfirmationController::class, 'food_index'])->name('admin.food.confirmation');
-Route::get('/admin/exercise/confirmation',[ConfirmationController::class, 'exercise_index'])->name('admin.exercise.confirmation');
-Route::patch('/admin/confirmation/confirm/{id}',[ConfirmationController::class, 'confirm'])->name('admin.confirm');
-Route::delete('/admin/confirmation/delete/{id}',[ConfirmationController::class, 'delete'])->name('admin.delete');
-// Admin / FAQ list
-Route::get('/admin/faqlist/index', [FaqController::class, 'indexlist'])->name('admin.faqlist.index');
-Route::patch('/admin/faqlist/update/{id}',[FaqController::class, 'update'])->name('admin.faqlist.update');
-Route::delete('/admin/faqlist/delete/{id}',[FaqController::class, 'delete'])->name('admin.faqlist.delete');
-// Admin / FAQRegistration
-Route::get('/admin/faqregistration/index', [FaqController::class, 'reg_index'])->name('admin.faqregistration.index');
-Route::get('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
-Route::post('/admin/faqregistration/store', [FaqController::class, 'store'])->name('admin.faqregistration.store');
-Route::get('/admin/faqregistration/complete', [FaqController::class, 'complete'])->name('admin.faqregistration.complete');
-// Admin / ChatPage
-Route::get('/admin/chatpage/index', [ChatController::class, 'index'])->name('admin.chatpage.index');
-// Workout Registration
-Route::get('/workouts', [WorkoutController::class, 'index']);
-Route::post('/workouts', [WorkoutController::class, 'store'])->name('workouts.store');
-Route::get('/workout-search', [WorkoutController::class, 'workout.search']);
-
-
-        
-       
-// Admin / user list
-Route::get('/admin/user/list', [UsersController::class, 'index'])->name('admin.users.list');
-Route::get('/admin/user/edit/{id}', [UsersController::class, 'edit'])->name('admin.users.edit');
-Route::put('/admin/user/update/{id}', [UsersController::class, 'update'])->name('admin.users.update');
-Route::delete('/admin/user/delete/{id}', [UsersController::class, 'destroy'])->name('admin.users.destroy');
-
-// Admin / food list
-Route::get('/admin/food/list', [FoodsController::class, 'index'])->name('admin.foods.list'); 
-Route::get('/admin/food/edit/{id}', [FoodsController::class, 'edit'])->name('admin.foods.edit');
-Route::put('/admin/food/update/{id}', [FoodsController::class, 'update'])->name('admin.foods.update');
-Route::delete('/admin/food/delete/{id}', [FoodsController::class, 'destroy'])->name('admin.foods.destroy');
-
-// Admin / exercise list
-Route::get('/admin/exercise/list', [ExercisesController::class, 'index'])->name('admin.exercises.list');
-Route::get('/admin/exercise/edit/{id}', [ExercisesController::class, 'edit'])->name('admin.exercise.edit');
-Route::get('/admin/exercise/update/{id}', [ExercisesController::class, 'update'])->name('admin.exercises.update');
-Route::get('/admin/exercise/delete/{id}', [ExercisesController::class, 'delete'])->name('admin.exercise.delete');
     // ADMIN
     Route::group(['middleware' => 'admin'], function(){
         // Admin / Homepage
@@ -209,6 +144,9 @@ Route::get('/admin/exercise/delete/{id}', [ExercisesController::class, 'delete']
         Route::get('/workout-search', [WorkoutController::class, 'workout.search']);
         // Admin / user list
         Route::get('/admin/user/list', [UsersController::class, 'index'])->name('admin.users.list');
+        Route::get('/admin/user/edit/{id}', [UsersController::class, 'edit'])->name('admin.users.edit');
+        Route::patch('/admin/user/update/{id}', [UsersController::class, 'update'])->name('admin.users.update');
+        Route::delete('/admin/user/delete/{id}', [UsersController::class, 'destroy'])->name('admin.users.destroy');
         // Admin / food list
         Route::get('/admin/food/list', [FoodsController::class, 'index'])->name('admin.foods.food_list');
         Route::get('/admin/food/edit/{id}', [FoodsController::class, 'edit'])->name('admin.foods.edit');
@@ -220,6 +158,7 @@ Route::get('/admin/exercise/delete/{id}', [ExercisesController::class, 'delete']
         Route::patch('/admin/exercise/update/{id}', [ExercisesController::class, 'update'])->name('admin.exercises.update');
         Route::delete('/admin/exercise/delete/{id}', [ExercisesController::class, 'delete'])->name('admin.exercise.delete');
         // Admin / ChatPage
+        Route::get('/admin/chatpage/index', [ChatController::class, 'index'])->name('admin.chatpage.index');
         Route::get('/admin/chat', [ChatController::class, 'adminChat'])->name('chat.adminChat');
         Route::post('/admin/chat/store', [ChatController::class, 'storeAnswer'])->name('chat.storeAnswer');
         // Route::get('/admin/chat/search',[ChatController::class, 'adminSearch'])->name('admin.chat.search');

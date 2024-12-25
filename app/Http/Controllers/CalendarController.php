@@ -22,9 +22,10 @@ class CalendarController extends Controller
     private $snack;
     private $supplement;
     private $condition;
+    protected $UserHomePageController;
 
 
-    public function __construct(Weight $weight, UserFoodBreakfast $breakfast, UserFoodLunch $lunch, UserFoodDinner $dinner,  UserSnack $snack, UserSupplement $supplement, Condition $condition){
+    public function __construct(Weight $weight, UserFoodBreakfast $breakfast, UserFoodLunch $lunch, UserFoodDinner $dinner,  UserSnack $snack, UserSupplement $supplement, Condition $condition, UserHomePageController $UserHomePageController){
         $this -> breakfast = $breakfast;
         $this -> lunch = $lunch;
         $this -> dinner = $dinner;
@@ -32,6 +33,7 @@ class CalendarController extends Controller
         $this -> supplement = $supplement;
         $this -> weight = $weight;
         $this -> condition = $condition;
+        $this -> UserHomePageController = $UserHomePageController;
     }
 
     public function getStar(){
@@ -47,8 +49,9 @@ class CalendarController extends Controller
             $formattedDate = $date->format('Y-m-d');
             
             $totalCalories = $this->getTotalCalories($formattedDate);
+            $goalcalories = $this -> UserHomePageController -> getGoalCalories($formattedDate);
             
-            if ($totalCalories > 1500 && $totalCalories < 2000) {
+            if ($totalCalories > $goalcalories-300 && $totalCalories < $goalcalories+300) {
                 $star += 1;
             }
         }

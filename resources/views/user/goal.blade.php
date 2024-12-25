@@ -6,9 +6,9 @@
 <link rel="stylesheet" href="{{ asset('css/goal.css') }}">
 
 <div class="container">
-<div class="row gutters">
+<div class="row">
 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-    <div class="row justify-content-start align-items-center pt-1">
+    <div class="row justify-content-start align-items-center">
       <h2 class="text-start display-1 licorice-regular ">Your Goal</h2>
     </div>
 </div>
@@ -26,9 +26,13 @@
                             <div class="col">
                               <div class="form-group">
                                   <?php
-                                      $lose_weight_selected = $user_information->goal === '1' ? 'selected' : '';
-                                      $maintain_weight_selected = $user_information->goal === '2' ? 'selected' : '';
-                                      $gain_weight_selected = $user_information->goal === '3' ? 'selected' : '';
+                                    $goal = optional($user_information)->goal;
+                                    $lose_weight_selected = $goal === '1' ? 'selected' : '';
+                                    $maintain_weight_selected = $goal === '2' ? 'selected' : '';
+                                    $gain_weight_selected = $goal === '3' ? 'selected' : '';
+                                      // $lose_weight_selected = $user_information->goal === '1' ? 'selected' : '';
+                                      // $maintain_weight_selected = $user_information->goal === '2' ? 'selected' : '';
+                                      // $gain_weight_selected = $user_information->goal === '3' ? 'selected' : '';
                                   ?>
                                   <select id="goal" name="goal" class="form-control form-select-lg">
                                       <option {{ $lose_weight_selected }} value="1">1: Lose weight</option>
@@ -49,9 +53,13 @@
                             <div class="col">
                               <div class="form-group">
                                 <?php
-                                    $low_selected = $user_information->activity_level === '1' ? 'selected' : '';
-                                    $medium_selected = $user_information->activity_level === '2' ? 'selected' : '';
-                                    $high_selected = $user_information->activity_level === '3' ? 'selected' : '';
+                                  $activity_level = isset($user_information) ? $user_information->activity_level : null;
+                                  $low_selected = $activity_level === '1' ? 'selected' : '';
+                                  $medium_selected = $activity_level === '2' ? 'selected' : '';
+                                  $high_selected = $activity_level === '3' ? 'selected' : '';
+                                    // $low_selected = $user_information->activity_level === '1' ? 'selected' : '';
+                                    // $medium_selected = $user_information->activity_level === '2' ? 'selected' : '';
+                                    // $high_selected = $user_information->activity_level === '3' ? 'selected' : '';
                                 ?>
                                 <select id="activity_level" name="activity_level" class="form-control form-select-lg">
                                     <option {{ $low_selected }} value="1">1: Low</option>
@@ -73,9 +81,14 @@
                             <div class="col">
                               <div class="form-group">
                                 <?php
-                                    $meal_selected = $user_information->how_to_lose === '1' ? 'selected' : '';
-                                    $half_and_half_selected = $user_information->how_to_lose === '2' ? 'selected' : '';
-                                    $workout_selected = $user_information->how_to_lose === '3' ? 'selected' : '';
+                                  $how_to_lose = isset($user_information) ? $user_information->how_to_lose : null;
+
+                                  $meal_selected = $how_to_lose === '1' ? 'selected' : '';
+                                  $half_and_half_selected = $how_to_lose === '2' ? 'selected' : '';
+                                  $workout_selected = $how_to_lose === '3' ? 'selected' : '';
+                                    // $meal_selected = $user_information->how_to_lose === '1' ? 'selected' : '';
+                                    // $half_and_half_selected = $user_information->how_to_lose === '2' ? 'selected' : '';
+                                    // $workout_selected = $user_information->how_to_lose === '3' ? 'selected' : '';
                                 ?>
                                 <select id="how_to_lose" name="how_to_lose" class="form-control form-select-lg">
                                     <option {{ $meal_selected }} value="1">1: Meal</option>
@@ -116,7 +129,7 @@
                               <label for="goal_weight" class="col-5 h5 text-md-start">{{ __("What's your goal weight (kg) ?") }}</label><br>
                                 <div class="col-4">
                                   <div class="form-group">
-                                    <input type="number" name="goal_weight" id="goal_weight" value="{{ $user_information->goal_weight }}" min="30"  max="250" step="0.1" class="form-control form-select-lg">
+                                    <input type="number" name="goal_weight" id="goal_weight" value="{{ $user_information ? $user_information->goal_weight : '' }}" min="30"  max="250" step="0.1" class="form-control form-select-lg">
                                     @error('goal_weight')
                                       <p class="mb-0 text-danger small">{{ $message }}</p>
                                     @enderror
@@ -141,7 +154,7 @@
                           <label for="goal_date" class="col-1 h5 text-md-start">{{ __('by ')  }}</label>
                           <div class="col-md-3">
                             <div class="form-group">
-                              <input type="date" name="goal_date" id="goal_date" value="{{ old('goal_date', $user_information->goal_date) }}" class="form-control form-select-lg">
+                              <input type="date" name="goal_date" id="goal_date" value="{{ old('goal_date', $user_information ? $user_information->goal_date : '') }}" class="form-control form-select-lg">
                                 @error('goal_date')
                                   <p class="mb-0 text-danger small">{{ $message }}</p>
                                 @enderror

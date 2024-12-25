@@ -13,7 +13,7 @@
                 <div class="d-flex flex-column align-items-center m-5">
                     {{-- image --}}
                     @if(Auth::user()->avatar)
-                        <img src="{{ asset('storage/avatar/'.Auth::user()->avatar)}}" alt="" class="avatar rounded-circle image-lg">
+                        <img src="{{ Auth::user()->avatar}}" alt="" class="avatar rounded-circle image-lg">
                     @else 
                         <i class="far fa-circle-user fa-10x"></i>
                     @endif
@@ -24,7 +24,7 @@
 
                 <div class="start-date mt-3">
                     <h2 class="fw-bold">{{ Auth::user()->username }}</h2>
-                    <h5>Start Date: {{ $user->created_at->format('d M, Y')}}</h5>
+                    <h5>Start Date: {{ $user ? $user->created_at->format('d M, Y') : 'No data' }}</h5>
                 </div>
 
                 <div class="personal-details">
@@ -41,8 +41,8 @@
                         <tbody>
                             <tr>
                                 <td>{{ $age }}</td>
-                                <td>{{ $user->height }}</td>
-                                <td>{{ $latest_weight }}</td>
+                                <td>{{ $user ? $user->height : 'No data' }}</td>
+                                <td>{{ $latest_weight ? $latest_weight->weight : 'No data' }}</td>
                                 <td>{{ $bmi }}</td>
                                 <td>{{ $bmi_judgement }}</td>
                             </tr>
@@ -68,11 +68,11 @@
                     <tr>
                         <td class="text-lg" style="border: none;">
                             Goal: 
-                            @if($user->goal == 1)
+                            @if($user && $user->goal == 1)
                                 <span>Lose Weight</span>
-                            @elseif($user->goal == 2)
+                            @elseif($user && $user->goal == 2)
                                 <span>Maintain Weight</span>
-                            @elseif($user->goal == 3)
+                            @elseif($user && $user->goal == 3)
                                 <span>Gain Weight</span>
                             @else
                                 <span>No goal set</span>
